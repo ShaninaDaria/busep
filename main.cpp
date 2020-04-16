@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
     dummyMessages dm;
     dm.createIS3();
+    dm.createIS4();
 
 /*
     union Register32

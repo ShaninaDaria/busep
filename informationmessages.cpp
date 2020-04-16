@@ -317,6 +317,160 @@ void informationMessages::createIS3()
     IS3.word30 = IS3.word30 << 2;
     IS3.word30 |= io.getInputs().input121();
     qDebug() << "word30" << IS3.word30;
+    qDebug() << "-----\n";
+}
+
+void informationMessages::createIS4()
+{
+    qDebug() << "IS4";
+    IS3.header = 0xff;
+    qDebug() << "header" << IS3.header;
+    IS3.managed = 0x03;
+    qDebug() << "managed" << IS3.managed;
+
+    io.changeOutputs();
+
+    IS4.state0 |= io.getOutputs().output4();
+    IS4.state0 = IS4.state0 << 2;
+    IS4.state0 |= io.getOutputs().output3();
+    IS4.state0 = IS4.state0 << 2;
+    IS4.state0 |= io.getOutputs().output2();
+    IS4.state0 = IS4.state0 << 2;
+    IS4.state0 |= io.getOutputs().output1();
+    qDebug() << "state0" << IS4.state0;
+
+    IS4.state1 |= io.getOutputs().output8();
+    IS4.state1 = IS4.state1 << 2;
+    IS4.state1 |= io.getOutputs().output7();
+    IS4.state1 = IS4.state1 << 2;
+    IS4.state1 |= io.getOutputs().output6();
+    IS4.state1 = IS4.state1 << 2;
+    IS4.state1 |= io.getOutputs().output5();
+    qDebug() << "state1" << IS4.state1;
+
+    IS4.state2 |= io.getOutputs().output12();
+    IS4.state2 = IS4.state2 << 2;
+    IS4.state2 |= io.getOutputs().output11();
+    IS4.state2 = IS4.state2 << 2;
+    IS4.state2 |= io.getOutputs().output10();
+    IS4.state2 = IS4.state2 << 2;
+    IS4.state2 |= io.getOutputs().output9();
+    qDebug() << "state2" << IS4.state2;
+
+    IS4.state3 |= io.getOutputs().output16();
+    IS4.state3 = IS4.state3 << 2;
+    IS4.state3 |= io.getOutputs().output15();
+    IS4.state3 = IS4.state3 << 2;
+    IS4.state3 |= io.getOutputs().output14();
+    IS4.state3 = IS4.state3 << 2;
+    IS4.state3 |= io.getOutputs().output13();
+    qDebug() << "state3" << IS4.state3;
+
+    IS4.state4 |= io.getOutputs().output20();
+    IS4.state4 = IS4.state4 << 2;
+    IS4.state4 |= io.getOutputs().output19();
+    IS4.state4 = IS4.state4 << 2;
+    IS4.state4 |= io.getOutputs().output18();
+    IS4.state4 = IS4.state4 << 2;
+    IS4.state4 |= io.getOutputs().output17();
+    qDebug() << "state4" << IS4.state4;
+
+    IS4.state5 |= io.getOutputs().output24();
+    IS4.state5 = IS4.state5 << 2;
+    IS4.state5 |= io.getOutputs().output23();
+    IS4.state5 = IS4.state5 << 2;
+    IS4.state5 |= io.getOutputs().output22();
+    IS4.state5 = IS4.state5 << 2;
+    IS4.state5 |= io.getOutputs().output21();
+    qDebug() << "state5" << IS4.state5;
+
+    IS4.state6 |= io.getOutputs().output28();
+    IS4.state6 = IS4.state5 << 2;
+    IS4.state6 |= io.getOutputs().output27();
+    IS4.state6 = IS4.state5 << 2;
+    IS4.state6 |= io.getOutputs().output26();
+    IS4.state6 = IS4.state5 << 2;
+    IS4.state6 |= io.getOutputs().output25();
+    qDebug() << "state5" << IS4.state5;
+
+    IS4.state7 |= io.getOutputs().output32();
+    IS4.state7 = IS4.state7 << 2;
+    IS4.state7 |= io.getOutputs().output31();
+    IS4.state7 = IS4.state7 << 2;
+    IS4.state7 |= io.getOutputs().output30();
+    IS4.state7 = IS4.state7 << 2;
+    IS4.state7 |= io.getOutputs().output29();
+    qDebug() << "state7" << IS4.state7;
+
+    IS4.state8 |= io.getOutputs().output36();
+    IS4.state8 = IS4.state8 << 2;
+    IS4.state8 |= io.getOutputs().output35();
+    IS4.state8 = IS4.state8 << 2;
+    IS4.state8 |= io.getOutputs().output34();
+    IS4.state8 = IS4.state8 << 2;
+    IS4.state8 |= io.getOutputs().output33();
+    qDebug() << "state8" << IS4.state8;
+
+    IS4.state9 |= io.getOutputs().output40();
+    IS4.state9 = IS4.state9 << 2;
+    IS4.state9 |= io.getOutputs().output39();
+    IS4.state9 = IS4.state9 << 2;
+    IS4.state9 |= io.getOutputs().output38();
+    IS4.state9 = IS4.state9 << 2;
+    IS4.state9 |= io.getOutputs().output37();
+    qDebug() << "state9" << IS4.state9;
+
+    IS4.state10 |= io.getOutputs().output44();
+    IS4.state10 = IS4.state10 << 2;
+    IS4.state10 |= io.getOutputs().output43();
+    IS4.state10 = IS4.state10 << 2;
+    IS4.state10 |= io.getOutputs().output42();
+    IS4.state10 = IS4.state10 << 2;
+    IS4.state10 |= io.getOutputs().output41();
+    qDebug() << "state10" << IS4.state10;
+
+    IS4.state11 |= io.getOutputs().output48();
+    IS4.state11 = IS4.state11 << 2;
+    IS4.state11 |= io.getOutputs().output47();
+    IS4.state11 = IS4.state11 << 2;
+    IS4.state11 |= io.getOutputs().output46();
+    IS4.state11 = IS4.state11 << 2;
+    IS4.state11 |= io.getOutputs().output45();
+    qDebug() << "state11" << IS4.state11;
+
+    IS4.state12 |= io.getOutputs().output52();
+    IS4.state12 = IS4.state12 << 2;
+    IS4.state12 |= io.getOutputs().output51();
+    IS4.state12 = IS4.state12 << 2;
+    IS4.state12 |= io.getOutputs().output50();
+    IS4.state12 = IS4.state12 << 2;
+    IS4.state12 |= io.getOutputs().output49();
+    qDebug() << "state12" << IS4.state12;
+
+    IS4.state13 |= io.getOutputs().output56();
+    IS4.state13 = IS4.state13 << 2;
+    IS4.state13 |= io.getOutputs().output55();
+    IS4.state13 = IS4.state13 << 2;
+    IS4.state13 |= io.getOutputs().output54();
+    IS4.state13 = IS4.state13 << 2;
+    IS4.state13 |= io.getOutputs().output53();
+    qDebug() << "state13" << IS4.state13;
+
+    IS4.state14 |= io.getOutputs().output60();
+    IS4.state14 = IS4.state14 << 2;
+    IS4.state14 |= io.getOutputs().output59();
+    IS4.state14 = IS4.state14 << 2;
+    IS4.state14 |= io.getOutputs().output58();
+    IS4.state14 = IS4.state14 << 2;
+    IS4.state14 |= io.getOutputs().output57();
+    qDebug() << "state14" << IS4.state14;
+
+    IS4.state15 |= io.getOutputs().output62();
+    IS4.state15 = IS4.state15 << 2;
+    IS4.state15 |= io.getOutputs().output61();
+    qDebug() << "state15" << IS4.state15;
+
+    qDebug() << "-----\n";
 }
 
 _is1 informationMessages::getIS1() const

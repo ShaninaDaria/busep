@@ -62,7 +62,22 @@ struct _is4
 {
     unsigned header:8;
     unsigned managed:8;
-    unsigned state:16;
+    unsigned state0:8;
+    unsigned state1:8;
+    unsigned state2:8;
+    unsigned state3:8;
+    unsigned state4:8;
+    unsigned state5:8;
+    unsigned state6:8;
+    unsigned state7:8;
+    unsigned state8:8;
+    unsigned state9:8;
+    unsigned state10:8;
+    unsigned state11:8;
+    unsigned state12:8;
+    unsigned state13:8;
+    unsigned state14:8;
+    unsigned state15:8;
     unsigned cs:1;
 };
 

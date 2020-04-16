@@ -175,6 +175,99 @@ void inputs_outputs::setInputs(const _inputs &value)
     inputs = value;
 }
 
+_outputs inputs_outputs::getOutputs() const
+{
+    return outputs;
+}
+
+_outputs inputs_outputs::changeOutputs()
+{
+    outputs.setOutput1(0x01);
+    outputs.setOutput2(0x02);
+    outputs.setOutput3(0x03);
+    outputs.setOutput4(0x00);
+
+    outputs.setOutput5(0x01);
+    outputs.setOutput6(0x02);
+    outputs.setOutput7(0x03);
+    outputs.setOutput8(0x00);
+
+    outputs.setOutput9(0x01);
+    outputs.setOutput10(0x02);
+    outputs.setOutput11(0x03);
+    outputs.setOutput12(0x00);
+
+    outputs.setOutput13(0x01);
+    outputs.setOutput14(0x02);
+    outputs.setOutput15(0x03);
+    outputs.setOutput16(0x00);
+
+    outputs.setOutput17(0x01);
+    outputs.setOutput18(0x02);
+    outputs.setOutput19(0x03);
+    outputs.setOutput20(0x00);
+
+    outputs.setOutput21(0x01);
+    outputs.setOutput22(0x02);
+    outputs.setOutput23(0x03);
+    outputs.setOutput24(0x00);
+
+    outputs.setOutput25(0x01);
+    outputs.setOutput26(0x02);
+    outputs.setOutput27(0x03);
+    outputs.setOutput28(0x00);
+
+    outputs.setOutput29(0x01);
+    outputs.setOutput30(0x02);
+    outputs.setOutput31(0x03);
+    outputs.setOutput32(0x00);
+
+    outputs.setOutput33(0x01);
+    outputs.setOutput34(0x02);
+    outputs.setOutput35(0x03);
+    outputs.setOutput36(0x00);
+
+    outputs.setOutput37(0x01);
+    outputs.setOutput38(0x02);
+    outputs.setOutput39(0x03);
+    outputs.setOutput40(0x00);
+
+    outputs.setOutput41(0x01);
+    outputs.setOutput42(0x02);
+    outputs.setOutput43(0x03);
+    outputs.setOutput44(0x00);
+
+    outputs.setOutput45(0x01);
+    outputs.setOutput46(0x02);
+    outputs.setOutput47(0x03);
+    outputs.setOutput48(0x00);
+
+    outputs.setOutput49(0x01);
+    outputs.setOutput50(0x02);
+    outputs.setOutput51(0x03);
+    outputs.setOutput52(0x00);
+
+    outputs.setOutput53(0x01);
+    outputs.setOutput54(0x02);
+    outputs.setOutput55(0x03);
+    outputs.setOutput56(0x00);
+
+    outputs.setOutput57(0x01);
+    outputs.setOutput58(0x02);
+    outputs.setOutput59(0x03);
+    outputs.setOutput60(0x00);
+
+    outputs.setOutput61(0x01);
+    outputs.setOutput62(0x02);
+
+    return outputs;
+}
+
+void inputs_outputs::setOutputs(const _outputs &value)
+{
+    outputs = value;
+}
+
 unsigned _inputs::input2() const
 {
     return _input2;
@@ -1413,4 +1506,624 @@ unsigned _inputs::input1() const
 void _inputs::setInput1(const unsigned &input1)
 {
     _input1 = input1;
+}
+
+unsigned _outputs::output2() const
+{
+    return _output2;
+}
+
+void _outputs::setOutput2(const unsigned &output2)
+{
+    _output2 = output2;
+}
+
+unsigned _outputs::output3() const
+{
+    return _output3;
+}
+
+void _outputs::setOutput3(const unsigned &output3)
+{
+    _output3 = output3;
+}
+
+unsigned _outputs::output4() const
+{
+    return _output4;
+}
+
+void _outputs::setOutput4(const unsigned &output4)
+{
+    _output4 = output4;
+}
+
+unsigned _outputs::output5() const
+{
+    return _output5;
+}
+
+void _outputs::setOutput5(const unsigned &output5)
+{
+    _output5 = output5;
+}
+
+unsigned _outputs::output6() const
+{
+    return _output6;
+}
+
+void _outputs::setOutput6(const unsigned &output6)
+{
+    _output6 = output6;
+}
+
+unsigned _outputs::output7() const
+{
+    return _output7;
+}
+
+void _outputs::setOutput7(const unsigned &output7)
+{
+    _output7 = output7;
+}
+
+unsigned _outputs::output8() const
+{
+    return _output8;
+}
+
+void _outputs::setOutput8(const unsigned &output8)
+{
+    _output8 = output8;
+}
+
+unsigned _outputs::output9() const
+{
+    return _output9;
+}
+
+void _outputs::setOutput9(const unsigned &output9)
+{
+    _output9 = output9;
+}
+
+unsigned _outputs::output10() const
+{
+    return _output10;
+}
+
+void _outputs::setOutput10(const unsigned &output10)
+{
+    _output10 = output10;
+}
+
+unsigned _outputs::output11() const
+{
+    return _output11;
+}
+
+void _outputs::setOutput11(const unsigned &output11)
+{
+    _output11 = output11;
+}
+
+unsigned _outputs::output12() const
+{
+    return _output12;
+}
+
+void _outputs::setOutput12(const unsigned &output12)
+{
+    _output12 = output12;
+}
+
+unsigned _outputs::output13() const
+{
+    return _output13;
+}
+
+void _outputs::setOutput13(const unsigned &output13)
+{
+    _output13 = output13;
+}
+
+unsigned _outputs::output14() const
+{
+    return _output14;
+}
+
+void _outputs::setOutput14(const unsigned &output14)
+{
+    _output14 = output14;
+}
+
+unsigned _outputs::output15() const
+{
+    return _output15;
+}
+
+void _outputs::setOutput15(const unsigned &output15)
+{
+    _output15 = output15;
+}
+
+unsigned _outputs::output16() const
+{
+    return _output16;
+}
+
+void _outputs::setOutput16(const unsigned &output16)
+{
+    _output16 = output16;
+}
+
+unsigned _outputs::output17() const
+{
+    return _output17;
+}
+
+void _outputs::setOutput17(const unsigned &output17)
+{
+    _output17 = output17;
+}
+
+unsigned _outputs::output18() const
+{
+    return _output18;
+}
+
+void _outputs::setOutput18(const unsigned &output18)
+{
+    _output18 = output18;
+}
+
+unsigned _outputs::output19() const
+{
+    return _output19;
+}
+
+void _outputs::setOutput19(const unsigned &output19)
+{
+    _output19 = output19;
+}
+
+unsigned _outputs::output20() const
+{
+    return _output20;
+}
+
+void _outputs::setOutput20(const unsigned &output20)
+{
+    _output20 = output20;
+}
+
+unsigned _outputs::output21() const
+{
+    return _output21;
+}
+
+void _outputs::setOutput21(const unsigned &output21)
+{
+    _output21 = output21;
+}
+
+unsigned _outputs::output22() const
+{
+    return _output22;
+}
+
+void _outputs::setOutput22(const unsigned &output22)
+{
+    _output22 = output22;
+}
+
+unsigned _outputs::output23() const
+{
+    return _output23;
+}
+
+void _outputs::setOutput23(const unsigned &output23)
+{
+    _output23 = output23;
+}
+
+unsigned _outputs::output24() const
+{
+    return _output24;
+}
+
+void _outputs::setOutput24(const unsigned &output24)
+{
+    _output24 = output24;
+}
+
+unsigned _outputs::output25() const
+{
+    return _output25;
+}
+
+void _outputs::setOutput25(const unsigned &output25)
+{
+    _output25 = output25;
+}
+
+unsigned _outputs::output26() const
+{
+    return _output26;
+}
+
+void _outputs::setOutput26(const unsigned &output26)
+{
+    _output26 = output26;
+}
+
+unsigned _outputs::output27() const
+{
+    return _output27;
+}
+
+void _outputs::setOutput27(const unsigned &output27)
+{
+    _output27 = output27;
+}
+
+unsigned _outputs::output28() const
+{
+    return _output28;
+}
+
+void _outputs::setOutput28(const unsigned &output28)
+{
+    _output28 = output28;
+}
+
+unsigned _outputs::output29() const
+{
+    return _output29;
+}
+
+void _outputs::setOutput29(const unsigned &output29)
+{
+    _output29 = output29;
+}
+
+unsigned _outputs::output30() const
+{
+    return _output30;
+}
+
+void _outputs::setOutput30(const unsigned &output30)
+{
+    _output30 = output30;
+}
+
+unsigned _outputs::output31() const
+{
+    return _output31;
+}
+
+void _outputs::setOutput31(const unsigned &output31)
+{
+    _output31 = output31;
+}
+
+unsigned _outputs::output32() const
+{
+    return _output32;
+}
+
+void _outputs::setOutput32(const unsigned &output32)
+{
+    _output32 = output32;
+}
+
+unsigned _outputs::output33() const
+{
+    return _output33;
+}
+
+void _outputs::setOutput33(const unsigned &output33)
+{
+    _output33 = output33;
+}
+
+unsigned _outputs::output34() const
+{
+    return _output34;
+}
+
+void _outputs::setOutput34(const unsigned &output34)
+{
+    _output34 = output34;
+}
+
+unsigned _outputs::output35() const
+{
+    return _output35;
+}
+
+void _outputs::setOutput35(const unsigned &output35)
+{
+    _output35 = output35;
+}
+
+unsigned _outputs::output36() const
+{
+    return _output36;
+}
+
+void _outputs::setOutput36(const unsigned &output36)
+{
+    _output36 = output36;
+}
+
+unsigned _outputs::output37() const
+{
+    return _output37;
+}
+
+void _outputs::setOutput37(const unsigned &output37)
+{
+    _output37 = output37;
+}
+
+unsigned _outputs::output38() const
+{
+    return _output38;
+}
+
+void _outputs::setOutput38(const unsigned &output38)
+{
+    _output38 = output38;
+}
+
+unsigned _outputs::output39() const
+{
+    return _output39;
+}
+
+void _outputs::setOutput39(const unsigned &output39)
+{
+    _output39 = output39;
+}
+
+unsigned _outputs::output40() const
+{
+    return _output40;
+}
+
+void _outputs::setOutput40(const unsigned &output40)
+{
+    _output40 = output40;
+}
+
+unsigned _outputs::output41() const
+{
+    return _output41;
+}
+
+void _outputs::setOutput41(const unsigned &output41)
+{
+    _output41 = output41;
+}
+
+unsigned _outputs::output42() const
+{
+    return _output42;
+}
+
+void _outputs::setOutput42(const unsigned &output42)
+{
+    _output42 = output42;
+}
+
+unsigned _outputs::output43() const
+{
+    return _output43;
+}
+
+void _outputs::setOutput43(const unsigned &output43)
+{
+    _output43 = output43;
+}
+
+unsigned _outputs::output44() const
+{
+    return _output44;
+}
+
+void _outputs::setOutput44(const unsigned &output44)
+{
+    _output44 = output44;
+}
+
+unsigned _outputs::output45() const
+{
+    return _output45;
+}
+
+void _outputs::setOutput45(const unsigned &output45)
+{
+    _output45 = output45;
+}
+
+unsigned _outputs::output46() const
+{
+    return _output46;
+}
+
+void _outputs::setOutput46(const unsigned &output46)
+{
+    _output46 = output46;
+}
+
+unsigned _outputs::output47() const
+{
+    return _output47;
+}
+
+void _outputs::setOutput47(const unsigned &output47)
+{
+    _output47 = output47;
+}
+
+unsigned _outputs::output48() const
+{
+    return _output48;
+}
+
+void _outputs::setOutput48(const unsigned &output48)
+{
+    _output48 = output48;
+}
+
+unsigned _outputs::output49() const
+{
+    return _output49;
+}
+
+void _outputs::setOutput49(const unsigned &output49)
+{
+    _output49 = output49;
+}
+
+unsigned _outputs::output50() const
+{
+    return _output50;
+}
+
+void _outputs::setOutput50(const unsigned &output50)
+{
+    _output50 = output50;
+}
+
+unsigned _outputs::output51() const
+{
+    return _output51;
+}
+
+void _outputs::setOutput51(const unsigned &output51)
+{
+    _output51 = output51;
+}
+
+unsigned _outputs::output52() const
+{
+    return _output52;
+}
+
+void _outputs::setOutput52(const unsigned &output52)
+{
+    _output52 = output52;
+}
+
+unsigned _outputs::output53() const
+{
+    return _output53;
+}
+
+void _outputs::setOutput53(const unsigned &output53)
+{
+    _output53 = output53;
+}
+
+unsigned _outputs::output54() const
+{
+    return _output54;
+}
+
+void _outputs::setOutput54(const unsigned &output54)
+{
+    _output54 = output54;
+}
+
+unsigned _outputs::output55() const
+{
+    return _output55;
+}
+
+void _outputs::setOutput55(const unsigned &output55)
+{
+    _output55 = output55;
+}
+
+unsigned _outputs::output56() const
+{
+    return _output56;
+}
+
+void _outputs::setOutput56(const unsigned &output56)
+{
+    _output56 = output56;
+}
+
+unsigned _outputs::output57() const
+{
+    return _output57;
+}
+
+void _outputs::setOutput57(const unsigned &output57)
+{
+    _output57 = output57;
+}
+
+unsigned _outputs::output58() const
+{
+    return _output58;
+}
+
+void _outputs::setOutput58(const unsigned &output58)
+{
+    _output58 = output58;
+}
+
+unsigned _outputs::output59() const
+{
+    return _output59;
+}
+
+void _outputs::setOutput59(const unsigned &output59)
+{
+    _output59 = output59;
+}
+
+unsigned _outputs::output60() const
+{
+    return _output60;
+}
+
+void _outputs::setOutput60(const unsigned &output60)
+{
+    _output60 = output60;
+}
+
+unsigned _outputs::output61() const
+{
+    return _output61;
+}
+
+void _outputs::setOutput61(const unsigned &output61)
+{
+    _output61 = output61;
+}
+
+unsigned _outputs::output62() const
+{
+    return _output62;
+}
+
+void _outputs::setOutput62(const unsigned &output62)
+{
+    _output62 = output62;
+}
+
+unsigned _outputs::output1() const
+{
+    return _output1;
+}
+
+void _outputs::setOutput1(const unsigned &output1)
+{
+    _output1 = output1;
 }
