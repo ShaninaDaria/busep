@@ -3,7 +3,7 @@
 
 #include <QTimer>
 
-#include "informationmessages.h"
+#include "../../common/hdr/informationmessages.h"
 
 class messageExchange
 {

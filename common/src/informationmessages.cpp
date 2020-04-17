@@ -1,4 +1,4 @@
-#include "informationmessages.h"
+#include "../../common/hdr/informationmessages.h"
 
 informationMessages::informationMessages()
 {
@@ -476,9 +476,9 @@ void informationMessages::createIS4()
 void informationMessages::createIS5()
 {
     qDebug() << "IS5";
-    IS3.header = 0xff;
+    IS5.header = 0xff;
     qDebug() << "header" << IS3.header;
-    IS3.managed = 0x09;
+    IS5.managed = 0x09;
     qDebug() << "managed" << IS3.managed;
 }
 

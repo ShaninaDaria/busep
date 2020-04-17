@@ -1,4 +1,4 @@
-#include "dummymessages.h"
+#include "hdr/dummymessages.h"
 
 dummyMessages::dummyMessages()
 {

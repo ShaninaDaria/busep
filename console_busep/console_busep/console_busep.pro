@@ -15,11 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        dummymessages.cpp \
-        informationmessages.cpp \
-        inputs_outputs.cpp \
-        main.cpp \
-        messageexchange.cpp
+        src/dummymessages.cpp \
+        src/main.cpp \
+        ../../common/src/informationmessages.cpp \
+        ../../common/src/inputs_outputs.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,7 +26,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    dummymessages.h \
-    informationmessages.h \
-    inputs_outputs.h \
-    messageexchange.h
+    hdr/dummymessages.h \
+    ../../common/hdr/informationmessages.h \
+    ../../common/hdr/inputs_outputs.h

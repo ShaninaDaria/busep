@@ -1,4 +1,4 @@
-#include "inputs_outputs.h"
+#include "../../common/hdr/inputs_outputs.h"
 
 inputs_outputs::inputs_outputs()
 {

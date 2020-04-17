@@ -1,7 +1,7 @@
 #ifndef DUMMYMESSAGES_H
 #define DUMMYMESSAGES_H
 
-#include "informationmessages.h"
+#include "../../common/hdr/informationmessages.h"
 
 
 class dummyMessages

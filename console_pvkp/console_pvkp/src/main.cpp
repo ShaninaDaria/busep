@@ -1,17 +1,12 @@
 #include <QCoreApplication>
-#include "messageexchange.h"
-#include "dummymessages.h"
+#include "hdr/messageexchange.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-//    messageExchange me;
-//    me.startExchange();
-
-    dummyMessages dm;
-    dm.createIS3();
-    dm.createIS4();
+    messageExchange me;
+    me.startExchange();
 
 /*
     union Register32

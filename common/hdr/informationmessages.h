@@ -96,6 +96,7 @@ public:
     void createIS2(char number);
     void createIS3();
     void createIS4();
+    void createIS5();
 
     _is1 getIS1() const;
 
@@ -112,6 +113,7 @@ private:
     _is2 IS2;
     _is3 IS3;
     _is4 IS4;
+    _is5 IS5;
 
     inputs_outputs io;
     _inputs inputs;
