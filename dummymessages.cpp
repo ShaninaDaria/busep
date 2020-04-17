@@ -19,3 +19,8 @@ void dummyMessages::createIS3()
 {
     IM->createIS3();
 }
+
+void dummyMessages::createIS4()
+{
+    IM->createIS4();
+}

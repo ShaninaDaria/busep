@@ -34,7 +34,7 @@ void informationMessages::createIS3()
     qDebug() << "IS3";
     IS3.header = 0xff;
     qDebug() << "header" << IS3.header;
-    IS3.managed = 0x02;
+    IS3.managed = 0x10;
     qDebug() << "managed" << IS3.managed;
 
     inputs = io.changeInputs();
@@ -307,7 +307,7 @@ void informationMessages::createIS3()
     IS3.word29 |= io.getInputs().input118();
     IS3.word29 = IS3.word29 << 2;
     IS3.word29 |= io.getInputs().input117();
-    qDebug() << "word0" << IS3.word29;
+    qDebug() << "word29" << IS3.word29;
 
     IS3.word30 |= io.getInputs().input124();
     IS3.word30 = IS3.word30 << 2;
@@ -473,6 +473,15 @@ void informationMessages::createIS4()
     qDebug() << "-----\n";
 }
 
+void informationMessages::createIS5()
+{
+    qDebug() << "IS5";
+    IS3.header = 0xff;
+    qDebug() << "header" << IS3.header;
+    IS3.managed = 0x09;
+    qDebug() << "managed" << IS3.managed;
+}
+
 _is1 informationMessages::getIS1() const
 {
     return IS1;
@@ -498,5 +507,5 @@ void informationMessages::parsingIS3()
 {
     // inputs 1-4
     // 01 10 11 01
-    IS3.word0 ^= 0x100000011;
+    IS3.word0 = IS3.word0 ^ 0x100000011;
 }
