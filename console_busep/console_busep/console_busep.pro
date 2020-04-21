@@ -18,7 +18,8 @@ SOURCES += \
         src/dummymessages.cpp \
         src/main.cpp \
         ../../common/src/informationmessages.cpp \
-        ../../common/src/inputs_outputs.cpp
+        ../../common/src/inputs_outputs.cpp \
+        ../../common/src/datatransmit.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,4 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     hdr/dummymessages.h \
     ../../common/hdr/informationmessages.h \
-    ../../common/hdr/inputs_outputs.h
+    ../../common/hdr/inputs_outputs.h \
+    ../../common/hdr/datatransmit.h

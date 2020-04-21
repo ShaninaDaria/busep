@@ -4,6 +4,7 @@
 #include <QTimer>
 
 #include "../../common/hdr/informationmessages.h"
+#include "../../common/hdr/datatransmit.h"
 
 class messageExchange
 {
@@ -13,8 +14,8 @@ public:
 
     void startExchange();
 
-    void sendIS1();
-    void receiveIS3();
+    void sendIS1(_is1 *IS1);
+    void receiveIS3(_is3 *IS3);
 
     void sendIS2();
     void receiveIS4();
@@ -23,9 +24,14 @@ public:
 
 private:
     informationMessages *IM;
+    DataTransmit *dataTransnmit;
+    _is1 IS1;
+    _is3 IS3;
 
     void createIS1();
     void createIS2();
+
+    int sendText();
 };
 
 #endif // MESSAGEEXCHANGE_H

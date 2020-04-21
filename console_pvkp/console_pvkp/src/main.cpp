@@ -8,6 +8,8 @@ int main(int argc, char *argv[])
     messageExchange me;
     me.startExchange();
 
+    exit(0);
+
 /*
     union Register32
     {

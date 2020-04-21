@@ -1,4 +1,5 @@
 QT -= gui
+QT += serialport
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -18,7 +19,8 @@ SOURCES += \
         src/main.cpp \
         src/messageexchange.cpp \
         ../../common/src/informationmessages.cpp \
-        ../../common/src/inputs_outputs.cpp
+        ../../common/src/inputs_outputs.cpp \
+        ../../common/src/datatransmit.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,4 +30,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     hdr/messageexchange.h \
     ../../common/hdr/informationmessages.h \
-    ../../common/hdr/inputs_outputs.h
+    ../../common/hdr/inputs_outputs.h \
+    ../../common/hdr/datatransmit.h

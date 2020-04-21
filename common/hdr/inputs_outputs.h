@@ -292,10 +292,10 @@ public:
     unsigned output62() const; void setOutput62(const unsigned &output62);
 };
 
-class inputs_outputs
+class InputsOutputs
 {
 public:
-    inputs_outputs();
+    InputsOutputs();
     _inputs getInputs() const;
     _inputs changeInputs();
     void setInputs(const _inputs &value);

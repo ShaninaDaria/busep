@@ -6,8 +6,10 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     dummyMessages dm;
-    dm.createIS3();
-    dm.createIS4();
+
+    dm.startExchange();
+
+    exit(0);
 
 /*
     union Register32

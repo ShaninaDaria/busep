@@ -5,14 +5,18 @@ informationMessages::informationMessages()
 
 }
 
-void informationMessages::createIS1()
+_is1 informationMessages::createIS1()
 {
     qDebug() << "IS1";
     IS1.header = 0xff;
     qDebug() << "header" << IS1.header;
     IS1.managed = 0x01;
     qDebug() << "managed" << IS1.managed;
+    IS1.cs = 0x00;
+    qDebug() << "cs" << IS1.cs;
     qDebug() << "-----\n";
+
+    return IS1;
 }
 
 void informationMessages::createIS2(char number)
@@ -29,7 +33,7 @@ void informationMessages::createIS2(char number)
     qDebug() << "-----\n";
 }
 
-void informationMessages::createIS3()
+_is3 *informationMessages::createIS3()
 {
     qDebug() << "IS3";
     IS3.header = 0xff;
@@ -318,6 +322,8 @@ void informationMessages::createIS3()
     IS3.word30 |= io.getInputs().input121();
     qDebug() << "word30" << IS3.word30;
     qDebug() << "-----\n";
+
+    return &IS3;
 }
 
 void informationMessages::createIS4()

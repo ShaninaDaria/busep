@@ -1,16 +1,16 @@
 #include "../../common/hdr/inputs_outputs.h"
 
-inputs_outputs::inputs_outputs()
+InputsOutputs::InputsOutputs()
 {
 
 }
 
-_inputs inputs_outputs::getInputs() const
+_inputs InputsOutputs::getInputs() const
 {
     return inputs;
 }
 
-_inputs inputs_outputs::changeInputs()
+_inputs InputsOutputs::changeInputs()
 {
     inputs.setInput1(0x01);
     inputs.setInput2(0x02);
@@ -170,17 +170,17 @@ _inputs inputs_outputs::changeInputs()
     return inputs;
 }
 
-void inputs_outputs::setInputs(const _inputs &value)
+void InputsOutputs::setInputs(const _inputs &value)
 {
     inputs = value;
 }
 
-_outputs inputs_outputs::getOutputs() const
+_outputs InputsOutputs::getOutputs() const
 {
     return outputs;
 }
 
-_outputs inputs_outputs::changeOutputs()
+_outputs InputsOutputs::changeOutputs()
 {
     outputs.setOutput1(0x01);
     outputs.setOutput2(0x02);
@@ -263,7 +263,7 @@ _outputs inputs_outputs::changeOutputs()
     return outputs;
 }
 
-void inputs_outputs::setOutputs(const _outputs &value)
+void InputsOutputs::setOutputs(const _outputs &value)
 {
     outputs = value;
 }

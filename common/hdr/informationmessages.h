@@ -4,97 +4,116 @@
 #include <QDebug>
 #include "inputs_outputs.h"
 
+//union Register32
+//{
+    struct bytes
+    {
+        unsigned char byte1:8;
+        unsigned char byte2:8;
+        unsigned char byte3:8;
+//        unsigned char byte4:8;
+    } ;
+//    struct
+//    {
+//        unsigned short low;
+//        unsigned short high;
+//    } words;
+//    unsigned dword;
+//};
+
+//typedef union Register32 EAX;
+
 struct _is1
 {
-    unsigned header:8;
-    unsigned managed:8;
-    unsigned cs:8;
+    unsigned char header:8;
+    unsigned char managed:8;
+    unsigned char cs:8;
 };
 
 struct _is2
 {
-    unsigned header:8;
-    unsigned managed:8;
-    unsigned device_number:8;
-    unsigned state:8;
-    unsigned cs:8;
+    unsigned char header:8;
+    unsigned char managed:8;
+    unsigned char device_number:8;
+    unsigned char state:8;
+    unsigned char cs:8;
 };
 
 struct _is3
 {
-    unsigned header:8;
-    unsigned managed:8;
-    unsigned word0:8;
-    unsigned word1:8;
-    unsigned word2:8;
-    unsigned word3:8;
-    unsigned word4:8;
-    unsigned word5:8;
-    unsigned word6:8;
-    unsigned word7:8;
-    unsigned word8:8;
-    unsigned word9:8;
-    unsigned word10:8;
-    unsigned word11:8;
-    unsigned word12:8;
-    unsigned word13:8;
-    unsigned word14:8;
-    unsigned word15:8;
-    unsigned word16:8;
-    unsigned word17:8;
-    unsigned word18:8;
-    unsigned word19:8;
-    unsigned word20:8;
-    unsigned word21:8;
-    unsigned word22:8;
-    unsigned word23:8;
-    unsigned word24:8;
-    unsigned word25:8;
-    unsigned word26:8;
-    unsigned word27:8;
-    unsigned word28:8;
-    unsigned word29:8;
-    unsigned word30:8;
-    unsigned cs:8;
+    unsigned char header:8;
+    unsigned char managed:8;
+    unsigned char word0:8;
+    unsigned char word1:8;
+    unsigned char word2:8;
+    unsigned char word3:8;
+    unsigned char word4:8;
+    unsigned char word5:8;
+    unsigned char word6:8;
+    unsigned char word7:8;
+    unsigned char word8:8;
+    unsigned char word9:8;
+    unsigned char word10:8;
+    unsigned char word11:8;
+    unsigned char word12:8;
+    unsigned char word13:8;
+    unsigned char word14:8;
+    unsigned char word15:8;
+    unsigned char word16:8;
+    unsigned char word17:8;
+    unsigned char word18:8;
+    unsigned char word19:8;
+    unsigned char word20:8;
+    unsigned char word21:8;
+    unsigned char word22:8;
+    unsigned char word23:8;
+    unsigned char word24:8;
+    unsigned char word25:8;
+    unsigned char word26:8;
+    unsigned char word27:8;
+    unsigned char word28:8;
+    unsigned char word29:8;
+    unsigned char word30:8;
+    unsigned char cs:8;
 };
 
 struct _is4
 {
-    unsigned header:8;
-    unsigned managed:8;
-    unsigned state0:8;
-    unsigned state1:8;
-    unsigned state2:8;
-    unsigned state3:8;
-    unsigned state4:8;
-    unsigned state5:8;
-    unsigned state6:8;
-    unsigned state7:8;
-    unsigned state8:8;
-    unsigned state9:8;
-    unsigned state10:8;
-    unsigned state11:8;
-    unsigned state12:8;
-    unsigned state13:8;
-    unsigned state14:8;
-    unsigned state15:8;
-    unsigned cs:1;
+    unsigned char header:8;
+    unsigned char managed:8;
+    unsigned char state0:8;
+    unsigned char state1:8;
+    unsigned char state2:8;
+    unsigned char state3:8;
+    unsigned char state4:8;
+    unsigned char state5:8;
+    unsigned char state6:8;
+    unsigned char state7:8;
+    unsigned char state8:8;
+    unsigned char state9:8;
+    unsigned char state10:8;
+    unsigned char state11:8;
+    unsigned char state12:8;
+    unsigned char state13:8;
+    unsigned char state14:8;
+    unsigned char state15:8;
+    unsigned char cs:1;
 };
 
 struct _is5
 {
-    unsigned header:8;
-    unsigned managed:8;
-    unsigned cs:1;
+    unsigned char header:8;
+    unsigned char managed:8;
+    unsigned char cs:1;
 };
 
 class informationMessages
 {
 public:
     informationMessages();
-    void createIS1();
+    _is1 createIS1();
     void createIS2(char number);
-    void createIS3();
+    _is3 *createIS3();
     void createIS4();
     void createIS5();
 
@@ -115,7 +134,7 @@ private:
     _is4 IS4;
     _is5 IS5;
 
-    inputs_outputs io;
+    InputsOutputs io;
     _inputs inputs;
     _outputs outputs;
 };
