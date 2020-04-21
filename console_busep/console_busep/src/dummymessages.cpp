@@ -6,7 +6,7 @@ dummyMessages::dummyMessages()
     dataTransnmit = new DataTransmit();
     dataTransnmit->createClient();
 
-//    createIS3();
+    createIS3();
 //    createIS4();
 }
 
@@ -23,7 +23,10 @@ void dummyMessages::startExchange()
     {
 //        recv_bytes = receiveText();
         recv_bytes = receiveIS1();
-//        sendIS3(IS3);
+        if (recv_bytes > 0)
+        {
+            sendIS3(IS3);
+        }
     } while (recv_bytes > 0);
 }
 
@@ -43,9 +46,12 @@ int dummyMessages::receiveIS1()
     int bytes = dataTransnmit->receive(&IS1, sizeof (_is1));
 
     std::cout << "receive " << bytes << " bytes; " << std::endl;
-    printf("    header \t%02x\n", IS1.header);  // ff
-    printf("    managed \t%02x\n", IS1.managed);  // c0
-    printf("    cs \t%02x\n", IS1.cs);  // 11
+    if (bytes > 0)
+    {
+        printf("    header \t%02x\n", IS1.header);  // ff
+        printf("    managed \t%02x\n", IS1.managed);  // c0
+        printf("    cs \t%02x\n", IS1.cs);  // 11
+    }
 
     return bytes;
 }

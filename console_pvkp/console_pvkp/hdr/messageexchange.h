@@ -15,7 +15,7 @@ public:
     void startExchange();
 
     void sendIS1(_is1 *IS1);
-    void receiveIS3(_is3 *IS3);
+    int receiveIS3(_is3 *IS3);
 
     void sendIS2();
     void receiveIS4();
