@@ -20,16 +20,18 @@ public:
     void sendIS3(_is3 *IS3);
 
     void createIS4();
-    void receiveIS2();
-    void sendIS4();
+    int receiveIS2();
+    void sendIS4(_is4 *IS4);
 
 private:
-    int receiveText();
+    header_and_managed receiveSmth();
 
     informationMessages *IM;
     DataTransmit *dataTransnmit;
     _is1 IS1;
+    _is2 IS2;
     _is3 *IS3;
+    _is4 *IS4;
 };
 
 #endif // DUMMYMESSAGES_H

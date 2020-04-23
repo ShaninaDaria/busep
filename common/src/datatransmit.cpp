@@ -5,9 +5,6 @@ DataTransmit::DataTransmit()
     //    _rs485 = new rs485();
     //    _rs485->receive();
     //    _rs485->close();
-
-//    udp_socket = new UDPsocket(type_server_socket);
-//    udp_socket->bindSocket();
 }
 
 DataTransmit::~DataTransmit()
@@ -62,11 +59,11 @@ void DataTransmit::createServer()
         std::cout << "accept ok " << client << std::endl;
     }
 
-//        if (fcntl(client, F_SETFL, O_NONBLOCK) != 0)
-//        {
-//            perror("-fcntl error\n");
-//            exit(1);
-//        }
+//    if (fcntl(client, F_SETFL, O_NONBLOCK) != 0)
+//    {
+//        perror("-fcntl error\n");
+//        exit(1);
+//    }
 }
 
 void DataTransmit::createClient()
@@ -94,9 +91,10 @@ void DataTransmit::createClient()
     {
         std::cout << "connect ok" << std::endl;
     }
+
 //    if (fcntl(client, F_SETFL, O_NONBLOCK)!=0)
 //    {
-//        printf("-fcntl error\n");
+//        perror("-fcntl error\n");
 //        exit(1);
 //    }
 }
@@ -111,7 +109,6 @@ int DataTransmit::receive(void *buf, size_t size)
 int DataTransmit::send(const void *buf, size_t size)
 {
     int bytes_send = write(client, buf, size);
-//    int bytes_send = udp_socket->sendData(buf);
 
     return bytes_send;
 }

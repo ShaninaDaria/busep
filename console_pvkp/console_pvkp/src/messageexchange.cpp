@@ -7,10 +7,10 @@ messageExchange::messageExchange()
     dataTransnmit->createServer();
 
     createIS1();
-//    createIS2();
+    createIS2();
 
-    bzero(&IS3, sizeof (_is3));
-    std::cout << sizeof (_is3) << std::endl;
+    bzero(&IS3, sizeof(_is3));
+    bzero(&IS4, sizeof(_is4));
 
 }
 
@@ -23,86 +23,76 @@ messageExchange::~messageExchange()
 
 void messageExchange::createIS1()
 {
+    std::cout << __FUNCTION__ << std::endl;
     IS1 = IM->createIS1();
-    std::cout << __FUNCTION__ << " " << IS1.header << " " << IS1.managed << std::endl;
 }
 
 void messageExchange::createIS2()
 {
-    char number = 0x18;
-    IM->createIS2(number);
-}
-
-int messageExchange::sendText()
-{
-//    char data[100];
-//    strcpy(data, "Hello");
-
-//    int data = 5;
-//    data = htonl(data);
-
-//    bytes reg;
-//    reg.dword = 0x0011C0FF;
-//    reg.byte1 = 0xff;  // ff
-//    reg.byte2 = 0xc0;  // c0
-//    reg.byte3 = 0x11;  // 11
-//    reg.byte4 = 0x00;  // 00
-//    printf("    dword \t%08x\n", reg.dword);
-//    printf("    byte1 \t%02x\n", reg.byte1);  // ff
-//    printf("    byte2 \t%02x\n", reg.byte2);  // c0
-//    printf("    byte3 \t%02x\n", reg.byte3);  // 11
-//    printf("    byte4 \t%02x\n", reg.byte4);  // 00
-//    int bytes = dataTransnmit->send(&reg, sizeof (reg));
-
-    IS1.header = 0xff;
-    IS1.managed = 0x01;
-    IS1.cs = 0x05;
-
-    printf("    byte1 \t%02x\n", IS1.header);  // ff
-    printf("    byte2 \t%02x\n", IS1.managed);  // c0
-    printf("    byte3 \t%02x\n", IS1.cs);  // 11
-
-    int bytes = dataTransnmit->send(&IS1, sizeof (_is1));
-    std::cout << "send " << bytes << " bytes; " << std::endl;
-
-    return bytes;
+    char number = 0x00;
+    std::cout << __FUNCTION__ << " with " << number << std::endl;
+    IS2 = IM->createIS2(number);
 }
 
 void messageExchange::startExchange()
 {
-//    sendText();
+//    while (1)
+//    {
+        int bytes_send(-1), bytes_rcv(-1);
+//        bytes_send = sendIS1(&IS1);
+//        if (bytes_send > 0)
+//        {
+//            do
+//            {
+//                bytes_rcv = receiveIS3();
+//            } while (bytes_rcv > 0);
+//        }
 
-    int recv_bytes(-1);
-    sendIS1(&IS1);
-    do
-    {
-        recv_bytes = receiveIS3();
-    } while (recv_bytes > 0);
+
+        bytes_rcv = -1;
+        bytes_send = sendIS2(&IS2);
+        if (bytes_send > 0)
+        {
+            do
+            {
+                bytes_rcv = receiveIS4();
+            } while (bytes_rcv > 0);
+        }
+
+//    }
+
 }
 
-void messageExchange::sendIS1(_is1 *IS1)
+int messageExchange::sendIS1(_is1 *IS1)
 {
-    std::cout << IS1->header << std::endl;
-    int bytes = dataTransnmit->send(IS1, sizeof(_is1));
+    std::cout << __FUNCTION__ << std::endl;
 
-    std::cout << "send " << bytes << " bytes; " << std::endl;
-    printf("    header \t%02x\n", IS1->header);
-    printf("    managed \t%02x\n", IS1->managed);
-    printf("    cs \t%02x\n", IS1->cs);
+    int bytes_send = dataTransnmit->send(IS1, sizeof(_is1));
+    std::cout << "send " << bytes_send << " bytes; " << std::endl;
+
+    if (bytes_send > 0)
+    {
+        printf("    header \t%02x\n", IS1->header);
+        printf("    managed \t%02x\n", IS1->managed);
+        printf("    cs \t%02x\n", IS1->cs);
+    }
+    return bytes_send;
 }
 
 int messageExchange::receiveIS3()
 {
+    std::cout << __FUNCTION__ << std::endl;
+
     _is3 rcv_IS3;
     bzero(&rcv_IS3, sizeof (_is3));
     int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
     std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
 
-    static int bytes(0);
-    bytes += bytes_rcv;
-
-    if (bytes_rcv != 0)
+    if (bytes_rcv > 0)
     {
+        static int bytes(0);
+        bytes += bytes_rcv;
+
         if ((bytes_rcv == 8) || (bytes_rcv == 2))
         {
             if (rcv_IS3.header == header_and_managed::header)
@@ -123,6 +113,7 @@ int messageExchange::receiveIS3()
                 {
                 case 16:
                 {
+                    // т.к. всегда заполнены первые 8 байт
                     IS3.word06 = rcv_IS3.header;
                     IS3.word07 = rcv_IS3.managed;
                     IS3.word08 = rcv_IS3.word00;
@@ -171,7 +162,7 @@ int messageExchange::receiveIS3()
 
             if (bytes == sizeof(_is3))
             {
-                bytes = 8;
+                bytes = 0;
                 IM->parsingIS3(IS3);
             }
         }
@@ -185,27 +176,98 @@ int messageExchange::receiveIS3()
         }
     }
 
-
-
-
-
-
-//    bzero(IS3, sizeof (_is3));
-//    int bytes = dataTransnmit->receive(IS3, sizeof (_is3));
-
-
-
-//    IM->parsingIS3(IS3);
-
     return bytes_rcv;
 }
 
-void messageExchange::sendIS2()
+int messageExchange::sendIS2(_is2 *IS2)
 {
-    // rs485->send(IM->getIS2());
+    std::cout << __FUNCTION__ << std::endl;
+
+    int bytes_send = dataTransnmit->send(IS2, sizeof(_is2));
+
+    if (bytes_send > 0)
+    {
+        std::cout << "send " << bytes_send << " bytes; " << std::endl;
+        printf("       header \t%02x\n", IS2->header);
+        printf("      managed \t%02x\n", IS2->managed);
+        printf("device_number \t%02x\n", IS2->device_number);
+        printf("        state \t%02x\n", IS2->state);
+        printf("           cs \t%02x\n", IS2->cs);
+    }
+    return bytes_send;
 }
 
-void messageExchange::receiveIS4()
+int messageExchange::receiveIS4()
 {
-    // IM->setIS4(rs485->receive());
+    std::cout << __FUNCTION__ << std::endl;
+
+    _is4 rcv_IS4;
+    bzero(&rcv_IS4, sizeof (_is4));
+    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
+    std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
+
+    static int bytes(0);
+    bytes += bytes_rcv;
+
+    if (bytes_rcv > 0)
+    {
+        if ((bytes_rcv == 8) || (bytes_rcv == 3))
+        {
+            if (rcv_IS4.header == header_and_managed::header)
+            {
+                // начало посылки
+                IS4.header = rcv_IS4.header;
+                IS4.managed = rcv_IS4.managed;
+                IS4.state00 = rcv_IS4.state00;
+                IS4.state01 = rcv_IS4.state01;
+                IS4.state02 = rcv_IS4.state02;
+                IS4.state03 = rcv_IS4.state03;
+                IS4.state04 = rcv_IS4.state04;
+                IS4.state05 = rcv_IS4.state05;
+            }
+            else
+            {
+                switch (bytes)
+                {
+                case 16:
+                {
+                    // т.к. всегда заполнены первые 8 байт
+                    IS4.state06 = rcv_IS4.header;
+                    IS4.state07 = rcv_IS4.managed;
+                    IS4.state08 = rcv_IS4.state00;
+                    IS4.state09 = rcv_IS4.state01;
+                    IS4.state10 = rcv_IS4.state02;
+                    IS4.state11 = rcv_IS4.state03;
+                    IS4.state12 = rcv_IS4.state04;
+                    IS4.state13 = rcv_IS4.state05;
+                }
+                    break;
+
+                case 19:
+                {
+                    IS4.state14 = rcv_IS4.header;
+                    IS4.state15 = rcv_IS4.managed;
+                    IS4.cs = rcv_IS4.state00;
+                }
+                    break;
+                }
+            }
+
+            if (bytes == sizeof(_is4))
+            {
+                bytes = 0;
+                IM->parsingIS4(IS4);
+            }
+        }
+        else
+        {
+            if (bytes_rcv == sizeof(_is4))
+            {
+                IS4 = rcv_IS4;
+                IM->parsingIS4(IS4);
+            }
+        }
+    }
+
+    return bytes_rcv;
 }

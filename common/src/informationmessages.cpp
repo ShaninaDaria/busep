@@ -1,4 +1,4 @@
-﻿#include "../../common/hdr/informationmessages.h"
+#include "../../common/hdr/informationmessages.h"
 
 informationMessages::informationMessages()
 {
@@ -8,32 +8,32 @@ informationMessages::informationMessages()
 _is1 informationMessages::createIS1()
 {
     qDebug() << "IS1";
-    IS1.header = header_and_managed::header;
-    qDebug() << "header" << IS1.header;
-    IS1.managed = header_and_managed::request;
-    qDebug() << "managed" << IS1.managed;
-    IS1.cs = 0x00;
-    qDebug() << "cs" << IS1.cs;
+    IS1.header = header; printf("    header \t%02x\n", IS1.header);
+    IS1.managed = request; printf("    managed \t%02x\n", IS1.managed);
+    IS1.cs = 0x00; printf("    cs \t%02x\n", IS1.cs);
     qDebug() << "-----\n";
 
     return IS1;
 }
 
-void informationMessages::createIS2(char number)
+_is2 informationMessages::createIS2(char number)
 {
     qDebug() << "IS2";
-    IS2.header = header_and_managed::header; printf("    header \t%02x\n", IS2.header);
-    IS2.managed = header_and_managed::change_state; qDebug() << "managed" << IS2.managed;
-    IS2.device_number = number; qDebug() << "device_number" << IS2.device_number;
-    IS2.state = output_cntrl::cntrl_on; qDebug() << "state" << IS2.state;
+    IS2.header = header; printf("    header \t%02x\n", IS2.header);
+    IS2.managed = change_state; printf("    managed \t%02x\n", IS2.managed);
+    IS2.device_number = number; printf("    device_number \t%d\n", IS2.device_number);
+    IS2.state = cntrl_on; printf("    state \t%02x\n", IS2.state);
+    IS1.cs = 0x00;  printf("    cs \t%02x\n", IS2.cs);
     qDebug() << "-----\n";
+
+    return IS2;
 }
 
 _is3 *informationMessages::createIS3()
 {
     qDebug() << "IS3";
-    IS3.header = header_and_managed::header; printf("    header \t%02x\n", IS3.header);
-    IS3.managed = header_and_managed::response_state; printf("    managed \t%02x\n", IS3.managed);
+    IS3.header = header; printf("    header \t%02x\n", IS3.header);
+    IS3.managed = response_state; printf("    managed \t%02x\n", IS3.managed);
 
     inputs = io.changeInputs();
 
@@ -232,166 +232,130 @@ _is3 *informationMessages::createIS3()
     return &IS3;
 }
 
-void informationMessages::createIS4()
+_is4 *informationMessages::createIS4()
 {
     qDebug() << "IS4";
-    IS4.header = header_and_managed::header;
-    qDebug() << "header" << IS3.header;
-    IS4.managed = 0x03;
-    qDebug() << "managed" << IS3.managed;
+    IS4.header = header; printf("    header \t%02x\n", IS4.header);
+    IS4.managed = response_change; printf("    managed \t%02x\n", IS4.managed);
 
     io.changeOutputs();
 
-    IS4.state0 |= io.getOutputs().output4();
-    IS4.state0 = IS4.state0 << 2;
-    IS4.state0 |= io.getOutputs().output3();
-    IS4.state0 = IS4.state0 << 2;
-    IS4.state0 |= io.getOutputs().output2();
-    IS4.state0 = IS4.state0 << 2;
-    IS4.state0 |= io.getOutputs().output1();
-    qDebug() << "state0" << IS4.state0;
+    IS4.state00 |= io.getOutputs().output4(); IS4.state00 = IS4.state00 << 2;
+    IS4.state00 |= io.getOutputs().output3(); IS4.state00 = IS4.state00 << 2;
+    IS4.state00 |= io.getOutputs().output2(); IS4.state00 = IS4.state00 << 2;
+    IS4.state00 |= io.getOutputs().output1();
+    printf("    state00 \t%02x\n", IS4.state00);
 
-    IS4.state1 |= io.getOutputs().output8();
-    IS4.state1 = IS4.state1 << 2;
-    IS4.state1 |= io.getOutputs().output7();
-    IS4.state1 = IS4.state1 << 2;
-    IS4.state1 |= io.getOutputs().output6();
-    IS4.state1 = IS4.state1 << 2;
-    IS4.state1 |= io.getOutputs().output5();
-    qDebug() << "state1" << IS4.state1;
+    IS4.state01 |= io.getOutputs().output8(); IS4.state01 = IS4.state01 << 2;
+    IS4.state01 |= io.getOutputs().output7(); IS4.state01 = IS4.state01 << 2;
+    IS4.state01 |= io.getOutputs().output6(); IS4.state01 = IS4.state01 << 2;
+    IS4.state01 |= io.getOutputs().output5();
+    printf("    state01 \t%02x\n", IS4.state01);
 
-    IS4.state2 |= io.getOutputs().output12();
-    IS4.state2 = IS4.state2 << 2;
-    IS4.state2 |= io.getOutputs().output11();
-    IS4.state2 = IS4.state2 << 2;
-    IS4.state2 |= io.getOutputs().output10();
-    IS4.state2 = IS4.state2 << 2;
-    IS4.state2 |= io.getOutputs().output9();
-    qDebug() << "state2" << IS4.state2;
+    IS4.state02 |= io.getOutputs().output12(); IS4.state02 = IS4.state02 << 2;
+    IS4.state02 |= io.getOutputs().output11(); IS4.state02 = IS4.state02 << 2;
+    IS4.state02 |= io.getOutputs().output10();  IS4.state02 = IS4.state02 << 2;
+    IS4.state02 |= io.getOutputs().output9();
+    printf("    state02 \t%02x\n", IS4.state02);
 
-    IS4.state3 |= io.getOutputs().output16();
-    IS4.state3 = IS4.state3 << 2;
-    IS4.state3 |= io.getOutputs().output15();
-    IS4.state3 = IS4.state3 << 2;
-    IS4.state3 |= io.getOutputs().output14();
-    IS4.state3 = IS4.state3 << 2;
-    IS4.state3 |= io.getOutputs().output13();
-    qDebug() << "state3" << IS4.state3;
+    IS4.state03 |= io.getOutputs().output16(); IS4.state03 = IS4.state03 << 2;
+    IS4.state03 |= io.getOutputs().output15(); IS4.state03 = IS4.state03 << 2;
+    IS4.state03 |= io.getOutputs().output14(); IS4.state03 = IS4.state03 << 2;
+    IS4.state03 |= io.getOutputs().output13();
+    printf("    state03 \t%02x\n", IS4.state03);
 
-    IS4.state4 |= io.getOutputs().output20();
-    IS4.state4 = IS4.state4 << 2;
-    IS4.state4 |= io.getOutputs().output19();
-    IS4.state4 = IS4.state4 << 2;
-    IS4.state4 |= io.getOutputs().output18();
-    IS4.state4 = IS4.state4 << 2;
-    IS4.state4 |= io.getOutputs().output17();
-    qDebug() << "state4" << IS4.state4;
+    IS4.state04 |= io.getOutputs().output20(); IS4.state04 = IS4.state04 << 2;
+    IS4.state04 |= io.getOutputs().output19(); IS4.state04 = IS4.state04 << 2;
+    IS4.state04 |= io.getOutputs().output18(); IS4.state04 = IS4.state04 << 2;
+    IS4.state04 |= io.getOutputs().output17();
+    printf("    state04 \t%02x\n", IS4.state04);
 
-    IS4.state5 |= io.getOutputs().output24();
-    IS4.state5 = IS4.state5 << 2;
-    IS4.state5 |= io.getOutputs().output23();
-    IS4.state5 = IS4.state5 << 2;
-    IS4.state5 |= io.getOutputs().output22();
-    IS4.state5 = IS4.state5 << 2;
-    IS4.state5 |= io.getOutputs().output21();
-    qDebug() << "state5" << IS4.state5;
+    IS4.state05 |= io.getOutputs().output24(); IS4.state05 = IS4.state05 << 2;
+    IS4.state05 |= io.getOutputs().output23(); IS4.state05 = IS4.state05 << 2;
+    IS4.state05 |= io.getOutputs().output22(); IS4.state05 = IS4.state05 << 2;
+    IS4.state05 |= io.getOutputs().output21();
+    printf("    state05 \t%02x\n", IS4.state05);
 
-    IS4.state6 |= io.getOutputs().output28();
-    IS4.state6 = IS4.state5 << 2;
-    IS4.state6 |= io.getOutputs().output27();
-    IS4.state6 = IS4.state5 << 2;
-    IS4.state6 |= io.getOutputs().output26();
-    IS4.state6 = IS4.state5 << 2;
-    IS4.state6 |= io.getOutputs().output25();
-    qDebug() << "state5" << IS4.state5;
+    IS4.state06 |= io.getOutputs().output28(); IS4.state06 = IS4.state06 << 2;
+    IS4.state06 |= io.getOutputs().output27(); IS4.state06 = IS4.state06 << 2;
+    IS4.state06 |= io.getOutputs().output26(); IS4.state06 = IS4.state06 << 2;
+    IS4.state06 |= io.getOutputs().output25();
+    printf("    state06 \t%02x\n", IS4.state06);
 
-    IS4.state7 |= io.getOutputs().output32();
-    IS4.state7 = IS4.state7 << 2;
-    IS4.state7 |= io.getOutputs().output31();
-    IS4.state7 = IS4.state7 << 2;
-    IS4.state7 |= io.getOutputs().output30();
-    IS4.state7 = IS4.state7 << 2;
-    IS4.state7 |= io.getOutputs().output29();
-    qDebug() << "state7" << IS4.state7;
+    IS4.state07 |= io.getOutputs().output32(); IS4.state07 = IS4.state07 << 2;
+    IS4.state07 |= io.getOutputs().output31(); IS4.state07 = IS4.state07 << 2;
+    IS4.state07 |= io.getOutputs().output30(); IS4.state07 = IS4.state07 << 2;
+    IS4.state07 |= io.getOutputs().output29();
+    printf("    state07 \t%02x\n", IS4.state07);
 
-    IS4.state8 |= io.getOutputs().output36();
-    IS4.state8 = IS4.state8 << 2;
-    IS4.state8 |= io.getOutputs().output35();
-    IS4.state8 = IS4.state8 << 2;
-    IS4.state8 |= io.getOutputs().output34();
-    IS4.state8 = IS4.state8 << 2;
-    IS4.state8 |= io.getOutputs().output33();
-    qDebug() << "state8" << IS4.state8;
+    IS4.state08 |= io.getOutputs().output36(); IS4.state08 = IS4.state08 << 2;
+    IS4.state08 |= io.getOutputs().output35(); IS4.state08 = IS4.state08 << 2;
+    IS4.state08 |= io.getOutputs().output34(); IS4.state08 = IS4.state08 << 2;
+    IS4.state08 |= io.getOutputs().output33();
+    printf("    state08 \t%02x\n", IS4.state08);
 
-    IS4.state9 |= io.getOutputs().output40();
-    IS4.state9 = IS4.state9 << 2;
-    IS4.state9 |= io.getOutputs().output39();
-    IS4.state9 = IS4.state9 << 2;
-    IS4.state9 |= io.getOutputs().output38();
-    IS4.state9 = IS4.state9 << 2;
-    IS4.state9 |= io.getOutputs().output37();
-    qDebug() << "state9" << IS4.state9;
+    IS4.state09 |= io.getOutputs().output40(); IS4.state09 = IS4.state09 << 2;
+    IS4.state09 |= io.getOutputs().output39(); IS4.state09 = IS4.state09 << 2;
+    IS4.state09 |= io.getOutputs().output38(); IS4.state09 = IS4.state09 << 2;
+    IS4.state09 |= io.getOutputs().output37();
+    printf("    state09 \t%02x\n", IS4.state09);
 
-    IS4.state10 |= io.getOutputs().output44();
-    IS4.state10 = IS4.state10 << 2;
-    IS4.state10 |= io.getOutputs().output43();
-    IS4.state10 = IS4.state10 << 2;
-    IS4.state10 |= io.getOutputs().output42();
-    IS4.state10 = IS4.state10 << 2;
+    IS4.state10 |= io.getOutputs().output44(); IS4.state10 = IS4.state10 << 2;
+    IS4.state10 |= io.getOutputs().output43(); IS4.state10 = IS4.state10 << 2;
+    IS4.state10 |= io.getOutputs().output42(); IS4.state10 = IS4.state10 << 2;
     IS4.state10 |= io.getOutputs().output41();
-    qDebug() << "state10" << IS4.state10;
+    printf("    state10 \t%02x\n", IS4.state10);
 
-    IS4.state11 |= io.getOutputs().output48();
-    IS4.state11 = IS4.state11 << 2;
-    IS4.state11 |= io.getOutputs().output47();
-    IS4.state11 = IS4.state11 << 2;
-    IS4.state11 |= io.getOutputs().output46();
-    IS4.state11 = IS4.state11 << 2;
+    IS4.state11 |= io.getOutputs().output48(); IS4.state11 = IS4.state11 << 2;
+    IS4.state11 |= io.getOutputs().output47(); IS4.state11 = IS4.state11 << 2;
+    IS4.state11 |= io.getOutputs().output46(); IS4.state11 = IS4.state11 << 2;
     IS4.state11 |= io.getOutputs().output45();
-    qDebug() << "state11" << IS4.state11;
+    printf("    state11 \t%02x\n", IS4.state11);
 
-    IS4.state12 |= io.getOutputs().output52();
-    IS4.state12 = IS4.state12 << 2;
-    IS4.state12 |= io.getOutputs().output51();
-    IS4.state12 = IS4.state12 << 2;
-    IS4.state12 |= io.getOutputs().output50();
-    IS4.state12 = IS4.state12 << 2;
+    IS4.state12 |= io.getOutputs().output52(); IS4.state12 = IS4.state12 << 2;
+    IS4.state12 |= io.getOutputs().output51(); IS4.state12 = IS4.state12 << 2;
+    IS4.state12 |= io.getOutputs().output50(); IS4.state12 = IS4.state12 << 2;
     IS4.state12 |= io.getOutputs().output49();
-    qDebug() << "state12" << IS4.state12;
+    printf("    state12 \t%02x\n", IS4.state12);
 
-    IS4.state13 |= io.getOutputs().output56();
-    IS4.state13 = IS4.state13 << 2;
-    IS4.state13 |= io.getOutputs().output55();
-    IS4.state13 = IS4.state13 << 2;
-    IS4.state13 |= io.getOutputs().output54();
-    IS4.state13 = IS4.state13 << 2;
+    IS4.state13 |= io.getOutputs().output56(); IS4.state13 = IS4.state13 << 2;
+    IS4.state13 |= io.getOutputs().output55(); IS4.state13 = IS4.state13 << 2;
+    IS4.state13 |= io.getOutputs().output54(); IS4.state13 = IS4.state13 << 2;
     IS4.state13 |= io.getOutputs().output53();
-    qDebug() << "state13" << IS4.state13;
+    printf("    state13 \t%02x\n", IS4.state13);
 
-    IS4.state14 |= io.getOutputs().output60();
-    IS4.state14 = IS4.state14 << 2;
-    IS4.state14 |= io.getOutputs().output59();
-    IS4.state14 = IS4.state14 << 2;
-    IS4.state14 |= io.getOutputs().output58();
-    IS4.state14 = IS4.state14 << 2;
+    IS4.state14 |= io.getOutputs().output60(); IS4.state14 = IS4.state14 << 2;
+    IS4.state14 |= io.getOutputs().output59(); IS4.state14 = IS4.state14 << 2;
+    IS4.state14 |= io.getOutputs().output58(); IS4.state14 = IS4.state14 << 2;
     IS4.state14 |= io.getOutputs().output57();
-    qDebug() << "state14" << IS4.state14;
+    printf("    state14 \t%02x\n", IS4.state14);
 
-    IS4.state15 |= io.getOutputs().output62();
-    IS4.state15 = IS4.state15 << 2;
+    IS4.state15 |= io.getOutputs().output62(); IS4.state15 = IS4.state15 << 2;
     IS4.state15 |= io.getOutputs().output61();
-    qDebug() << "state15" << IS4.state15;
+    printf("    state15 \t%02x\n", IS4.state15);
+
+    IS4.cs = 0x00; printf("    cs \t%02x\n", IS2.cs);
 
     qDebug() << "-----\n";
+
+    return &IS4;
 }
 
 void informationMessages::createIS5()
 {
     qDebug() << "IS5";
-    IS5.header = header_and_managed::header;
-    qDebug() << "header" << IS3.header;
-    IS5.managed = 0x09;
-    qDebug() << "managed" << IS3.managed;
+    IS5.header = header; printf("    header \t%02x\n", IS5.header);
+    IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
+}
+
+void informationMessages::calculateCS()
+{
+
+}
+
+bool informationMessages::checkCS(unsigned char _cs)
+{
+    return true;
 }
 
 _is1 informationMessages::getIS1() const
@@ -609,6 +573,108 @@ void informationMessages::parsingIS3(_is3 &IS3)
     printf("        cs \t%02x\n", IS3.cs);
 }
 
+void informationMessages::parsingIS4(_is4 &IS4)
+{
+    printf("    header \t%02x\n", IS4.header);
+    printf("   managed \t%02x\n", IS4.managed);
+
+    printf("   state00 \t%02x\n", IS4.state00);
+    outputs.setOutput1(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+    outputs.setOutput2(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+    outputs.setOutput3(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+    outputs.setOutput4(getOutputState(IS4.state00));
+
+    printf("   state01 \t%02x\n", IS4.state01);
+    outputs.setOutput5(getOutputState(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
+    outputs.setOutput6(getOutputState(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
+    outputs.setOutput7(getOutputState(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
+    outputs.setOutput8(getOutputState(IS4.state01));
+
+    printf("   state02 \t%02x\n", IS4.state02);
+    outputs.setOutput9(getOutputState(IS4.state02)); IS4.state02 = IS4.state02 >> 2;
+    outputs.setOutput10(getOutputState(IS4.state02)); IS4.state02 = IS4.state02 >> 2;
+    outputs.setOutput11(getOutputState(IS4.state02)); IS4.state02 = IS4.state02 >> 2;
+    outputs.setOutput12(getOutputState(IS4.state02));
+
+    printf("   state03 \t%02x\n", IS4.state03);
+    outputs.setOutput13(getOutputState(IS4.state03)); IS4.state03 = IS4.state03 >> 2;
+    outputs.setOutput14(getOutputState(IS4.state03)); IS4.state03 = IS4.state03 >> 2;
+    outputs.setOutput15(getOutputState(IS4.state03)); IS4.state03 = IS4.state03 >> 2;
+    outputs.setOutput16(getOutputState(IS4.state03));
+
+    printf("   state04 \t%02x\n", IS4.state04);
+    outputs.setOutput17(getOutputState(IS4.state04)); IS4.state04 = IS4.state04 >> 2;
+    outputs.setOutput18(getOutputState(IS4.state04)); IS4.state04 = IS4.state04 >> 2;
+    outputs.setOutput19(getOutputState(IS4.state04)); IS4.state04 = IS4.state04 >> 2;
+    outputs.setOutput20(getOutputState(IS4.state04));
+
+    printf("   state05 \t%02x\n", IS4.state05);
+    outputs.setOutput21(getOutputState(IS4.state05)); IS4.state05 = IS4.state05 >> 2;
+    outputs.setOutput22(getOutputState(IS4.state05)); IS4.state05 = IS4.state05 >> 2;
+    outputs.setOutput23(getOutputState(IS4.state05)); IS4.state05 = IS4.state05 >> 2;
+    outputs.setOutput24(getOutputState(IS4.state05));
+
+    printf("   state06 \t%02x\n", IS4.state06);
+    outputs.setOutput25(getOutputState(IS4.state06)); IS4.state06 = IS4.state06 >> 2;
+    outputs.setOutput26(getOutputState(IS4.state06)); IS4.state06 = IS4.state06 >> 2;
+    outputs.setOutput27(getOutputState(IS4.state06)); IS4.state06 = IS4.state06 >> 2;
+    outputs.setOutput28(getOutputState(IS4.state06));
+
+    printf("   state07 \t%02x\n", IS4.state07);
+    outputs.setOutput29(getOutputState(IS4.state07)); IS4.state07 = IS4.state07 >> 2;
+    outputs.setOutput30(getOutputState(IS4.state07)); IS4.state07 = IS4.state07 >> 2;
+    outputs.setOutput31(getOutputState(IS4.state07)); IS4.state07 = IS4.state07 >> 2;
+    outputs.setOutput32(getOutputState(IS4.state07));
+
+    printf("   state08 \t%02x\n", IS4.state08);
+    outputs.setOutput33(getOutputState(IS4.state08)); IS4.state08 = IS4.state08 >> 2;
+    outputs.setOutput34(getOutputState(IS4.state08)); IS4.state08 = IS4.state08 >> 2;
+    outputs.setOutput35(getOutputState(IS4.state08)); IS4.state08 = IS4.state08 >> 2;
+    outputs.setOutput36(getOutputState(IS4.state08));
+
+    printf("   state09 \t%02x\n", IS4.state09);
+    outputs.setOutput37(getOutputState(IS4.state09)); IS4.state09 = IS4.state09 >> 2;
+    outputs.setOutput38(getOutputState(IS4.state09)); IS4.state09 = IS4.state09 >> 2;
+    outputs.setOutput39(getOutputState(IS4.state09)); IS4.state09 = IS4.state09 >> 2;
+    outputs.setOutput40(getOutputState(IS4.state09));
+
+    printf("   state10 \t%02x\n", IS4.state10);
+    outputs.setOutput41(getOutputState(IS4.state10)); IS4.state10 = IS4.state10 >> 2;
+    outputs.setOutput42(getOutputState(IS4.state10)); IS4.state10 = IS4.state10 >> 2;
+    outputs.setOutput43(getOutputState(IS4.state10)); IS4.state10 = IS4.state10 >> 2;
+    outputs.setOutput44(getOutputState(IS4.state10));
+
+    printf("   state11 \t%02x\n", IS4.state11);
+    outputs.setOutput45(getOutputState(IS4.state11)); IS4.state11 = IS4.state11 >> 2;
+    outputs.setOutput46(getOutputState(IS4.state11)); IS4.state11 = IS4.state11 >> 2;
+    outputs.setOutput47(getOutputState(IS4.state11)); IS4.state11 = IS4.state11 >> 2;
+    outputs.setOutput48(getOutputState(IS4.state11));
+
+    printf("   state12 \t%02x\n", IS4.state12);
+    outputs.setOutput49(getOutputState(IS4.state12)); IS4.state12 = IS4.state12 >> 2;
+    outputs.setOutput50(getOutputState(IS4.state12)); IS4.state12 = IS4.state12 >> 2;
+    outputs.setOutput51(getOutputState(IS4.state12)); IS4.state12 = IS4.state12 >> 2;
+    outputs.setOutput52(getOutputState(IS4.state12));
+
+    printf("   state13 \t%02x\n", IS4.state13);
+    outputs.setOutput53(getOutputState(IS4.state13)); IS4.state13 = IS4.state13 >> 2;
+    outputs.setOutput54(getOutputState(IS4.state13)); IS4.state13 = IS4.state13 >> 2;
+    outputs.setOutput55(getOutputState(IS4.state13)); IS4.state13 = IS4.state13 >> 2;
+    outputs.setOutput56(getOutputState(IS4.state13));
+
+    printf("   state14 \t%02x\n", IS4.state14);
+    outputs.setOutput57(getOutputState(IS4.state14)); IS4.state14 = IS4.state14 >> 2;
+    outputs.setOutput58(getOutputState(IS4.state14)); IS4.state14 = IS4.state14 >> 2;
+    outputs.setOutput59(getOutputState(IS4.state14)); IS4.state14 = IS4.state14 >> 2;
+    outputs.setOutput60(getOutputState(IS4.state14));
+
+    printf("   state15 \t%02x\n", IS4.state15);
+    outputs.setOutput61(getOutputState(IS4.state15)); IS4.state15 = IS4.state15 >> 2;
+    outputs.setOutput62(getOutputState(IS4.state15));
+
+    printf("        cs \t%02x\n", IS4.cs);
+}
+
 unsigned informationMessages::getInputState(unsigned char word)
 {
     unsigned input = 0x00;
@@ -619,11 +685,11 @@ unsigned informationMessages::getInputState(unsigned char word)
     }
     if ((word & input_state::is_signal_27v) == input_state::is_signal_27v)
     {
-        input = (input_state::is_signal_27v);
+        input = input_state::is_signal_27v;
     }
     if ((word & input_state::no_input_state) == input_state::no_input_state)
     {
-        input = (input_state::no_input_state);
+        input = input_state::no_input_state;
     }
 
     printInputState(input);
@@ -647,7 +713,58 @@ void informationMessages::printInputState(const unsigned &input)
         break;
 
     default:
-        printf("  input1 \t%02x %s\n", input, "no data");
+        printf("  input \t%02x %s\n", input, "no data");
+        break;
+    }
+}
+
+unsigned informationMessages::getOutputState(unsigned char state)
+{
+    unsigned output = 0x00;
+
+    if ((state & output_on) == output_on)
+    {
+        output = output_on;
+    }
+    if ((state & output_off) == output_off)
+    {
+        output = output_off;
+    }
+    if ((state & no_output_state) == no_output_state)
+    {
+        output = no_output_state;
+    }
+    if ((state ^ error_output) == error_output)
+    {
+        output = error_output;
+    }
+
+    printOutputState(output);
+    return output;
+}
+
+void informationMessages::printOutputState(const unsigned &output)
+{
+    switch (output)
+    {
+    case output_on:
+        printf("  output \t%02x %s\n", output, "output_on");
+        break;
+
+    case output_off:
+        printf("  output \t%02x %s\n", output, "output_off");
+        break;
+
+    case no_output_state:
+        printf("  output \t%02x %s\n", output, "no_output_state");
+        break;
+
+    case error_output:
+        printf("  output \t%02x %s\n", output, "error_output");
+        break;
+
+    default:
+        printf("  output \t%02x %s\n", output, "no data");
         break;
     }
 }

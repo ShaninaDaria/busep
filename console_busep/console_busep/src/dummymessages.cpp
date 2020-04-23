@@ -7,7 +7,7 @@ dummyMessages::dummyMessages()
     dataTransnmit->createClient();
 
     createIS3();
-//    createIS4();
+    createIS4();
 }
 
 dummyMessages::~dummyMessages()
@@ -17,17 +17,48 @@ dummyMessages::~dummyMessages()
 
 void dummyMessages::startExchange()
 {
+//    int recv_bytes(-1);
+    header_and_managed code(empty);
 //    while (1)
-    int recv_bytes(-1);
+//    {
+        do
+        {
+        /*
+                recv_bytes = receiveIS1();
+                if (recv_bytes > 0)
+                {
+                    sendIS3(IS3);
+                }
+        */
+
+            code = receiveSmth();
+
+            switch (code)
+            {
+            case request:
+                sendIS3(IS3);
+                break;
+            case change_state:
+                sendIS4(IS4);
+                break;
+            default:
+                break;
+            }
+
+        } while (code != empty) /*(recv_bytes > 0)*/;
+
+//    }
+/*
+    recv_bytes = -1;
     do
     {
-//        recv_bytes = receiveText();
-        recv_bytes = receiveIS1();
+        recv_bytes = receiveIS2();
         if (recv_bytes > 0)
         {
-            sendIS3(IS3);
+            sendIS4(IS4);
         }
     } while (recv_bytes > 0);
+*/
 }
 
 void dummyMessages::setInputsValue()
@@ -37,20 +68,23 @@ void dummyMessages::setInputsValue()
 
 void dummyMessages::createIS3()
 {
+    std::cout << __FUNCTION__ << std::endl;
     IS3 = IM->createIS3();
 }
 
 int dummyMessages::receiveIS1()
 {
+    std::cout << __FUNCTION__ << std::endl;
+
     bzero(&IS1, sizeof (_is1));
     int bytes = dataTransnmit->receive(&IS1, sizeof (_is1));
 
     std::cout << "receive " << bytes << " bytes; " << std::endl;
     if (bytes > 0)
     {
-        printf("    header \t%02x\n", IS1.header);  // ff
-        printf("    managed \t%02x\n", IS1.managed);  // c0
-        printf("    cs \t%02x\n", IS1.cs);  // 11
+        printf("    header \t%02x\n", IS1.header);
+        printf("    managed \t%02x\n", IS1.managed);
+        printf("    cs \t%02x\n", IS1.cs);
     }
 
     return bytes;
@@ -58,38 +92,112 @@ int dummyMessages::receiveIS1()
 
 void dummyMessages::sendIS3(_is3 *IS3)
 {
+    std::cout << __FUNCTION__ << std::endl;
+
     int bytes = dataTransnmit->send(IS3, sizeof(_is3));
 
-    std::cout << "send " << bytes << " bytes; " << IS3->managed << std::endl;
+    std::cout << "send " << bytes << " bytes; " << std::endl;
 }
 
 void dummyMessages::createIS4()
 {
-    IM->createIS4();
+    std::cout << __FUNCTION__ << std::endl;
+
+    IS4 = IM->createIS4();
 }
 
-int dummyMessages::receiveText()
+int dummyMessages::receiveIS2()
 {
-//    char data[100];
-//    bzero(data, '0');
-//    int data = -1;
-//    bytes reg;
-//    int bytes = dataTransnmit->receive(&reg, sizeof(reg));
-//    data = ntohl(data);
-//    printf("    dword \t%08x\n", reg.dword);
-//    printf("    byte1 \t%02x\n", reg.byte1);  // ff
-//    printf("    byte2 \t%02x\n", reg.byte2);  // c0
-//    printf("    byte3 \t%02x\n", reg.byte3);  // 11
-//    printf("    byte4 \t%02x\n", reg.byte4);  // 00
+    std::cout << __FUNCTION__ << std::endl;
 
-    int bytes = dataTransnmit->receive(&IS1, sizeof(_is1));
-//    data = ntohl(data);
-//    printf("    dword \t%08x\n", reg.dword);
-    printf("    byte1 \t%02x\n", IS1.header);  // ff
-    printf("    byte2 \t%02x\n", IS1.managed);  // c0
-    printf("    byte3 \t%02x\n", IS1.cs);  // 11
+    bzero(&IS2, sizeof (_is2));
+    int bytes = dataTransnmit->receive(&IS1, sizeof (_is2));
 
     std::cout << "receive " << bytes << " bytes; " << std::endl;
+    if (bytes > 0)
+    {
+        printf("    header \t%02x\n", IS2.header);
+        printf("    managed \t%02x\n", IS2.managed);
+        printf("    device_number \t%02x\n", IS2.device_number);
+        printf("    state \t%02x\n", IS2.state);
+        printf("    cs \t%02x\n", IS1.cs);
+    }
 
     return bytes;
+}
+
+void dummyMessages::sendIS4(_is4 *IS4)
+{
+    std::cout << __FUNCTION__ << std::endl;
+
+    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
+
+    std::cout << "send " << bytes << " bytes; " << std::endl;
+}
+
+header_and_managed dummyMessages::receiveSmth()
+{
+    std::cout << __FUNCTION__ << std::endl;
+
+
+    struct _data
+    {
+        unsigned char header:8;
+        unsigned char managed:8;
+        unsigned char byte0:8;
+        unsigned char byte1:8;
+        unsigned char cs:8;
+    } data;
+    bzero(&data, sizeof (_data));
+
+    header_and_managed code(empty);
+
+    int bytes = dataTransnmit->receive(&data, sizeof (_data));
+    std::cout << "receive " << bytes << " bytes; " << std::endl;
+
+    if (bytes > 0)
+    {
+        switch (data.managed)
+        {
+        case request:
+        {
+            bzero(&IS1, sizeof (_is1));
+            /// TODO checkCS!
+
+            code = request;
+
+            IS1.header = data.header;
+            IS1.managed = data.managed;
+            IS1.cs = data.cs;
+
+            printf("    header \t%02x\n", IS1.header);
+            printf("    managed \t%02x\n", IS1.managed);
+            printf("    cs \t%02x\n", IS1.cs);
+        }
+            break;
+
+        case change_state:
+        {
+            bzero(&IS2, sizeof (_is2));
+            /// TODO checkCS!
+
+            code = change_state;
+
+            IS2.header = data.header;
+            IS2.managed = data.managed;
+            IS2.device_number = data.byte0;
+            IS2.state = data.byte1;
+            IS2.cs = data.cs;
+
+            printf("       header \t%02x\n", IS2.header);
+            printf("      managed \t%02x\n", IS2.managed);
+            printf("device_number \t%02x\n", IS2.device_number);
+            printf("        state \t%02x\n", IS2.state);
+            printf("           cs \t%02x\n", IS1.cs);
+        }
+            break;
+        }
+    }
+
+    return code;
 }

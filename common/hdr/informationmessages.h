@@ -1,4 +1,4 @@
-#ifndef INFORMATIONMESSAGES_H
+﻿#ifndef INFORMATIONMESSAGES_H
 #define INFORMATIONMESSAGES_H
 
 #include <QDebug>
@@ -85,16 +85,16 @@ struct _is4
 {
     unsigned char header:8;
     unsigned char managed:8;
-    unsigned char state0:8;
-    unsigned char state1:8;
-    unsigned char state2:8;
-    unsigned char state3:8;
-    unsigned char state4:8;
-    unsigned char state5:8;
-    unsigned char state6:8;
-    unsigned char state7:8;
-    unsigned char state8:8;
-    unsigned char state9:8;
+    unsigned char state00:8;
+    unsigned char state01:8;
+    unsigned char state02:8;
+    unsigned char state03:8;
+    unsigned char state04:8;
+    unsigned char state05:8;
+    unsigned char state06:8;
+    unsigned char state07:8;
+    unsigned char state08:8;
+    unsigned char state09:8;
     unsigned char state10:8;
     unsigned char state11:8;
     unsigned char state12:8;
@@ -123,12 +123,13 @@ struct _rcv_data
 
 enum header_and_managed
 {
-    header = 0xff,
-    request = 0x01,
-    change_state = 0x02,
-    response_change = 0x03,
-    integrity_violation = 0x09,
-    response_state = 0x10
+    empty = 0x00,               // для меня
+    header = 0xff,              // заголовок
+    request = 0x01,             // ИС1
+    change_state = 0x02,        // ИС2
+    response_change = 0x03,     // ИС4
+    integrity_violation = 0x09, // ИС5
+    response_state = 0x10       // ИС3
 };
 
 class informationMessages
@@ -136,10 +137,12 @@ class informationMessages
 public:
     informationMessages();
     _is1 createIS1();
-    void createIS2(char number);
+    _is2 createIS2(char number);
     _is3 *createIS3();
-    void createIS4();
+    _is4 *createIS4();
     void createIS5();
+    void calculateCS();
+    bool checkCS(unsigned char _cs);
 
     _is1 getIS1() const;
 
@@ -150,10 +153,14 @@ public:
     void setIS4(const _is4 &value);
 
     void parsingIS3(_is3 &IS3);
+    void parsingIS4(_is4 &IS4);
 
 private:
     unsigned getInputState(unsigned char word);
     void printInputState(const unsigned &input);
+
+    unsigned getOutputState(unsigned char state);
+    void printOutputState(const unsigned &output);
 
     _is1 IS1;
     _is2 IS2;
