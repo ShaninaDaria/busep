@@ -8,6 +8,10 @@ messageExchange::messageExchange()
 
     createIS1();
 //    createIS2();
+
+    bzero(&IS3, sizeof (_is3));
+    std::cout << sizeof (_is3) << std::endl;
+
 }
 
 messageExchange::~messageExchange()
@@ -72,7 +76,7 @@ void messageExchange::startExchange()
     sendIS1(&IS1);
     do
     {
-        recv_bytes = receiveIS3(&IS3);
+        recv_bytes = receiveIS3();
     } while (recv_bytes > 0);
 }
 
@@ -87,49 +91,113 @@ void messageExchange::sendIS1(_is1 *IS1)
     printf("    cs \t%02x\n", IS1->cs);
 }
 
-int messageExchange::receiveIS3(_is3 *IS3)
+int messageExchange::receiveIS3()
 {
-    /// TODO 8 КАКИХ БАЙТ ПРИНЯТО??? КАКОЕ СЛОВО?
-    bzero(IS3, sizeof (_is3));
-    int bytes = dataTransnmit->receive(IS3, sizeof (_is3));
+    _is3 rcv_IS3;
+    bzero(&rcv_IS3, sizeof (_is3));
+    int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
+    std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
 
-    std::cout << "receive " << bytes << " bytes; " << std::endl;
-    printf("    header \t%02x\n", IS3->header);
-    printf("    managed \t%02x\n", IS3->managed);
-    printf("    word0 \t%02x\n", IS3->word0);
-    printf("    word1 \t%02x\n", IS3->word1);
-    printf("    word2 \t%02x\n", IS3->word2);
-    printf("    word3 \t%02x\n", IS3->word3);
-    printf("    word4 \t%02x\n", IS3->word4);
-    printf("    word5 \t%02x\n", IS3->word5);
-    printf("    word6 \t%02x\n", IS3->word6);
-    printf("    word7 \t%02x\n", IS3->word7);
-    printf("    word8 \t%02x\n", IS3->word8);
-    printf("    word9 \t%02x\n", IS3->word9);
-    printf("    word10 \t%02x\n", IS3->word10);
-    printf("    word11 \t%02x\n", IS3->word11);
-    printf("    word12 \t%02x\n", IS3->word12);
-    printf("    word13 \t%02x\n", IS3->word13);
-    printf("    word14 \t%02x\n", IS3->word14);
-    printf("    word15 \t%02x\n", IS3->word15);
-    printf("    word16 \t%02x\n", IS3->word16);
-    printf("    word17 \t%02x\n", IS3->word17);
-    printf("    word18 \t%02x\n", IS3->word18);
-    printf("    word19 \t%02x\n", IS3->word19);
-    printf("    word20 \t%02x\n", IS3->word20);
-    printf("    word21 \t%02x\n", IS3->word21);
-    printf("    word22 \t%02x\n", IS3->word22);
-    printf("    word23 \t%02x\n", IS3->word23);
-    printf("    word24 \t%02x\n", IS3->word24);
-    printf("    word25 \t%02x\n", IS3->word25);
-    printf("    word26 \t%02x\n", IS3->word26);
-    printf("    word27 \t%02x\n", IS3->word27);
-    printf("    word28 \t%02x\n", IS3->word28);
-    printf("    word29 \t%02x\n", IS3->word29);
-    printf("    word30 \t%02x\n", IS3->word30);
-    printf("    cs \t%02x\n", IS3->cs);
+    static int bytes(0);
+    bytes += bytes_rcv;
 
-    return bytes;
+    if (bytes_rcv != 0)
+    {
+        if ((bytes_rcv == 8) || (bytes_rcv == 2))
+        {
+            if (rcv_IS3.header == header_and_managed::header)
+            {
+                // начало посылки
+                IS3.header = rcv_IS3.header;
+                IS3.managed = rcv_IS3.managed;
+                IS3.word00 = rcv_IS3.word00;
+                IS3.word01 = rcv_IS3.word01;
+                IS3.word02 = rcv_IS3.word02;
+                IS3.word03 = rcv_IS3.word03;
+                IS3.word04 = rcv_IS3.word04;
+                IS3.word05 = rcv_IS3.word05;
+            }
+            else
+            {
+                switch (bytes)
+                {
+                case 16:
+                {
+                    IS3.word06 = rcv_IS3.header;
+                    IS3.word07 = rcv_IS3.managed;
+                    IS3.word08 = rcv_IS3.word00;
+                    IS3.word09 = rcv_IS3.word01;
+                    IS3.word10 = rcv_IS3.word02;
+                    IS3.word11 = rcv_IS3.word03;
+                    IS3.word12 = rcv_IS3.word04;
+                    IS3.word13 = rcv_IS3.word05;
+                }
+                    break;
+
+                case 24:
+                {
+                    IS3.word14 = rcv_IS3.header;
+                    IS3.word15 = rcv_IS3.managed;
+                    IS3.word16 = rcv_IS3.word00;
+                    IS3.word17 = rcv_IS3.word01;
+                    IS3.word18 = rcv_IS3.word02;
+                    IS3.word19 = rcv_IS3.word03;
+                    IS3.word20 = rcv_IS3.word04;
+                    IS3.word21 = rcv_IS3.word05;
+                }
+                    break;
+
+                case 32:
+                {
+                    IS3.word22 = rcv_IS3.header;
+                    IS3.word23 = rcv_IS3.managed;
+                    IS3.word24 = rcv_IS3.word00;
+                    IS3.word25 = rcv_IS3.word01;
+                    IS3.word26 = rcv_IS3.word02;
+                    IS3.word27 = rcv_IS3.word03;
+                    IS3.word28 = rcv_IS3.word04;
+                    IS3.word29 = rcv_IS3.word05;
+                }
+                    break;
+
+                case 34:
+                {
+                    IS3.word30 = rcv_IS3.header;
+                    IS3.cs = rcv_IS3.managed;
+                }
+                    break;
+                }
+            }
+
+            if (bytes == sizeof(_is3))
+            {
+                bytes = 8;
+                IM->parsingIS3(IS3);
+            }
+        }
+        else
+        {
+            if (bytes_rcv == sizeof(_is3))
+            {
+                IS3 = rcv_IS3;
+                IM->parsingIS3(IS3);
+            }
+        }
+    }
+
+
+
+
+
+
+//    bzero(IS3, sizeof (_is3));
+//    int bytes = dataTransnmit->receive(IS3, sizeof (_is3));
+
+
+
+//    IM->parsingIS3(IS3);
+
+    return bytes_rcv;
 }
 
 void messageExchange::sendIS2()

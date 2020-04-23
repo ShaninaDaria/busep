@@ -23,6 +23,7 @@
 
 //typedef union Register32 EAX;
 
+// ИС1
 struct _is1
 {
     unsigned char header:8;
@@ -30,6 +31,7 @@ struct _is1
     unsigned char cs:8;
 };
 
+// ИС2
 struct _is2
 {
     unsigned char header:8;
@@ -39,20 +41,21 @@ struct _is2
     unsigned char cs:8;
 };
 
+// ИС3
 struct _is3
 {
     unsigned char header:8;
     unsigned char managed:8;
-    unsigned char word0:8;
-    unsigned char word1:8;
-    unsigned char word2:8;
-    unsigned char word3:8;
-    unsigned char word4:8;
-    unsigned char word5:8;
-    unsigned char word6:8;
-    unsigned char word7:8;
-    unsigned char word8:8;
-    unsigned char word9:8;
+    unsigned char word00:8;
+    unsigned char word01:8;
+    unsigned char word02:8;
+    unsigned char word03:8;
+    unsigned char word04:8;
+    unsigned char word05:8;
+    unsigned char word06:8;
+    unsigned char word07:8;
+    unsigned char word08:8;
+    unsigned char word09:8;
     unsigned char word10:8;
     unsigned char word11:8;
     unsigned char word12:8;
@@ -77,6 +80,7 @@ struct _is3
     unsigned char cs:8;
 };
 
+// ИС4
 struct _is4
 {
     unsigned char header:8;
@@ -97,14 +101,34 @@ struct _is4
     unsigned char state13:8;
     unsigned char state14:8;
     unsigned char state15:8;
-    unsigned char cs:1;
+    unsigned char cs:8;
 };
 
+// ИС5
 struct _is5
 {
     unsigned char header:8;
     unsigned char managed:8;
-    unsigned char cs:1;
+    unsigned char cs:8;
+};
+
+// для приема данных
+struct _rcv_data
+{
+    unsigned char byte0:8;
+    unsigned char byte1:8;
+    unsigned char byte2:8;
+    unsigned char byte3:8;
+};
+
+enum header_and_managed
+{
+    header = 0xff,
+    request = 0x01,
+    change_state = 0x02,
+    response_change = 0x03,
+    integrity_violation = 0x09,
+    response_state = 0x10
 };
 
 class informationMessages
@@ -121,18 +145,23 @@ public:
 
     _is2 getIS2() const;
 
-    void setIS3(const _is3 &value);
+    void setIS3(const _is3 &IS3);
 
     void setIS4(const _is4 &value);
 
+    void parsingIS3(_is3 &IS3);
+
 private:
-    void parsingIS3();
+    unsigned getInputState(unsigned char word);
+    void printInputState(const unsigned &input);
 
     _is1 IS1;
     _is2 IS2;
     _is3 IS3;
     _is4 IS4;
     _is5 IS5;
+    _rcv_data rcv;
+
 
     InputsOutputs io;
     _inputs inputs;

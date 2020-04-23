@@ -1,4 +1,4 @@
-#include "../../common/hdr/informationmessages.h"
+﻿#include "../../common/hdr/informationmessages.h"
 
 informationMessages::informationMessages()
 {
@@ -8,9 +8,9 @@ informationMessages::informationMessages()
 _is1 informationMessages::createIS1()
 {
     qDebug() << "IS1";
-    IS1.header = 0xff;
+    IS1.header = header_and_managed::header;
     qDebug() << "header" << IS1.header;
-    IS1.managed = 0x01;
+    IS1.managed = header_and_managed::request;
     qDebug() << "managed" << IS1.managed;
     IS1.cs = 0x00;
     qDebug() << "cs" << IS1.cs;
@@ -22,86 +22,80 @@ _is1 informationMessages::createIS1()
 void informationMessages::createIS2(char number)
 {
     qDebug() << "IS2";
-    IS2.header = 0xff;
-    qDebug() << "header" << IS2.header;
-    IS2.managed = 0x02;
-    qDebug() << "managed" << IS2.managed;
-    IS2.device_number = number;
-    qDebug() << "device_number" << IS2.device_number;
-    IS2.state = 0x01;
-    qDebug() << "state" << IS2.state;
+    IS2.header = header_and_managed::header; printf("    header \t%02x\n", IS2.header);
+    IS2.managed = header_and_managed::change_state; qDebug() << "managed" << IS2.managed;
+    IS2.device_number = number; qDebug() << "device_number" << IS2.device_number;
+    IS2.state = output_cntrl::cntrl_on; qDebug() << "state" << IS2.state;
     qDebug() << "-----\n";
 }
 
 _is3 *informationMessages::createIS3()
 {
     qDebug() << "IS3";
-    IS3.header = 0xff;
-    printf("    header \t%02x\n", IS3.header);
-    IS3.managed = 0x10;
-    printf("    managed \t%02x\n", IS3.managed);
+    IS3.header = header_and_managed::header; printf("    header \t%02x\n", IS3.header);
+    IS3.managed = header_and_managed::response_state; printf("    managed \t%02x\n", IS3.managed);
 
     inputs = io.changeInputs();
 
-    IS3.word0 |= io.getInputs().input4(); IS3.word0 = IS3.word0 << 2;
-    IS3.word0 |= io.getInputs().input3(); IS3.word0 = IS3.word0 << 2;
-    IS3.word0 |= io.getInputs().input2(); IS3.word0 = IS3.word0 << 2;
-    IS3.word0 |= io.getInputs().input1();
-    printf("    word0 \t%02x\n", IS3.word0);
+    IS3.word00 |= io.getInputs().input4(); IS3.word00 = IS3.word00 << 2;
+    IS3.word00 |= io.getInputs().input3(); IS3.word00 = IS3.word00 << 2;
+    IS3.word00 |= io.getInputs().input2(); IS3.word00 = IS3.word00 << 2;
+    IS3.word00 |= io.getInputs().input1();
+    printf("    word0 \t%02x\n", IS3.word00);
 
-    IS3.word1 |= io.getInputs().input8(); IS3.word1 = IS3.word1 << 2;
-    IS3.word1 |= io.getInputs().input7(); IS3.word1 = IS3.word1 << 2;
-    IS3.word1 |= io.getInputs().input6(); IS3.word1 = IS3.word1 << 2;
-    IS3.word1 |= io.getInputs().input5();
-    printf("    word1 \t%02x\n", IS3.word1);
+    IS3.word01 |= io.getInputs().input8(); IS3.word01 = IS3.word01 << 2;
+    IS3.word01 |= io.getInputs().input7(); IS3.word01 = IS3.word01 << 2;
+    IS3.word01 |= io.getInputs().input6(); IS3.word01 = IS3.word01 << 2;
+    IS3.word01 |= io.getInputs().input5();
+    printf("    word1 \t%02x\n", IS3.word01);
 
-    IS3.word2 |= io.getInputs().input12(); IS3.word2 = IS3.word2 << 2;
-    IS3.word2 |= io.getInputs().input11(); IS3.word2 = IS3.word2 << 2;
-    IS3.word2 |= io.getInputs().input10(); IS3.word2 = IS3.word2 << 2;
-    IS3.word2 |= io.getInputs().input9();
-    printf("    word2 \t%02x\n", IS3.word2);
+    IS3.word02 |= io.getInputs().input12(); IS3.word02 = IS3.word02 << 2;
+    IS3.word02 |= io.getInputs().input11(); IS3.word02 = IS3.word02 << 2;
+    IS3.word02 |= io.getInputs().input10(); IS3.word02 = IS3.word02 << 2;
+    IS3.word02 |= io.getInputs().input9();
+    printf("    word2 \t%02x\n", IS3.word02);
 
-    IS3.word3 |= io.getInputs().input16(); IS3.word3 = IS3.word3 << 2;
-    IS3.word3 |= io.getInputs().input15(); IS3.word3 = IS3.word3 << 2;
-    IS3.word3 |= io.getInputs().input14(); IS3.word3 = IS3.word3 << 2;
-    IS3.word3 |= io.getInputs().input13();
-    printf("    word3 \t%02x\n", IS3.word3);
+    IS3.word03 |= io.getInputs().input16(); IS3.word03 = IS3.word03 << 2;
+    IS3.word03 |= io.getInputs().input15(); IS3.word03 = IS3.word03 << 2;
+    IS3.word03 |= io.getInputs().input14(); IS3.word03 = IS3.word03 << 2;
+    IS3.word03 |= io.getInputs().input13();
+    printf("    word3 \t%02x\n", IS3.word03);
 
-    IS3.word4 |= io.getInputs().input20(); IS3.word4 = IS3.word4 << 2;
-    IS3.word4 |= io.getInputs().input19(); IS3.word4 = IS3.word4 << 2;
-    IS3.word4 |= io.getInputs().input18(); IS3.word4 = IS3.word4 << 2;
-    IS3.word4 |= io.getInputs().input17();
-    printf("    word4 \t%02x\n", IS3.word4);
+    IS3.word04 |= io.getInputs().input20(); IS3.word04 = IS3.word04 << 2;
+    IS3.word04 |= io.getInputs().input19(); IS3.word04 = IS3.word04 << 2;
+    IS3.word04 |= io.getInputs().input18(); IS3.word04 = IS3.word04 << 2;
+    IS3.word04 |= io.getInputs().input17();
+    printf("    word4 \t%02x\n", IS3.word04);
 
-    IS3.word5 |= io.getInputs().input24(); IS3.word5 = IS3.word5 << 2;
-    IS3.word5 |= io.getInputs().input23(); IS3.word5 = IS3.word5 << 2;
-    IS3.word5 |= io.getInputs().input22(); IS3.word5 = IS3.word5 << 2;
-    IS3.word5 |= io.getInputs().input21();
-    printf("    word5 \t%02x\n", IS3.word5);
+    IS3.word05 |= io.getInputs().input24(); IS3.word05 = IS3.word05 << 2;
+    IS3.word05 |= io.getInputs().input23(); IS3.word05 = IS3.word05 << 2;
+    IS3.word05 |= io.getInputs().input22(); IS3.word05 = IS3.word05 << 2;
+    IS3.word05 |= io.getInputs().input21();
+    printf("    word5 \t%02x\n", IS3.word05);
 
-    IS3.word6 |= io.getInputs().input28(); IS3.word6 = IS3.word6 << 2;
-    IS3.word6 |= io.getInputs().input27(); IS3.word6 = IS3.word6 << 2;
-    IS3.word6 |= io.getInputs().input26(); IS3.word6 = IS3.word6 << 2;
-    IS3.word6 |= io.getInputs().input25();
-    printf("    word6 \t%02x\n", IS3.word6);
+    IS3.word06 |= io.getInputs().input28(); IS3.word06 = IS3.word06 << 2;
+    IS3.word06 |= io.getInputs().input27(); IS3.word06 = IS3.word06 << 2;
+    IS3.word06 |= io.getInputs().input26(); IS3.word06 = IS3.word06 << 2;
+    IS3.word06 |= io.getInputs().input25();
+    printf("    word6 \t%02x\n", IS3.word06);
 
-    IS3.word7 |= io.getInputs().input32(); IS3.word7 = IS3.word7 << 2;
-    IS3.word7 |= io.getInputs().input31(); IS3.word7 = IS3.word7 << 2;
-    IS3.word7 |= io.getInputs().input30(); IS3.word7 = IS3.word7 << 2;
-    IS3.word7 |= io.getInputs().input29();
-    printf("    word7 \t%02x\n", IS3.word7);
+    IS3.word07 |= io.getInputs().input32(); IS3.word07 = IS3.word07 << 2;
+    IS3.word07 |= io.getInputs().input31(); IS3.word07 = IS3.word07 << 2;
+    IS3.word07 |= io.getInputs().input30(); IS3.word07 = IS3.word07 << 2;
+    IS3.word07 |= io.getInputs().input29();
+    printf("    word7 \t%02x\n", IS3.word07);
 
-    IS3.word8 |= io.getInputs().input36(); IS3.word8 = IS3.word8 << 2;
-    IS3.word8 |= io.getInputs().input35(); IS3.word8 = IS3.word8 << 2;
-    IS3.word8 |= io.getInputs().input34(); IS3.word8 = IS3.word8 << 2;
-    IS3.word8 |= io.getInputs().input33();
-    printf("    word8 \t%02x\n", IS3.word8);
+    IS3.word08 |= io.getInputs().input36(); IS3.word08 = IS3.word08 << 2;
+    IS3.word08 |= io.getInputs().input35(); IS3.word08 = IS3.word08 << 2;
+    IS3.word08 |= io.getInputs().input34(); IS3.word08 = IS3.word08 << 2;
+    IS3.word08 |= io.getInputs().input33();
+    printf("    word8 \t%02x\n", IS3.word08);
 
-    IS3.word9 |= io.getInputs().input40(); IS3.word9 = IS3.word9 << 2;
-    IS3.word9 |= io.getInputs().input39();  IS3.word9 = IS3.word9 << 2;
-    IS3.word9 |= io.getInputs().input38(); IS3.word9 = IS3.word9 << 2;
-    IS3.word9 |= io.getInputs().input37();
-    printf("    word9 \t%02x\n", IS3.word9);
+    IS3.word09 |= io.getInputs().input40(); IS3.word09 = IS3.word09 << 2;
+    IS3.word09 |= io.getInputs().input39(); IS3.word09 = IS3.word09 << 2;
+    IS3.word09 |= io.getInputs().input38(); IS3.word09 = IS3.word09 << 2;
+    IS3.word09 |= io.getInputs().input37();
+    printf("    word9 \t%02x\n", IS3.word09);
 
     IS3.word10 |= io.getInputs().input44(); IS3.word10 = IS3.word10 << 2;
     IS3.word10 |= io.getInputs().input43(); IS3.word10 = IS3.word10 << 2;
@@ -115,12 +109,9 @@ _is3 *informationMessages::createIS3()
     IS3.word11 |= io.getInputs().input45();
     printf("    word11 \t%02x\n", IS3.word11);
 
-    IS3.word12 |= io.getInputs().input52();
-    IS3.word12 = IS3.word12 << 2;
-    IS3.word12 |= io.getInputs().input51();
-    IS3.word12 = IS3.word12 << 2;
-    IS3.word12 |= io.getInputs().input50();
-    IS3.word12 = IS3.word12 << 2;
+    IS3.word12 |= io.getInputs().input52(); IS3.word12 = IS3.word12 << 2;
+    IS3.word12 |= io.getInputs().input51(); IS3.word12 = IS3.word12 << 2;
+    IS3.word12 |= io.getInputs().input50(); IS3.word12 = IS3.word12 << 2;
     IS3.word12 |= io.getInputs().input49();
     printf("    word12 \t%02x\n", IS3.word12);
 
@@ -130,12 +121,9 @@ _is3 *informationMessages::createIS3()
     IS3.word13 |= io.getInputs().input53();
     printf("    word13 \t%02x\n", IS3.word13);
 
-    IS3.word14 |= io.getInputs().input60();
-    IS3.word14 = IS3.word14 << 2;
-    IS3.word14 |= io.getInputs().input59();
-    IS3.word14 = IS3.word14 << 2;
-    IS3.word14 |= io.getInputs().input58();
-    IS3.word14 = IS3.word14 << 2;
+    IS3.word14 |= io.getInputs().input60(); IS3.word14 = IS3.word14 << 2;
+    IS3.word14 |= io.getInputs().input59(); IS3.word14 = IS3.word14 << 2;
+    IS3.word14 |= io.getInputs().input58(); IS3.word14 = IS3.word14 << 2;
     IS3.word14 |= io.getInputs().input57();
     printf("    word14 \t%02x\n", IS3.word14);
 
@@ -170,7 +158,7 @@ _is3 *informationMessages::createIS3()
     printf("    word19 \t%02x\n", IS3.word19);
 
     IS3.word20 |= io.getInputs().input84(); IS3.word20 = IS3.word20 << 2;
-    IS3.word20 |= io.getInputs().input33(); IS3.word20 = IS3.word20 << 2;
+    IS3.word20 |= io.getInputs().input83(); IS3.word20 = IS3.word20 << 2;
     IS3.word20 |= io.getInputs().input82(); IS3.word20 = IS3.word20 << 2;
     IS3.word20 |= io.getInputs().input81();
     printf("    word20 \t%02x\n", IS3.word20);
@@ -187,9 +175,9 @@ _is3 *informationMessages::createIS3()
     IS3.word22 |= io.getInputs().input89();
     printf("    word22 \t%02x\n", IS3.word22);
 
-    IS3.word23 |= io.getInputs().input96(); IS3.word23 = IS3.word0 << 2;
-    IS3.word23 |= io.getInputs().input95(); IS3.word23 = IS3.word0 << 2;
-    IS3.word23 |= io.getInputs().input94(); IS3.word23 = IS3.word0 << 2;
+    IS3.word23 |= io.getInputs().input96(); IS3.word23 = IS3.word23 << 2;
+    IS3.word23 |= io.getInputs().input95(); IS3.word23 = IS3.word23 << 2;
+    IS3.word23 |= io.getInputs().input94(); IS3.word23 = IS3.word23 << 2;
     IS3.word23 |= io.getInputs().input93();
     printf("    word23 \t%02x\n", IS3.word23);
 
@@ -199,12 +187,9 @@ _is3 *informationMessages::createIS3()
     IS3.word24 |= io.getInputs().input97();
     printf("    word24 \t%02x\n", IS3.word24);
 
-    IS3.word25 |= io.getInputs().input104();
-    IS3.word25 = IS3.word25 << 2;
-    IS3.word25 |= io.getInputs().input103();
-    IS3.word25 = IS3.word25 << 2;
-    IS3.word25 |= io.getInputs().input102();
-    IS3.word25 = IS3.word25 << 2;
+    IS3.word25 |= io.getInputs().input104(); IS3.word25 = IS3.word25 << 2;
+    IS3.word25 |= io.getInputs().input103(); IS3.word25 = IS3.word25 << 2;
+    IS3.word25 |= io.getInputs().input102(); IS3.word25 = IS3.word25 << 2;
     IS3.word25 |= io.getInputs().input101();
     printf("    word25 \t%02x\n", IS3.word25);
 
@@ -250,9 +235,9 @@ _is3 *informationMessages::createIS3()
 void informationMessages::createIS4()
 {
     qDebug() << "IS4";
-    IS3.header = 0xff;
+    IS4.header = header_and_managed::header;
     qDebug() << "header" << IS3.header;
-    IS3.managed = 0x03;
+    IS4.managed = 0x03;
     qDebug() << "managed" << IS3.managed;
 
     io.changeOutputs();
@@ -403,7 +388,7 @@ void informationMessages::createIS4()
 void informationMessages::createIS5()
 {
     qDebug() << "IS5";
-    IS5.header = 0xff;
+    IS5.header = header_and_managed::header;
     qDebug() << "header" << IS3.header;
     IS5.managed = 0x09;
     qDebug() << "managed" << IS3.managed;
@@ -422,7 +407,7 @@ _is2 informationMessages::getIS2() const
 void informationMessages::setIS3(const _is3 &value)
 {
     IS3 = value;
-    parsingIS3();
+    parsingIS3(IS3);
 }
 
 void informationMessages::setIS4(const _is4 &value)
@@ -430,9 +415,239 @@ void informationMessages::setIS4(const _is4 &value)
     IS4 = value;
 }
 
-void informationMessages::parsingIS3()
+void informationMessages::parsingIS3(_is3 &IS3)
 {
-    // inputs 1-4
-    // 01 10 11 01
-    IS3.word0 = IS3.word0 ^ 0x100000011;
+    printf("    header \t%02x\n", IS3.header);
+    printf("  managed \t%02x\n", IS3.managed);
+
+    printf("    word00 \t%02x\n", IS3.word00);
+    inputs.setInput1(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
+    inputs.setInput2(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
+    inputs.setInput3(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
+    inputs.setInput4(getInputState(IS3.word00));
+
+    printf("    word01 \t%02x\n", IS3.word01);
+    inputs.setInput5(getInputState(IS3.word01)); IS3.word01 = IS3.word01 >> 2;
+    inputs.setInput6(getInputState(IS3.word01)); IS3.word01 = IS3.word01 >> 2;
+    inputs.setInput7(getInputState(IS3.word01)); IS3.word01 = IS3.word01 >> 2;
+    inputs.setInput8(getInputState(IS3.word01));
+
+    printf("    word02 \t%02x\n", IS3.word02);
+    inputs.setInput9(getInputState(IS3.word02)); IS3.word02 = IS3.word02 >> 2;
+    inputs.setInput10(getInputState(IS3.word02)); IS3.word02 = IS3.word02 >> 2;
+    inputs.setInput11(getInputState(IS3.word02)); IS3.word02 = IS3.word02 >> 2;
+    inputs.setInput12(getInputState(IS3.word02));
+
+    printf("    word03 \t%02x\n", IS3.word03);
+    inputs.setInput13(getInputState(IS3.word03)); IS3.word03 = IS3.word03 >> 2;
+    inputs.setInput14(getInputState(IS3.word03)); IS3.word03 = IS3.word03 >> 2;
+    inputs.setInput15(getInputState(IS3.word03)); IS3.word03 = IS3.word03 >> 2;
+    inputs.setInput16(getInputState(IS3.word03));
+
+    printf("    word04 \t%02x\n", IS3.word04);
+    inputs.setInput17(getInputState(IS3.word04)); IS3.word04 = IS3.word04 >> 2;
+    inputs.setInput18(getInputState(IS3.word04)); IS3.word04 = IS3.word04 >> 2;
+    inputs.setInput19(getInputState(IS3.word04)); IS3.word04 = IS3.word04 >> 2;
+    inputs.setInput20(getInputState(IS3.word04));
+
+    printf("    word05 \t%02x\n", IS3.word05);
+    inputs.setInput21(getInputState(IS3.word05)); IS3.word05 = IS3.word05 >> 2;
+    inputs.setInput22(getInputState(IS3.word05)); IS3.word05 = IS3.word05 >> 2;
+    inputs.setInput23(getInputState(IS3.word05)); IS3.word05 = IS3.word05 >> 2;
+    inputs.setInput24(getInputState(IS3.word05));
+
+    printf("    word06 \t%02x\n", IS3.word06);
+    inputs.setInput25(getInputState(IS3.word06)); IS3.word06 = IS3.word06 >> 2;
+    inputs.setInput26(getInputState(IS3.word06)); IS3.word06 = IS3.word06 >> 2;
+    inputs.setInput27(getInputState(IS3.word06)); IS3.word06 = IS3.word06 >> 2;
+    inputs.setInput28(getInputState(IS3.word06));
+
+    printf("    word07 \t%02x\n", IS3.word07);
+    inputs.setInput29(getInputState(IS3.word07)); IS3.word07 = IS3.word07 >> 2;
+    inputs.setInput30(getInputState(IS3.word07)); IS3.word07 = IS3.word07 >> 2;
+    inputs.setInput31(getInputState(IS3.word07)); IS3.word07 = IS3.word07 >> 2;
+    inputs.setInput32(getInputState(IS3.word07));
+
+    printf("    word08 \t%02x\n", IS3.word08);
+    inputs.setInput33(getInputState(IS3.word08)); IS3.word08 = IS3.word08 >> 2;
+    inputs.setInput34(getInputState(IS3.word08)); IS3.word08 = IS3.word08 >> 2;
+    inputs.setInput35(getInputState(IS3.word08)); IS3.word08 = IS3.word08 >> 2;
+    inputs.setInput36(getInputState(IS3.word08));
+
+    printf("    word09 \t%02x\n", IS3.word09);
+    inputs.setInput37(getInputState(IS3.word09)); IS3.word09 = IS3.word09 >> 2;
+    inputs.setInput38(getInputState(IS3.word09)); IS3.word09 = IS3.word09 >> 2;
+    inputs.setInput39(getInputState(IS3.word09)); IS3.word09 = IS3.word09 >> 2;
+    inputs.setInput40(getInputState(IS3.word09));
+
+    printf("    word10 \t%02x\n", IS3.word10);
+    inputs.setInput41(getInputState(IS3.word10)); IS3.word10 = IS3.word10 >> 2;
+    inputs.setInput42(getInputState(IS3.word10)); IS3.word10 = IS3.word10 >> 2;
+    inputs.setInput43(getInputState(IS3.word10)); IS3.word10 = IS3.word10 >> 2;
+    inputs.setInput44(getInputState(IS3.word10));
+
+    printf("    word11 \t%02x\n", IS3.word11);
+    inputs.setInput45(getInputState(IS3.word11)); IS3.word11 = IS3.word11 >> 2;
+    inputs.setInput46(getInputState(IS3.word11)); IS3.word11 = IS3.word11 >> 2;
+    inputs.setInput47(getInputState(IS3.word11)); IS3.word11 = IS3.word11 >> 2;
+    inputs.setInput48(getInputState(IS3.word11));
+
+    printf("    word12 \t%02x\n", IS3.word12);
+    inputs.setInput49(getInputState(IS3.word12)); IS3.word12 = IS3.word12 >> 2;
+    inputs.setInput50(getInputState(IS3.word12)); IS3.word12 = IS3.word12 >> 2;
+    inputs.setInput51(getInputState(IS3.word12)); IS3.word12 = IS3.word12 >> 2;
+    inputs.setInput52(getInputState(IS3.word12));
+
+    printf("    word13 \t%02x\n", IS3.word13);
+    inputs.setInput53(getInputState(IS3.word13)); IS3.word13 = IS3.word13 >> 2;
+    inputs.setInput54(getInputState(IS3.word13)); IS3.word13 = IS3.word13 >> 2;
+    inputs.setInput55(getInputState(IS3.word13)); IS3.word13 = IS3.word13 >> 2;
+    inputs.setInput56(getInputState(IS3.word13));
+
+    printf("    word14 \t%02x\n", IS3.word14);
+    inputs.setInput57(getInputState(IS3.word14)); IS3.word14 = IS3.word14 >> 2;
+    inputs.setInput58(getInputState(IS3.word14)); IS3.word14 = IS3.word14 >> 2;
+    inputs.setInput59(getInputState(IS3.word14)); IS3.word14 = IS3.word14 >> 2;
+    inputs.setInput60(getInputState(IS3.word14));
+
+    printf("    word15 \t%02x\n", IS3.word15);
+    inputs.setInput61(getInputState(IS3.word15)); IS3.word15 = IS3.word15 >> 2;
+    inputs.setInput62(getInputState(IS3.word15)); IS3.word15 = IS3.word15 >> 2;
+    inputs.setInput63(getInputState(IS3.word15)); IS3.word15 = IS3.word15 >> 2;
+    inputs.setInput64(getInputState(IS3.word15));
+
+    printf("    word16 \t%02x\n", IS3.word16);
+    inputs.setInput65(getInputState(IS3.word16)); IS3.word16 = IS3.word16 >> 2;
+    inputs.setInput66(getInputState(IS3.word16)); IS3.word16 = IS3.word16 >> 2;
+    inputs.setInput67(getInputState(IS3.word16)); IS3.word16 = IS3.word16 >> 2;
+    inputs.setInput68(getInputState(IS3.word16));
+
+    printf("    word17 \t%02x\n", IS3.word17);
+    inputs.setInput69(getInputState(IS3.word17)); IS3.word17 = IS3.word17 >> 2;
+    inputs.setInput70(getInputState(IS3.word17)); IS3.word17 = IS3.word17 >> 2;
+    inputs.setInput71(getInputState(IS3.word17)); IS3.word17 = IS3.word17 >> 2;
+    inputs.setInput72(getInputState(IS3.word17));
+
+    printf("    word18 \t%02x\n", IS3.word18);
+    inputs.setInput73(getInputState(IS3.word18)); IS3.word18 = IS3.word18 >> 2;
+    inputs.setInput74(getInputState(IS3.word18)); IS3.word18 = IS3.word18 >> 2;
+    inputs.setInput75(getInputState(IS3.word18)); IS3.word18 = IS3.word18 >> 2;
+    inputs.setInput76(getInputState(IS3.word18));
+
+    printf("    word19 \t%02x\n", IS3.word19);
+    inputs.setInput77(getInputState(IS3.word19)); IS3.word19 = IS3.word19 >> 2;
+    inputs.setInput78(getInputState(IS3.word19)); IS3.word19 = IS3.word19 >> 2;
+    inputs.setInput79(getInputState(IS3.word19)); IS3.word19 = IS3.word19 >> 2;
+    inputs.setInput80(getInputState(IS3.word19));
+
+    printf("    word20 \t%02x\n", IS3.word20);
+    inputs.setInput81(getInputState(IS3.word20)); IS3.word20 = IS3.word20 >> 2;
+    inputs.setInput82(getInputState(IS3.word20)); IS3.word20 = IS3.word20 >> 2;
+    inputs.setInput83(getInputState(IS3.word20)); IS3.word20 = IS3.word20 >> 2;
+    inputs.setInput84(getInputState(IS3.word20));
+
+    printf("    word21 \t%02x\n", IS3.word21);
+    inputs.setInput85(getInputState(IS3.word21)); IS3.word21 = IS3.word21 >> 2;
+    inputs.setInput86(getInputState(IS3.word21)); IS3.word21 = IS3.word21 >> 2;
+    inputs.setInput87(getInputState(IS3.word21)); IS3.word21 = IS3.word21 >> 2;
+    inputs.setInput88(getInputState(IS3.word21));
+
+    printf("    word22 \t%02x\n", IS3.word22);
+    inputs.setInput89(getInputState(IS3.word22)); IS3.word22 = IS3.word22 >> 2;
+    inputs.setInput90(getInputState(IS3.word22)); IS3.word22 = IS3.word22 >> 2;
+    inputs.setInput91(getInputState(IS3.word22)); IS3.word22 = IS3.word22 >> 2;
+    inputs.setInput92(getInputState(IS3.word22));
+
+    printf("    word23 \t%02x\n", IS3.word23);
+    inputs.setInput93(getInputState(IS3.word23)); IS3.word23 = IS3.word23 >> 2;
+    inputs.setInput94(getInputState(IS3.word23)); IS3.word23 = IS3.word23 >> 2;
+    inputs.setInput95(getInputState(IS3.word23)); IS3.word23 = IS3.word23 >> 2;
+    inputs.setInput96(getInputState(IS3.word23));
+
+    printf("    word24 \t%02x\n", IS3.word24);
+    inputs.setInput97(getInputState(IS3.word24)); IS3.word24 = IS3.word24 >> 2;
+    inputs.setInput98(getInputState(IS3.word24)); IS3.word24 = IS3.word24 >> 2;
+    inputs.setInput99(getInputState(IS3.word24)); IS3.word24 = IS3.word24 >> 2;
+    inputs.setInput100(getInputState(IS3.word24));
+
+    printf("    word25 \t%02x\n", IS3.word25);
+    inputs.setInput101(getInputState(IS3.word25)); IS3.word25 = IS3.word25 >> 2;
+    inputs.setInput102(getInputState(IS3.word25)); IS3.word25 = IS3.word25 >> 2;
+    inputs.setInput103(getInputState(IS3.word25)); IS3.word25 = IS3.word25 >> 2;
+    inputs.setInput104(getInputState(IS3.word25));
+
+    printf("    word26 \t%02x\n", IS3.word26);
+    inputs.setInput105(getInputState(IS3.word26)); IS3.word26 = IS3.word26 >> 2;
+    inputs.setInput106(getInputState(IS3.word26)); IS3.word26 = IS3.word26 >> 2;
+    inputs.setInput107(getInputState(IS3.word26)); IS3.word26 = IS3.word26 >> 2;
+    inputs.setInput108(getInputState(IS3.word26));
+
+    printf("    word27 \t%02x\n", IS3.word27);
+    inputs.setInput109(getInputState(IS3.word27)); IS3.word27 = IS3.word27 >> 2;
+    inputs.setInput110(getInputState(IS3.word27)); IS3.word27 = IS3.word27 >> 2;
+    inputs.setInput111(getInputState(IS3.word27)); IS3.word27 = IS3.word27 >> 2;
+    inputs.setInput112(getInputState(IS3.word27));
+
+    printf("    word28 \t%02x\n", IS3.word28);
+    inputs.setInput113(getInputState(IS3.word28)); IS3.word28 = IS3.word28 >> 2;
+    inputs.setInput114(getInputState(IS3.word28)); IS3.word28 = IS3.word28 >> 2;
+    inputs.setInput115(getInputState(IS3.word28)); IS3.word28 = IS3.word28 >> 2;
+    inputs.setInput116(getInputState(IS3.word28));
+
+    printf("    word29 \t%02x\n", IS3.word29);
+    inputs.setInput117(getInputState(IS3.word29)); IS3.word29 = IS3.word29 >> 2;
+    inputs.setInput118(getInputState(IS3.word29)); IS3.word29 = IS3.word29 >> 2;
+    inputs.setInput119(getInputState(IS3.word29)); IS3.word29 = IS3.word29 >> 2;
+    inputs.setInput120(getInputState(IS3.word29));
+
+    printf("    word30 \t%02x\n", IS3.word30);
+    inputs.setInput121(getInputState(IS3.word30)); IS3.word30 = IS3.word30 >> 2;
+    inputs.setInput122(getInputState(IS3.word30)); IS3.word30 = IS3.word30 >> 2;
+    inputs.setInput123(getInputState(IS3.word30)); IS3.word30 = IS3.word30 >> 2;
+    inputs.setInput124(getInputState(IS3.word30));
+
+    printf("        cs \t%02x\n", IS3.cs);
+}
+
+unsigned informationMessages::getInputState(unsigned char word)
+{
+    unsigned input = 0x00;
+
+    if ((word & input_state::no_signal_27v) == input_state::no_signal_27v)
+    {
+        input = input_state::no_signal_27v;
+    }
+    if ((word & input_state::is_signal_27v) == input_state::is_signal_27v)
+    {
+        input = (input_state::is_signal_27v);
+    }
+    if ((word & input_state::no_input_state) == input_state::no_input_state)
+    {
+        input = (input_state::no_input_state);
+    }
+
+    printInputState(input);
+    return input;
+}
+
+void informationMessages::printInputState(const unsigned &input)
+{
+    switch (input)
+    {
+    case input_state::no_signal_27v:
+        printf("  input \t%02x %s\n", input, "no_signal_27v");
+        break;
+
+    case input_state::is_signal_27v:
+        printf("  input \t%02x %s\n", input, "is_signal_27v");
+        break;
+
+    case input_state::no_input_state:
+        printf("  input \t%02x %s\n", input, "no_input_state");
+        break;
+
+    default:
+        printf("  input1 \t%02x %s\n", input, "no data");
+        break;
+    }
 }

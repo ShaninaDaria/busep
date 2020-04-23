@@ -1,6 +1,27 @@
 #ifndef INPUTS_OUTPUTS_H
 #define INPUTS_OUTPUTS_H
 
+enum input_state
+{
+    no_signal_27v = 0x01,
+    is_signal_27v = 0x02,
+    no_input_state = 0x03
+};
+
+enum output_state
+{
+    output_on = 0x01,
+    output_off = 0x02,
+    no_output_state = 0x03,
+    error_output = 0x00
+};
+
+enum output_cntrl
+{
+    cntrl_off = 0x00,
+    cntrl_on = 0x01
+};
+
 struct _inputs  // 124
 {
     unsigned _input1:2; unsigned _input2:2;
