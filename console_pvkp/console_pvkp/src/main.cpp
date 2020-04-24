@@ -1,16 +1,21 @@
-#include <QCoreApplication>
+#include <QApplication>
 #include "hdr/messageexchange.h"
+#include "hdr/pvkpwindow.h"
+
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-    messageExchange me;
-    me.startExchange();
+    PVKPWindow pvkp_window;
+    pvkp_window.show();
 
-    exit(0);
+//    messageExchange me;
+//    me.startExchange();
 
-/*
+//    exit(0);
+
+    /*
     union Register32
     {
         struct

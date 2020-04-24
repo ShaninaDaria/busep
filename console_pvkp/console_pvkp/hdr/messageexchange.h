@@ -23,6 +23,9 @@ public:
     void receiveIS5();
 
 private:
+    void createTimer();
+    static void timer_handler(int signum);
+
     informationMessages *IM;
     DataTransmit *dataTransnmit;
     _is1 IS1;

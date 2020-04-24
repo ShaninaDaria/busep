@@ -1,16 +1,34 @@
+#include <signal.h>
+//#include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
+#include <time.h>
 #include "hdr/messageexchange.h"
+
+void messageExchange::timer_handler(int signum)
+{
+
+    static int count = 0;
+
+//    printf("timer expired %d times ", ++count);
+
+    qDebug() << "one timer expired" << ++count << "times ";
+
+}
 
 messageExchange::messageExchange()
 {
     IM = new informationMessages();
-    dataTransnmit = new DataTransmit();
-    dataTransnmit->createServer();
+//    dataTransnmit = new DataTransmit();
+//    dataTransnmit->createServer();
 
     createIS1();
     createIS2();
 
     bzero(&IS3, sizeof(_is3));
     bzero(&IS4, sizeof(_is4));
+
+    createTimer();
 
 }
 
@@ -36,18 +54,18 @@ void messageExchange::createIS2()
 
 void messageExchange::startExchange()
 {
-//    while (1)
-//    {
+    while (1)
+    {
         int bytes_send(-1), bytes_rcv(-1);
-//        bytes_send = sendIS1(&IS1);
-//        if (bytes_send > 0)
-//        {
-//            do
-//            {
-//                bytes_rcv = receiveIS3();
-//            } while (bytes_rcv > 0);
-//        }
 
+        bytes_send = sendIS1(&IS1);
+        if (bytes_send > 0)
+        {
+            do
+            {
+                bytes_rcv = receiveIS3();
+            } while (bytes_rcv > 0);
+        }
 
         bytes_rcv = -1;
         bytes_send = sendIS2(&IS2);
@@ -59,7 +77,7 @@ void messageExchange::startExchange()
             } while (bytes_rcv > 0);
         }
 
-//    }
+    }
 
 }
 
@@ -271,3 +289,33 @@ int messageExchange::receiveIS4()
 
     return bytes_rcv;
 }
+
+void messageExchange::createTimer()
+{
+    struct sigaction sa;
+    struct itimerval timer;
+    /* Назначение функции timer_handler обработчиком сигнала SIGVTALRM. */
+
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = &timer_handler;
+    sigaction(SIGVTALRM, &sa, NULL);
+
+    /* Таймер сработает через 100 миллисекунд... */
+
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 500000;
+
+    /* ... и будет продолжать активизироваться каждые 100 миллисекунд. */
+
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 500000;
+
+    /* Запуск виртуального таймера. Он подсчитывает фактическое время работы процесса. */
+
+    setitimer(ITIMER_VIRTUAL, &timer, NULL);
+
+    /* Переход в бесконечный цикл. */
+
+    while (1);
+}
+

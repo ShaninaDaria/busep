@@ -59,11 +59,11 @@ void DataTransmit::createServer()
         std::cout << "accept ok " << client << std::endl;
     }
 
-//    if (fcntl(client, F_SETFL, O_NONBLOCK) != 0)
-//    {
-//        perror("-fcntl error\n");
-//        exit(1);
-//    }
+    if (fcntl(client, F_SETFL, O_NONBLOCK) != 0)
+    {
+        perror("-fcntl error\n");
+        exit(1);
+    }
 }
 
 void DataTransmit::createClient()
@@ -92,11 +92,11 @@ void DataTransmit::createClient()
         std::cout << "connect ok" << std::endl;
     }
 
-//    if (fcntl(client, F_SETFL, O_NONBLOCK)!=0)
-//    {
-//        perror("-fcntl error\n");
-//        exit(1);
-//    }
+    if (fcntl(client, F_SETFL, O_NONBLOCK)!=0)
+    {
+        perror("-fcntl error\n");
+        exit(1);
+    }
 }
 
 int DataTransmit::receive(void *buf, size_t size)
