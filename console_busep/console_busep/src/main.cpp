@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     dummyMessages dm;
 
-    dm.startExchange();
+//    dm.startExchange();
 
     exit(0);
 

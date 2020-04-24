@@ -223,7 +223,8 @@ _is3 *informationMessages::createIS3()
     IS3.word30 |= io.getInputs().input121();
     printf("    word30 \t%02x\n", IS3.word30);
 
-    IS3.cs = 0x00;
+//    IS3.cs = 0x00;
+    IS3.cs = 0xd6;
     printf("    cs \t%02x\n", IS3.cs);
 
 
@@ -767,4 +768,9 @@ void informationMessages::printOutputState(const unsigned &output)
         printf("  output \t%02x %s\n", output, "no data");
         break;
     }
+}
+
+_inputs &informationMessages::getInputs()
+{
+    return inputs;
 }

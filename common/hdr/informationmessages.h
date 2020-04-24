@@ -155,6 +155,8 @@ public:
     void parsingIS3(_is3 &IS3);
     void parsingIS4(_is4 &IS4);
 
+    _inputs &getInputs();
+
 private:
     unsigned getInputState(unsigned char word);
     void printInputState(const unsigned &input);

@@ -9,7 +9,6 @@
 #include <sys/un.h>
 #include <fcntl.h>
 
-
 //#define socket_name "/tmp/socket"
 const char* const file = "/tmp/socket";
 //const char* const client_name = "/tmp/client";

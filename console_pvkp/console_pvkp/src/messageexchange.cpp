@@ -16,11 +16,16 @@ void messageExchange::timer_handler(int signum)
 
 }
 
-messageExchange::messageExchange()
+_inputs &messageExchange::getInputsValue()
+{
+    return IM->getInputs();
+}
+
+messageExchange::messageExchange(QObject *parent) : QObject(parent)
 {
     IM = new informationMessages();
-//    dataTransnmit = new DataTransmit();
-//    dataTransnmit->createServer();
+    dataTransnmit = new DataTransmit();
+
 
     createIS1();
     createIS2();
@@ -28,7 +33,7 @@ messageExchange::messageExchange()
     bzero(&IS3, sizeof(_is3));
     bzero(&IS4, sizeof(_is4));
 
-    createTimer();
+//    createTimer();
 
 }
 
@@ -36,6 +41,11 @@ messageExchange::~messageExchange()
 {
     delete dataTransnmit;
     delete IM;
+}
+
+void messageExchange::initTransmit()
+{
+    dataTransnmit->createServer();
 }
 
 
@@ -54,8 +64,8 @@ void messageExchange::createIS2()
 
 void messageExchange::startExchange()
 {
-    while (1)
-    {
+//    while (1)
+//    {
         int bytes_send(-1), bytes_rcv(-1);
 
         bytes_send = sendIS1(&IS1);
@@ -67,17 +77,16 @@ void messageExchange::startExchange()
             } while (bytes_rcv > 0);
         }
 
-        bytes_rcv = -1;
-        bytes_send = sendIS2(&IS2);
-        if (bytes_send > 0)
-        {
-            do
-            {
-                bytes_rcv = receiveIS4();
-            } while (bytes_rcv > 0);
-        }
-
-    }
+//        bytes_rcv = -1;
+//        bytes_send = sendIS2(&IS2);
+//        if (bytes_send > 0)
+//        {
+//            do
+//            {
+//                bytes_rcv = receiveIS4();
+//            } while (bytes_rcv > 0);
+//        }
+//    }
 
 }
 

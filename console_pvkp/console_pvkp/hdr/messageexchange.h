@@ -1,16 +1,20 @@
 #ifndef MESSAGEEXCHANGE_H
 #define MESSAGEEXCHANGE_H
 
+#include <QObject>
 #include <QTimer>
 
 #include "../../common/hdr/informationmessages.h"
 #include "../../common/hdr/datatransmit.h"
 
-class messageExchange
+class messageExchange : public QObject
 {
+    Q_OBJECT
 public:
-    messageExchange();
+    explicit messageExchange(QObject *parent = nullptr);
     ~messageExchange();
+
+    void initTransmit();
 
     void startExchange();
 
@@ -22,9 +26,12 @@ public:
 
     void receiveIS5();
 
+    _inputs &getInputsValue();
+
 private:
     void createTimer();
     static void timer_handler(int signum);
+
 
     informationMessages *IM;
     DataTransmit *dataTransnmit;

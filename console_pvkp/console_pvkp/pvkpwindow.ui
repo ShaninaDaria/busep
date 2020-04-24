@@ -685,7 +685,7 @@
         <string>Вход 38</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -695,7 +695,7 @@
         <string>Вход 24</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -705,7 +705,7 @@
         <string>Вход 23</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -715,7 +715,7 @@
         <string>Вход 34</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -725,7 +725,7 @@
         <string>Вход 18</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -735,7 +735,7 @@
         <string>Вход 45</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -745,7 +745,7 @@
         <string>Вход 57</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -758,7 +758,7 @@
         <string>Вход 77</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -771,17 +771,20 @@
         <string>Вход 41</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="QPushButton" name="pushButton_83">
+      <widget class="QPushButton" name="input5">
        <property name="text">
         <string>Вход 5</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -791,7 +794,7 @@
         <string>Вход 28</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -801,7 +804,7 @@
         <string>Выход 30</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -814,7 +817,7 @@
         <string>Вход 124</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -822,12 +825,15 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_101">
+      <widget class="QPushButton" name="input2">
        <property name="text">
         <string>Вход 2</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -837,12 +843,12 @@
         <string>Вход 46</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QPushButton" name="pushButton_123">
+      <widget class="QPushButton" name="input3">
        <property name="text">
         <string>Вход 3</string>
        </property>
@@ -857,7 +863,7 @@
         <string>Вход 44</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -867,7 +873,7 @@
         <string>Вход 43</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -877,27 +883,27 @@
         <string>Вход 36</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="5">
-      <widget class="QPushButton" name="pushButton_112">
+      <widget class="QPushButton" name="input6">
        <property name="text">
         <string>Вход 6</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QPushButton" name="pushButton_89">
+      <widget class="QPushButton" name="input4">
        <property name="text">
         <string>Вход 4</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -907,7 +913,7 @@
         <string>Вход 20</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -917,17 +923,17 @@
         <string>Вход 33</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="6">
-      <widget class="QPushButton" name="pushButton_71">
+      <widget class="QPushButton" name="input7">
        <property name="text">
         <string>Вход 7</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -937,7 +943,7 @@
         <string>Вход 52</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -947,7 +953,7 @@
         <string>Вход 56</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -957,37 +963,37 @@
         <string>Вход 35</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="13">
-      <widget class="QPushButton" name="pushButton_81">
+      <widget class="QPushButton" name="input14">
        <property name="text">
         <string>Вход 14</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="8">
-      <widget class="QPushButton" name="pushButton_102">
+      <widget class="QPushButton" name="input9">
        <property name="text">
         <string>Вход 9</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="11">
-      <widget class="QPushButton" name="pushButton_97">
+      <widget class="QPushButton" name="input12">
        <property name="text">
         <string>Вход 12</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -997,7 +1003,7 @@
         <string>Вход 17</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1007,7 +1013,7 @@
         <string>Вход 59</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1020,7 +1026,7 @@
         <string>Вход 112</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1033,17 +1039,17 @@
         <string>Вход 60</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="14">
-      <widget class="QPushButton" name="pushButton_120">
+      <widget class="QPushButton" name="input15">
        <property name="text">
         <string>Вход 15</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1053,7 +1059,7 @@
         <string>Вход 50</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1063,7 +1069,7 @@
         <string>Вход 32</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1073,7 +1079,7 @@
         <string>Вход 39</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1083,7 +1089,7 @@
         <string>Вход 25</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1096,7 +1102,7 @@
         <string>Вход 123</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1109,37 +1115,37 @@
         <string>Вход 37</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="9">
-      <widget class="QPushButton" name="pushButton_111">
+      <widget class="QPushButton" name="input10">
        <property name="text">
         <string>Вход 10</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="12">
-      <widget class="QPushButton" name="pushButton_80">
+      <widget class="QPushButton" name="input13">
        <property name="text">
         <string>Вход 13</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="7">
-      <widget class="QPushButton" name="pushButton_74">
+      <widget class="QPushButton" name="input8">
        <property name="text">
         <string>Вход 8</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1149,7 +1155,7 @@
         <string>Вход 19</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1159,7 +1165,7 @@
         <string>Вход 22</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1169,7 +1175,7 @@
         <string>Вход 53</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1179,7 +1185,7 @@
         <string>Вход 47</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1189,7 +1195,7 @@
         <string>Вход 16</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1202,7 +1208,7 @@
         <string>Вход 115</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1215,7 +1221,7 @@
         <string>Вход 27</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1225,7 +1231,7 @@
         <string>Вход 49</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1235,7 +1241,7 @@
         <string>Вход 54</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1245,7 +1251,7 @@
         <string>Вход 58</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1255,7 +1261,7 @@
         <string>Вход 29</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1265,17 +1271,17 @@
         <string>Вход 40</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item row="1" column="10">
-      <widget class="QPushButton" name="pushButton_90">
+      <widget class="QPushButton" name="input11">
        <property name="text">
         <string>Вход 11</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1285,7 +1291,7 @@
         <string>Вход 31</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1294,10 +1300,13 @@
        <property name="text">
         <string>Вход 63</string>
        </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton_92">
+      <widget class="QPushButton" name="input1">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1305,7 +1314,7 @@
         <string>Вход 1</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1318,7 +1327,7 @@
         <string>Вход 21</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1328,7 +1337,7 @@
         <string>Вход 61</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1338,7 +1347,7 @@
         <string>Вход 26</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1348,7 +1357,7 @@
         <string>Вход 48</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1358,7 +1367,7 @@
         <string>Вход 42</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1368,7 +1377,7 @@
         <string>Вход 55</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1378,7 +1387,7 @@
         <string>Вход 51</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1391,7 +1400,7 @@
         <string>Вход 98</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1404,7 +1413,7 @@
         <string>Вход 62</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1412,6 +1421,9 @@
       <widget class="QPushButton" name="pushButton_312">
        <property name="text">
         <string>Вход 64</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -1424,7 +1436,7 @@
         <string>Вход 76</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1440,7 +1452,7 @@
         <string>Вход 91</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1456,7 +1468,7 @@
         <string>Вход 106</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1472,7 +1484,7 @@
         <string>Вход 121</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1488,7 +1500,7 @@
         <string>Вход 65</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1504,7 +1516,7 @@
         <string>Вход 66</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1520,7 +1532,7 @@
         <string>Вход 67</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1536,7 +1548,7 @@
         <string>Вход 68</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1552,7 +1564,7 @@
         <string>Вход 69</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1568,7 +1580,7 @@
         <string>Вход 70</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1584,7 +1596,7 @@
         <string>Вход 71</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1600,7 +1612,7 @@
         <string>Вход 72</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1616,7 +1628,7 @@
         <string>Вход 73</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1632,7 +1644,7 @@
         <string>Вход 74</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1648,7 +1660,7 @@
         <string>Вход 75</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1664,7 +1676,7 @@
         <string>Вход 78</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1680,7 +1692,7 @@
         <string>Вход 79</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1696,7 +1708,7 @@
         <string>Вход 80</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1712,7 +1724,7 @@
         <string>Вход 81</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1728,7 +1740,7 @@
         <string>Вход 82</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1744,7 +1756,7 @@
         <string>Вход 83</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1760,7 +1772,7 @@
         <string>Вход 84</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1776,7 +1788,7 @@
         <string>Вход 85</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1792,7 +1804,7 @@
         <string>Вход 86</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1808,7 +1820,7 @@
         <string>Вход 87</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1824,7 +1836,7 @@
         <string>Вход 88</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1840,7 +1852,7 @@
         <string>Вход 89</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1856,7 +1868,7 @@
         <string>Вход 90</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1872,7 +1884,7 @@
         <string>Вход 92</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1888,7 +1900,7 @@
         <string>Вход 93</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1904,7 +1916,7 @@
         <string>Вход 94</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1920,7 +1932,7 @@
         <string>Вход 95</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1936,7 +1948,7 @@
         <string>Вход 96</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1952,7 +1964,7 @@
         <string>Вход 97</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1968,7 +1980,7 @@
         <string>Вход 99</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1984,7 +1996,7 @@
         <string>Вход 100</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2000,7 +2012,7 @@
         <string>Вход 101</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2016,7 +2028,7 @@
         <string>Вход 102</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2032,7 +2044,7 @@
         <string>Вход 103</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2048,7 +2060,7 @@
         <string>Вход 104</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2064,7 +2076,7 @@
         <string>Вход 105</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2080,7 +2092,7 @@
         <string>Вход 107</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2096,7 +2108,7 @@
         <string>Вход 108</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2112,7 +2124,7 @@
         <string>Вход 109</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2128,7 +2140,7 @@
         <string>Вход 110</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2144,7 +2156,7 @@
         <string>Вход 111</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2160,7 +2172,7 @@
         <string>Вход 113</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2176,7 +2188,7 @@
         <string>Вход 114</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2192,7 +2204,7 @@
         <string>Вход 116</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2208,7 +2220,7 @@
         <string>Вход 117</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2224,7 +2236,7 @@
         <string>Вход 118</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2240,7 +2252,7 @@
         <string>Вход 119</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2256,7 +2268,7 @@
         <string>Вход 120</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -2272,7 +2284,7 @@
         <string>Вход 122</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="flat">
         <bool>false</bool>

@@ -1,5 +1,4 @@
 #include <QApplication>
-#include "hdr/messageexchange.h"
 #include "hdr/pvkpwindow.h"
 
 
@@ -9,9 +8,6 @@ int main(int argc, char *argv[])
 
     PVKPWindow pvkp_window;
     pvkp_window.show();
-
-//    messageExchange me;
-//    me.startExchange();
 
 //    exit(0);
 
