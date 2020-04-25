@@ -94,7 +94,8 @@ void dummyMessages::sendIS3(_is3 *IS3)
 {
     std::cout << __FUNCTION__ << std::endl;
 
-    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
+//    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
+    int bytes = dataTransnmit->clntSend(IS3, sizeof(_is3));
 
     std::cout << "send " << bytes << " bytes; " << std::endl;
 }
@@ -152,7 +153,8 @@ header_and_managed dummyMessages::receiveSmth()
 
     header_and_managed code(empty);
 
-    int bytes = dataTransnmit->receive(&data, sizeof (_data));
+//    int bytes = dataTransnmit->receive(&data, sizeof (_data));
+    int bytes = dataTransnmit->clntReceive(&data, sizeof (_data));
     std::cout << "receive " << bytes << " bytes; " << std::endl;
 
     if (bytes > 0)

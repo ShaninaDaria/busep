@@ -317,6 +317,7 @@ class InputsOutputs
 {
 public:
     InputsOutputs();
+    _inputs initInputs();
     _inputs getInputs() const;
     _inputs changeInputs();
     void setInputs(const _inputs &value);

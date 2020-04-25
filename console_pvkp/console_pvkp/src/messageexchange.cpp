@@ -26,7 +26,6 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
     IM = new informationMessages();
     dataTransnmit = new DataTransmit();
 
-
     createIS1();
     createIS2();
 
@@ -64,8 +63,8 @@ void messageExchange::createIS2()
 
 void messageExchange::startExchange()
 {
-//    while (1)
-//    {
+    while (1)
+    {
         int bytes_send(-1), bytes_rcv(-1);
 
         bytes_send = sendIS1(&IS1);
@@ -86,19 +85,19 @@ void messageExchange::startExchange()
 //                bytes_rcv = receiveIS4();
 //            } while (bytes_rcv > 0);
 //        }
-//    }
+    }
 
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
 {
-    std::cout << __FUNCTION__ << std::endl;
-
-    int bytes_send = dataTransnmit->send(IS1, sizeof(_is1));
-    std::cout << "send " << bytes_send << " bytes; " << std::endl;
+//    int bytes_send = dataTransnmit->send(IS1, sizeof(_is1));
+    int bytes_send = dataTransnmit->srvSend(IS1, sizeof(_is1));
 
     if (bytes_send > 0)
     {
+        std::cout << "send " << bytes_send << " bytes; " << std::endl;
+        std::cout << __FUNCTION__ << std::endl;
         printf("    header \t%02x\n", IS1->header);
         printf("    managed \t%02x\n", IS1->managed);
         printf("    cs \t%02x\n", IS1->cs);
@@ -112,7 +111,8 @@ int messageExchange::receiveIS3()
 
     _is3 rcv_IS3;
     bzero(&rcv_IS3, sizeof (_is3));
-    int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
+//    int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
+    int bytes_rcv = dataTransnmit->srvReceive(&rcv_IS3, sizeof (_rcv_data));
     std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
 
     if (bytes_rcv > 0)

@@ -2,7 +2,7 @@
 
 informationMessages::informationMessages()
 {
-
+    inputs = io.initInputs();
 }
 
 _is1 informationMessages::createIS1()

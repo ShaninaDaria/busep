@@ -1,13 +1,21 @@
-#include <QApplication>
-#include "hdr/pvkpwindow.h"
+//#include <QApplication>
+//#include "hdr/pvkpwindow.h"
 
+#include <QCoreApplication>
+#include "hdr/messageexchange.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+//    QApplication a(argc, argv);
 
-    PVKPWindow pvkp_window;
-    pvkp_window.show();
+//    PVKPWindow pvkp_window;
+//    pvkp_window.show();
+
+    QCoreApplication a(argc, argv);
+
+    messageExchange me;
+    me.initTransmit();
+    me.startExchange();
 
 //    exit(0);
 

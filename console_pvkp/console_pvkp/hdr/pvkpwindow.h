@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QThread>
+#include <QTimer>
 #include "hdr/messageexchange.h"
 
 namespace Ui {
@@ -18,6 +19,9 @@ public:
     explicit PVKPWindow(QWidget *parent = nullptr);
     ~PVKPWindow();
 
+private slots:
+    void slotByTimer();
+
 private:
     void fictitiousOutputColor();
     void fictitiousInputColor();
@@ -26,6 +30,7 @@ private:
 
     Ui::PVKPWindow *ui;
     QThread *thread;
+    QTimer *timer;
 
     QPalette green_palette;
     QPalette red_palette;

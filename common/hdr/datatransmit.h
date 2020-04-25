@@ -10,8 +10,8 @@
 #include <fcntl.h>
 
 //#define socket_name "/tmp/socket"
-const char* const file = "/tmp/socket";
-//const char* const client_name = "/tmp/client";
+const char* const file_server = "/tmp/socket";
+const char* const file_client = "/tmp/client";
 
 class DataTransmit
 {
@@ -24,6 +24,11 @@ public:
 
     int receive(void *buf, size_t size);
     int send(const void *buf, size_t size);
+
+    int srvReceive(void *buf, size_t size);
+    int srvSend(const void *buf, size_t size);
+    int clntReceive(void *buf, size_t size);
+    int clntSend(const void *buf, size_t size);
 
     void endTransmit();
 

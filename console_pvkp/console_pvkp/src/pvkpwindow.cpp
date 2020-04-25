@@ -17,24 +17,35 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     me = new messageExchange();
 
-    thread = new QThread(this);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
+    timer->start(500);
+
+//    thread = new QThread(this);
     /// TODO - в отдельный поток?
-    me->moveToThread(thread);
+//    me->moveToThread(thread);
     me->initTransmit();
 
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+//    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
-    thread->start();
-    me->startExchange();
+//    thread->start();
+//    me->startExchange();
 
-    showInputsValue();
+//    showInputsValue();
 }
 
 PVKPWindow::~PVKPWindow()
 {
     delete me;
-    delete thread;
+//    delete thread;
     delete ui;
+}
+
+void PVKPWindow::slotByTimer()
+{
+    me->startExchange();
+
+    showInputsValue();
 }
 
 void PVKPWindow::fictitiousOutputColor()
@@ -105,21 +116,21 @@ void PVKPWindow::fictitiousOutputColor()
 
 void PVKPWindow::fictitiousInputColor()
 {
-//    ui->input1 ->setPalette(yellow_palette);
-//    ui->input2 ->setPalette(yellow_palette);
-//    ui->input3 ->setPalette(yellow_palette);
-//    ui->input4 ->setPalette(yellow_palette);
-//    ui->input5 ->setPalette(yellow_palette);
-//    ui->input6 ->setPalette(yellow_palette);
-//    ui->input7 ->setPalette(yellow_palette);
-//    ui->input8 ->setPalette(yellow_palette);
-//    ui->input9 ->setPalette(yellow_palette);
-//    ui->input10->setPalette(yellow_palette);
-//    ui->input11->setPalette(yellow_palette);
-//    ui->input12->setPalette(yellow_palette);
-//    ui->input13->setPalette(yellow_palette);
-//    ui->input14->setPalette(yellow_palette);
-//    ui->input15->setPalette(yellow_palette);
+    ui->input1 ->setPalette(gray_palette);
+    ui->input2 ->setPalette(gray_palette);
+    ui->input3 ->setPalette(gray_palette);
+    ui->input4 ->setPalette(gray_palette);
+    ui->input5 ->setPalette(gray_palette);
+    ui->input6 ->setPalette(gray_palette);
+    ui->input7 ->setPalette(gray_palette);
+    ui->input8 ->setPalette(gray_palette);
+    ui->input9 ->setPalette(gray_palette);
+    ui->input10->setPalette(gray_palette);
+    ui->input11->setPalette(gray_palette);
+    ui->input12->setPalette(gray_palette);
+    ui->input13->setPalette(gray_palette);
+    ui->input14->setPalette(gray_palette);
+    ui->input15->setPalette(gray_palette);
 
 
 
@@ -238,11 +249,12 @@ void PVKPWindow::fictitiousInputColor()
 
 void PVKPWindow::showInputsValue()
 {
+    qDebug() << __FUNCTION__;
     _inputs inputs = me->getInputsValue();
 
     setInputColor(inputs.input1(), ui->input1);
     setInputColor(inputs.input2(), ui->input2);
-    setInputColor(inputs.input3(), ui->input2);
+    setInputColor(inputs.input3(), ui->input3);
     setInputColor(inputs.input4(), ui->input4);
 }
 
@@ -251,7 +263,6 @@ void PVKPWindow::setInputColor(const unsigned &input, QPushButton *input_button)
     switch (input)
     {
     case input_state::no_signal_27v:
-//        printf("  input \t%02x %s\n", input, "no_signal_27v");
         input_button->setPalette(red_palette);
         break;
 
@@ -260,7 +271,7 @@ void PVKPWindow::setInputColor(const unsigned &input, QPushButton *input_button)
         break;
 
     case input_state::no_input_state:
-        input_button->setPalette(gray_palette);
+        input_button->setPalette(/*gray_palette*/yellow_palette);
         break;
 
     default:
