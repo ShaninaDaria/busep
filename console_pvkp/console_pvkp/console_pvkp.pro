@@ -1,8 +1,8 @@
-QT += core #gui
-QT += serialport
+QT += core gui
+#QT += serialport
 
-CONFIG += c++11 console
-CONFIG -= app_bundle
+CONFIG += c++11 #console
+#CONFIG -= app_bundle
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # The following define makes your compiler emit warnings if you use

@@ -322,6 +322,7 @@ public:
     _inputs changeInputs();
     void setInputs(const _inputs &value);
 
+    _outputs initOutputs();
     _outputs getOutputs() const;
     _outputs changeOutputs();
     void setOutputs(const _outputs &value);

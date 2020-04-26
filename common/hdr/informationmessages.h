@@ -157,6 +157,8 @@ public:
 
     _inputs &getInputs();
 
+    _outputs &getOutputs();
+
 private:
     unsigned getInputState(unsigned char word);
     void printInputState(const unsigned &input);

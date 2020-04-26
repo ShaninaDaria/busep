@@ -25,7 +25,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="3" column="2">
-      <widget class="QPushButton" name="pushButton_33">
+      <widget class="QPushButton" name="output33">
        <property name="text">
         <string>Выход 33</string>
        </property>
@@ -35,7 +35,7 @@
       </widget>
      </item>
      <item row="4" column="4">
-      <widget class="QPushButton" name="pushButton_50">
+      <widget class="QPushButton" name="output50">
        <property name="text">
         <string>Выход 50</string>
        </property>
@@ -45,7 +45,7 @@
       </widget>
      </item>
      <item row="1" column="9">
-      <widget class="QPushButton" name="pushButton_10">
+      <widget class="QPushButton" name="output10">
        <property name="text">
         <string>Выход 10</string>
        </property>
@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QPushButton" name="pushButton_18">
+      <widget class="QPushButton" name="output18">
        <property name="text">
         <string>Выход 18</string>
        </property>
@@ -65,7 +65,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QPushButton" name="pushButton_17">
+      <widget class="QPushButton" name="output17">
        <property name="text">
         <string>Выход 17</string>
        </property>
@@ -75,7 +75,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="QPushButton" name="pushButton_49">
+      <widget class="QPushButton" name="output49">
        <property name="text">
         <string>Выход 49</string>
        </property>
@@ -85,7 +85,7 @@
       </widget>
      </item>
      <item row="4" column="9">
-      <widget class="QPushButton" name="pushButton_55">
+      <widget class="QPushButton" name="output55">
        <property name="text">
         <string>Выход 55</string>
        </property>
@@ -95,7 +95,7 @@
       </widget>
      </item>
      <item row="1" column="11">
-      <widget class="QPushButton" name="pushButton_12">
+      <widget class="QPushButton" name="output12">
        <property name="text">
         <string>Выход 12</string>
        </property>
@@ -105,7 +105,7 @@
       </widget>
      </item>
      <item row="2" column="13">
-      <widget class="QPushButton" name="pushButton_29">
+      <widget class="QPushButton" name="output29">
        <property name="text">
         <string>Выход 29</string>
        </property>
@@ -115,7 +115,7 @@
       </widget>
      </item>
      <item row="1" column="8">
-      <widget class="QPushButton" name="pushButton_9">
+      <widget class="QPushButton" name="output9">
        <property name="text">
         <string>Выход 9</string>
        </property>
@@ -125,7 +125,7 @@
       </widget>
      </item>
      <item row="4" column="8">
-      <widget class="QPushButton" name="pushButton_54">
+      <widget class="QPushButton" name="output54">
        <property name="text">
         <string>Выход 54</string>
        </property>
@@ -135,7 +135,7 @@
       </widget>
      </item>
      <item row="4" column="14">
-      <widget class="QPushButton" name="pushButton_60">
+      <widget class="QPushButton" name="output60">
        <property name="text">
         <string>Выход 60</string>
        </property>
@@ -145,7 +145,7 @@
       </widget>
      </item>
      <item row="1" column="6">
-      <widget class="QPushButton" name="pushButton_7">
+      <widget class="QPushButton" name="output7">
        <property name="text">
         <string>Выход 7</string>
        </property>
@@ -155,7 +155,7 @@
       </widget>
      </item>
      <item row="3" column="10">
-      <widget class="QPushButton" name="pushButton_41">
+      <widget class="QPushButton" name="output41">
        <property name="text">
         <string>Выход 41</string>
        </property>
@@ -165,7 +165,7 @@
       </widget>
      </item>
      <item row="3" column="6">
-      <widget class="QPushButton" name="pushButton_37">
+      <widget class="QPushButton" name="output37">
        <property name="text">
         <string>Выход 37</string>
        </property>
@@ -175,7 +175,7 @@
       </widget>
      </item>
      <item row="1" column="7">
-      <widget class="QPushButton" name="pushButton_8">
+      <widget class="QPushButton" name="output8">
        <property name="text">
         <string>Выход 8</string>
        </property>
@@ -185,7 +185,7 @@
       </widget>
      </item>
      <item row="4" column="6">
-      <widget class="QPushButton" name="pushButton_52">
+      <widget class="QPushButton" name="output52">
        <property name="text">
         <string>Выход 52</string>
        </property>
@@ -195,7 +195,7 @@
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QPushButton" name="pushButton_36">
+      <widget class="QPushButton" name="output36">
        <property name="text">
         <string>Выход 36</string>
        </property>
@@ -205,7 +205,7 @@
       </widget>
      </item>
      <item row="4" column="11">
-      <widget class="QPushButton" name="pushButton_57">
+      <widget class="QPushButton" name="output57">
        <property name="text">
         <string>Выход 57</string>
        </property>
@@ -215,7 +215,7 @@
       </widget>
      </item>
      <item row="3" column="8">
-      <widget class="QPushButton" name="pushButton_39">
+      <widget class="QPushButton" name="output39">
        <property name="text">
         <string>Выход 39</string>
        </property>
@@ -225,7 +225,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="QPushButton" name="pushButton_19">
+      <widget class="QPushButton" name="output19">
        <property name="text">
         <string>Выход 19</string>
        </property>
@@ -235,7 +235,7 @@
       </widget>
      </item>
      <item row="2" column="14">
-      <widget class="QPushButton" name="pushButton_30">
+      <widget class="QPushButton" name="output30">
        <property name="text">
         <string>Выход 30</string>
        </property>
@@ -245,7 +245,7 @@
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="output5">
        <property name="text">
         <string>Выход 5</string>
        </property>
@@ -255,7 +255,7 @@
       </widget>
      </item>
      <item row="4" column="7">
-      <widget class="QPushButton" name="pushButton_53">
+      <widget class="QPushButton" name="output53">
        <property name="text">
         <string>Выход 53</string>
        </property>
@@ -265,7 +265,7 @@
       </widget>
      </item>
      <item row="4" column="10">
-      <widget class="QPushButton" name="pushButton_56">
+      <widget class="QPushButton" name="output56">
        <property name="text">
         <string>Выход 56</string>
        </property>
@@ -275,7 +275,7 @@
       </widget>
      </item>
      <item row="1" column="10">
-      <widget class="QPushButton" name="pushButton_11">
+      <widget class="QPushButton" name="output11">
        <property name="text">
         <string>Выход 11</string>
        </property>
@@ -285,7 +285,7 @@
       </widget>
      </item>
      <item row="3" column="11">
-      <widget class="QPushButton" name="pushButton_42">
+      <widget class="QPushButton" name="output42">
        <property name="text">
         <string>Выход 42</string>
        </property>
@@ -295,7 +295,7 @@
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="QPushButton" name="pushButton_20">
+      <widget class="QPushButton" name="output20">
        <property name="text">
         <string>Выход 20</string>
        </property>
@@ -305,7 +305,7 @@
       </widget>
      </item>
      <item row="2" column="10">
-      <widget class="QPushButton" name="pushButton_26">
+      <widget class="QPushButton" name="output26">
        <property name="text">
         <string>Выход 26</string>
        </property>
@@ -315,7 +315,7 @@
       </widget>
      </item>
      <item row="3" column="14">
-      <widget class="QPushButton" name="pushButton_45">
+      <widget class="QPushButton" name="output45">
        <property name="text">
         <string>Выход 45</string>
        </property>
@@ -325,7 +325,7 @@
       </widget>
      </item>
      <item row="1" column="14">
-      <widget class="QPushButton" name="pushButton_15">
+      <widget class="QPushButton" name="output15">
        <property name="text">
         <string>Выход 15</string>
        </property>
@@ -335,7 +335,7 @@
       </widget>
      </item>
      <item row="3" column="9">
-      <widget class="QPushButton" name="pushButton_40">
+      <widget class="QPushButton" name="output40">
        <property name="text">
         <string>Выход 40</string>
        </property>
@@ -345,7 +345,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="output4">
        <property name="text">
         <string>Выход 4</string>
        </property>
@@ -355,7 +355,7 @@
       </widget>
      </item>
      <item row="3" column="4">
-      <widget class="QPushButton" name="pushButton_35">
+      <widget class="QPushButton" name="output35">
        <property name="text">
         <string>Выход 35</string>
        </property>
@@ -365,7 +365,7 @@
       </widget>
      </item>
      <item row="4" column="5">
-      <widget class="QPushButton" name="pushButton_51">
+      <widget class="QPushButton" name="output51">
        <property name="text">
         <string>Выход 51</string>
        </property>
@@ -375,7 +375,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="output1">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -391,7 +391,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QPushButton" name="pushButton_47">
+      <widget class="QPushButton" name="output47">
        <property name="text">
         <string>Выход 47</string>
        </property>
@@ -401,7 +401,7 @@
       </widget>
      </item>
      <item row="2" column="6">
-      <widget class="QPushButton" name="pushButton_22">
+      <widget class="QPushButton" name="output22">
        <property name="text">
         <string>Выход 22</string>
        </property>
@@ -411,7 +411,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QPushButton" name="pushButton_48">
+      <widget class="QPushButton" name="output48">
        <property name="text">
         <string>Выход 48</string>
        </property>
@@ -421,7 +421,7 @@
       </widget>
      </item>
      <item row="3" column="12">
-      <widget class="QPushButton" name="pushButton_43">
+      <widget class="QPushButton" name="output43">
        <property name="text">
         <string>Выход 43</string>
        </property>
@@ -431,7 +431,7 @@
       </widget>
      </item>
      <item row="2" column="11">
-      <widget class="QPushButton" name="pushButton_27">
+      <widget class="QPushButton" name="output27">
        <property name="text">
         <string>Выход 27</string>
        </property>
@@ -441,7 +441,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="output2">
        <property name="text">
         <string>Выход 2</string>
        </property>
@@ -451,7 +451,7 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton_16">
+      <widget class="QPushButton" name="output16">
        <property name="text">
         <string>Выход 16</string>
        </property>
@@ -461,7 +461,7 @@
       </widget>
      </item>
      <item row="2" column="12">
-      <widget class="QPushButton" name="pushButton_28">
+      <widget class="QPushButton" name="output28">
        <property name="text">
         <string>Выход 28</string>
        </property>
@@ -471,7 +471,7 @@
       </widget>
      </item>
      <item row="1" column="12">
-      <widget class="QPushButton" name="pushButton_13">
+      <widget class="QPushButton" name="output13">
        <property name="text">
         <string>Выход 13</string>
        </property>
@@ -481,7 +481,7 @@
       </widget>
      </item>
      <item row="2" column="8">
-      <widget class="QPushButton" name="pushButton_24">
+      <widget class="QPushButton" name="output24">
        <property name="text">
         <string>Выход 24</string>
        </property>
@@ -491,7 +491,7 @@
       </widget>
      </item>
      <item row="4" column="12">
-      <widget class="QPushButton" name="pushButton_58">
+      <widget class="QPushButton" name="output58">
        <property name="text">
         <string>Выход 58</string>
        </property>
@@ -501,7 +501,7 @@
       </widget>
      </item>
      <item row="1" column="5">
-      <widget class="QPushButton" name="pushButton_6">
+      <widget class="QPushButton" name="output6">
        <property name="text">
         <string>Выход 6</string>
        </property>
@@ -511,7 +511,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="QPushButton" name="pushButton_34">
+      <widget class="QPushButton" name="output34">
        <property name="text">
         <string>Выход 34</string>
        </property>
@@ -521,7 +521,7 @@
       </widget>
      </item>
      <item row="4" column="13">
-      <widget class="QPushButton" name="pushButton_59">
+      <widget class="QPushButton" name="output59">
        <property name="text">
         <string>Выход 59</string>
        </property>
@@ -531,7 +531,7 @@
       </widget>
      </item>
      <item row="2" column="9">
-      <widget class="QPushButton" name="pushButton_25">
+      <widget class="QPushButton" name="output25">
        <property name="text">
         <string>Выход 25</string>
        </property>
@@ -541,7 +541,7 @@
       </widget>
      </item>
      <item row="1" column="13">
-      <widget class="QPushButton" name="pushButton_14">
+      <widget class="QPushButton" name="output14">
        <property name="text">
         <string>Выход 14</string>
        </property>
@@ -551,7 +551,7 @@
       </widget>
      </item>
      <item row="3" column="7">
-      <widget class="QPushButton" name="pushButton_38">
+      <widget class="QPushButton" name="output38">
        <property name="text">
         <string>Выход 38</string>
        </property>
@@ -561,7 +561,7 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QPushButton" name="pushButton_46">
+      <widget class="QPushButton" name="output46">
        <property name="text">
         <string>Выход 46</string>
        </property>
@@ -571,7 +571,7 @@
       </widget>
      </item>
      <item row="2" column="7">
-      <widget class="QPushButton" name="pushButton_23">
+      <widget class="QPushButton" name="output23">
        <property name="text">
         <string>Выход 23</string>
        </property>
@@ -581,7 +581,7 @@
       </widget>
      </item>
      <item row="3" column="13">
-      <widget class="QPushButton" name="pushButton_44">
+      <widget class="QPushButton" name="output44">
        <property name="text">
         <string>Выход 44</string>
        </property>
@@ -591,7 +591,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="output3">
        <property name="text">
         <string>Выход 3</string>
        </property>
@@ -601,7 +601,7 @@
       </widget>
      </item>
      <item row="2" column="5">
-      <widget class="QPushButton" name="pushButton_21">
+      <widget class="QPushButton" name="output21">
        <property name="text">
         <string>Выход 21</string>
        </property>
@@ -611,7 +611,7 @@
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QPushButton" name="pushButton_31">
+      <widget class="QPushButton" name="output31">
        <property name="text">
         <string>Выход 31</string>
        </property>
@@ -621,7 +621,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_32">
+      <widget class="QPushButton" name="output32">
        <property name="text">
         <string>Выход 32</string>
        </property>
@@ -631,7 +631,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QPushButton" name="pushButton_62">
+      <widget class="QPushButton" name="output62">
        <property name="text">
         <string>Выход 62</string>
        </property>
@@ -641,7 +641,7 @@
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QPushButton" name="pushButton_61">
+      <widget class="QPushButton" name="output61">
        <property name="text">
         <string>Выход 61</string>
        </property>
@@ -680,7 +680,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="3" column="7">
-      <widget class="QPushButton" name="pushButton_118">
+      <widget class="QPushButton" name="input38">
        <property name="text">
         <string>Вход 38</string>
        </property>
@@ -690,7 +690,7 @@
       </widget>
      </item>
      <item row="2" column="8">
-      <widget class="QPushButton" name="pushButton_72">
+      <widget class="QPushButton" name="input24">
        <property name="text">
         <string>Вход 24</string>
        </property>
@@ -700,7 +700,7 @@
       </widget>
      </item>
      <item row="2" column="7">
-      <widget class="QPushButton" name="pushButton_95">
+      <widget class="QPushButton" name="input23">
        <property name="text">
         <string>Вход 23</string>
        </property>
@@ -710,7 +710,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="QPushButton" name="pushButton_87">
+      <widget class="QPushButton" name="input34">
        <property name="text">
         <string>Вход 34</string>
        </property>
@@ -720,7 +720,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QPushButton" name="pushButton_108">
+      <widget class="QPushButton" name="input18">
        <property name="text">
         <string>Вход 18</string>
        </property>
@@ -730,7 +730,7 @@
       </widget>
      </item>
      <item row="3" column="14">
-      <widget class="QPushButton" name="pushButton_79">
+      <widget class="QPushButton" name="input45">
        <property name="text">
         <string>Вход 45</string>
        </property>
@@ -740,7 +740,7 @@
       </widget>
      </item>
      <item row="4" column="11">
-      <widget class="QPushButton" name="pushButton_82">
+      <widget class="QPushButton" name="input57">
        <property name="text">
         <string>Вход 57</string>
        </property>
@@ -750,7 +750,7 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QPushButton" name="pushButton_125">
+      <widget class="QPushButton" name="input77">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -766,7 +766,7 @@
       </widget>
      </item>
      <item row="3" column="10">
-      <widget class="QPushButton" name="pushButton_99">
+      <widget class="QPushButton" name="input41">
        <property name="text">
         <string>Вход 41</string>
        </property>
@@ -789,7 +789,7 @@
       </widget>
      </item>
      <item row="2" column="12">
-      <widget class="QPushButton" name="pushButton_66">
+      <widget class="QPushButton" name="input28">
        <property name="text">
         <string>Вход 28</string>
        </property>
@@ -799,9 +799,9 @@
       </widget>
      </item>
      <item row="2" column="14">
-      <widget class="QPushButton" name="pushButton_85">
+      <widget class="QPushButton" name="input30">
        <property name="text">
-        <string>Выход 30</string>
+        <string>Вход 30</string>
        </property>
        <property name="checkable">
         <bool>false</bool>
@@ -809,7 +809,7 @@
       </widget>
      </item>
      <item row="9" column="3">
-      <widget class="QPushButton" name="pushButton_127">
+      <widget class="QPushButton" name="input124">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -838,7 +838,7 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QPushButton" name="pushButton_64">
+      <widget class="QPushButton" name="input46">
        <property name="text">
         <string>Вход 46</string>
        </property>
@@ -858,7 +858,7 @@
       </widget>
      </item>
      <item row="3" column="13">
-      <widget class="QPushButton" name="pushButton_86">
+      <widget class="QPushButton" name="input44">
        <property name="text">
         <string>Вход 44</string>
        </property>
@@ -868,7 +868,7 @@
       </widget>
      </item>
      <item row="3" column="12">
-      <widget class="QPushButton" name="pushButton_113">
+      <widget class="QPushButton" name="input43">
        <property name="text">
         <string>Вход 43</string>
        </property>
@@ -878,7 +878,7 @@
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QPushButton" name="pushButton_88">
+      <widget class="QPushButton" name="input36">
        <property name="text">
         <string>Вход 36</string>
        </property>
@@ -908,7 +908,7 @@
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="QPushButton" name="pushButton_69">
+      <widget class="QPushButton" name="input20">
        <property name="text">
         <string>Вход 20</string>
        </property>
@@ -918,7 +918,7 @@
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="QPushButton" name="pushButton_110">
+      <widget class="QPushButton" name="input33">
        <property name="text">
         <string>Вход 33</string>
        </property>
@@ -938,7 +938,7 @@
       </widget>
      </item>
      <item row="4" column="6">
-      <widget class="QPushButton" name="pushButton_65">
+      <widget class="QPushButton" name="input52">
        <property name="text">
         <string>Вход 52</string>
        </property>
@@ -948,7 +948,7 @@
       </widget>
      </item>
      <item row="4" column="10">
-      <widget class="QPushButton" name="pushButton_93">
+      <widget class="QPushButton" name="input56">
        <property name="text">
         <string>Вход 56</string>
        </property>
@@ -958,7 +958,7 @@
       </widget>
      </item>
      <item row="3" column="4">
-      <widget class="QPushButton" name="pushButton_109">
+      <widget class="QPushButton" name="input35">
        <property name="text">
         <string>Вход 35</string>
        </property>
@@ -998,7 +998,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QPushButton" name="pushButton_107">
+      <widget class="QPushButton" name="input17">
        <property name="text">
         <string>Вход 17</string>
        </property>
@@ -1008,7 +1008,7 @@
       </widget>
      </item>
      <item row="4" column="13">
-      <widget class="QPushButton" name="pushButton_116">
+      <widget class="QPushButton" name="input59">
        <property name="text">
         <string>Вход 59</string>
        </property>
@@ -1018,7 +1018,7 @@
       </widget>
      </item>
      <item row="8" column="6">
-      <widget class="QPushButton" name="pushButton_129">
+      <widget class="QPushButton" name="input112">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1034,7 +1034,7 @@
       </widget>
      </item>
      <item row="4" column="14">
-      <widget class="QPushButton" name="pushButton_98">
+      <widget class="QPushButton" name="input60">
        <property name="text">
         <string>Вход 60</string>
        </property>
@@ -1054,7 +1054,7 @@
       </widget>
      </item>
      <item row="4" column="4">
-      <widget class="QPushButton" name="pushButton_104">
+      <widget class="QPushButton" name="input50">
        <property name="text">
         <string>Вход 50</string>
        </property>
@@ -1064,7 +1064,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_78">
+      <widget class="QPushButton" name="input32">
        <property name="text">
         <string>Вход 32</string>
        </property>
@@ -1074,7 +1074,7 @@
       </widget>
      </item>
      <item row="3" column="8">
-      <widget class="QPushButton" name="pushButton_117">
+      <widget class="QPushButton" name="input39">
        <property name="text">
         <string>Вход 39</string>
        </property>
@@ -1084,7 +1084,7 @@
       </widget>
      </item>
      <item row="2" column="9">
-      <widget class="QPushButton" name="pushButton_106">
+      <widget class="QPushButton" name="input25">
        <property name="text">
         <string>Вход 25</string>
        </property>
@@ -1094,7 +1094,7 @@
       </widget>
      </item>
      <item row="9" column="2">
-      <widget class="QPushButton" name="pushButton_126">
+      <widget class="QPushButton" name="input123">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1110,7 +1110,7 @@
       </widget>
      </item>
      <item row="3" column="6">
-      <widget class="QPushButton" name="pushButton_84">
+      <widget class="QPushButton" name="input37">
        <property name="text">
         <string>Вход 37</string>
        </property>
@@ -1150,7 +1150,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="QPushButton" name="pushButton_119">
+      <widget class="QPushButton" name="input19">
        <property name="text">
         <string>Вход 19</string>
        </property>
@@ -1160,7 +1160,7 @@
       </widget>
      </item>
      <item row="2" column="6">
-      <widget class="QPushButton" name="pushButton_94">
+      <widget class="QPushButton" name="input22">
        <property name="text">
         <string>Вход 22</string>
        </property>
@@ -1170,7 +1170,7 @@
       </widget>
      </item>
      <item row="4" column="7">
-      <widget class="QPushButton" name="pushButton_91">
+      <widget class="QPushButton" name="input53">
        <property name="text">
         <string>Вход 53</string>
        </property>
@@ -1180,7 +1180,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QPushButton" name="pushButton_105">
+      <widget class="QPushButton" name="input47">
        <property name="text">
         <string>Вход 47</string>
        </property>
@@ -1190,7 +1190,7 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton_63">
+      <widget class="QPushButton" name="input16">
        <property name="text">
         <string>Вход 16</string>
        </property>
@@ -1200,7 +1200,7 @@
       </widget>
      </item>
      <item row="8" column="9">
-      <widget class="QPushButton" name="pushButton_130">
+      <widget class="QPushButton" name="input115">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1216,7 +1216,7 @@
       </widget>
      </item>
      <item row="2" column="11">
-      <widget class="QPushButton" name="pushButton_100">
+      <widget class="QPushButton" name="input27">
        <property name="text">
         <string>Вход 27</string>
        </property>
@@ -1226,7 +1226,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="QPushButton" name="pushButton_96">
+      <widget class="QPushButton" name="input49">
        <property name="text">
         <string>Вход 49</string>
        </property>
@@ -1236,7 +1236,7 @@
       </widget>
      </item>
      <item row="4" column="8">
-      <widget class="QPushButton" name="pushButton_122">
+      <widget class="QPushButton" name="input54">
        <property name="text">
         <string>Вход 54</string>
        </property>
@@ -1246,7 +1246,7 @@
       </widget>
      </item>
      <item row="4" column="12">
-      <widget class="QPushButton" name="pushButton_70">
+      <widget class="QPushButton" name="input58">
        <property name="text">
         <string>Вход 58</string>
        </property>
@@ -1256,7 +1256,7 @@
       </widget>
      </item>
      <item row="2" column="13">
-      <widget class="QPushButton" name="pushButton_73">
+      <widget class="QPushButton" name="input29">
        <property name="text">
         <string>Вход 29</string>
        </property>
@@ -1266,7 +1266,7 @@
       </widget>
      </item>
      <item row="3" column="9">
-      <widget class="QPushButton" name="pushButton_115">
+      <widget class="QPushButton" name="input40">
        <property name="text">
         <string>Вход 40</string>
        </property>
@@ -1286,7 +1286,7 @@
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QPushButton" name="pushButton_68">
+      <widget class="QPushButton" name="input31">
        <property name="text">
         <string>Вход 31</string>
        </property>
@@ -1296,7 +1296,7 @@
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="QPushButton" name="pushButton_187">
+      <widget class="QPushButton" name="input63">
        <property name="text">
         <string>Вход 63</string>
        </property>
@@ -1322,7 +1322,7 @@
       </widget>
      </item>
      <item row="2" column="5">
-      <widget class="QPushButton" name="pushButton_121">
+      <widget class="QPushButton" name="input21">
        <property name="text">
         <string>Вход 21</string>
        </property>
@@ -1332,7 +1332,7 @@
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QPushButton" name="pushButton_103">
+      <widget class="QPushButton" name="input61">
        <property name="text">
         <string>Вход 61</string>
        </property>
@@ -1342,7 +1342,7 @@
       </widget>
      </item>
      <item row="2" column="10">
-      <widget class="QPushButton" name="pushButton_76">
+      <widget class="QPushButton" name="input26">
        <property name="text">
         <string>Вход 26</string>
        </property>
@@ -1352,7 +1352,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QPushButton" name="pushButton_114">
+      <widget class="QPushButton" name="input48">
        <property name="text">
         <string>Вход 48</string>
        </property>
@@ -1362,7 +1362,7 @@
       </widget>
      </item>
      <item row="3" column="11">
-      <widget class="QPushButton" name="pushButton_124">
+      <widget class="QPushButton" name="input42">
        <property name="text">
         <string>Вход 42</string>
        </property>
@@ -1372,7 +1372,7 @@
       </widget>
      </item>
      <item row="4" column="9">
-      <widget class="QPushButton" name="pushButton_77">
+      <widget class="QPushButton" name="input55">
        <property name="text">
         <string>Вход 55</string>
        </property>
@@ -1382,7 +1382,7 @@
       </widget>
      </item>
      <item row="4" column="5">
-      <widget class="QPushButton" name="pushButton_75">
+      <widget class="QPushButton" name="input51">
        <property name="text">
         <string>Вход 51</string>
        </property>
@@ -1392,7 +1392,7 @@
       </widget>
      </item>
      <item row="7" column="7">
-      <widget class="QPushButton" name="pushButton_128">
+      <widget class="QPushButton" name="input98">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1408,7 +1408,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QPushButton" name="pushButton_67">
+      <widget class="QPushButton" name="input62">
        <property name="text">
         <string>Вход 62</string>
        </property>
@@ -1418,7 +1418,7 @@
       </widget>
      </item>
      <item row="5" column="3">
-      <widget class="QPushButton" name="pushButton_312">
+      <widget class="QPushButton" name="input64">
        <property name="text">
         <string>Вход 64</string>
        </property>
@@ -1428,7 +1428,7 @@
       </widget>
      </item>
      <item row="6" column="0">
-      <widget class="QPushButton" name="pushButton_131">
+      <widget class="QPushButton" name="input76">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1444,7 +1444,7 @@
       </widget>
      </item>
      <item row="7" column="0">
-      <widget class="QPushButton" name="pushButton_132">
+      <widget class="QPushButton" name="input91">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1460,7 +1460,7 @@
       </widget>
      </item>
      <item row="8" column="0">
-      <widget class="QPushButton" name="pushButton_133">
+      <widget class="QPushButton" name="input106">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1476,7 +1476,7 @@
       </widget>
      </item>
      <item row="9" column="0">
-      <widget class="QPushButton" name="pushButton_134">
+      <widget class="QPushButton" name="input121">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1492,7 +1492,7 @@
       </widget>
      </item>
      <item row="5" column="4">
-      <widget class="QPushButton" name="pushButton_135">
+      <widget class="QPushButton" name="input65">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1508,7 +1508,7 @@
       </widget>
      </item>
      <item row="5" column="5">
-      <widget class="QPushButton" name="pushButton_136">
+      <widget class="QPushButton" name="input66">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1524,7 +1524,7 @@
       </widget>
      </item>
      <item row="5" column="6">
-      <widget class="QPushButton" name="pushButton_137">
+      <widget class="QPushButton" name="input67">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1540,7 +1540,7 @@
       </widget>
      </item>
      <item row="5" column="7">
-      <widget class="QPushButton" name="pushButton_138">
+      <widget class="QPushButton" name="input68">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1556,7 +1556,7 @@
       </widget>
      </item>
      <item row="5" column="8">
-      <widget class="QPushButton" name="pushButton_139">
+      <widget class="QPushButton" name="input69">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1572,7 +1572,7 @@
       </widget>
      </item>
      <item row="5" column="9">
-      <widget class="QPushButton" name="pushButton_140">
+      <widget class="QPushButton" name="input70">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1588,7 +1588,7 @@
       </widget>
      </item>
      <item row="5" column="10">
-      <widget class="QPushButton" name="pushButton_141">
+      <widget class="QPushButton" name="input71">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1604,7 +1604,7 @@
       </widget>
      </item>
      <item row="5" column="11">
-      <widget class="QPushButton" name="pushButton_142">
+      <widget class="QPushButton" name="input72">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1620,7 +1620,7 @@
       </widget>
      </item>
      <item row="5" column="12">
-      <widget class="QPushButton" name="pushButton_143">
+      <widget class="QPushButton" name="input73">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1636,7 +1636,7 @@
       </widget>
      </item>
      <item row="5" column="13">
-      <widget class="QPushButton" name="pushButton_144">
+      <widget class="QPushButton" name="input74">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1652,7 +1652,7 @@
       </widget>
      </item>
      <item row="5" column="14">
-      <widget class="QPushButton" name="pushButton_145">
+      <widget class="QPushButton" name="input75">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1668,7 +1668,7 @@
       </widget>
      </item>
      <item row="6" column="2">
-      <widget class="QPushButton" name="pushButton_146">
+      <widget class="QPushButton" name="input78">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1684,7 +1684,7 @@
       </widget>
      </item>
      <item row="6" column="3">
-      <widget class="QPushButton" name="pushButton_147">
+      <widget class="QPushButton" name="input79">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1700,7 +1700,7 @@
       </widget>
      </item>
      <item row="6" column="4">
-      <widget class="QPushButton" name="pushButton_148">
+      <widget class="QPushButton" name="input80">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1716,7 +1716,7 @@
       </widget>
      </item>
      <item row="6" column="5">
-      <widget class="QPushButton" name="pushButton_149">
+      <widget class="QPushButton" name="input81">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1732,7 +1732,7 @@
       </widget>
      </item>
      <item row="6" column="6">
-      <widget class="QPushButton" name="pushButton_150">
+      <widget class="QPushButton" name="input82">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1748,7 +1748,7 @@
       </widget>
      </item>
      <item row="6" column="7">
-      <widget class="QPushButton" name="pushButton_151">
+      <widget class="QPushButton" name="input83">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1764,7 +1764,7 @@
       </widget>
      </item>
      <item row="6" column="8">
-      <widget class="QPushButton" name="pushButton_152">
+      <widget class="QPushButton" name="input84">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1780,7 +1780,7 @@
       </widget>
      </item>
      <item row="6" column="9">
-      <widget class="QPushButton" name="pushButton_153">
+      <widget class="QPushButton" name="input85">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1796,7 +1796,7 @@
       </widget>
      </item>
      <item row="6" column="10">
-      <widget class="QPushButton" name="pushButton_154">
+      <widget class="QPushButton" name="input86">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1812,7 +1812,7 @@
       </widget>
      </item>
      <item row="6" column="11">
-      <widget class="QPushButton" name="pushButton_155">
+      <widget class="QPushButton" name="input87">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1828,7 +1828,7 @@
       </widget>
      </item>
      <item row="6" column="12">
-      <widget class="QPushButton" name="pushButton_156">
+      <widget class="QPushButton" name="input88">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1844,7 +1844,7 @@
       </widget>
      </item>
      <item row="6" column="13">
-      <widget class="QPushButton" name="pushButton_157">
+      <widget class="QPushButton" name="input89">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1860,7 +1860,7 @@
       </widget>
      </item>
      <item row="6" column="14">
-      <widget class="QPushButton" name="pushButton_158">
+      <widget class="QPushButton" name="input90">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1876,7 +1876,7 @@
       </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QPushButton" name="pushButton_159">
+      <widget class="QPushButton" name="input92">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1892,7 +1892,7 @@
       </widget>
      </item>
      <item row="7" column="2">
-      <widget class="QPushButton" name="pushButton_160">
+      <widget class="QPushButton" name="input93">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1908,7 +1908,7 @@
       </widget>
      </item>
      <item row="7" column="3">
-      <widget class="QPushButton" name="pushButton_161">
+      <widget class="QPushButton" name="input94">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1924,7 +1924,7 @@
       </widget>
      </item>
      <item row="7" column="4">
-      <widget class="QPushButton" name="pushButton_162">
+      <widget class="QPushButton" name="input95">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1940,7 +1940,7 @@
       </widget>
      </item>
      <item row="7" column="5">
-      <widget class="QPushButton" name="pushButton_163">
+      <widget class="QPushButton" name="input96">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1956,7 +1956,7 @@
       </widget>
      </item>
      <item row="7" column="6">
-      <widget class="QPushButton" name="pushButton_164">
+      <widget class="QPushButton" name="input97">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1972,7 +1972,7 @@
       </widget>
      </item>
      <item row="7" column="8">
-      <widget class="QPushButton" name="pushButton_165">
+      <widget class="QPushButton" name="input99">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -1988,7 +1988,7 @@
       </widget>
      </item>
      <item row="7" column="9">
-      <widget class="QPushButton" name="pushButton_166">
+      <widget class="QPushButton" name="input100">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2004,7 +2004,7 @@
       </widget>
      </item>
      <item row="7" column="10">
-      <widget class="QPushButton" name="pushButton_274">
+      <widget class="QPushButton" name="input101">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2020,7 +2020,7 @@
       </widget>
      </item>
      <item row="7" column="11">
-      <widget class="QPushButton" name="pushButton_275">
+      <widget class="QPushButton" name="input102">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2036,7 +2036,7 @@
       </widget>
      </item>
      <item row="7" column="12">
-      <widget class="QPushButton" name="pushButton_276">
+      <widget class="QPushButton" name="input103">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2052,7 +2052,7 @@
       </widget>
      </item>
      <item row="7" column="13">
-      <widget class="QPushButton" name="pushButton_277">
+      <widget class="QPushButton" name="input104">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2068,7 +2068,7 @@
       </widget>
      </item>
      <item row="7" column="14">
-      <widget class="QPushButton" name="pushButton_278">
+      <widget class="QPushButton" name="input105">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2084,7 +2084,7 @@
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QPushButton" name="pushButton_279">
+      <widget class="QPushButton" name="input107">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2100,7 +2100,7 @@
       </widget>
      </item>
      <item row="8" column="2">
-      <widget class="QPushButton" name="pushButton_280">
+      <widget class="QPushButton" name="input108">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2116,7 +2116,7 @@
       </widget>
      </item>
      <item row="8" column="3">
-      <widget class="QPushButton" name="pushButton_281">
+      <widget class="QPushButton" name="input109">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2132,7 +2132,7 @@
       </widget>
      </item>
      <item row="8" column="4">
-      <widget class="QPushButton" name="pushButton_282">
+      <widget class="QPushButton" name="input110">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2148,7 +2148,7 @@
       </widget>
      </item>
      <item row="8" column="5">
-      <widget class="QPushButton" name="pushButton_283">
+      <widget class="QPushButton" name="input111">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2164,7 +2164,7 @@
       </widget>
      </item>
      <item row="8" column="7">
-      <widget class="QPushButton" name="pushButton_284">
+      <widget class="QPushButton" name="input113">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2180,7 +2180,7 @@
       </widget>
      </item>
      <item row="8" column="8">
-      <widget class="QPushButton" name="pushButton_285">
+      <widget class="QPushButton" name="input114">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2196,7 +2196,7 @@
       </widget>
      </item>
      <item row="8" column="10">
-      <widget class="QPushButton" name="pushButton_286">
+      <widget class="QPushButton" name="input116">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2212,7 +2212,7 @@
       </widget>
      </item>
      <item row="8" column="11">
-      <widget class="QPushButton" name="pushButton_287">
+      <widget class="QPushButton" name="input117">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2228,7 +2228,7 @@
       </widget>
      </item>
      <item row="8" column="12">
-      <widget class="QPushButton" name="pushButton_288">
+      <widget class="QPushButton" name="input118">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2244,7 +2244,7 @@
       </widget>
      </item>
      <item row="8" column="13">
-      <widget class="QPushButton" name="pushButton_289">
+      <widget class="QPushButton" name="input119">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2260,7 +2260,7 @@
       </widget>
      </item>
      <item row="8" column="14">
-      <widget class="QPushButton" name="pushButton_290">
+      <widget class="QPushButton" name="input120">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2276,7 +2276,7 @@
       </widget>
      </item>
      <item row="9" column="1">
-      <widget class="QPushButton" name="pushButton_291">
+      <widget class="QPushButton" name="input122">
        <property name="enabled">
         <bool>true</bool>
        </property>

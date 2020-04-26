@@ -1,4 +1,4 @@
-#ifndef PVKPWINDOW_H
+﻿#ifndef PVKPWINDOW_H
 #define PVKPWINDOW_H
 
 #include <QMainWindow>
@@ -27,6 +27,9 @@ private:
     void fictitiousInputColor();
     void showInputsValue();
     void setInputColor(const unsigned &input, QPushButton *input_button);
+
+    void showOutputValue();
+    void setOutputColor(const unsigned &output, QPushButton *output_button);
 
     Ui::PVKPWindow *ui;
     QThread *thread;

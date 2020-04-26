@@ -3,6 +3,7 @@
 informationMessages::informationMessages()
 {
     inputs = io.initInputs();
+    outputs = io.initOutputs();
 }
 
 _is1 informationMessages::createIS1()
@@ -768,6 +769,11 @@ void informationMessages::printOutputState(const unsigned &output)
         printf("  output \t%02x %s\n", output, "no data");
         break;
     }
+}
+
+_outputs &informationMessages::getOutputs()
+{
+    return outputs;
 }
 
 _inputs &informationMessages::getInputs()

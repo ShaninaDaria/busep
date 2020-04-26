@@ -336,6 +336,89 @@ void InputsOutputs::setInputs(const _inputs &value)
     inputs = value;
 }
 
+_outputs InputsOutputs::initOutputs()
+{
+    outputs.setOutput1(output_state::no_output_state);
+    outputs.setOutput2(output_state::no_output_state);
+    outputs.setOutput3(output_state::no_output_state);
+    outputs.setOutput4(output_state::no_output_state);
+
+    outputs.setOutput5(output_state::no_output_state);
+    outputs.setOutput6(output_state::no_output_state);
+    outputs.setOutput7(output_state::no_output_state);
+    outputs.setOutput8(output_state::no_output_state);
+
+    outputs.setOutput9(output_state::no_output_state);
+    outputs.setOutput10(output_state::no_output_state);
+    outputs.setOutput11(output_state::no_output_state);
+    outputs.setOutput12(output_state::no_output_state);
+
+    outputs.setOutput13(output_state::no_output_state);
+    outputs.setOutput14(output_state::no_output_state);
+    outputs.setOutput15(output_state::no_output_state);
+    outputs.setOutput16(output_state::no_output_state);
+
+    outputs.setOutput17(output_state::no_output_state);
+    outputs.setOutput18(output_state::no_output_state);
+    outputs.setOutput19(output_state::no_output_state);
+    outputs.setOutput20(output_state::no_output_state);
+
+    outputs.setOutput21(output_state::no_output_state);
+    outputs.setOutput22(output_state::no_output_state);
+    outputs.setOutput23(output_state::no_output_state);
+    outputs.setOutput24(output_state::no_output_state);
+
+    outputs.setOutput25(output_state::no_output_state);
+    outputs.setOutput26(output_state::no_output_state);
+    outputs.setOutput27(output_state::no_output_state);
+    outputs.setOutput28(output_state::no_output_state);
+
+    outputs.setOutput29(output_state::no_output_state);
+    outputs.setOutput30(output_state::no_output_state);
+    outputs.setOutput31(output_state::no_output_state);
+    outputs.setOutput32(output_state::no_output_state);
+
+    outputs.setOutput33(output_state::no_output_state);
+    outputs.setOutput34(output_state::no_output_state);
+    outputs.setOutput35(output_state::no_output_state);
+    outputs.setOutput36(output_state::no_output_state);
+
+    outputs.setOutput37(output_state::no_output_state);
+    outputs.setOutput38(output_state::no_output_state);
+    outputs.setOutput39(output_state::no_output_state);
+    outputs.setOutput40(output_state::no_output_state);
+
+    outputs.setOutput41(output_state::no_output_state);
+    outputs.setOutput42(output_state::no_output_state);
+    outputs.setOutput43(output_state::no_output_state);
+    outputs.setOutput44(output_state::no_output_state);
+
+    outputs.setOutput45(output_state::no_output_state);
+    outputs.setOutput46(output_state::no_output_state);
+    outputs.setOutput47(output_state::no_output_state);
+    outputs.setOutput48(output_state::no_output_state);
+
+    outputs.setOutput49(output_state::no_output_state);
+    outputs.setOutput50(output_state::no_output_state);
+    outputs.setOutput51(output_state::no_output_state);
+    outputs.setOutput52(output_state::no_output_state);
+
+    outputs.setOutput53(output_state::no_output_state);
+    outputs.setOutput54(output_state::no_output_state);
+    outputs.setOutput55(output_state::no_output_state);
+    outputs.setOutput56(output_state::no_output_state);
+
+    outputs.setOutput57(output_state::no_output_state);
+    outputs.setOutput58(output_state::no_output_state);
+    outputs.setOutput59(output_state::no_output_state);
+    outputs.setOutput60(output_state::no_output_state);
+
+    outputs.setOutput61(output_state::no_output_state);
+    outputs.setOutput62(output_state::no_output_state);
+
+    return outputs;
+}
+
 _outputs InputsOutputs::getOutputs() const
 {
     return outputs;

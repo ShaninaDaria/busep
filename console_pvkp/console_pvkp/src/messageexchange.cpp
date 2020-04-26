@@ -21,6 +21,11 @@ _inputs &messageExchange::getInputsValue()
     return IM->getInputs();
 }
 
+_outputs &messageExchange::getOutputsValue()
+{
+    return IM->getOutputs();
+}
+
 messageExchange::messageExchange(QObject *parent) : QObject(parent)
 {
     IM = new informationMessages();
