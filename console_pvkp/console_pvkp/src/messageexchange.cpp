@@ -38,13 +38,14 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
 
 messageExchange::~messageExchange()
 {
+    dataTransnmit->endTransmitClient();
     delete dataTransnmit;
     delete IM;
 }
 
 void messageExchange::initTransmit()
 {
-    dataTransnmit->createServer();
+    dataTransnmit->createClient();
 }
 
 
@@ -63,8 +64,8 @@ void messageExchange::createIS2()
 
 void messageExchange::startExchange()
 {
-    while (1)
-    {
+//    while (1)
+//    {
         int bytes_send(-1), bytes_rcv(-1);
 
         bytes_send = sendIS1(&IS1);
@@ -76,23 +77,23 @@ void messageExchange::startExchange()
             } while (bytes_rcv > 0);
         }
 
-//        bytes_rcv = -1;
-//        bytes_send = sendIS2(&IS2);
-//        if (bytes_send > 0)
-//        {
-//            do
-//            {
-//                bytes_rcv = receiveIS4();
-//            } while (bytes_rcv > 0);
-//        }
-    }
+        bytes_rcv = -1;
+        bytes_send = sendIS2(&IS2);
+        if (bytes_send > 0)
+        {
+            do
+            {
+                bytes_rcv = receiveIS4();
+            } while (bytes_rcv > 0);
+        }
+//    }
 
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
 {
 //    int bytes_send = dataTransnmit->send(IS1, sizeof(_is1));
-    int bytes_send = dataTransnmit->srvSend(IS1, sizeof(_is1));
+    int bytes_send = dataTransnmit->clntSend(IS1, sizeof(_is1));
 
     if (bytes_send > 0)
     {
@@ -112,9 +113,9 @@ int messageExchange::receiveIS3()
     _is3 rcv_IS3;
     bzero(&rcv_IS3, sizeof (_is3));
 //    int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
-    int bytes_rcv = dataTransnmit->srvReceive(&rcv_IS3, sizeof (_rcv_data));
+//    int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS3, sizeof (_rcv_data));
+    int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS3, sizeof (_is3));
     std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
-
     if (bytes_rcv > 0)
     {
         static int bytes(0);
@@ -210,7 +211,8 @@ int messageExchange::sendIS2(_is2 *IS2)
 {
     std::cout << __FUNCTION__ << std::endl;
 
-    int bytes_send = dataTransnmit->send(IS2, sizeof(_is2));
+//    int bytes_send = dataTransnmit->send(IS2, sizeof(_is2));
+    int bytes_send = dataTransnmit->clntSend(IS2, sizeof(_is2));
 
     if (bytes_send > 0)
     {
@@ -230,7 +232,8 @@ int messageExchange::receiveIS4()
 
     _is4 rcv_IS4;
     bzero(&rcv_IS4, sizeof (_is4));
-    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
+//    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
+    int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS4, sizeof (_is4));
     std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
 
     static int bytes(0);

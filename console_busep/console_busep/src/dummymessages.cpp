@@ -4,7 +4,7 @@ dummyMessages::dummyMessages()
 {
     IM = new informationMessages();
     dataTransnmit = new DataTransmit();
-    dataTransnmit->createClient();
+    dataTransnmit->createServer();
 
     createIS3();
     createIS4();
@@ -12,6 +12,7 @@ dummyMessages::dummyMessages()
 
 dummyMessages::~dummyMessages()
 {
+    dataTransnmit->endTransmitServer();
     delete  IM;
 }
 
@@ -95,7 +96,7 @@ void dummyMessages::sendIS3(_is3 *IS3)
     std::cout << __FUNCTION__ << std::endl;
 
 //    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
-    int bytes = dataTransnmit->clntSend(IS3, sizeof(_is3));
+    int bytes = dataTransnmit->srvSend(IS3, sizeof(_is3));
 
     std::cout << "send " << bytes << " bytes; " << std::endl;
 }
@@ -131,7 +132,8 @@ void dummyMessages::sendIS4(_is4 *IS4)
 {
     std::cout << __FUNCTION__ << std::endl;
 
-    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
+//    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
+    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
 
     std::cout << "send " << bytes << " bytes; " << std::endl;
 }
@@ -154,7 +156,7 @@ header_and_managed dummyMessages::receiveSmth()
     header_and_managed code(empty);
 
 //    int bytes = dataTransnmit->receive(&data, sizeof (_data));
-    int bytes = dataTransnmit->clntReceive(&data, sizeof (_data));
+    int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
     std::cout << "receive " << bytes << " bytes; " << std::endl;
 
     if (bytes > 0)

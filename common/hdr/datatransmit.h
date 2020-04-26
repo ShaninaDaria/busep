@@ -30,7 +30,8 @@ public:
     int clntReceive(void *buf, size_t size);
     int clntSend(const void *buf, size_t size);
 
-    void endTransmit();
+    void endTransmitServer();
+    void endTransmitClient();
 
 private:
 //    rs485 *_rs485;
