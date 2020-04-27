@@ -11,9 +11,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
     green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
     gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
-//    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
-//    fictitiousOutputColor();
-//    fictitiousInputColor();
+    //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
 
     me = new messageExchange();
 
@@ -21,23 +19,26 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
     timer->start(1000);
 
-//    thread = new QThread(this);
+    connect(ui->allOutputsOff, SIGNAL(pressed()), this, SLOT(slotAllOutputsOff()));
+    connect(ui->allOutputsOn, SIGNAL(pressed()), this, SLOT(slotAllOutputsOn()));
+
+    //    thread = new QThread(this);
     /// TODO - в отдельный поток?
-//    me->moveToThread(thread);
+    //    me->moveToThread(thread);
     me->initTransmit();
 
-//    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    //    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
-//    thread->start();
-//    me->startExchange();
+    //    thread->start();
+    //    me->startExchange();
 
-//    showInputsValue();
+    //    showInputsValue();
 }
 
 PVKPWindow::~PVKPWindow()
 {
     delete me;
-//    delete thread;
+    //    delete thread;
     delete ui;
 }
 
@@ -49,208 +50,256 @@ void PVKPWindow::slotByTimer()
     showOutputValue();
 }
 
-void PVKPWindow::fictitiousOutputColor()
+void PVKPWindow::slotAllOutputsOff()
 {
-    ui->output1->setPalette(yellow_palette);
-    ui->output2->setPalette(yellow_palette);
-    ui->output3->setPalette(yellow_palette);
-    ui->output4->setPalette(yellow_palette);
-    ui->output5->setPalette(yellow_palette);
-    ui->output6->setPalette(yellow_palette);
-    ui->output7->setPalette(yellow_palette);
-    ui->output8->setPalette(yellow_palette);
-    ui->output9->setPalette(yellow_palette);
-    ui->output10->setPalette(yellow_palette);
-    ui->output11->setPalette(yellow_palette);
-    ui->output12->setPalette(yellow_palette);
-    ui->output13->setPalette(yellow_palette);
-    ui->output14->setPalette(yellow_palette);
-    ui->output15->setPalette(yellow_palette);
-    ui->output16->setPalette(yellow_palette);
-    ui->output17->setPalette(yellow_palette);
-    ui->output18->setPalette(yellow_palette);
-    ui->output19->setPalette(yellow_palette);
-    ui->output20->setPalette(yellow_palette);
-    ui->output21->setPalette(yellow_palette);
-    ui->output22->setPalette(yellow_palette);
-    ui->output23->setPalette(yellow_palette);
-    ui->output24->setPalette(yellow_palette);
-    ui->output25->setPalette(yellow_palette);
-    ui->output26->setPalette(yellow_palette);
-    ui->output27->setPalette(yellow_palette);
-    ui->output28->setPalette(yellow_palette);
-    ui->output29->setPalette(yellow_palette);
-    ui->output30->setPalette(yellow_palette);
-    ui->output31->setPalette(yellow_palette);
-    ui->output32->setPalette(yellow_palette);
-    ui->output33->setPalette(yellow_palette);
-    ui->output34->setPalette(yellow_palette);
-    ui->output35->setPalette(yellow_palette);
-    ui->output36->setPalette(yellow_palette);
-    ui->output37->setPalette(yellow_palette);
-    ui->output38->setPalette(yellow_palette);
-    ui->output39->setPalette(yellow_palette);
-    ui->output40->setPalette(yellow_palette);
-    ui->output41->setPalette(yellow_palette);
-    ui->output42->setPalette(yellow_palette);
-    ui->output43->setPalette(yellow_palette);
-    ui->output44->setPalette(yellow_palette);
-    ui->output45->setPalette(yellow_palette);
-    ui->output46->setPalette(yellow_palette);
-    ui->output47->setPalette(yellow_palette);
-    ui->output48->setPalette(yellow_palette);
-    ui->output49->setPalette(yellow_palette);
-    ui->output50->setPalette(yellow_palette);
-    ui->output51->setPalette(yellow_palette);
-    ui->output52->setPalette(yellow_palette);
-    ui->output53->setPalette(yellow_palette);
-    ui->output54->setPalette(yellow_palette);
-    ui->output55->setPalette(yellow_palette);
-    ui->output56->setPalette(yellow_palette);
-    ui->output57->setPalette(yellow_palette);
-    ui->output58->setPalette(yellow_palette);
-    ui->output59->setPalette(yellow_palette);
-    ui->output60->setPalette(yellow_palette);
-    ui->output61->setPalette(yellow_palette);
-    ui->output62->setPalette(yellow_palette);
+    qDebug() << __FUNCTION__;
+    me->createIS2(all_outputs, cntrl_off);
+    ui->output1->setChecked(true);
+    ui->output2->setChecked(true);
+    ui->output3->setChecked(true);
+    ui->output4->setChecked(true);
+    ui->output5->setChecked(true);
+    ui->output6->setChecked(true);
+    ui->output7->setChecked(true);
+    ui->output8->setChecked(true);
+    ui->output9->setChecked(true);
+    ui->output10->setChecked(true);
+    ui->output11->setChecked(true);
+    ui->output12->setChecked(true);
+    ui->output13->setChecked(true);
+    ui->output14->setChecked(true);
+    ui->output15->setChecked(true);
+    ui->output16->setChecked(true);
+    ui->output17->setChecked(true);
+    ui->output18->setChecked(true);
+    ui->output19->setChecked(true);
+    ui->output20->setChecked(true);
+    ui->output21->setChecked(true);
+    ui->output22->setChecked(true);
+    ui->output23->setChecked(true);
+    ui->output24->setChecked(true);
+    ui->output25->setChecked(true);
+    ui->output26->setChecked(true);
+    ui->output27->setChecked(true);
+    ui->output28->setChecked(true);
+    ui->output29->setChecked(true);
+    ui->output30->setChecked(true);
+    ui->output31->setChecked(true);
+    ui->output32->setChecked(true);
+    ui->output33->setChecked(true);
+    ui->output34->setChecked(true);
+    ui->output35->setChecked(true);
+    ui->output36->setChecked(true);
+    ui->output37->setChecked(true);
+    ui->output38->setChecked(true);
+    ui->output39->setChecked(true);
+    ui->output40->setChecked(true);
+    ui->output41->setChecked(true);
+    ui->output42->setChecked(true);
+    ui->output43->setChecked(true);
+    ui->output44->setChecked(true);
+    ui->output45->setChecked(true);
+    ui->output46->setChecked(true);
+    ui->output47->setChecked(true);
+    ui->output48->setChecked(true);
+    ui->output49->setChecked(true);
+    ui->output50->setChecked(true);
+    ui->output51->setChecked(true);
+    ui->output52->setChecked(true);
+    ui->output53->setChecked(true);
+    ui->output54->setChecked(true);
+    ui->output55->setChecked(true);
+    ui->output56->setChecked(true);
+    ui->output57->setChecked(true);
+    ui->output58->setChecked(true);
+    ui->output59->setChecked(true);
+    ui->output60->setChecked(true);
+    ui->output61->setChecked(true);
+    ui->output62->setChecked(true);
 }
 
-void PVKPWindow::fictitiousInputColor()
+void PVKPWindow::slotAllOutputsOn()
 {
-    ui->input1 ->setPalette(gray_palette);
-    ui->input2 ->setPalette(gray_palette);
-    ui->input3 ->setPalette(gray_palette);
-    ui->input4 ->setPalette(gray_palette);
-    ui->input5 ->setPalette(gray_palette);
-    ui->input6 ->setPalette(gray_palette);
-    ui->input7 ->setPalette(gray_palette);
-    ui->input8 ->setPalette(gray_palette);
-    ui->input9 ->setPalette(gray_palette);
-    ui->input10->setPalette(gray_palette);
-    ui->input11->setPalette(gray_palette);
-    ui->input12->setPalette(gray_palette);
-    ui->input13->setPalette(gray_palette);
-    ui->input14->setPalette(gray_palette);
-    ui->input15->setPalette(gray_palette);
+    qDebug() << __FUNCTION__;
+    me->createIS2(all_outputs, cntrl_on);
+    ui->output1->setChecked(false);
+    ui->output2->setChecked(false);
+    ui->output3->setChecked(false);
+    ui->output4->setChecked(false);
+    ui->output5->setChecked(false);
+    ui->output6->setChecked(false);
+    ui->output7->setChecked(false);
+    ui->output8->setChecked(false);
+    ui->output9->setChecked(false);
+    ui->output10->setChecked(false);
+    ui->output11->setChecked(false);
+    ui->output12->setChecked(false);
+    ui->output13->setChecked(false);
+    ui->output14->setChecked(false);
+    ui->output15->setChecked(false);
+    ui->output16->setChecked(false);
+    ui->output17->setChecked(false);
+    ui->output18->setChecked(false);
+    ui->output19->setChecked(false);
+    ui->output20->setChecked(false);
+    ui->output21->setChecked(false);
+    ui->output22->setChecked(false);
+    ui->output23->setChecked(false);
+    ui->output24->setChecked(false);
+    ui->output25->setChecked(false);
+    ui->output26->setChecked(false);
+    ui->output27->setChecked(false);
+    ui->output28->setChecked(false);
+    ui->output29->setChecked(false);
+    ui->output30->setChecked(false);
+    ui->output31->setChecked(false);
+    ui->output32->setChecked(false);
+    ui->output33->setChecked(false);
+    ui->output34->setChecked(false);
+    ui->output35->setChecked(false);
+    ui->output36->setChecked(false);
+    ui->output37->setChecked(false);
+    ui->output38->setChecked(false);
+    ui->output39->setChecked(false);
+    ui->output40->setChecked(false);
+    ui->output41->setChecked(false);
+    ui->output42->setChecked(false);
+    ui->output43->setChecked(false);
+    ui->output44->setChecked(false);
+    ui->output45->setChecked(false);
+    ui->output46->setChecked(false);
+    ui->output47->setChecked(false);
+    ui->output48->setChecked(false);
+    ui->output49->setChecked(false);
+    ui->output50->setChecked(false);
+    ui->output51->setChecked(false);
+    ui->output52->setChecked(false);
+    ui->output53->setChecked(false);
+    ui->output54->setChecked(false);
+    ui->output55->setChecked(false);
+    ui->output56->setChecked(false);
+    ui->output57->setChecked(false);
+    ui->output58->setChecked(false);
+    ui->output59->setChecked(false);
+    ui->output60->setChecked(false);
+    ui->output61->setChecked(false);
+    ui->output62->setChecked(false);
+}
 
+void PVKPWindow::slotOutput1off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x01, cntrl_on);
+    ui->output1->setChecked(true);
+}
 
+void PVKPWindow::slotOutput2off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x02, cntrl_on);
+    ui->output2->setChecked(true);
+}
 
-//    ui->pushButton_63->setPalette(green_palette);
-//    ui->pushButton_63 ->setPalette(green_palette);
-//    ui->pushButton_64 ->setPalette(green_palette);
-//    ui->pushButton_65 ->setPalette(green_palette);
-//    ui->pushButton_66 ->setPalette(green_palette);
-//    ui->pushButton_67 ->setPalette(green_palette);
-//    ui->pushButton_68 ->setPalette(green_palette);
-//    ui->pushButton_69 ->setPalette(green_palette);
-//    ui->pushButton_70 ->setPalette(red_palette);
-//    ui->pushButton_72 ->setPalette(green_palette);
-//    ui->pushButton_73 ->setPalette(green_palette);
-//    ui->pushButton_75 ->setPalette(green_palette);
-//    ui->pushButton_76 ->setPalette(green_palette);
-//    ui->pushButton_77 ->setPalette(green_palette);
-//    ui->pushButton_78 ->setPalette(green_palette);
-//    ui->pushButton_79 ->setPalette(green_palette);
-//    ui->pushButton_82 ->setPalette(green_palette);
-//    ui->pushButton_84 ->setPalette(red_palette);
-//    ui->pushButton_85 ->setPalette(green_palette);
-//    ui->pushButton_86 ->setPalette(green_palette);
-//    ui->pushButton_87 ->setPalette(green_palette);
-//    ui->pushButton_88 ->setPalette(green_palette);
-//    ui->pushButton_91 ->setPalette(green_palette);
-//    ui->pushButton_93 ->setPalette(green_palette);
-//    ui->pushButton_94 ->setPalette(green_palette);
-//    ui->pushButton_95 ->setPalette(green_palette);
-//    ui->pushButton_96 ->setPalette(red_palette);
-//    ui->pushButton_98 ->setPalette(green_palette);
-//    ui->pushButton_99 ->setPalette(green_palette);
-//    ui->pushButton_100->setPalette(green_palette);
-//    ui->pushButton_103->setPalette(green_palette);
-//    ui->pushButton_104->setPalette(green_palette);
-//    ui->pushButton_105->setPalette(green_palette);
-//    ui->pushButton_106->setPalette(green_palette);
-//    ui->pushButton_107->setPalette(green_palette);
-//    ui->pushButton_108->setPalette(green_palette);
-//    ui->pushButton_109->setPalette(green_palette);
-//    ui->pushButton_110->setPalette(green_palette);
-//    ui->pushButton_113->setPalette(green_palette);
-//    ui->pushButton_114->setPalette(red_palette);
-//    ui->pushButton_115->setPalette(green_palette);
-//    ui->pushButton_116->setPalette(green_palette);
-//    ui->pushButton_117->setPalette(green_palette);
-//    ui->pushButton_118->setPalette(green_palette);
-//    ui->pushButton_119->setPalette(green_palette);
-//    ui->pushButton_121->setPalette(green_palette);
-//    ui->pushButton_122->setPalette(green_palette);
-//    ui->pushButton_124->setPalette(green_palette);
-//    ui->pushButton_125->setPalette(green_palette);
-//    ui->pushButton_126->setPalette(green_palette);
-//    ui->pushButton_127->setPalette(green_palette);
-//    ui->pushButton_128->setPalette(green_palette);
-//    ui->pushButton_129->setPalette(red_palette);
-//    ui->pushButton_130->setPalette(green_palette);
-//    ui->pushButton_131->setPalette(green_palette);
-//    ui->pushButton_132->setPalette(green_palette);
-//    ui->pushButton_133->setPalette(green_palette);
-//    ui->pushButton_134->setPalette(green_palette);
-//    ui->pushButton_135->setPalette(green_palette);
-//    ui->pushButton_136->setPalette(green_palette);
-//    ui->pushButton_137->setPalette(green_palette);
-//    ui->pushButton_138->setPalette(green_palette);
-//    ui->pushButton_139->setPalette(green_palette);
-//    ui->pushButton_140->setPalette(red_palette);
-//    ui->pushButton_141->setPalette(green_palette);
-//    ui->pushButton_142->setPalette(green_palette);
-//    ui->pushButton_143->setPalette(red_palette);
-//    ui->pushButton_144->setPalette(green_palette);
-//    ui->pushButton_145->setPalette(green_palette);
-//    ui->pushButton_146->setPalette(green_palette);
-//    ui->pushButton_147->setPalette(green_palette);
-//    ui->pushButton_148->setPalette(green_palette);
-//    ui->pushButton_149->setPalette(green_palette);
-//    ui->pushButton_150->setPalette(green_palette);
-//    ui->pushButton_151->setPalette(green_palette);
-//    ui->pushButton_152->setPalette(green_palette);
-//    ui->pushButton_153->setPalette(green_palette);
-//    ui->pushButton_154->setPalette(green_palette);
-//    ui->pushButton_155->setPalette(red_palette);
-//    ui->pushButton_156->setPalette(green_palette);
-//    ui->pushButton_157->setPalette(green_palette);
-//    ui->pushButton_158->setPalette(green_palette);
-//    ui->pushButton_159->setPalette(green_palette);
-//    ui->pushButton_160->setPalette(green_palette);
-//    ui->pushButton_161->setPalette(red_palette);
-//    ui->pushButton_162->setPalette(green_palette);
-//    ui->pushButton_163->setPalette(green_palette);
-//    ui->pushButton_164->setPalette(green_palette);
-//    ui->pushButton_165->setPalette(green_palette);
-//    ui->pushButton_166->setPalette(green_palette);
-//    ui->pushButton_187->setPalette(green_palette);
-//    ui->pushButton_274->setPalette(green_palette);
-//    ui->pushButton_275->setPalette(green_palette);
-//    ui->pushButton_276->setPalette(green_palette);
-//    ui->pushButton_277->setPalette(green_palette);
-//    ui->pushButton_278->setPalette(green_palette);
-//    ui->pushButton_279->setPalette(green_palette);
-//    ui->pushButton_280->setPalette(red_palette);
-//    ui->pushButton_281->setPalette(green_palette);
-//    ui->pushButton_282->setPalette(green_palette);
-//    ui->pushButton_283->setPalette(green_palette);
-//    ui->pushButton_284->setPalette(green_palette);
-//    ui->pushButton_285->setPalette(green_palette);
-//    ui->pushButton_286->setPalette(green_palette);
-//    ui->pushButton_287->setPalette(green_palette);
-//    ui->pushButton_288->setPalette(green_palette);
-//    ui->pushButton_289->setPalette(green_palette);
-//    ui->pushButton_290->setPalette(red_palette);
-//    ui->pushButton_291->setPalette(green_palette);
-//    ui->pushButton_312->setPalette(green_palette);
-    //    ui->pushButton_312->setPalette(green_palette);
+void PVKPWindow::slotOutput3off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x03, cntrl_on);
+    ui->output3->setChecked(true);
+}
+
+void PVKPWindow::slotOutput4off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x04, cntrl_on);
+    ui->output4->setChecked(true);
+}
+
+void PVKPWindow::slotOutput5off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x05, cntrl_on);
+    ui->output5->setChecked(true);
+}
+
+void PVKPWindow::slotOutput6off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x06, cntrl_on);
+    ui->output6->setChecked(true);
+}
+
+void PVKPWindow::slotOutput7off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x07, cntrl_on);
+    ui->output7->setChecked(true);
+}
+
+void PVKPWindow::slotOutput8off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x08, cntrl_on);
+    ui->output8->setChecked(true);
+}
+
+void PVKPWindow::slotOutput9off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x09, cntrl_on);
+    ui->output9->setChecked(true);
+}
+
+void PVKPWindow::slotOutput10off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x0a, cntrl_on);
+    ui->output10->setChecked(true);
+}
+
+void PVKPWindow::slotOutput11off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x0b, cntrl_on);
+    ui->output11->setChecked(true);
+}
+
+void PVKPWindow::slotOutput12off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x0c, cntrl_on);
+    ui->output12->setChecked(true);
+}
+
+void PVKPWindow::slotOutput13off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x0d, cntrl_on);
+    ui->output13->setChecked(true);
+}
+
+void PVKPWindow::slotOutput14off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x0e, cntrl_on);
+    ui->output14->setChecked(true);
+}
+
+void PVKPWindow::slotOutput15off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x0f, cntrl_on);
+    ui->output16->setChecked(true);
+}
+
+void PVKPWindow::slotOutput16off()
+{
+    qDebug() << __FUNCTION__;
+    me->createIS2(0x10, cntrl_on);
+    ui->output16->setChecked(true);
 }
 
 void PVKPWindow::showInputsValue()
 {
-    qDebug() << __FUNCTION__;
     _inputs inputs = me->getInputsValue();
 
     setInputColor(inputs.input1(), ui->input1);
@@ -434,7 +483,6 @@ void PVKPWindow::setInputColor(const unsigned &input, QPushButton *input_button)
 
 void PVKPWindow::showOutputValue()
 {
-    qDebug() << __FUNCTION__;
     _outputs outputs = me->getOutputsValue();
 
     setOutputColor(outputs.output1(), ui->output1);

@@ -19,7 +19,7 @@ public:
     int receiveIS1();
     void sendIS3(_is3 *IS3);
 
-    void createIS4();
+    void createIS4(char device_number, unsigned char cnrtl);
     int receiveIS2();
     void sendIS4(_is4 *IS4);
 

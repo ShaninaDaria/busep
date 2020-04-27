@@ -1,5 +1,7 @@
-#ifndef INPUTS_OUTPUTS_H
+﻿#ifndef INPUTS_OUTPUTS_H
 #define INPUTS_OUTPUTS_H
+
+const char all_outputs = 0x00;
 
 enum input_state
 {
@@ -324,7 +326,11 @@ public:
 
     _outputs initOutputs();
     _outputs getOutputs() const;
-    _outputs changeOutputs();
+    _outputs changeOutputs(char device_number, unsigned char cntrl);
+    void allOutputsOn();
+    void allOutputsOff();
+    void oneOutputOn(char device_number);
+    void oneOutputOff(char device_number);
     void setOutputs(const _outputs &value);
 
 //    void showInputs();

@@ -1,4 +1,4 @@
-#include <signal.h>
+﻿#include <signal.h>
 //#include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
@@ -32,7 +32,8 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
     dataTransnmit = new DataTransmit();
 
     createIS1();
-    createIS2();
+    /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
+    createIS2(all_outputs, cntrl_on);
 
     bzero(&IS3, sizeof(_is3));
     bzero(&IS4, sizeof(_is4));
@@ -60,11 +61,10 @@ void messageExchange::createIS1()
     IS1 = IM->createIS1();
 }
 
-void messageExchange::createIS2()
+void messageExchange::createIS2(char number, output_cntrl cntrl)
 {
-    char number = 0x00;
-    std::cout << __FUNCTION__ << " with " << number << std::endl;
-    IS2 = IM->createIS2(number);
+    printf("%s number %02x\n", __FUNCTION__, number);
+    IS2 = IM->createIS2(number, cntrl);
 }
 
 void messageExchange::startExchange()

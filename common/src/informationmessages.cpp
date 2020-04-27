@@ -1,4 +1,4 @@
-#include "../../common/hdr/informationmessages.h"
+﻿#include "../../common/hdr/informationmessages.h"
 
 informationMessages::informationMessages()
 {
@@ -17,13 +17,13 @@ _is1 informationMessages::createIS1()
     return IS1;
 }
 
-_is2 informationMessages::createIS2(char number)
+_is2 informationMessages::createIS2(char device_number, output_cntrl cntrl)
 {
     qDebug() << "IS2";
     IS2.header = header; printf("    header \t%02x\n", IS2.header);
     IS2.managed = change_state; printf("    managed \t%02x\n", IS2.managed);
-    IS2.device_number = number; printf("    device_number \t%d\n", IS2.device_number);
-    IS2.state = cntrl_on; printf("    state \t%02x\n", IS2.state);
+    IS2.device_number = device_number; printf("    device_number \t%d\n", IS2.device_number);
+    IS2.state = cntrl; printf("    state \t%02x\n", IS2.state);
     IS1.cs = 0x00;  printf("    cs \t%02x\n", IS2.cs);
     qDebug() << "-----\n";
 
@@ -234,13 +234,13 @@ _is3 *informationMessages::createIS3()
     return &IS3;
 }
 
-_is4 *informationMessages::createIS4()
+_is4 *informationMessages::createIS4(char device_number, unsigned char cnrtl)
 {
     qDebug() << "IS4";
     IS4.header = header; printf("    header \t%02x\n", IS4.header);
     IS4.managed = response_change; printf("    managed \t%02x\n", IS4.managed);
 
-    io.changeOutputs();
+    io.changeOutputs(device_number, cnrtl);
 
     IS4.state00 |= io.getOutputs().output4(); IS4.state00 = IS4.state00 << 2;
     IS4.state00 |= io.getOutputs().output3(); IS4.state00 = IS4.state00 << 2;

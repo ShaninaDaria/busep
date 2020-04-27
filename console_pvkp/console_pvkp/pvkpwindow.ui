@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1381</width>
+    <width>1477</width>
     <height>767</height>
    </rect>
   </property>
@@ -17,44 +17,14 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>1311</width>
+      <x>40</x>
+      <y>410</y>
+      <width>1417</width>
       <height>221</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="2">
-      <widget class="QPushButton" name="output33">
-       <property name="text">
-        <string>Выход 33</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="4">
-      <widget class="QPushButton" name="output50">
-       <property name="text">
-        <string>Выход 50</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="9">
-      <widget class="QPushButton" name="output10">
-       <property name="text">
-        <string>Выход 10</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
+     <item row="2" column="3">
       <widget class="QPushButton" name="output18">
        <property name="text">
         <string>Выход 18</string>
@@ -64,137 +34,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="output17">
-       <property name="text">
-        <string>Выход 17</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="3">
-      <widget class="QPushButton" name="output49">
-       <property name="text">
-        <string>Выход 49</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="9">
-      <widget class="QPushButton" name="output55">
-       <property name="text">
-        <string>Выход 55</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="11">
-      <widget class="QPushButton" name="output12">
-       <property name="text">
-        <string>Выход 12</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="13">
-      <widget class="QPushButton" name="output29">
-       <property name="text">
-        <string>Выход 29</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="8">
-      <widget class="QPushButton" name="output9">
-       <property name="text">
-        <string>Выход 9</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="8">
-      <widget class="QPushButton" name="output54">
-       <property name="text">
-        <string>Выход 54</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="14">
-      <widget class="QPushButton" name="output60">
-       <property name="text">
-        <string>Выход 60</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="6">
-      <widget class="QPushButton" name="output7">
-       <property name="text">
-        <string>Выход 7</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="10">
-      <widget class="QPushButton" name="output41">
-       <property name="text">
-        <string>Выход 41</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="6">
-      <widget class="QPushButton" name="output37">
-       <property name="text">
-        <string>Выход 37</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="7">
-      <widget class="QPushButton" name="output8">
-       <property name="text">
-        <string>Выход 8</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="6">
-      <widget class="QPushButton" name="output52">
-       <property name="text">
-        <string>Выход 52</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="5">
       <widget class="QPushButton" name="output36">
        <property name="text">
         <string>Выход 36</string>
@@ -204,97 +44,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="11">
-      <widget class="QPushButton" name="output57">
-       <property name="text">
-        <string>Выход 57</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="8">
-      <widget class="QPushButton" name="output39">
-       <property name="text">
-        <string>Выход 39</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="output19">
-       <property name="text">
-        <string>Выход 19</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="14">
-      <widget class="QPushButton" name="output30">
-       <property name="text">
-        <string>Выход 30</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QPushButton" name="output5">
-       <property name="text">
-        <string>Выход 5</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="7">
-      <widget class="QPushButton" name="output53">
-       <property name="text">
-        <string>Выход 53</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="10">
-      <widget class="QPushButton" name="output56">
-       <property name="text">
-        <string>Выход 56</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="10">
-      <widget class="QPushButton" name="output11">
-       <property name="text">
-        <string>Выход 11</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="11">
-      <widget class="QPushButton" name="output42">
-       <property name="text">
-        <string>Выход 42</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
+     <item row="2" column="5">
       <widget class="QPushButton" name="output20">
        <property name="text">
         <string>Выход 20</string>
@@ -304,27 +54,37 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="10">
-      <widget class="QPushButton" name="output26">
+     <item row="3" column="7">
+      <widget class="QPushButton" name="output37">
        <property name="text">
-        <string>Выход 26</string>
+        <string>Выход 37</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="3" column="14">
-      <widget class="QPushButton" name="output45">
+     <item row="1" column="12">
+      <widget class="QPushButton" name="output12">
        <property name="text">
-        <string>Выход 45</string>
+        <string>Выход 12</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="14">
+     <item row="3" column="3">
+      <widget class="QPushButton" name="output33">
+       <property name="text">
+        <string>Выход 33</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="15">
       <widget class="QPushButton" name="output15">
        <property name="text">
         <string>Выход 15</string>
@@ -334,296 +94,10 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="9">
-      <widget class="QPushButton" name="output40">
+     <item row="2" column="2">
+      <widget class="QPushButton" name="output17">
        <property name="text">
-        <string>Выход 40</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="output4">
-       <property name="text">
-        <string>Выход 4</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="4">
-      <widget class="QPushButton" name="output35">
-       <property name="text">
-        <string>Выход 35</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="5">
-      <widget class="QPushButton" name="output51">
-       <property name="text">
-        <string>Выход 51</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="output1">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="text">
-        <string>Выход 1</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="output47">
-       <property name="text">
-        <string>Выход 47</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="6">
-      <widget class="QPushButton" name="output22">
-       <property name="text">
-        <string>Выход 22</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QPushButton" name="output48">
-       <property name="text">
-        <string>Выход 48</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="12">
-      <widget class="QPushButton" name="output43">
-       <property name="text">
-        <string>Выход 43</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="11">
-      <widget class="QPushButton" name="output27">
-       <property name="text">
-        <string>Выход 27</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="output2">
-       <property name="text">
-        <string>Выход 2</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="output16">
-       <property name="text">
-        <string>Выход 16</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="12">
-      <widget class="QPushButton" name="output28">
-       <property name="text">
-        <string>Выход 28</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="12">
-      <widget class="QPushButton" name="output13">
-       <property name="text">
-        <string>Выход 13</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="8">
-      <widget class="QPushButton" name="output24">
-       <property name="text">
-        <string>Выход 24</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="12">
-      <widget class="QPushButton" name="output58">
-       <property name="text">
-        <string>Выход 58</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="QPushButton" name="output6">
-       <property name="text">
-        <string>Выход 6</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="QPushButton" name="output34">
-       <property name="text">
-        <string>Выход 34</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="13">
-      <widget class="QPushButton" name="output59">
-       <property name="text">
-        <string>Выход 59</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="9">
-      <widget class="QPushButton" name="output25">
-       <property name="text">
-        <string>Выход 25</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="13">
-      <widget class="QPushButton" name="output14">
-       <property name="text">
-        <string>Выход 14</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="7">
-      <widget class="QPushButton" name="output38">
-       <property name="text">
-        <string>Выход 38</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="output46">
-       <property name="text">
-        <string>Выход 46</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="7">
-      <widget class="QPushButton" name="output23">
-       <property name="text">
-        <string>Выход 23</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="13">
-      <widget class="QPushButton" name="output44">
-       <property name="text">
-        <string>Выход 44</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="output3">
-       <property name="text">
-        <string>Выход 3</string>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="5">
-      <widget class="QPushButton" name="output21">
-       <property name="text">
-        <string>Выход 21</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="output31">
-       <property name="text">
-        <string>Выход 31</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="output32">
-       <property name="text">
-        <string>Выход 32</string>
+        <string>Выход 17</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -631,16 +105,6 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QPushButton" name="output62">
-       <property name="text">
-        <string>Выход 62</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
       <widget class="QPushButton" name="output61">
        <property name="text">
         <string>Выход 61</string>
@@ -650,7 +114,157 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" colspan="15">
+     <item row="2" column="12">
+      <widget class="QPushButton" name="output27">
+       <property name="text">
+        <string>Выход 27</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="output16">
+       <property name="text">
+        <string>Выход 16</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="13">
+      <widget class="QPushButton" name="output13">
+       <property name="text">
+        <string>Выход 13</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="13">
+      <widget class="QPushButton" name="output58">
+       <property name="text">
+        <string>Выход 58</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="9">
+      <widget class="QPushButton" name="output9">
+       <property name="text">
+        <string>Выход 9</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="output4">
+       <property name="text">
+        <string>Выход 4</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="output3">
+       <property name="text">
+        <string>Выход 3</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="12">
+      <widget class="QPushButton" name="output42">
+       <property name="text">
+        <string>Выход 42</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="14">
+      <widget class="QPushButton" name="output14">
+       <property name="text">
+        <string>Выход 14</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="output46">
+       <property name="text">
+        <string>Выход 46</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="14">
+      <widget class="QPushButton" name="output44">
+       <property name="text">
+        <string>Выход 44</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="11">
+      <widget class="QPushButton" name="output11">
+       <property name="text">
+        <string>Выход 11</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="8">
+      <widget class="QPushButton" name="output53">
+       <property name="text">
+        <string>Выход 53</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="8">
+      <widget class="QPushButton" name="output8">
+       <property name="text">
+        <string>Выход 8</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="7">
+      <widget class="QPushButton" name="output22">
+       <property name="text">
+        <string>Выход 22</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="15">
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
@@ -667,13 +281,413 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="7">
+      <widget class="QPushButton" name="output52">
+       <property name="text">
+        <string>Выход 52</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="11">
+      <widget class="QPushButton" name="output41">
+       <property name="text">
+        <string>Выход 41</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="output62">
+       <property name="text">
+        <string>Выход 62</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="output2">
+       <property name="text">
+        <string>Выход 2</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="13">
+      <widget class="QPushButton" name="output28">
+       <property name="text">
+        <string>Выход 28</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="9">
+      <widget class="QPushButton" name="output24">
+       <property name="text">
+        <string>Выход 24</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QPushButton" name="output6">
+       <property name="text">
+        <string>Выход 6</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="9">
+      <widget class="QPushButton" name="output54">
+       <property name="text">
+        <string>Выход 54</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="14">
+      <widget class="QPushButton" name="output29">
+       <property name="text">
+        <string>Выход 29</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QPushButton" name="output35">
+       <property name="text">
+        <string>Выход 35</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="10">
+      <widget class="QPushButton" name="output25">
+       <property name="text">
+        <string>Выход 25</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="8">
+      <widget class="QPushButton" name="output38">
+       <property name="text">
+        <string>Выход 38</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="8">
+      <widget class="QPushButton" name="output23">
+       <property name="text">
+        <string>Выход 23</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QPushButton" name="output19">
+       <property name="text">
+        <string>Выход 19</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QPushButton" name="output5">
+       <property name="text">
+        <string>Выход 5</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="12">
+      <widget class="QPushButton" name="output57">
+       <property name="text">
+        <string>Выход 57</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="11">
+      <widget class="QPushButton" name="output56">
+       <property name="text">
+        <string>Выход 56</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="output47">
+       <property name="text">
+        <string>Выход 47</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="3">
+      <widget class="QPushButton" name="output48">
+       <property name="text">
+        <string>Выход 48</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="14">
+      <widget class="QPushButton" name="output59">
+       <property name="text">
+        <string>Выход 59</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QPushButton" name="output50">
+       <property name="text">
+        <string>Выход 50</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="output32">
+       <property name="text">
+        <string>Выход 32</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="output31">
+       <property name="text">
+        <string>Выход 31</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="4">
+      <widget class="QPushButton" name="output49">
+       <property name="text">
+        <string>Выход 49</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="output1">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Выход 1</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="13">
+      <widget class="QPushButton" name="output43">
+       <property name="text">
+        <string>Выход 43</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="6">
+      <widget class="QPushButton" name="output51">
+       <property name="text">
+        <string>Выход 51</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="15">
+      <widget class="QPushButton" name="output30">
+       <property name="text">
+        <string>Выход 30</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="9">
+      <widget class="QPushButton" name="output39">
+       <property name="text">
+        <string>Выход 39</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="15">
+      <widget class="QPushButton" name="output60">
+       <property name="text">
+        <string>Выход 60</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="15">
+      <widget class="QPushButton" name="output45">
+       <property name="text">
+        <string>Выход 45</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QPushButton" name="output34">
+       <property name="text">
+        <string>Выход 34</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="10">
+      <widget class="QPushButton" name="output10">
+       <property name="text">
+        <string>Выход 10</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="10">
+      <widget class="QPushButton" name="output40">
+       <property name="text">
+        <string>Выход 40</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
+      <widget class="QPushButton" name="output21">
+       <property name="text">
+        <string>Выход 21</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="10">
+      <widget class="QPushButton" name="output55">
+       <property name="text">
+        <string>Выход 55</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="7">
+      <widget class="QPushButton" name="output7">
+       <property name="text">
+        <string>Выход 7</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="11">
+      <widget class="QPushButton" name="output26">
+       <property name="text">
+        <string>Выход 26</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" rowspan="2">
+      <widget class="QPushButton" name="allOutputsOn">
+       <property name="text">
+        <string>Включить все</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" rowspan="2">
+      <widget class="QPushButton" name="allOutputsOff">
+       <property name="text">
+        <string>Выключить все</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>280</y>
+      <x>40</x>
+      <y>20</y>
       <width>1314</width>
       <height>351</height>
      </rect>
@@ -2316,7 +2330,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1381</width>
+     <width>1477</width>
      <height>24</height>
     </rect>
    </property>

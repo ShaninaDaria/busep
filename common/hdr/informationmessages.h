@@ -137,9 +137,9 @@ class informationMessages
 public:
     informationMessages();
     _is1 createIS1();
-    _is2 createIS2(char number);
+    _is2 createIS2(char device_number, output_cntrl cntrl);
     _is3 *createIS3();
-    _is4 *createIS4();
+    _is4 *createIS4(char device_number, unsigned char cnrtl);
     void createIS5();
     void calculateCS();
     bool checkCS(unsigned char _cs);

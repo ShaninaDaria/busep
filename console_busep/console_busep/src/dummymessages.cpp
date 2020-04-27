@@ -7,7 +7,8 @@ dummyMessages::dummyMessages()
     dataTransnmit->createServer();
 
     createIS3();
-    createIS4();
+    /// NOTE по умолчанию шлю ИС4 с запросом "включить все выходы"
+    createIS4(all_outputs, cntrl_on);
 }
 
 dummyMessages::~dummyMessages()
@@ -101,11 +102,11 @@ void dummyMessages::sendIS3(_is3 *IS3)
     std::cout << "send " << bytes << " bytes; " << std::endl;
 }
 
-void dummyMessages::createIS4()
+void dummyMessages::createIS4(char device_number, unsigned char cnrtl)
 {
     std::cout << __FUNCTION__ << std::endl;
 
-    IS4 = IM->createIS4();
+    IS4 = IM->createIS4(device_number, cnrtl);
 }
 
 int dummyMessages::receiveIS2()
@@ -131,6 +132,8 @@ int dummyMessages::receiveIS2()
 void dummyMessages::sendIS4(_is4 *IS4)
 {
     std::cout << __FUNCTION__ << std::endl;
+
+    createIS4(IS2.device_number, IS2.state);
 
 //    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
     int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));

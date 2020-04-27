@@ -16,6 +16,8 @@ public:
 
     void initTransmit();
 
+    void createIS2(char number, output_cntrl cntrl);
+
     void startExchange();
 
     int sendIS1(_is1 *IS1);
@@ -43,7 +45,6 @@ private:
     _rcv_data rcv_data;
 
     void createIS1();
-    void createIS2();
 };
 
 #endif // MESSAGEEXCHANGE_H
