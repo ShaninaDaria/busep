@@ -19,8 +19,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         src/pvkpwindow.cpp \
         src/main.cpp \
+        src/formingIM_pvkp.cpp \
         src/messageexchange.cpp \
-        ../../common/src/informationmessages.cpp \
         ../../common/src/inputs_outputs.cpp \
         ../../common/src/datatransmit.cpp
 
@@ -30,8 +30,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    hdr/pvkpwindow.h \
+    hdr/formingIM_pvkp.h \
     hdr/messageexchange.h \
+    hdr/pvkpwindow.h \
     ../../common/hdr/informationmessages.h \
     ../../common/hdr/inputs_outputs.h \
     ../../common/hdr/datatransmit.h

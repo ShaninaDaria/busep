@@ -15,9 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/manageinputsoutputs.cpp \
         src/dummymessages.cpp \
+        src/formingIM_busep.cpp \
         src/main.cpp \
-        ../../common/src/informationmessages.cpp \
         ../../common/src/inputs_outputs.cpp \
         ../../common/src/datatransmit.cpp
 
@@ -27,7 +28,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    hdr/manageinputsoutputs.h \
+    hdr/formingIM_busep.h \
     hdr/dummymessages.h \
-    ../../common/hdr/informationmessages.h \
     ../../common/hdr/inputs_outputs.h \
+    ../../common/hdr/informationmessages.h \
     ../../common/hdr/datatransmit.h

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTimer>
 
-#include "../../common/hdr/informationmessages.h"
+#include "hdr/formingIM_pvkp.h"
 #include "../../common/hdr/datatransmit.h"
 
 class messageExchange : public QObject
@@ -36,7 +36,7 @@ private:
     static void timer_handler(int signum);
 
 
-    informationMessages *IM;
+    FormingIM_pvkp *formingIMPpvkp;
     DataTransmit *dataTransnmit;
     _is1 IS1;
     _is2 IS2;

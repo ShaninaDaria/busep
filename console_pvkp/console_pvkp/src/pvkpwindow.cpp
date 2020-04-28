@@ -17,10 +17,72 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
-    timer->start(1000);
+//    timer->start(1000);
 
     connect(ui->allOutputsOff, SIGNAL(pressed()), this, SLOT(slotAllOutputsOff()));
     connect(ui->allOutputsOn, SIGNAL(pressed()), this, SLOT(slotAllOutputsOn()));
+    connect(ui->output1, SIGNAL(toggled(bool)), this, SLOT(slotOutput1toggled(bool)));
+    connect(ui->output2, SIGNAL(toggled(bool)), this, SLOT(slotOutput2toggled(bool)));
+    connect(ui->output3, SIGNAL(toggled(bool)), this, SLOT(slotOutput3toggled(bool)));
+    connect(ui->output4, SIGNAL(toggled(bool)), this, SLOT(slotOutput4toggled(bool)));
+    connect(ui->output5, SIGNAL(toggled(bool)), this, SLOT(slotOutput5toggled(bool)));
+    connect(ui->output6, SIGNAL(toggled(bool)), this, SLOT(slotOutput6toggled(bool)));
+    connect(ui->output7, SIGNAL(toggled(bool)), this, SLOT(slotOutput7toggled(bool)));
+    connect(ui->output8, SIGNAL(toggled(bool)), this, SLOT(slotOutput8toggled(bool)));
+    connect(ui->output9, SIGNAL(toggled(bool)), this, SLOT(slotOutput9toggled(bool)));
+    connect(ui->output10, SIGNAL(toggled(bool)), this, SLOT(slotOutput10toggled(bool)));
+    connect(ui->output11, SIGNAL(toggled(bool)), this, SLOT(slotOutput11toggled(bool)));
+    connect(ui->output12, SIGNAL(toggled(bool)), this, SLOT(slotOutput12toggled(bool)));
+    connect(ui->output13, SIGNAL(toggled(bool)), this, SLOT(slotOutput13toggled(bool)));
+    connect(ui->output14, SIGNAL(toggled(bool)), this, SLOT(slotOutput14toggled(bool)));
+    connect(ui->output15, SIGNAL(toggled(bool)), this, SLOT(slotOutput15toggled(bool)));
+    connect(ui->output16, SIGNAL(toggled(bool)), this, SLOT(slotOutput16toggled(bool)));
+    connect(ui->output17, SIGNAL(toggled(bool)), this, SLOT(slotOutput17toggled(bool)));
+    connect(ui->output18, SIGNAL(toggled(bool)), this, SLOT(slotOutput18toggled(bool)));
+    connect(ui->output19, SIGNAL(toggled(bool)), this, SLOT(slotOutput19toggled(bool)));
+    connect(ui->output20, SIGNAL(toggled(bool)), this, SLOT(slotOutput20toggled(bool)));
+    connect(ui->output21, SIGNAL(toggled(bool)), this, SLOT(slotOutput21toggled(bool)));
+    connect(ui->output22, SIGNAL(toggled(bool)), this, SLOT(slotOutput22toggled(bool)));
+    connect(ui->output23, SIGNAL(toggled(bool)), this, SLOT(slotOutput23toggled(bool)));
+    connect(ui->output24, SIGNAL(toggled(bool)), this, SLOT(slotOutput24toggled(bool)));
+    connect(ui->output25, SIGNAL(toggled(bool)), this, SLOT(slotOutput25toggled(bool)));
+    connect(ui->output26, SIGNAL(toggled(bool)), this, SLOT(slotOutput26toggled(bool)));
+    connect(ui->output27, SIGNAL(toggled(bool)), this, SLOT(slotOutput27toggled(bool)));
+    connect(ui->output28, SIGNAL(toggled(bool)), this, SLOT(slotOutput28toggled(bool)));
+    connect(ui->output29, SIGNAL(toggled(bool)), this, SLOT(slotOutput29toggled(bool)));
+    connect(ui->output30, SIGNAL(toggled(bool)), this, SLOT(slotOutput30toggled(bool)));
+    connect(ui->output31, SIGNAL(toggled(bool)), this, SLOT(slotOutput31toggled(bool)));
+    connect(ui->output32, SIGNAL(toggled(bool)), this, SLOT(slotOutput32toggled(bool)));
+    connect(ui->output33, SIGNAL(toggled(bool)), this, SLOT(slotOutput33toggled(bool)));
+    connect(ui->output34, SIGNAL(toggled(bool)), this, SLOT(slotOutput34toggled(bool)));
+    connect(ui->output35, SIGNAL(toggled(bool)), this, SLOT(slotOutput35toggled(bool)));
+    connect(ui->output36, SIGNAL(toggled(bool)), this, SLOT(slotOutput36toggled(bool)));
+    connect(ui->output37, SIGNAL(toggled(bool)), this, SLOT(slotOutput38toggled(bool)));
+    connect(ui->output38, SIGNAL(toggled(bool)), this, SLOT(slotOutput38toggled(bool)));
+    connect(ui->output39, SIGNAL(toggled(bool)), this, SLOT(slotOutput39toggled(bool)));
+    connect(ui->output40, SIGNAL(toggled(bool)), this, SLOT(slotOutput40toggled(bool)));
+    connect(ui->output41, SIGNAL(toggled(bool)), this, SLOT(slotOutput41toggled(bool)));
+    connect(ui->output42, SIGNAL(toggled(bool)), this, SLOT(slotOutput42toggled(bool)));
+    connect(ui->output43, SIGNAL(toggled(bool)), this, SLOT(slotOutput43toggled(bool)));
+    connect(ui->output44, SIGNAL(toggled(bool)), this, SLOT(slotOutput44toggled(bool)));
+    connect(ui->output45, SIGNAL(toggled(bool)), this, SLOT(slotOutput45toggled(bool)));
+    connect(ui->output46, SIGNAL(toggled(bool)), this, SLOT(slotOutput46toggled(bool)));
+    connect(ui->output47, SIGNAL(toggled(bool)), this, SLOT(slotOutput47toggled(bool)));
+    connect(ui->output48, SIGNAL(toggled(bool)), this, SLOT(slotOutput48toggled(bool)));
+    connect(ui->output49, SIGNAL(toggled(bool)), this, SLOT(slotOutput49toggled(bool)));
+    connect(ui->output50, SIGNAL(toggled(bool)), this, SLOT(slotOutput50toggled(bool)));
+    connect(ui->output51, SIGNAL(toggled(bool)), this, SLOT(slotOutput51toggled(bool)));
+    connect(ui->output52, SIGNAL(toggled(bool)), this, SLOT(slotOutput52toggled(bool)));
+    connect(ui->output53, SIGNAL(toggled(bool)), this, SLOT(slotOutput53toggled(bool)));
+    connect(ui->output54, SIGNAL(toggled(bool)), this, SLOT(slotOutput54toggled(bool)));
+    connect(ui->output55, SIGNAL(toggled(bool)), this, SLOT(slotOutput55toggled(bool)));
+    connect(ui->output56, SIGNAL(toggled(bool)), this, SLOT(slotOutput56toggled(bool)));
+    connect(ui->output57, SIGNAL(toggled(bool)), this, SLOT(slotOutput57toggled(bool)));
+    connect(ui->output58, SIGNAL(toggled(bool)), this, SLOT(slotOutput58toggled(bool)));
+    connect(ui->output59, SIGNAL(toggled(bool)), this, SLOT(slotOutput59toggled(bool)));
+    connect(ui->output60, SIGNAL(toggled(bool)), this, SLOT(slotOutput60toggled(bool)));
+    connect(ui->output61, SIGNAL(toggled(bool)), this, SLOT(slotOutput61toggled(bool)));
+    connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));
 
     //    thread = new QThread(this);
     /// TODO - в отдельный поток?
@@ -33,6 +95,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     //    me->startExchange();
 
     //    showInputsValue();
+
 }
 
 PVKPWindow::~PVKPWindow()
@@ -116,6 +179,7 @@ void PVKPWindow::slotAllOutputsOff()
     ui->output60->setChecked(true);
     ui->output61->setChecked(true);
     ui->output62->setChecked(true);
+    qDebug() << "Checked" << ui->output1->isChecked();
 }
 
 void PVKPWindow::slotAllOutputsOn()
@@ -184,118 +248,814 @@ void PVKPWindow::slotAllOutputsOn()
     ui->output60->setChecked(false);
     ui->output61->setChecked(false);
     ui->output62->setChecked(false);
+    qDebug() << "Checked" << ui->output1->isChecked();
 }
 
-void PVKPWindow::slotOutput1off()
+void PVKPWindow::slotOutput1toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__;
-    me->createIS2(0x01, cntrl_on);
-    ui->output1->setChecked(true);
+    qDebug() << "toggled" << toggled <<  ui->output1->isChecked();
+    if (toggled)
+    {
+        me->createIS2(0x01, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x01, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput2off()
+void PVKPWindow::slotOutput2toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x02, cntrl_on);
-    ui->output2->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x02, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x02, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput3off()
+void PVKPWindow::slotOutput3toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x03, cntrl_on);
-    ui->output3->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x03, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x03, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput4off()
+void PVKPWindow::slotOutput4toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x04, cntrl_on);
-    ui->output4->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x04, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x04, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput5off()
+void PVKPWindow::slotOutput5toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x05, cntrl_on);
-    ui->output5->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x05, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x05, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput6off()
+void PVKPWindow::slotOutput6toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x06, cntrl_on);
-    ui->output6->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x06, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x06, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput7off()
+void PVKPWindow::slotOutput7toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x07, cntrl_on);
-    ui->output7->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x07, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x07, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput8off()
+void PVKPWindow::slotOutput8toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x08, cntrl_on);
-    ui->output8->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x08, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x08, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput9off()
+void PVKPWindow::slotOutput9toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x09, cntrl_on);
-    ui->output9->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x09, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x09, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput10off()
+void PVKPWindow::slotOutput10toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x0a, cntrl_on);
-    ui->output10->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x0a, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x0a, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput11off()
+void PVKPWindow::slotOutput11toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x0b, cntrl_on);
-    ui->output11->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x0b, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x0b, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput12off()
+void PVKPWindow::slotOutput12toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x0c, cntrl_on);
-    ui->output12->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x0c, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x0c, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput13off()
+void PVKPWindow::slotOutput13toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x0d, cntrl_on);
-    ui->output13->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x0d, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x0d, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput14off()
+void PVKPWindow::slotOutput14toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x0e, cntrl_on);
-    ui->output14->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x0e, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x0e, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput15off()
+void PVKPWindow::slotOutput15toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x0f, cntrl_on);
-    ui->output16->setChecked(true);
+    me->createIS2(0x0f, cntrl_off);
+    if (toggled)
+    {
+        me->createIS2(0x01, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x01, cntrl_on);
+    }
 }
 
-void PVKPWindow::slotOutput16off()
+void PVKPWindow::slotOutput16toggled(bool toggled)
 {
     qDebug() << __FUNCTION__;
-    me->createIS2(0x10, cntrl_on);
-    ui->output16->setChecked(true);
+    if (toggled)
+    {
+        me->createIS2(0x10, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x10, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput17toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x11, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x11, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput18toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x12, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x12, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput19toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x13, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x13, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput20toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x14, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x14, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput21toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x15, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x15, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput22toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x16, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x16, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput23toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x17, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x17, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput24toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x18, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x18, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput25toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x19, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x19, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput26toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x1a, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x1a, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput27toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x1b, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x1b, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput28toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x1c, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x1c, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput29toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x1d, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x1d, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput30toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x1e, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x1e, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput31toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x1f, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x1f, cntrl_on);
+    };
+}
+
+void PVKPWindow::slotOutput32toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x20, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x20, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput33toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x21, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x21, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput34toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x22, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x22, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput35toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x23, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x23, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput36toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x24, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x24, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput37toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x25, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x25, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput38toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x26, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x26, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput39toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x27, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x27, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput40toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x28, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x28, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput41toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x29, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x29, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput42toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x2a, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x2a, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput43toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x2b, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x2b, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput44toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x2c, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x2c, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput45toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x2d, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x2d, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput46toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x2e, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x2e, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput47toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x2f, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x2f, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput48toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x30, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x30, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput49toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x31, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x31, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput50toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x32, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x32, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput51toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x33, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x33, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput52toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x34, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x34, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput53toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x35, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x35, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput54toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x36, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x36, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput55toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x37, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x37, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput56toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x38, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x38, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput57toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x39, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x39, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput58toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x3a, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x3a, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput59toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x3b, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x3b, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput60toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x3c, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x3c, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput61toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x3d, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x3d, cntrl_on);
+    }
+}
+
+void PVKPWindow::slotOutput62toggled(bool toggled)
+{
+    qDebug() << __FUNCTION__;
+    if (toggled)
+    {
+        me->createIS2(0x3e, cntrl_off);
+    }
+    else
+    {
+        me->createIS2(0x3e, cntrl_on);
+    }
 }
 
 void PVKPWindow::showInputsValue()

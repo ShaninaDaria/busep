@@ -1,43 +1,18 @@
-﻿/*
-#include "../../common/hdr/informationmessages.h"
+﻿#include "hdr/formingIM_busep.h"
 
-informationMessages::informationMessages()
+FormingIM_busep::FormingIM_busep()
 {
     inputs = io.initInputs();
     outputs = io.initOutputs();
 }
 
-_is1 informationMessages::createIS1()
-{
-    qDebug() << "IS1";
-    IS1.header = header; printf("    header \t%02x\n", IS1.header);
-    IS1.managed = request; printf("    managed \t%02x\n", IS1.managed);
-    IS1.cs = 0x00; printf("    cs \t%02x\n", IS1.cs);
-    qDebug() << "-----\n";
-
-    return IS1;
-}
-
-_is2 informationMessages::createIS2(char device_number, output_cntrl cntrl)
-{
-    qDebug() << "IS2";
-    IS2.header = header; printf("    header \t%02x\n", IS2.header);
-    IS2.managed = change_state; printf("    managed \t%02x\n", IS2.managed);
-    IS2.device_number = device_number; printf("    device_number \t%d\n", IS2.device_number);
-    IS2.state = cntrl; printf("    state \t%02x\n", IS2.state);
-    IS1.cs = 0x00;  printf("    cs \t%02x\n", IS2.cs);
-    qDebug() << "-----\n";
-
-    return IS2;
-}
-
-_is3 *informationMessages::createIS3()
+_is3 *FormingIM_busep::createIS3()
 {
     qDebug() << "IS3";
     IS3.header = header; printf("    header \t%02x\n", IS3.header);
     IS3.managed = response_state; printf("    managed \t%02x\n", IS3.managed);
 
-    inputs = io.changeInputs();
+    manageIO.changeInputs(inputs);
 
     IS3.word00 |= io.getInputs().input4(); IS3.word00 = IS3.word00 << 2;
     IS3.word00 |= io.getInputs().input3(); IS3.word00 = IS3.word00 << 2;
@@ -235,13 +210,13 @@ _is3 *informationMessages::createIS3()
     return &IS3;
 }
 
-_is4 *informationMessages::createIS4(char device_number, unsigned char cnrtl)
+_is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 {
     qDebug() << "IS4";
     IS4.header = header; printf("    header \t%02x\n", IS4.header);
     IS4.managed = response_change; printf("    managed \t%02x\n", IS4.managed);
 
-    io.changeOutputs(device_number, cnrtl);
+    manageIO.changeOutputs(outputs, device_number, cnrtl);
 
     IS4.state00 |= io.getOutputs().output4(); IS4.state00 = IS4.state00 << 2;
     IS4.state00 |= io.getOutputs().output3(); IS4.state00 = IS4.state00 << 2;
@@ -337,52 +312,42 @@ _is4 *informationMessages::createIS4(char device_number, unsigned char cnrtl)
     IS4.state15 |= io.getOutputs().output61();
     printf("    state15 \t%02x\n", IS4.state15);
 
-    IS4.cs = 0x00; printf("    cs \t%02x\n", IS2.cs);
+    IS4.cs = 0x00; printf("    cs \t%02x\n", IS4.cs);
 
     qDebug() << "-----\n";
 
     return &IS4;
 }
 
-void informationMessages::createIS5()
+void FormingIM_busep::createIS5()
 {
     qDebug() << "IS5";
     IS5.header = header; printf("    header \t%02x\n", IS5.header);
     IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
 }
 
-void informationMessages::calculateCS()
+void FormingIM_busep::calculateCS()
 {
 
 }
 
-bool informationMessages::checkCS(unsigned char _cs)
+bool FormingIM_busep::checkCS(unsigned char _cs)
 {
     return true;
 }
 
-_is1 informationMessages::getIS1() const
-{
-    return IS1;
-}
-
-_is2 informationMessages::getIS2() const
-{
-    return IS2;
-}
-
-void informationMessages::setIS3(const _is3 &value)
+void FormingIM_busep::setIS3(const _is3 &value)
 {
     IS3 = value;
     parsingIS3(IS3);
 }
 
-void informationMessages::setIS4(const _is4 &value)
+void FormingIM_busep::setIS4(const _is4 &value)
 {
     IS4 = value;
 }
 
-void informationMessages::parsingIS3(_is3 &IS3)
+void FormingIM_busep::parsingIS3(_is3 &IS3)
 {
     printf("    header \t%02x\n", IS3.header);
     printf("  managed \t%02x\n", IS3.managed);
@@ -576,7 +541,7 @@ void informationMessages::parsingIS3(_is3 &IS3)
     printf("        cs \t%02x\n", IS3.cs);
 }
 
-void informationMessages::parsingIS4(_is4 &IS4)
+void FormingIM_busep::parsingIS4(_is4 &IS4)
 {
     printf("    header \t%02x\n", IS4.header);
     printf("   managed \t%02x\n", IS4.managed);
@@ -678,7 +643,7 @@ void informationMessages::parsingIS4(_is4 &IS4)
     printf("        cs \t%02x\n", IS4.cs);
 }
 
-unsigned informationMessages::getInputState(unsigned char word)
+unsigned FormingIM_busep::getInputState(unsigned char word)
 {
     unsigned input = 0x00;
 
@@ -699,7 +664,7 @@ unsigned informationMessages::getInputState(unsigned char word)
     return input;
 }
 
-void informationMessages::printInputState(const unsigned &input)
+void FormingIM_busep::printInputState(const unsigned &input)
 {
     switch (input)
     {
@@ -721,7 +686,7 @@ void informationMessages::printInputState(const unsigned &input)
     }
 }
 
-unsigned informationMessages::getOutputState(unsigned char state)
+unsigned FormingIM_busep::getOutputState(unsigned char state)
 {
     unsigned output = 0x00;
 
@@ -746,7 +711,7 @@ unsigned informationMessages::getOutputState(unsigned char state)
     return output;
 }
 
-void informationMessages::printOutputState(const unsigned &output)
+void FormingIM_busep::printOutputState(const unsigned &output)
 {
     switch (output)
     {
@@ -772,13 +737,12 @@ void informationMessages::printOutputState(const unsigned &output)
     }
 }
 
-_outputs &informationMessages::getOutputs()
+_outputs &FormingIM_busep::getOutputs()
 {
     return outputs;
 }
 
-_inputs &informationMessages::getInputs()
+_inputs &FormingIM_busep::getInputs()
 {
     return inputs;
 }
-*/

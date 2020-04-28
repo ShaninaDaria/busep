@@ -1,13 +1,12 @@
-﻿/*
-#include "../../common/hdr/informationmessages.h"
+﻿#include "hdr/formingIM_pvkp.h"
 
-informationMessages::informationMessages()
+FormingIM_pvkp::FormingIM_pvkp()
 {
     inputs = io.initInputs();
     outputs = io.initOutputs();
 }
 
-_is1 informationMessages::createIS1()
+_is1 FormingIM_pvkp::createIS1()
 {
     qDebug() << "IS1";
     IS1.header = header; printf("    header \t%02x\n", IS1.header);
@@ -18,7 +17,7 @@ _is1 informationMessages::createIS1()
     return IS1;
 }
 
-_is2 informationMessages::createIS2(char device_number, output_cntrl cntrl)
+_is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
 {
     qDebug() << "IS2";
     IS2.header = header; printf("    header \t%02x\n", IS2.header);
@@ -30,8 +29,8 @@ _is2 informationMessages::createIS2(char device_number, output_cntrl cntrl)
 
     return IS2;
 }
-
-_is3 *informationMessages::createIS3()
+/*
+_is3 *FormingIM_pvkp::createIS3()
 {
     qDebug() << "IS3";
     IS3.header = header; printf("    header \t%02x\n", IS3.header);
@@ -235,7 +234,7 @@ _is3 *informationMessages::createIS3()
     return &IS3;
 }
 
-_is4 *informationMessages::createIS4(char device_number, unsigned char cnrtl)
+_is4 *FormingIM_pvkp::createIS4(char device_number, unsigned char cnrtl)
 {
     qDebug() << "IS4";
     IS4.header = header; printf("    header \t%02x\n", IS4.header);
@@ -344,45 +343,45 @@ _is4 *informationMessages::createIS4(char device_number, unsigned char cnrtl)
     return &IS4;
 }
 
-void informationMessages::createIS5()
+void FormingIM_pvkp::createIS5()
 {
     qDebug() << "IS5";
     IS5.header = header; printf("    header \t%02x\n", IS5.header);
     IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
 }
-
-void informationMessages::calculateCS()
+*/
+void FormingIM_pvkp::calculateCS()
 {
 
 }
 
-bool informationMessages::checkCS(unsigned char _cs)
+bool FormingIM_pvkp::checkCS(unsigned char _cs)
 {
     return true;
 }
 
-_is1 informationMessages::getIS1() const
+_is1 FormingIM_pvkp::getIS1() const
 {
     return IS1;
 }
 
-_is2 informationMessages::getIS2() const
+_is2 FormingIM_pvkp::getIS2() const
 {
     return IS2;
 }
-
-void informationMessages::setIS3(const _is3 &value)
+/*
+void FormingIM_pvkp::setIS3(const _is3 &value)
 {
     IS3 = value;
     parsingIS3(IS3);
 }
 
-void informationMessages::setIS4(const _is4 &value)
+void FormingIM_pvkp::setIS4(const _is4 &value)
 {
     IS4 = value;
 }
-
-void informationMessages::parsingIS3(_is3 &IS3)
+*/
+void FormingIM_pvkp::parsingIS3(_is3 &IS3)
 {
     printf("    header \t%02x\n", IS3.header);
     printf("  managed \t%02x\n", IS3.managed);
@@ -576,7 +575,7 @@ void informationMessages::parsingIS3(_is3 &IS3)
     printf("        cs \t%02x\n", IS3.cs);
 }
 
-void informationMessages::parsingIS4(_is4 &IS4)
+void FormingIM_pvkp::parsingIS4(_is4 &IS4)
 {
     printf("    header \t%02x\n", IS4.header);
     printf("   managed \t%02x\n", IS4.managed);
@@ -678,7 +677,7 @@ void informationMessages::parsingIS4(_is4 &IS4)
     printf("        cs \t%02x\n", IS4.cs);
 }
 
-unsigned informationMessages::getInputState(unsigned char word)
+unsigned FormingIM_pvkp::getInputState(unsigned char word)
 {
     unsigned input = 0x00;
 
@@ -699,7 +698,7 @@ unsigned informationMessages::getInputState(unsigned char word)
     return input;
 }
 
-void informationMessages::printInputState(const unsigned &input)
+void FormingIM_pvkp::printInputState(const unsigned &input)
 {
     switch (input)
     {
@@ -721,7 +720,7 @@ void informationMessages::printInputState(const unsigned &input)
     }
 }
 
-unsigned informationMessages::getOutputState(unsigned char state)
+unsigned FormingIM_pvkp::getOutputState(unsigned char state)
 {
     unsigned output = 0x00;
 
@@ -746,7 +745,7 @@ unsigned informationMessages::getOutputState(unsigned char state)
     return output;
 }
 
-void informationMessages::printOutputState(const unsigned &output)
+void FormingIM_pvkp::printOutputState(const unsigned &output)
 {
     switch (output)
     {
@@ -772,13 +771,12 @@ void informationMessages::printOutputState(const unsigned &output)
     }
 }
 
-_outputs &informationMessages::getOutputs()
+_outputs &FormingIM_pvkp::getOutputs()
 {
     return outputs;
 }
 
-_inputs &informationMessages::getInputs()
+_inputs &FormingIM_pvkp::getInputs()
 {
     return inputs;
 }
-*/

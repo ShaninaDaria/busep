@@ -3,6 +3,7 @@
 
 #include "../../common/hdr/informationmessages.h"
 #include "../../common/hdr/datatransmit.h"
+#include "formingIM_busep.h"
 
 
 class dummyMessages
@@ -26,7 +27,7 @@ public:
 private:
     header_and_managed receiveSmth();
 
-    informationMessages *IM;
+    FormingIM_busep *formingIM_busep;
     DataTransmit *dataTransnmit;
     _is1 IS1;
     _is2 IS2;

@@ -2,7 +2,7 @@
 
 dummyMessages::dummyMessages()
 {
-    IM = new informationMessages();
+    formingIM_busep = new FormingIM_busep();
     dataTransnmit = new DataTransmit();
     dataTransnmit->createServer();
 
@@ -14,7 +14,7 @@ dummyMessages::dummyMessages()
 dummyMessages::~dummyMessages()
 {
     dataTransnmit->endTransmitServer();
-    delete  IM;
+    delete formingIM_busep;
 }
 
 void dummyMessages::startExchange()
@@ -71,7 +71,7 @@ void dummyMessages::setInputsValue()
 void dummyMessages::createIS3()
 {
     std::cout << __FUNCTION__ << std::endl;
-    IS3 = IM->createIS3();
+    IS3 = formingIM_busep->createIS3();
 }
 
 int dummyMessages::receiveIS1()
@@ -106,7 +106,7 @@ void dummyMessages::createIS4(char device_number, unsigned char cnrtl)
 {
     std::cout << __FUNCTION__ << std::endl;
 
-    IS4 = IM->createIS4(device_number, cnrtl);
+    IS4 = formingIM_busep->createIS4(device_number, cnrtl);
 }
 
 int dummyMessages::receiveIS2()

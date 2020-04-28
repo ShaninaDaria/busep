@@ -4,25 +4,6 @@
 #include <QDebug>
 #include "inputs_outputs.h"
 
-//union Register32
-//{
-    struct bytes
-    {
-        unsigned char byte1:8;
-        unsigned char byte2:8;
-        unsigned char byte3:8;
-//        unsigned char byte4:8;
-    } ;
-//    struct
-//    {
-//        unsigned short low;
-//        unsigned short high;
-//    } words;
-//    unsigned dword;
-//};
-
-//typedef union Register32 EAX;
-
 // ИС1
 struct _is1
 {
@@ -131,7 +112,7 @@ enum header_and_managed
     integrity_violation = 0x09, // ИС5
     response_state = 0x10       // ИС3
 };
-
+/*
 class informationMessages
 {
 public:
@@ -178,5 +159,5 @@ private:
     _inputs inputs;
     _outputs outputs;
 };
-
+*/
 #endif // INFORMATIONMESSAGES_H
