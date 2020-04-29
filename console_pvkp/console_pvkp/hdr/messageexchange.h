@@ -36,7 +36,7 @@ private:
     static void timer_handler(int signum);
 
 
-    FormingIM_pvkp *formingIMPpvkp;
+    FormingIM_pvkp *formingIMpvkp;
     DataTransmit *dataTransnmit;
     _is1 IS1;
     _is2 IS2;

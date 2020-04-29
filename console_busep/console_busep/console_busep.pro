@@ -1,7 +1,9 @@
-QT -= gui
+#QT -= gui
+QT += core gui
 
-CONFIG += c++11 console
-CONFIG -= app_bundle
+CONFIG += c++11 #console
+#CONFIG -= app_bundle
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -18,6 +20,7 @@ SOURCES += \
         src/manageinputsoutputs.cpp \
         src/dummymessages.cpp \
         src/formingIM_busep.cpp \
+        src/busepwindow.cpp \
         src/main.cpp \
         ../../common/src/inputs_outputs.cpp \
         ../../common/src/datatransmit.cpp
@@ -31,6 +34,10 @@ HEADERS += \
     hdr/manageinputsoutputs.h \
     hdr/formingIM_busep.h \
     hdr/dummymessages.h \
+    hdr/busepwindow.h \
     ../../common/hdr/inputs_outputs.h \
     ../../common/hdr/informationmessages.h \
     ../../common/hdr/datatransmit.h
+
+FORMS += \
+    busepwindow.ui

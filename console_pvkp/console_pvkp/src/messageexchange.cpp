@@ -18,17 +18,17 @@ void messageExchange::timer_handler(int signum)
 
 _inputs &messageExchange::getInputsValue()
 {
-    return formingIMPpvkp->getInputs();
+    return formingIMpvkp->getInputs();
 }
 
 _outputs &messageExchange::getOutputsValue()
 {
-    return formingIMPpvkp->getOutputs();
+    return formingIMpvkp->getOutputs();
 }
 
 messageExchange::messageExchange(QObject *parent) : QObject(parent)
 {
-    formingIMPpvkp = new FormingIM_pvkp();
+    formingIMpvkp = new FormingIM_pvkp();
     dataTransnmit = new DataTransmit();
 
     createIS1();
@@ -46,7 +46,7 @@ messageExchange::~messageExchange()
 {
     dataTransnmit->endTransmitClient();
     delete dataTransnmit;
-    delete formingIMPpvkp;
+    delete formingIMpvkp;
 }
 
 void messageExchange::initTransmit()
@@ -58,13 +58,13 @@ void messageExchange::initTransmit()
 void messageExchange::createIS1()
 {
     std::cout << __FUNCTION__ << std::endl;
-    IS1 = formingIMPpvkp->createIS1();
+    IS1 = formingIMpvkp->createIS1();
 }
 
 void messageExchange::createIS2(char number, output_cntrl cntrl)
 {
     printf("%s number %02x\n", __FUNCTION__, number);
-    IS2 = formingIMPpvkp->createIS2(number, cntrl);
+    IS2 = formingIMpvkp->createIS2(number, cntrl);
 }
 
 void messageExchange::startExchange()
@@ -196,7 +196,7 @@ int messageExchange::receiveIS3()
             if (bytes == sizeof(_is3))
             {
                 bytes = 0;
-                formingIMPpvkp->parsingIS3(IS3);
+                formingIMpvkp->parsingIS3(IS3);
             }
         }
         else
@@ -204,7 +204,7 @@ int messageExchange::receiveIS3()
             if (bytes_rcv == sizeof(_is3))
             {
                 IS3 = rcv_IS3;
-                formingIMPpvkp->parsingIS3(IS3);
+                formingIMpvkp->parsingIS3(IS3);
             }
         }
     }
@@ -291,7 +291,7 @@ int messageExchange::receiveIS4()
             if (bytes == sizeof(_is4))
             {
                 bytes = 0;
-                formingIMPpvkp->parsingIS4(IS4);
+                formingIMpvkp->parsingIS4(IS4);
             }
         }
         else
@@ -299,7 +299,7 @@ int messageExchange::receiveIS4()
             if (bytes_rcv == sizeof(_is4))
             {
                 IS4 = rcv_IS4;
-                formingIMPpvkp->parsingIS4(IS4);
+                formingIMpvkp->parsingIS4(IS4);
             }
         }
     }

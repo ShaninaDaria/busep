@@ -7,11 +7,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    red_palette.setColor(ui->output1->backgroundRole(), Qt::red/*255, 0, 0*/ );
-    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
-    green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
-    gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
-    //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
+    createPalette();
 
     me = new messageExchange();
 
@@ -100,9 +96,19 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
 PVKPWindow::~PVKPWindow()
 {
+//    timer->stop();
     delete me;
     //    delete thread;
     delete ui;
+}
+
+void PVKPWindow::createPalette()
+{
+    red_palette.setColor(ui->output1->backgroundRole(), Qt::red/*255, 0, 0*/ );
+    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
+    green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
+    gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
+    //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
 }
 
 void PVKPWindow::slotByTimer()
@@ -179,7 +185,6 @@ void PVKPWindow::slotAllOutputsOff()
     ui->output60->setChecked(true);
     ui->output61->setChecked(true);
     ui->output62->setChecked(true);
-    qDebug() << "Checked" << ui->output1->isChecked();
 }
 
 void PVKPWindow::slotAllOutputsOn()

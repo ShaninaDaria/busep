@@ -64,11 +64,11 @@ void DataTransmit::createServer()
 //        std::cout << "accept ok " << fd_socket << std::endl;
 //    }
 
-//    if (fcntl(/*fd_socket*/fd_socket, F_SETFL, O_NONBLOCK) != 0)
-//    {
-//        perror("-fcntl error\n");
-//        exit(1);
-//    }
+    if (fcntl(server, F_SETFL, O_NONBLOCK) != 0)
+    {
+        perror("-fcntl error\n");
+        exit(1);
+    }
 }
 
 void DataTransmit::createClient()

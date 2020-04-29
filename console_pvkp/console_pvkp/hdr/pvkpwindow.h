@@ -104,6 +104,7 @@ private slots:
     void slotOutput62toggled(bool toggled);
 
 private:
+    void createPalette();
     void showInputsValue();
     void setInputColor(const unsigned &input, QPushButton *input_button);
 

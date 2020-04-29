@@ -1,23 +1,23 @@
-#include "hdr/dummymessages.h"
+﻿#include "hdr/dummymessages.h"
 
-dummyMessages::dummyMessages()
+DummyMessages::DummyMessages()
 {
     formingIM_busep = new FormingIM_busep();
     dataTransnmit = new DataTransmit();
     dataTransnmit->createServer();
 
-    createIS3();
-    /// NOTE по умолчанию шлю ИС4 с запросом "включить все выходы"
-    createIS4(all_outputs, cntrl_on);
+//    createIS3();
+//    /// NOTE по умолчанию шлю ИС4 с запросом "включить все выходы"
+//    createIS4(all_outputs, cntrl_on);
 }
 
-dummyMessages::~dummyMessages()
+DummyMessages::~DummyMessages()
 {
     dataTransnmit->endTransmitServer();
     delete formingIM_busep;
 }
 
-void dummyMessages::startExchange()
+void DummyMessages::startExchange()
 {
 //    int recv_bytes(-1);
     header_and_managed code(empty);
@@ -63,17 +63,17 @@ void dummyMessages::startExchange()
 */
 }
 
-void dummyMessages::setInputsValue()
+void DummyMessages::setInputsValue()
 {
 
 }
 
-void dummyMessages::createIS3()
+void DummyMessages::createIS3(input_state state)
 {
     std::cout << __FUNCTION__ << std::endl;
-    IS3 = formingIM_busep->createIS3();
+    IS3 = formingIM_busep->createIS3(state);
 }
-
+/*
 int dummyMessages::receiveIS1()
 {
     std::cout << __FUNCTION__ << std::endl;
@@ -91,8 +91,8 @@ int dummyMessages::receiveIS1()
 
     return bytes;
 }
-
-void dummyMessages::sendIS3(_is3 *IS3)
+*/
+void DummyMessages::sendIS3(_is3 *IS3)
 {
     std::cout << __FUNCTION__ << std::endl;
 
@@ -102,13 +102,13 @@ void dummyMessages::sendIS3(_is3 *IS3)
     std::cout << "send " << bytes << " bytes; " << std::endl;
 }
 
-void dummyMessages::createIS4(char device_number, unsigned char cnrtl)
+void DummyMessages::createIS4(char device_number, unsigned char cnrtl)
 {
     std::cout << __FUNCTION__ << std::endl;
 
     IS4 = formingIM_busep->createIS4(device_number, cnrtl);
 }
-
+/*
 int dummyMessages::receiveIS2()
 {
     std::cout << __FUNCTION__ << std::endl;
@@ -128,8 +128,8 @@ int dummyMessages::receiveIS2()
 
     return bytes;
 }
-
-void dummyMessages::sendIS4(_is4 *IS4)
+*/
+void DummyMessages::sendIS4(_is4 *IS4)
 {
     std::cout << __FUNCTION__ << std::endl;
 
@@ -141,9 +141,19 @@ void dummyMessages::sendIS4(_is4 *IS4)
     std::cout << "send " << bytes << " bytes; " << std::endl;
 }
 
-header_and_managed dummyMessages::receiveSmth()
+_inputs DummyMessages::getInputs() const
 {
-    std::cout << __FUNCTION__ << std::endl;
+    return formingIM_busep->getInputs();
+}
+
+_outputs DummyMessages::getOutputs() const
+{
+    return formingIM_busep->getOutputs();
+}
+
+header_and_managed DummyMessages::receiveSmth()
+{
+    std::cout << __FUNCTION__ << " waiting for message... " << std::endl;
 
 
     struct _data

@@ -6,13 +6,13 @@ FormingIM_busep::FormingIM_busep()
     outputs = io.initOutputs();
 }
 
-_is3 *FormingIM_busep::createIS3()
+_is3 *FormingIM_busep::createIS3(input_state state)
 {
     qDebug() << "IS3";
     IS3.header = header; printf("    header \t%02x\n", IS3.header);
     IS3.managed = response_state; printf("    managed \t%02x\n", IS3.managed);
 
-    manageIO.changeInputs(inputs);
+    manageIO.changeInputs(inputs, state);
 
     IS3.word00 |= io.getInputs().input4(); IS3.word00 = IS3.word00 << 2;
     IS3.word00 |= io.getInputs().input3(); IS3.word00 = IS3.word00 << 2;
@@ -200,8 +200,7 @@ _is3 *FormingIM_busep::createIS3()
     IS3.word30 |= io.getInputs().input121();
     printf("    word30 \t%02x\n", IS3.word30);
 
-//    IS3.cs = 0x00;
-    IS3.cs = 0xd6;
+    IS3.cs = 0x00;
     printf("    cs \t%02x\n", IS3.cs);
 
 
@@ -336,6 +335,7 @@ bool FormingIM_busep::checkCS(unsigned char _cs)
     return true;
 }
 
+/*
 void FormingIM_busep::setIS3(const _is3 &value)
 {
     IS3 = value;
@@ -736,7 +736,7 @@ void FormingIM_busep::printOutputState(const unsigned &output)
         break;
     }
 }
-
+*/
 _outputs &FormingIM_busep::getOutputs()
 {
     return outputs;

@@ -6,23 +6,26 @@
 #include "formingIM_busep.h"
 
 
-class dummyMessages
+class DummyMessages
 {
 public:
-    dummyMessages();
-    ~dummyMessages();
+    DummyMessages();
+    ~DummyMessages();
 
     void startExchange();
 
     void setInputsValue();
 
-    void createIS3();
-    int receiveIS1();
+    void createIS3(input_state state);
+//    int receiveIS1();
     void sendIS3(_is3 *IS3);
 
     void createIS4(char device_number, unsigned char cnrtl);
-    int receiveIS2();
+//    int receiveIS2();
     void sendIS4(_is4 *IS4);
+
+    _inputs getInputs() const;
+    _outputs getOutputs() const;
 
 private:
     header_and_managed receiveSmth();
