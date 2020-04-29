@@ -7,6 +7,7 @@ DummyMessages::DummyMessages()
     dataTransnmit->createServer();
 
     createIS3(no_input_state);
+    createIS4(0x00, output_off);
 }
 
 DummyMessages::~DummyMessages()

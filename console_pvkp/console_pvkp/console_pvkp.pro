@@ -1,7 +1,9 @@
-QT += core gui
+QT += core
+QT += gui
 #QT += serialport
 
-CONFIG += c++11 #console
+CONFIG += c++11
+#CONFIG += console
 #CONFIG -= app_bundle
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -108,7 +108,7 @@ private:
     void showInputsValue();
     void setInputColor(const unsigned &input, QPushButton *input_button);
 
-    void showOutputValue();
+    void showOutputsValue();
     void setOutputColor(const unsigned &output, QPushButton *output_button);
 
     Ui::PVKPWindow *ui;

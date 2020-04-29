@@ -8,15 +8,11 @@ ManageInputsOutputs::ManageInputsOutputs()
 
 void ManageInputsOutputs::changeInputs(input_state state)
 {
-    inputs.setInput1(state);
-    inputs.setInput2(state);
-    inputs.setInput3(state);
-    inputs.setInput4(state);
+    inputs.setInput1(state); inputs.setInput2(state);
+    inputs.setInput3(state); inputs.setInput4(state);
 
-    inputs.setInput5(state);
-    inputs.setInput6(state);
-    inputs.setInput7(state);
-    inputs.setInput8(state);
+    inputs.setInput5(state); inputs.setInput6(state);
+    inputs.setInput7(state); inputs.setInput8(state);
 
     inputs.setInput9(state);
     inputs.setInput10(state);
@@ -272,6 +268,8 @@ void ManageInputsOutputs::allOutputsOnOff(unsigned char cntrl)
         state = output_off;
     }
 
+    io.setAllOutputs(state);
+
     outputs.setOutput1(state);
     outputs.setOutput2(state);
     outputs.setOutput3(state);
@@ -363,6 +361,8 @@ void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl
         state = output_off;
     }
 
+    io.setOneOutput(device_number, state);
+
     switch (device_number)
     {
     case 0x01: outputs.setOutput1(state); break;
@@ -453,4 +453,9 @@ _inputs ManageInputsOutputs::getInputs() const
 _outputs ManageInputsOutputs::getOutputs() const
 {
     return outputs;
+}
+
+char *ManageInputsOutputs::getOutputs2()
+{
+    return io.getAllOutputs();
 }

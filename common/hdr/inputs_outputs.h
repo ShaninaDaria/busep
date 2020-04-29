@@ -220,34 +220,49 @@ struct _outputs // 62
 {
     unsigned _output1:2; unsigned _output2:2;
     unsigned _output3:2; unsigned _output4:2;
+
     unsigned _output5:2; unsigned _output6:2;
     unsigned _output7:2; unsigned _output8:2;
+
     unsigned _output9:2; unsigned _output10:2;
     unsigned _output11:2; unsigned _output12:2;
+
     unsigned _output13:2; unsigned _output14:2;
     unsigned _output15:2; unsigned _output16:2;
+
     unsigned _output17:2; unsigned _output18:2;
     unsigned _output19:2; unsigned _output20:2;
+
     unsigned _output21:2; unsigned _output22:2;
     unsigned _output23:2; unsigned _output24:2;
+
     unsigned _output25:2; unsigned _output26:2;
     unsigned _output27:2; unsigned _output28:2;
+
     unsigned _output29:2; unsigned _output30:2;
     unsigned _output31:2; unsigned _output32:2;
+
     unsigned _output33:2; unsigned _output34:2;
     unsigned _output35:2; unsigned _output36:2;
+
     unsigned _output37:2; unsigned _output38:2;
     unsigned _output39:2; unsigned _output40:2;
+
     unsigned _output41:2; unsigned _output42:2;
     unsigned _output43:2; unsigned _output44:2;
+
     unsigned _output45:2; unsigned _output46:2;
     unsigned _output47:2; unsigned _output48:2;
+
     unsigned _output49:2; unsigned _output50:2;
     unsigned _output51:2; unsigned _output52:2;
+
     unsigned _output53:2; unsigned _output54:2;
     unsigned _output55:2; unsigned _output56:2;
+
     unsigned _output57:2; unsigned _output58:2;
     unsigned _output59:2; unsigned _output60:2;
+
     unsigned _output61:2; unsigned _output62:2;
 
 public:
@@ -315,6 +330,7 @@ public:
     unsigned output62() const; void setOutput62(const unsigned &output62);
 };
 
+
 class InputsOutputs
 {
 public:
@@ -329,10 +345,16 @@ public:
     _outputs getOutputs() const;
     void setOutputs(const _outputs &value);
 
-//    void showInputs();
-
     _inputs inputs;
     _outputs outputs;
+
+    char outputs2[16];
+
+    void setAllOutputs(output_state state);
+    void setOneOutput(int number, output_state state);
+    char getOutputValue(int number);
+    char *getAllOutputs();
+    int sizeOfOutputs() const;
 };
 
 #endif // INPUTS_OUTPUTS_H

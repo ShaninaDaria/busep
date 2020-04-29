@@ -249,60 +249,60 @@ int messageExchange::receiveIS4()
 
     if (bytes_rcv > 0)
     {
-        if ((bytes_rcv == 8) || (bytes_rcv == 3))
+        if (bytes_rcv == sizeof(_is4))
         {
-            if (rcv_IS4.header == header_and_managed::header)
-            {
-                // начало посылки
-                IS4.header = rcv_IS4.header;
-                IS4.managed = rcv_IS4.managed;
-                IS4.state00 = rcv_IS4.state00;
-                IS4.state01 = rcv_IS4.state01;
-                IS4.state02 = rcv_IS4.state02;
-                IS4.state03 = rcv_IS4.state03;
-                IS4.state04 = rcv_IS4.state04;
-                IS4.state05 = rcv_IS4.state05;
-            }
-            else
-            {
-                switch (bytes)
-                {
-                case 16:
-                {
-                    // т.к. всегда заполнены первые 8 байт
-                    IS4.state06 = rcv_IS4.header;
-                    IS4.state07 = rcv_IS4.managed;
-                    IS4.state08 = rcv_IS4.state00;
-                    IS4.state09 = rcv_IS4.state01;
-                    IS4.state10 = rcv_IS4.state02;
-                    IS4.state11 = rcv_IS4.state03;
-                    IS4.state12 = rcv_IS4.state04;
-                    IS4.state13 = rcv_IS4.state05;
-                }
-                    break;
-
-                case 19:
-                {
-                    IS4.state14 = rcv_IS4.header;
-                    IS4.state15 = rcv_IS4.managed;
-                    IS4.cs = rcv_IS4.state00;
-                }
-                    break;
-                }
-            }
-
-            if (bytes == sizeof(_is4))
-            {
-                bytes = 0;
-                formingIMpvkp->parsingIS4(IS4);
-            }
+            IS4 = rcv_IS4;
+            formingIMpvkp->parsingIS4(IS4);
         }
         else
         {
-            if (bytes_rcv == sizeof(_is4))
+            if ((bytes_rcv == 8) || (bytes_rcv == 3))
             {
-                IS4 = rcv_IS4;
-                formingIMpvkp->parsingIS4(IS4);
+                if (rcv_IS4.header == header_and_managed::header)
+                {
+                    // начало посылки
+                    IS4.header = rcv_IS4.header;
+                    IS4.managed = rcv_IS4.managed;
+                    IS4.state00 = rcv_IS4.state00;
+                    IS4.state01 = rcv_IS4.state01;
+                    IS4.state02 = rcv_IS4.state02;
+                    IS4.state03 = rcv_IS4.state03;
+                    IS4.state04 = rcv_IS4.state04;
+                    IS4.state05 = rcv_IS4.state05;
+                }
+                else
+                {
+                    switch (bytes)
+                    {
+                    case 16:
+                    {
+                        // т.к. всегда заполнены первые 8 байт
+                        IS4.state06 = rcv_IS4.header;
+                        IS4.state07 = rcv_IS4.managed;
+                        IS4.state08 = rcv_IS4.state00;
+                        IS4.state09 = rcv_IS4.state01;
+                        IS4.state10 = rcv_IS4.state02;
+                        IS4.state11 = rcv_IS4.state03;
+                        IS4.state12 = rcv_IS4.state04;
+                        IS4.state13 = rcv_IS4.state05;
+                    }
+                        break;
+
+                    case 19:
+                    {
+                        IS4.state14 = rcv_IS4.header;
+                        IS4.state15 = rcv_IS4.managed;
+                        IS4.cs = rcv_IS4.state00;
+                    }
+                        break;
+                    }
+                }
+
+                if (bytes == sizeof(_is4))
+                {
+                    bytes = 0;
+                    formingIMpvkp->parsingIS4(IS4);
+                }
             }
         }
     }

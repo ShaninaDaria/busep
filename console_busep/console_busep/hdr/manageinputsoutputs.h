@@ -18,6 +18,7 @@ public:
 
 //    void setOutputs(const _outputs &value);
     _outputs getOutputs() const;
+    char *getOutputs2();
 
 private:
     InputsOutputs io;

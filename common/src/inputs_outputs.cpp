@@ -1,9 +1,20 @@
 #include "../../common/hdr/inputs_outputs.h"
 
+#include <QDebug>
 
 InputsOutputs::InputsOutputs()
 {
+    qDebug() << sizeof(outputs2);
+    bzero(outputs2, sizeof(outputs2));
 
+    for (int i = 0; i < static_cast<int>(sizeof(outputs2)); i++)
+    {
+        outputs2[i] = no_output_state;
+        qDebug() << outputs2[i];
+    }
+
+    qDebug() << "getOutputValue" << getOutputValue(5);
+    qDebug() << "getOutputValue" << getOutputValue(100);
 }
 
 _inputs InputsOutputs::getInputs() const
@@ -267,6 +278,42 @@ _outputs InputsOutputs::getOutputs() const
 void InputsOutputs::setOutputs(const _outputs &value)
 {
     outputs = value;
+}
+
+void InputsOutputs::setAllOutputs(output_state state)
+{
+    for (int i = 0; i < sizeOfOutputs(); i++)
+    {
+        outputs2[i] = state;
+        qDebug() << outputs2[i];
+    }
+}
+
+void InputsOutputs::setOneOutput(int number, output_state state)
+{
+    if (number < sizeOfOutputs())
+    {
+        outputs2[number] = state;
+    }
+}
+
+char InputsOutputs::getOutputValue(int number)
+{
+    if (number < sizeOfOutputs())
+    {
+        return outputs2[number];
+    }
+    return 0xff;
+}
+
+char *InputsOutputs::getAllOutputs()
+{
+    return outputs2;
+}
+
+int InputsOutputs::sizeOfOutputs() const
+{
+    return static_cast<int>(sizeof(outputs2));
 }
 
 unsigned _inputs::input2() const

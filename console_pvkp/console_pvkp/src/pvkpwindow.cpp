@@ -7,6 +7,8 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    qDebug() << sizeof(_inputs) << sizeof(_outputs);
+
     createPalette();
 
     me = new messageExchange();
@@ -94,7 +96,6 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     //    me->startExchange();
 
     //    showInputsValue();
-
 }
 
 PVKPWindow::~PVKPWindow()
@@ -119,7 +120,7 @@ void PVKPWindow::slotByTimer()
     me->startExchange();
 
     showInputsValue();
-    showOutputValue();
+    showOutputsValue();
 }
 
 void PVKPWindow::slotAllOutputsOff()
@@ -190,7 +191,7 @@ void PVKPWindow::slotAllOutputsOff()
     ui->output61->setChecked(true);
     ui->output62->setChecked(true);
 
-    showOutputValue();
+    showOutputsValue();
 }
 
 void PVKPWindow::slotAllOutputsOn()
@@ -261,7 +262,7 @@ void PVKPWindow::slotAllOutputsOn()
     ui->output61->setChecked(false);
     ui->output62->setChecked(false);
 
-    showOutputValue();
+    showOutputsValue();
 }
 
 void PVKPWindow::slotOutput1toggled(bool toggled)
@@ -1065,14 +1066,13 @@ void PVKPWindow::slotOutput62toggled(bool toggled)
     {
         me->createIS2(0x3e, cntrl_off);
         outputs.setOutput62(output_off);
-        showOutputValue();
     }
     else
     {
         me->createIS2(0x3e, cntrl_on);
         outputs.setOutput62(output_on);
-        showOutputValue();
     }
+    showOutputsValue();
 }
 
 void PVKPWindow::showInputsValue()
@@ -1258,7 +1258,7 @@ void PVKPWindow::setInputColor(const unsigned &input, QPushButton *input_button)
     }
 }
 
-void PVKPWindow::showOutputValue()
+void PVKPWindow::showOutputsValue()
 {
     _outputs outputs = me->getOutputsValue();
 

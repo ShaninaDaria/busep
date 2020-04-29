@@ -33,6 +33,7 @@ private:
     void printInputState(const unsigned &input);
 
     unsigned getOutputState(unsigned char state);
+    output_state getOutputState2(unsigned char state);
     void printOutputState(const unsigned &output);
 
     _is1 IS1;

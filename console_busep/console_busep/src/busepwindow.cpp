@@ -17,10 +17,6 @@ BusepWindow::BusepWindow(QWidget *parent) :
     timer->start(1000);
 
 //    slotStartExchangeByTimer();
-
-
-    showOutputsValue();
-    showInputsValue();
 }
 
 BusepWindow::~BusepWindow()
@@ -161,7 +157,7 @@ void BusepWindow::slotAllInputsOff()
     ui->input123->setChecked(true);
     ui->input124->setChecked(true);
 
-    showInputsValue();
+//    showInputsValue();
 }
 
 void BusepWindow::slotAllInputsOn()
@@ -295,12 +291,15 @@ void BusepWindow::slotAllInputsOn()
     ui->input123->setChecked(false);
     ui->input124->setChecked(false);
 
-    showInputsValue();
+//    showInputsValue();
 }
 
 void BusepWindow::slotStartExchangeByTimer()
 {
     dm->startExchange();
+
+    showOutputsValue();
+    showInputsValue();
 }
 
 void BusepWindow::createPalette()
@@ -470,7 +469,6 @@ void BusepWindow::showInputsValue()
     setInputColor(inputs.input122(), ui->input122);
     setInputColor(inputs.input123(), ui->input123);
     setInputColor(inputs.input124(), ui->input124);
-
 }
 
 void BusepWindow::setInputColor(const unsigned &input, QPushButton *input_button)

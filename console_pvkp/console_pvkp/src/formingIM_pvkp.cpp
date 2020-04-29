@@ -8,7 +8,7 @@ FormingIM_pvkp::FormingIM_pvkp()
 
 _is1 FormingIM_pvkp::createIS1()
 {
-    bzero(&IS1, (sizeof (_is1)));
+    bzero(&IS1, sizeof(_is1));
 
     qDebug() << "IS1";
     IS1.header = header; printf("    header \t%02x\n", IS1.header);
@@ -59,7 +59,6 @@ void FormingIM_pvkp::parsingIS3(_is3 &IS3)
     printf("    header \t%02x\n", IS3.header);
     printf("  managed \t%02x\n", IS3.managed);
 
-    qDebug() << "IS3.word00" << IS3.word00;
     printf("    word00 \t%02x\n", IS3.word00);
     inputs.setInput1(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
     inputs.setInput2(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
@@ -255,10 +254,22 @@ void FormingIM_pvkp::parsingIS4(_is4 &IS4)
     printf("   managed \t%02x\n", IS4.managed);
 
     printf("   state00 \t%02x\n", IS4.state00);
-    outputs.setOutput1(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
-    outputs.setOutput2(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
-    outputs.setOutput3(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
-    outputs.setOutput4(getOutputState(IS4.state00));
+    io.setOneOutput(0, getOutputState2(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+    io.setOneOutput(1, getOutputState2(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+    io.setOneOutput(2, getOutputState2(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+    io.setOneOutput(3, getOutputState2(IS4.state00));
+
+    if (io.getOutputValue(IS2.device_number) == IS2.state)
+    {
+        printf("   output %02x = %02x\n", io.getOutputValue(IS2.device_number), IS2.state);
+    }
+
+
+
+//    outputs.setOutput1(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+//    outputs.setOutput2(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+//    outputs.setOutput3(getOutputState(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
+//    outputs.setOutput4(getOutputState(IS4.state00));
 
     printf("   state01 \t%02x\n", IS4.state01);
     outputs.setOutput5(getOutputState(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
@@ -417,6 +428,31 @@ unsigned FormingIM_pvkp::getOutputState(unsigned char state)
 
     printOutputState(output);
     return output;
+}
+
+output_state FormingIM_pvkp::getOutputState2(unsigned char state)
+{
+    output_state res = error_output;
+
+    if ((state & output_on) == output_on)
+    {
+        res = output_on;
+    }
+    if ((state & output_off) == output_off)
+    {
+        res = output_off;
+    }
+    if ((state & no_output_state) == no_output_state)
+    {
+        res = no_output_state;
+    }
+    if ((state ^ error_output) == error_output)
+    {
+        res = error_output;
+    }
+
+    printOutputState(state);
+    return res;
 }
 
 void FormingIM_pvkp::printOutputState(const unsigned &output)

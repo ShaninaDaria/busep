@@ -1,8 +1,9 @@
-#include <QApplication>
-#include "hdr/pvkpwindow.h"
 
 //#include <QCoreApplication>
 //#include "hdr/messageexchange.h"
+
+#include <QApplication>
+#include "hdr/pvkpwindow.h"
 
 int main(int argc, char *argv[])
 {

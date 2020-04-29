@@ -221,11 +221,19 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 
     manageIO.changeOutputs(device_number, cnrtl);
 
-    IS4.state00 |= manageIO.getOutputs().output4(); IS4.state00 = IS4.state00 << 2;
-    IS4.state00 |= manageIO.getOutputs().output3(); IS4.state00 = IS4.state00 << 2;
-    IS4.state00 |= manageIO.getOutputs().output2(); IS4.state00 = IS4.state00 << 2;
-    IS4.state00 |= manageIO.getOutputs().output1();
+    IS4.state00 |= manageIO.getOutputs2()[3]; IS4.state00 = IS4.state00 << 2;
+    IS4.state00 |= manageIO.getOutputs2()[2]; IS4.state00 = IS4.state00 << 2;
+    IS4.state00 |= manageIO.getOutputs2()[1]; IS4.state00 = IS4.state00 << 2;
+    IS4.state00 |= manageIO.getOutputs2()[0];
     printf("    state00 \t%02x\n", IS4.state00);
+
+
+
+//    IS4.state00 |= manageIO.getOutputs().output4(); IS4.state00 = IS4.state00 << 2;
+//    IS4.state00 |= manageIO.getOutputs().output3(); IS4.state00 = IS4.state00 << 2;
+//    IS4.state00 |= manageIO.getOutputs().output2(); IS4.state00 = IS4.state00 << 2;
+//    IS4.state00 |= manageIO.getOutputs().output1();
+//    printf("    state00 \t%02x\n", IS4.state00);
 
     IS4.state01 |= manageIO.getOutputs().output8(); IS4.state01 = IS4.state01 << 2;
     IS4.state01 |= manageIO.getOutputs().output7(); IS4.state01 = IS4.state01 << 2;
