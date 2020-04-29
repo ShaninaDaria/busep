@@ -13,7 +13,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
-//    timer->start(1000);
+    timer->start(1000);
 
     connect(ui->allOutputsOff, SIGNAL(pressed()), this, SLOT(slotAllOutputsOff()));
     connect(ui->allOutputsOn, SIGNAL(pressed()), this, SLOT(slotAllOutputsOn()));
@@ -80,6 +80,9 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     connect(ui->output61, SIGNAL(toggled(bool)), this, SLOT(slotOutput61toggled(bool)));
     connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));
 
+    /// TODO - кнопку нажала, запрос ушел. Если ответ совпадает, то рамка зеленая,
+    /// если нет - красная или желтая
+
     //    thread = new QThread(this);
     /// TODO - в отдельный поток?
     //    me->moveToThread(thread);
@@ -123,6 +126,7 @@ void PVKPWindow::slotAllOutputsOff()
 {
     qDebug() << __FUNCTION__;
     me->createIS2(all_outputs, cntrl_off);
+
     ui->output1->setChecked(true);
     ui->output2->setChecked(true);
     ui->output3->setChecked(true);
@@ -185,12 +189,15 @@ void PVKPWindow::slotAllOutputsOff()
     ui->output60->setChecked(true);
     ui->output61->setChecked(true);
     ui->output62->setChecked(true);
+
+    showOutputValue();
 }
 
 void PVKPWindow::slotAllOutputsOn()
 {
     qDebug() << __FUNCTION__;
     me->createIS2(all_outputs, cntrl_on);
+
     ui->output1->setChecked(false);
     ui->output2->setChecked(false);
     ui->output3->setChecked(false);
@@ -253,7 +260,8 @@ void PVKPWindow::slotAllOutputsOn()
     ui->output60->setChecked(false);
     ui->output61->setChecked(false);
     ui->output62->setChecked(false);
-    qDebug() << "Checked" << ui->output1->isChecked();
+
+    showOutputValue();
 }
 
 void PVKPWindow::slotOutput1toggled(bool toggled)
@@ -1056,10 +1064,14 @@ void PVKPWindow::slotOutput62toggled(bool toggled)
     if (toggled)
     {
         me->createIS2(0x3e, cntrl_off);
+        outputs.setOutput62(output_off);
+        showOutputValue();
     }
     else
     {
         me->createIS2(0x3e, cntrl_on);
+        outputs.setOutput62(output_on);
+        showOutputValue();
     }
 }
 

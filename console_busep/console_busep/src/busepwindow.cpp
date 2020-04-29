@@ -11,12 +11,14 @@ BusepWindow::BusepWindow(QWidget *parent) :
     connect(ui->allInputsOff, SIGNAL(pressed()), this, SLOT(slotAllInputsOff()));
     connect(ui->allInputsOn, SIGNAL(pressed()), this, SLOT(slotAllInputsOn()));
 
-//    timer = new QTimer(this);
-//    connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
-//    timer->start(1000);
-
-
     dm = new DummyMessages();
+    timer = new QTimer(this);
+    connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
+    timer->start(1000);
+
+//    slotStartExchangeByTimer();
+
+
     showOutputsValue();
     showInputsValue();
 }
@@ -32,6 +34,7 @@ void BusepWindow::slotAllInputsOff()
 {
     qDebug() << __FUNCTION__;
     dm->createIS3(no_signal_27v);
+
     ui->input1->setChecked(true);
     ui->input2->setChecked(true);
     ui->input3->setChecked(true);
@@ -157,12 +160,15 @@ void BusepWindow::slotAllInputsOff()
     ui->input122->setChecked(true);
     ui->input123->setChecked(true);
     ui->input124->setChecked(true);
+
+    showInputsValue();
 }
 
 void BusepWindow::slotAllInputsOn()
 {
     qDebug() << __FUNCTION__;
     dm->createIS3(is_signal_27v);
+
     ui->input1->setChecked(false);
     ui->input2->setChecked(false);
     ui->input3->setChecked(false);
@@ -288,6 +294,8 @@ void BusepWindow::slotAllInputsOn()
     ui->input122->setChecked(false);
     ui->input123->setChecked(false);
     ui->input124->setChecked(false);
+
+    showInputsValue();
 }
 
 void BusepWindow::slotStartExchangeByTimer()

@@ -121,6 +121,8 @@ private:
     QPalette gray_palette;
 
     messageExchange *me;
+
+    _outputs outputs;
 };
 
 #endif // PVKPWINDOW_H

@@ -13,160 +13,160 @@ _inputs InputsOutputs::getInputs() const
 
 _inputs InputsOutputs::initInputs()
 {
-    inputs.setInput1(input_state::no_input_state);
-    inputs.setInput2(input_state::no_input_state);
-    inputs.setInput3(input_state::no_input_state);
-    inputs.setInput4(input_state::no_input_state);
+    inputs.setInput1(no_input_state);
+    inputs.setInput2(no_input_state);
+    inputs.setInput3(no_input_state);
+    inputs.setInput4(no_input_state);
 
-    inputs.setInput5(input_state::no_input_state);
-    inputs.setInput6(input_state::no_input_state);
-    inputs.setInput7(input_state::no_input_state);
-    inputs.setInput8(input_state::no_input_state);
+    inputs.setInput5(no_input_state);
+    inputs.setInput6(no_input_state);
+    inputs.setInput7(no_input_state);
+    inputs.setInput8(no_input_state);
 
-    inputs.setInput9(input_state::no_input_state);
-    inputs.setInput10(input_state::no_input_state);
-    inputs.setInput11(input_state::no_input_state);
-    inputs.setInput12(input_state::no_input_state);
+    inputs.setInput9(no_input_state);
+    inputs.setInput10(no_input_state);
+    inputs.setInput11(no_input_state);
+    inputs.setInput12(no_input_state);
 
-    inputs.setInput13(input_state::no_input_state);
-    inputs.setInput14(input_state::no_input_state);
-    inputs.setInput15(input_state::no_input_state);
-    inputs.setInput16(input_state::no_input_state);
+    inputs.setInput13(no_input_state);
+    inputs.setInput14(no_input_state);
+    inputs.setInput15(no_input_state);
+    inputs.setInput16(no_input_state);
 
-    inputs.setInput17(input_state::no_input_state);
-    inputs.setInput18(input_state::no_input_state);
-    inputs.setInput19(input_state::no_input_state);
-    inputs.setInput20(input_state::no_input_state);
+    inputs.setInput17(no_input_state);
+    inputs.setInput18(no_input_state);
+    inputs.setInput19(no_input_state);
+    inputs.setInput20(no_input_state);
 
-    inputs.setInput21(input_state::no_input_state);
-    inputs.setInput22(input_state::no_input_state);
-    inputs.setInput23(input_state::no_input_state);
-    inputs.setInput24(input_state::no_input_state);
+    inputs.setInput21(no_input_state);
+    inputs.setInput22(no_input_state);
+    inputs.setInput23(no_input_state);
+    inputs.setInput24(no_input_state);
 
-    inputs.setInput25(input_state::no_input_state);
-    inputs.setInput26(input_state::no_input_state);
-    inputs.setInput27(input_state::no_input_state);
-    inputs.setInput28(input_state::no_input_state);
+    inputs.setInput25(no_input_state);
+    inputs.setInput26(no_input_state);
+    inputs.setInput27(no_input_state);
+    inputs.setInput28(no_input_state);
 
-    inputs.setInput29(input_state::no_input_state);
-    inputs.setInput30(input_state::no_input_state);
-    inputs.setInput31(input_state::no_input_state);
-    inputs.setInput32(input_state::no_input_state);
+    inputs.setInput29(no_input_state);
+    inputs.setInput30(no_input_state);
+    inputs.setInput31(no_input_state);
+    inputs.setInput32(no_input_state);
 
-    inputs.setInput33(input_state::no_input_state);
-    inputs.setInput34(input_state::no_input_state);
-    inputs.setInput35(input_state::no_input_state);
-    inputs.setInput36(input_state::no_input_state);
+    inputs.setInput33(no_input_state);
+    inputs.setInput34(no_input_state);
+    inputs.setInput35(no_input_state);
+    inputs.setInput36(no_input_state);
 
-    inputs.setInput37(input_state::no_input_state);
-    inputs.setInput38(input_state::no_input_state);
-    inputs.setInput39(input_state::no_input_state);
-    inputs.setInput40(input_state::no_input_state);
+    inputs.setInput37(no_input_state);
+    inputs.setInput38(no_input_state);
+    inputs.setInput39(no_input_state);
+    inputs.setInput40(no_input_state);
 
-    inputs.setInput41(input_state::no_input_state);
-    inputs.setInput42(input_state::no_input_state);
-    inputs.setInput43(input_state::no_input_state);
-    inputs.setInput44(input_state::no_input_state);
+    inputs.setInput41(no_input_state);
+    inputs.setInput42(no_input_state);
+    inputs.setInput43(no_input_state);
+    inputs.setInput44(no_input_state);
 
-    inputs.setInput45(input_state::no_input_state);
-    inputs.setInput46(input_state::no_input_state);
-    inputs.setInput47(input_state::no_input_state);
-    inputs.setInput48(input_state::no_input_state);
+    inputs.setInput45(no_input_state);
+    inputs.setInput46(no_input_state);
+    inputs.setInput47(no_input_state);
+    inputs.setInput48(no_input_state);
 
-    inputs.setInput49(input_state::no_input_state);
-    inputs.setInput50(input_state::no_input_state);
-    inputs.setInput51(input_state::no_input_state);
-    inputs.setInput52(input_state::no_input_state);
+    inputs.setInput49(no_input_state);
+    inputs.setInput50(no_input_state);
+    inputs.setInput51(no_input_state);
+    inputs.setInput52(no_input_state);
 
-    inputs.setInput53(input_state::no_input_state);
-    inputs.setInput54(input_state::no_input_state);
-    inputs.setInput55(input_state::no_input_state);
-    inputs.setInput56(input_state::no_input_state);
+    inputs.setInput53(no_input_state);
+    inputs.setInput54(no_input_state);
+    inputs.setInput55(no_input_state);
+    inputs.setInput56(no_input_state);
 
-    inputs.setInput57(input_state::no_input_state);
-    inputs.setInput58(input_state::no_input_state);
-    inputs.setInput59(input_state::no_input_state);
-    inputs.setInput60(input_state::no_input_state);
+    inputs.setInput57(no_input_state);
+    inputs.setInput58(no_input_state);
+    inputs.setInput59(no_input_state);
+    inputs.setInput60(no_input_state);
 
-    inputs.setInput61(input_state::no_input_state);
-    inputs.setInput62(input_state::no_input_state);
-    inputs.setInput63(input_state::no_input_state);
-    inputs.setInput64(input_state::no_input_state);
+    inputs.setInput61(no_input_state);
+    inputs.setInput62(no_input_state);
+    inputs.setInput63(no_input_state);
+    inputs.setInput64(no_input_state);
 
-    inputs.setInput65(input_state::no_input_state);
-    inputs.setInput66(input_state::no_input_state);
-    inputs.setInput67(input_state::no_input_state);
-    inputs.setInput68(input_state::no_input_state);
+    inputs.setInput65(no_input_state);
+    inputs.setInput66(no_input_state);
+    inputs.setInput67(no_input_state);
+    inputs.setInput68(no_input_state);
 
-    inputs.setInput69(input_state::no_input_state);
-    inputs.setInput70(input_state::no_input_state);
-    inputs.setInput71(input_state::no_input_state);
-    inputs.setInput72(input_state::no_input_state);
+    inputs.setInput69(no_input_state);
+    inputs.setInput70(no_input_state);
+    inputs.setInput71(no_input_state);
+    inputs.setInput72(no_input_state);
 
-    inputs.setInput73(input_state::no_input_state);
-    inputs.setInput74(input_state::no_input_state);
-    inputs.setInput75(input_state::no_input_state);
-    inputs.setInput76(input_state::no_input_state);
+    inputs.setInput73(no_input_state);
+    inputs.setInput74(no_input_state);
+    inputs.setInput75(no_input_state);
+    inputs.setInput76(no_input_state);
 
-    inputs.setInput77(input_state::no_input_state);
-    inputs.setInput78(input_state::no_input_state);
-    inputs.setInput79(input_state::no_input_state);
-    inputs.setInput80(input_state::no_input_state);
+    inputs.setInput77(no_input_state);
+    inputs.setInput78(no_input_state);
+    inputs.setInput79(no_input_state);
+    inputs.setInput80(no_input_state);
 
-    inputs.setInput81(input_state::no_input_state);
-    inputs.setInput82(input_state::no_input_state);
-    inputs.setInput83(input_state::no_input_state);
-    inputs.setInput84(input_state::no_input_state);
+    inputs.setInput81(no_input_state);
+    inputs.setInput82(no_input_state);
+    inputs.setInput83(no_input_state);
+    inputs.setInput84(no_input_state);
 
-    inputs.setInput85(input_state::no_input_state);
-    inputs.setInput86(input_state::no_input_state);
-    inputs.setInput87(input_state::no_input_state);
-    inputs.setInput88(input_state::no_input_state);
+    inputs.setInput85(no_input_state);
+    inputs.setInput86(no_input_state);
+    inputs.setInput87(no_input_state);
+    inputs.setInput88(no_input_state);
 
-    inputs.setInput89(input_state::no_input_state);
-    inputs.setInput90(input_state::no_input_state);
-    inputs.setInput91(input_state::no_input_state);
-    inputs.setInput92(input_state::no_input_state);
+    inputs.setInput89(no_input_state);
+    inputs.setInput90(no_input_state);
+    inputs.setInput91(no_input_state);
+    inputs.setInput92(no_input_state);
 
-    inputs.setInput93(input_state::no_input_state);
-    inputs.setInput94(input_state::no_input_state);
-    inputs.setInput95(input_state::no_input_state);
-    inputs.setInput96(input_state::no_input_state);
+    inputs.setInput93(no_input_state);
+    inputs.setInput94(no_input_state);
+    inputs.setInput95(no_input_state);
+    inputs.setInput96(no_input_state);
 
-    inputs.setInput97(input_state::no_input_state);
-    inputs.setInput98(input_state::no_input_state);
-    inputs.setInput99(input_state::no_input_state);
-    inputs.setInput100(input_state::no_input_state);
+    inputs.setInput97(no_input_state);
+    inputs.setInput98(no_input_state);
+    inputs.setInput99(no_input_state);
+    inputs.setInput100(no_input_state);
 
-    inputs.setInput101(input_state::no_input_state);
-    inputs.setInput102(input_state::no_input_state);
-    inputs.setInput103(input_state::no_input_state);
-    inputs.setInput104(input_state::no_input_state);
+    inputs.setInput101(no_input_state);
+    inputs.setInput102(no_input_state);
+    inputs.setInput103(no_input_state);
+    inputs.setInput104(no_input_state);
 
-    inputs.setInput105(input_state::no_input_state);
-    inputs.setInput106(input_state::no_input_state);
-    inputs.setInput107(input_state::no_input_state);
-    inputs.setInput108(input_state::no_input_state);
+    inputs.setInput105(no_input_state);
+    inputs.setInput106(no_input_state);
+    inputs.setInput107(no_input_state);
+    inputs.setInput108(no_input_state);
 
-    inputs.setInput109(input_state::no_input_state);
-    inputs.setInput110(input_state::no_input_state);
-    inputs.setInput111(input_state::no_input_state);
-    inputs.setInput112(input_state::no_input_state);
+    inputs.setInput109(no_input_state);
+    inputs.setInput110(no_input_state);
+    inputs.setInput111(no_input_state);
+    inputs.setInput112(no_input_state);
 
-    inputs.setInput113(input_state::no_input_state);
-    inputs.setInput114(input_state::no_input_state);
-    inputs.setInput115(input_state::no_input_state);
-    inputs.setInput116(input_state::no_input_state);
+    inputs.setInput113(no_input_state);
+    inputs.setInput114(no_input_state);
+    inputs.setInput115(no_input_state);
+    inputs.setInput116(no_input_state);
 
-    inputs.setInput117(input_state::no_input_state);
-    inputs.setInput118(input_state::no_input_state);
-    inputs.setInput119(input_state::no_input_state);
-    inputs.setInput120(input_state::no_input_state);
+    inputs.setInput117(no_input_state);
+    inputs.setInput118(no_input_state);
+    inputs.setInput119(no_input_state);
+    inputs.setInput120(no_input_state);
 
-    inputs.setInput121(input_state::no_input_state);
-    inputs.setInput122(input_state::no_input_state);
-    inputs.setInput123(input_state::no_input_state);
-    inputs.setInput124(input_state::no_input_state);
+    inputs.setInput121(no_input_state);
+    inputs.setInput122(no_input_state);
+    inputs.setInput123(no_input_state);
+    inputs.setInput124(no_input_state);
 
     return inputs;
 }

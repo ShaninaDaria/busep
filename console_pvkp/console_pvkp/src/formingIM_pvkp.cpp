@@ -8,6 +8,8 @@ FormingIM_pvkp::FormingIM_pvkp()
 
 _is1 FormingIM_pvkp::createIS1()
 {
+    bzero(&IS1, (sizeof (_is1)));
+
     qDebug() << "IS1";
     IS1.header = header; printf("    header \t%02x\n", IS1.header);
     IS1.managed = request; printf("    managed \t%02x\n", IS1.managed);
@@ -19,6 +21,8 @@ _is1 FormingIM_pvkp::createIS1()
 
 _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
 {
+    bzero(&IS2, (sizeof (_is2)));
+
     qDebug() << "IS2";
     IS2.header = header; printf("    header \t%02x\n", IS2.header);
     IS2.managed = change_state; printf("    managed \t%02x\n", IS2.managed);
@@ -29,327 +33,7 @@ _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
 
     return IS2;
 }
-/*
-_is3 *FormingIM_pvkp::createIS3()
-{
-    qDebug() << "IS3";
-    IS3.header = header; printf("    header \t%02x\n", IS3.header);
-    IS3.managed = response_state; printf("    managed \t%02x\n", IS3.managed);
 
-    inputs = io.changeInputs();
-
-    IS3.word00 |= io.getInputs().input4(); IS3.word00 = IS3.word00 << 2;
-    IS3.word00 |= io.getInputs().input3(); IS3.word00 = IS3.word00 << 2;
-    IS3.word00 |= io.getInputs().input2(); IS3.word00 = IS3.word00 << 2;
-    IS3.word00 |= io.getInputs().input1();
-    printf("    word0 \t%02x\n", IS3.word00);
-
-    IS3.word01 |= io.getInputs().input8(); IS3.word01 = IS3.word01 << 2;
-    IS3.word01 |= io.getInputs().input7(); IS3.word01 = IS3.word01 << 2;
-    IS3.word01 |= io.getInputs().input6(); IS3.word01 = IS3.word01 << 2;
-    IS3.word01 |= io.getInputs().input5();
-    printf("    word1 \t%02x\n", IS3.word01);
-
-    IS3.word02 |= io.getInputs().input12(); IS3.word02 = IS3.word02 << 2;
-    IS3.word02 |= io.getInputs().input11(); IS3.word02 = IS3.word02 << 2;
-    IS3.word02 |= io.getInputs().input10(); IS3.word02 = IS3.word02 << 2;
-    IS3.word02 |= io.getInputs().input9();
-    printf("    word2 \t%02x\n", IS3.word02);
-
-    IS3.word03 |= io.getInputs().input16(); IS3.word03 = IS3.word03 << 2;
-    IS3.word03 |= io.getInputs().input15(); IS3.word03 = IS3.word03 << 2;
-    IS3.word03 |= io.getInputs().input14(); IS3.word03 = IS3.word03 << 2;
-    IS3.word03 |= io.getInputs().input13();
-    printf("    word3 \t%02x\n", IS3.word03);
-
-    IS3.word04 |= io.getInputs().input20(); IS3.word04 = IS3.word04 << 2;
-    IS3.word04 |= io.getInputs().input19(); IS3.word04 = IS3.word04 << 2;
-    IS3.word04 |= io.getInputs().input18(); IS3.word04 = IS3.word04 << 2;
-    IS3.word04 |= io.getInputs().input17();
-    printf("    word4 \t%02x\n", IS3.word04);
-
-    IS3.word05 |= io.getInputs().input24(); IS3.word05 = IS3.word05 << 2;
-    IS3.word05 |= io.getInputs().input23(); IS3.word05 = IS3.word05 << 2;
-    IS3.word05 |= io.getInputs().input22(); IS3.word05 = IS3.word05 << 2;
-    IS3.word05 |= io.getInputs().input21();
-    printf("    word5 \t%02x\n", IS3.word05);
-
-    IS3.word06 |= io.getInputs().input28(); IS3.word06 = IS3.word06 << 2;
-    IS3.word06 |= io.getInputs().input27(); IS3.word06 = IS3.word06 << 2;
-    IS3.word06 |= io.getInputs().input26(); IS3.word06 = IS3.word06 << 2;
-    IS3.word06 |= io.getInputs().input25();
-    printf("    word6 \t%02x\n", IS3.word06);
-
-    IS3.word07 |= io.getInputs().input32(); IS3.word07 = IS3.word07 << 2;
-    IS3.word07 |= io.getInputs().input31(); IS3.word07 = IS3.word07 << 2;
-    IS3.word07 |= io.getInputs().input30(); IS3.word07 = IS3.word07 << 2;
-    IS3.word07 |= io.getInputs().input29();
-    printf("    word7 \t%02x\n", IS3.word07);
-
-    IS3.word08 |= io.getInputs().input36(); IS3.word08 = IS3.word08 << 2;
-    IS3.word08 |= io.getInputs().input35(); IS3.word08 = IS3.word08 << 2;
-    IS3.word08 |= io.getInputs().input34(); IS3.word08 = IS3.word08 << 2;
-    IS3.word08 |= io.getInputs().input33();
-    printf("    word8 \t%02x\n", IS3.word08);
-
-    IS3.word09 |= io.getInputs().input40(); IS3.word09 = IS3.word09 << 2;
-    IS3.word09 |= io.getInputs().input39(); IS3.word09 = IS3.word09 << 2;
-    IS3.word09 |= io.getInputs().input38(); IS3.word09 = IS3.word09 << 2;
-    IS3.word09 |= io.getInputs().input37();
-    printf("    word9 \t%02x\n", IS3.word09);
-
-    IS3.word10 |= io.getInputs().input44(); IS3.word10 = IS3.word10 << 2;
-    IS3.word10 |= io.getInputs().input43(); IS3.word10 = IS3.word10 << 2;
-    IS3.word10 |= io.getInputs().input42(); IS3.word10 = IS3.word10 << 2;
-    IS3.word10 |= io.getInputs().input41();
-    printf("    word10 \t%02x\n", IS3.word10);
-
-    IS3.word11 |= io.getInputs().input48(); IS3.word11 = IS3.word11 << 2;
-    IS3.word11 |= io.getInputs().input47(); IS3.word11 = IS3.word11 << 2;
-    IS3.word11 |= io.getInputs().input46(); IS3.word11 = IS3.word11 << 2;
-    IS3.word11 |= io.getInputs().input45();
-    printf("    word11 \t%02x\n", IS3.word11);
-
-    IS3.word12 |= io.getInputs().input52(); IS3.word12 = IS3.word12 << 2;
-    IS3.word12 |= io.getInputs().input51(); IS3.word12 = IS3.word12 << 2;
-    IS3.word12 |= io.getInputs().input50(); IS3.word12 = IS3.word12 << 2;
-    IS3.word12 |= io.getInputs().input49();
-    printf("    word12 \t%02x\n", IS3.word12);
-
-    IS3.word13 |= io.getInputs().input56(); IS3.word13 = IS3.word13 << 2;
-    IS3.word13 |= io.getInputs().input55(); IS3.word13 = IS3.word13 << 2;
-    IS3.word13 |= io.getInputs().input54(); IS3.word13 = IS3.word13 << 2;
-    IS3.word13 |= io.getInputs().input53();
-    printf("    word13 \t%02x\n", IS3.word13);
-
-    IS3.word14 |= io.getInputs().input60(); IS3.word14 = IS3.word14 << 2;
-    IS3.word14 |= io.getInputs().input59(); IS3.word14 = IS3.word14 << 2;
-    IS3.word14 |= io.getInputs().input58(); IS3.word14 = IS3.word14 << 2;
-    IS3.word14 |= io.getInputs().input57();
-    printf("    word14 \t%02x\n", IS3.word14);
-
-    IS3.word15 |= io.getInputs().input64(); IS3.word15 = IS3.word15 << 2;
-    IS3.word15 |= io.getInputs().input63(); IS3.word15 = IS3.word15 << 2;
-    IS3.word15 |= io.getInputs().input62(); IS3.word15 = IS3.word15 << 2;
-    IS3.word15 |= io.getInputs().input61();
-    printf("    word15 \t%02x\n", IS3.word15);
-
-    IS3.word16 |= io.getInputs().input68(); IS3.word16 = IS3.word16 << 2;
-    IS3.word16 |= io.getInputs().input67(); IS3.word16 = IS3.word16 << 2;
-    IS3.word16 |= io.getInputs().input66(); IS3.word16 = IS3.word16 << 2;
-    IS3.word16 |= io.getInputs().input65();
-    printf("    word16 \t%02x\n", IS3.word16);
-
-    IS3.word17 |= io.getInputs().input72(); IS3.word17 = IS3.word17 << 2;
-    IS3.word17 |= io.getInputs().input71(); IS3.word17 = IS3.word17 << 2;
-    IS3.word17 |= io.getInputs().input70(); IS3.word17 = IS3.word17 << 2;
-    IS3.word17 |= io.getInputs().input69();
-    printf("    word17 \t%02x\n", IS3.word17);
-
-    IS3.word18 |= io.getInputs().input76(); IS3.word18 = IS3.word18 << 2;
-    IS3.word18 |= io.getInputs().input75(); IS3.word18 = IS3.word18 << 2;
-    IS3.word18 |= io.getInputs().input74(); IS3.word18 = IS3.word18 << 2;
-    IS3.word18 |= io.getInputs().input73();
-    printf("    word18 \t%02x\n", IS3.word18);
-
-    IS3.word19 |= io.getInputs().input80(); IS3.word19 = IS3.word19 << 2;
-    IS3.word19 |= io.getInputs().input79(); IS3.word19 = IS3.word19 << 2;
-    IS3.word19 |= io.getInputs().input78(); IS3.word19 = IS3.word19 << 2;
-    IS3.word19 |= io.getInputs().input77();
-    printf("    word19 \t%02x\n", IS3.word19);
-
-    IS3.word20 |= io.getInputs().input84(); IS3.word20 = IS3.word20 << 2;
-    IS3.word20 |= io.getInputs().input83(); IS3.word20 = IS3.word20 << 2;
-    IS3.word20 |= io.getInputs().input82(); IS3.word20 = IS3.word20 << 2;
-    IS3.word20 |= io.getInputs().input81();
-    printf("    word20 \t%02x\n", IS3.word20);
-
-    IS3.word21 |= io.getInputs().input88(); IS3.word21 = IS3.word21 << 2;
-    IS3.word21 |= io.getInputs().input87(); IS3.word21 = IS3.word21 << 2;
-    IS3.word21 |= io.getInputs().input86(); IS3.word21 = IS3.word21 << 2;
-    IS3.word21 |= io.getInputs().input85();
-    printf("    word21 \t%02x\n", IS3.word21);
-
-    IS3.word22 |= io.getInputs().input92(); IS3.word22 = IS3.word22 << 2;
-    IS3.word22 |= io.getInputs().input91(); IS3.word22 = IS3.word22 << 2;
-    IS3.word22 |= io.getInputs().input90(); IS3.word22 = IS3.word22 << 2;
-    IS3.word22 |= io.getInputs().input89();
-    printf("    word22 \t%02x\n", IS3.word22);
-
-    IS3.word23 |= io.getInputs().input96(); IS3.word23 = IS3.word23 << 2;
-    IS3.word23 |= io.getInputs().input95(); IS3.word23 = IS3.word23 << 2;
-    IS3.word23 |= io.getInputs().input94(); IS3.word23 = IS3.word23 << 2;
-    IS3.word23 |= io.getInputs().input93();
-    printf("    word23 \t%02x\n", IS3.word23);
-
-    IS3.word24 |= io.getInputs().input100(); IS3.word24 = IS3.word24 << 2;
-    IS3.word24 |= io.getInputs().input99(); IS3.word24 = IS3.word24 << 2;
-    IS3.word24 |= io.getInputs().input98(); IS3.word24 = IS3.word24 << 2;
-    IS3.word24 |= io.getInputs().input97();
-    printf("    word24 \t%02x\n", IS3.word24);
-
-    IS3.word25 |= io.getInputs().input104(); IS3.word25 = IS3.word25 << 2;
-    IS3.word25 |= io.getInputs().input103(); IS3.word25 = IS3.word25 << 2;
-    IS3.word25 |= io.getInputs().input102(); IS3.word25 = IS3.word25 << 2;
-    IS3.word25 |= io.getInputs().input101();
-    printf("    word25 \t%02x\n", IS3.word25);
-
-    IS3.word26 |= io.getInputs().input108(); IS3.word26 = IS3.word26 << 2;
-    IS3.word26 |= io.getInputs().input107(); IS3.word26 = IS3.word26 << 2;
-    IS3.word26 |= io.getInputs().input106(); IS3.word26 = IS3.word26 << 2;
-    IS3.word26 |= io.getInputs().input105();
-    printf("    word26 \t%02x\n", IS3.word26);
-
-    IS3.word27 |= io.getInputs().input112(); IS3.word27 = IS3.word27 << 2;
-    IS3.word27 |= io.getInputs().input111(); IS3.word27 = IS3.word27 << 2;
-    IS3.word27 |= io.getInputs().input110(); IS3.word27 = IS3.word27 << 2;
-    IS3.word27 |= io.getInputs().input109();
-    printf("    word27 \t%02x\n", IS3.word27);
-
-    IS3.word28 |= io.getInputs().input116(); IS3.word28 = IS3.word28 << 2;
-    IS3.word28 |= io.getInputs().input115(); IS3.word28 = IS3.word28 << 2;
-    IS3.word28 |= io.getInputs().input114(); IS3.word28 = IS3.word28 << 2;
-    IS3.word28 |= io.getInputs().input113();
-    printf("    word28 \t%02x\n", IS3.word28);
-
-    IS3.word29 |= io.getInputs().input120(); IS3.word29 = IS3.word29 << 2;
-    IS3.word29 |= io.getInputs().input119(); IS3.word29 = IS3.word29 << 2;
-    IS3.word29 |= io.getInputs().input118(); IS3.word29 = IS3.word29 << 2;
-    IS3.word29 |= io.getInputs().input117();
-    printf("    word29 \t%02x\n", IS3.word29);
-
-    IS3.word30 |= io.getInputs().input124(); IS3.word30 = IS3.word30 << 2;
-    IS3.word30 |= io.getInputs().input123(); IS3.word30 = IS3.word30 << 2;
-    IS3.word30 |= io.getInputs().input122(); IS3.word30 = IS3.word30 << 2;
-    IS3.word30 |= io.getInputs().input121();
-    printf("    word30 \t%02x\n", IS3.word30);
-
-//    IS3.cs = 0x00;
-    IS3.cs = 0xd6;
-    printf("    cs \t%02x\n", IS3.cs);
-
-
-    qDebug() << "-----\n";
-
-    return &IS3;
-}
-
-_is4 *FormingIM_pvkp::createIS4(char device_number, unsigned char cnrtl)
-{
-    qDebug() << "IS4";
-    IS4.header = header; printf("    header \t%02x\n", IS4.header);
-    IS4.managed = response_change; printf("    managed \t%02x\n", IS4.managed);
-
-    io.changeOutputs(device_number, cnrtl);
-
-    IS4.state00 |= io.getOutputs().output4(); IS4.state00 = IS4.state00 << 2;
-    IS4.state00 |= io.getOutputs().output3(); IS4.state00 = IS4.state00 << 2;
-    IS4.state00 |= io.getOutputs().output2(); IS4.state00 = IS4.state00 << 2;
-    IS4.state00 |= io.getOutputs().output1();
-    printf("    state00 \t%02x\n", IS4.state00);
-
-    IS4.state01 |= io.getOutputs().output8(); IS4.state01 = IS4.state01 << 2;
-    IS4.state01 |= io.getOutputs().output7(); IS4.state01 = IS4.state01 << 2;
-    IS4.state01 |= io.getOutputs().output6(); IS4.state01 = IS4.state01 << 2;
-    IS4.state01 |= io.getOutputs().output5();
-    printf("    state01 \t%02x\n", IS4.state01);
-
-    IS4.state02 |= io.getOutputs().output12(); IS4.state02 = IS4.state02 << 2;
-    IS4.state02 |= io.getOutputs().output11(); IS4.state02 = IS4.state02 << 2;
-    IS4.state02 |= io.getOutputs().output10();  IS4.state02 = IS4.state02 << 2;
-    IS4.state02 |= io.getOutputs().output9();
-    printf("    state02 \t%02x\n", IS4.state02);
-
-    IS4.state03 |= io.getOutputs().output16(); IS4.state03 = IS4.state03 << 2;
-    IS4.state03 |= io.getOutputs().output15(); IS4.state03 = IS4.state03 << 2;
-    IS4.state03 |= io.getOutputs().output14(); IS4.state03 = IS4.state03 << 2;
-    IS4.state03 |= io.getOutputs().output13();
-    printf("    state03 \t%02x\n", IS4.state03);
-
-    IS4.state04 |= io.getOutputs().output20(); IS4.state04 = IS4.state04 << 2;
-    IS4.state04 |= io.getOutputs().output19(); IS4.state04 = IS4.state04 << 2;
-    IS4.state04 |= io.getOutputs().output18(); IS4.state04 = IS4.state04 << 2;
-    IS4.state04 |= io.getOutputs().output17();
-    printf("    state04 \t%02x\n", IS4.state04);
-
-    IS4.state05 |= io.getOutputs().output24(); IS4.state05 = IS4.state05 << 2;
-    IS4.state05 |= io.getOutputs().output23(); IS4.state05 = IS4.state05 << 2;
-    IS4.state05 |= io.getOutputs().output22(); IS4.state05 = IS4.state05 << 2;
-    IS4.state05 |= io.getOutputs().output21();
-    printf("    state05 \t%02x\n", IS4.state05);
-
-    IS4.state06 |= io.getOutputs().output28(); IS4.state06 = IS4.state06 << 2;
-    IS4.state06 |= io.getOutputs().output27(); IS4.state06 = IS4.state06 << 2;
-    IS4.state06 |= io.getOutputs().output26(); IS4.state06 = IS4.state06 << 2;
-    IS4.state06 |= io.getOutputs().output25();
-    printf("    state06 \t%02x\n", IS4.state06);
-
-    IS4.state07 |= io.getOutputs().output32(); IS4.state07 = IS4.state07 << 2;
-    IS4.state07 |= io.getOutputs().output31(); IS4.state07 = IS4.state07 << 2;
-    IS4.state07 |= io.getOutputs().output30(); IS4.state07 = IS4.state07 << 2;
-    IS4.state07 |= io.getOutputs().output29();
-    printf("    state07 \t%02x\n", IS4.state07);
-
-    IS4.state08 |= io.getOutputs().output36(); IS4.state08 = IS4.state08 << 2;
-    IS4.state08 |= io.getOutputs().output35(); IS4.state08 = IS4.state08 << 2;
-    IS4.state08 |= io.getOutputs().output34(); IS4.state08 = IS4.state08 << 2;
-    IS4.state08 |= io.getOutputs().output33();
-    printf("    state08 \t%02x\n", IS4.state08);
-
-    IS4.state09 |= io.getOutputs().output40(); IS4.state09 = IS4.state09 << 2;
-    IS4.state09 |= io.getOutputs().output39(); IS4.state09 = IS4.state09 << 2;
-    IS4.state09 |= io.getOutputs().output38(); IS4.state09 = IS4.state09 << 2;
-    IS4.state09 |= io.getOutputs().output37();
-    printf("    state09 \t%02x\n", IS4.state09);
-
-    IS4.state10 |= io.getOutputs().output44(); IS4.state10 = IS4.state10 << 2;
-    IS4.state10 |= io.getOutputs().output43(); IS4.state10 = IS4.state10 << 2;
-    IS4.state10 |= io.getOutputs().output42(); IS4.state10 = IS4.state10 << 2;
-    IS4.state10 |= io.getOutputs().output41();
-    printf("    state10 \t%02x\n", IS4.state10);
-
-    IS4.state11 |= io.getOutputs().output48(); IS4.state11 = IS4.state11 << 2;
-    IS4.state11 |= io.getOutputs().output47(); IS4.state11 = IS4.state11 << 2;
-    IS4.state11 |= io.getOutputs().output46(); IS4.state11 = IS4.state11 << 2;
-    IS4.state11 |= io.getOutputs().output45();
-    printf("    state11 \t%02x\n", IS4.state11);
-
-    IS4.state12 |= io.getOutputs().output52(); IS4.state12 = IS4.state12 << 2;
-    IS4.state12 |= io.getOutputs().output51(); IS4.state12 = IS4.state12 << 2;
-    IS4.state12 |= io.getOutputs().output50(); IS4.state12 = IS4.state12 << 2;
-    IS4.state12 |= io.getOutputs().output49();
-    printf("    state12 \t%02x\n", IS4.state12);
-
-    IS4.state13 |= io.getOutputs().output56(); IS4.state13 = IS4.state13 << 2;
-    IS4.state13 |= io.getOutputs().output55(); IS4.state13 = IS4.state13 << 2;
-    IS4.state13 |= io.getOutputs().output54(); IS4.state13 = IS4.state13 << 2;
-    IS4.state13 |= io.getOutputs().output53();
-    printf("    state13 \t%02x\n", IS4.state13);
-
-    IS4.state14 |= io.getOutputs().output60(); IS4.state14 = IS4.state14 << 2;
-    IS4.state14 |= io.getOutputs().output59(); IS4.state14 = IS4.state14 << 2;
-    IS4.state14 |= io.getOutputs().output58(); IS4.state14 = IS4.state14 << 2;
-    IS4.state14 |= io.getOutputs().output57();
-    printf("    state14 \t%02x\n", IS4.state14);
-
-    IS4.state15 |= io.getOutputs().output62(); IS4.state15 = IS4.state15 << 2;
-    IS4.state15 |= io.getOutputs().output61();
-    printf("    state15 \t%02x\n", IS4.state15);
-
-    IS4.cs = 0x00; printf("    cs \t%02x\n", IS2.cs);
-
-    qDebug() << "-----\n";
-
-    return &IS4;
-}
-
-void FormingIM_pvkp::createIS5()
-{
-    qDebug() << "IS5";
-    IS5.header = header; printf("    header \t%02x\n", IS5.header);
-    IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
-}
-*/
 void FormingIM_pvkp::calculateCS()
 {
 
@@ -369,23 +53,13 @@ _is2 FormingIM_pvkp::getIS2() const
 {
     return IS2;
 }
-/*
-void FormingIM_pvkp::setIS3(const _is3 &value)
-{
-    IS3 = value;
-    parsingIS3(IS3);
-}
 
-void FormingIM_pvkp::setIS4(const _is4 &value)
-{
-    IS4 = value;
-}
-*/
 void FormingIM_pvkp::parsingIS3(_is3 &IS3)
 {
     printf("    header \t%02x\n", IS3.header);
     printf("  managed \t%02x\n", IS3.managed);
 
+    qDebug() << "IS3.word00" << IS3.word00;
     printf("    word00 \t%02x\n", IS3.word00);
     inputs.setInput1(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
     inputs.setInput2(getInputState(IS3.word00)); IS3.word00 = IS3.word00 >> 2;
@@ -774,6 +448,11 @@ void FormingIM_pvkp::printOutputState(const unsigned &output)
 _outputs &FormingIM_pvkp::getOutputs()
 {
     return outputs;
+}
+
+void FormingIM_pvkp::setOutputs(_outputs values)
+{
+    outputs = values;
 }
 
 _inputs &FormingIM_pvkp::getInputs()

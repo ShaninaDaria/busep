@@ -18,30 +18,11 @@ public:
     void calculateCS();
     bool checkCS(unsigned char _cs);
 
-//    _is1 getIS1() const;
+    _inputs getInputs() const;
 
-//    _is2 getIS2() const;
-
-//    void setIS3(const _is3 &IS3);
-
-//    void setIS4(const _is4 &value);
-
-//    void parsingIS3(_is3 &IS3);
-//    void parsingIS4(_is4 &IS4);
-
-    _inputs &getInputs();
-
-    _outputs &getOutputs();
+    _outputs getOutputs() const;
 
 private:
-//    unsigned getInputState(unsigned char word);
-//    void printInputState(const unsigned &input);
-
-//    unsigned getOutputState(unsigned char state);
-//    void printOutputState(const unsigned &output);
-
-//    _is1 IS1;
-//    _is2 IS2;
     _is3 IS3;
     _is4 IS4;
     _is5 IS5;
@@ -49,9 +30,8 @@ private:
 
     ManageInputsOutputs manageIO;
 
-    InputsOutputs io;
-    _inputs inputs;
-    _outputs outputs;
+//    _inputs inputs;
+//    _outputs outputs;
 };
 
 #endif // FORMINGIM_BUSEP_H

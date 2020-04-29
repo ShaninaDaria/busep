@@ -2,10 +2,11 @@
 
 ManageInputsOutputs::ManageInputsOutputs()
 {
-
+    inputs = io.initInputs();
+    outputs = io.initOutputs();
 }
 
-void ManageInputsOutputs::changeInputs(_inputs &inputs, input_state state)
+void ManageInputsOutputs::changeInputs(input_state state)
 {
     inputs.setInput1(state);
     inputs.setInput2(state);
@@ -163,20 +164,20 @@ void ManageInputsOutputs::changeInputs(_inputs &inputs, input_state state)
     inputs.setInput124(state);
 }
 
-void ManageInputsOutputs::changeOutputs(_outputs &outputs, char device_number, unsigned char cntrl)
+void ManageInputsOutputs::changeOutputs(char device_number, unsigned char cntrl)
 {
     /// TODO сделать генерацию ошибок
 
     if (device_number == all_outputs)
     {
-        allOutputsOnOff(outputs, cntrl);
+        allOutputsOnOff(cntrl);
     }
     else
     {
         // говнокод - теперь придется делать switch и кучу одинаковых функций
         // массив был бы удобнее, но не так наглядно
         // еще моя реализация "жесткая", т.е. без пересборки не удастся изменить кол-во входов/выходов
-        oneOutputOnOff(outputs, device_number, cntrl);
+        oneOutputOnOff(device_number, cntrl);
     }
 /*
     outputs.setOutput1(output_on);
@@ -259,7 +260,7 @@ void ManageInputsOutputs::changeOutputs(_outputs &outputs, char device_number, u
 */
 }
 
-void ManageInputsOutputs::allOutputsOnOff(_outputs &outputs, unsigned char cntrl)
+void ManageInputsOutputs::allOutputsOnOff(unsigned char cntrl)
 {
     output_state state(error_output);
     if (cntrl == cntrl_on)
@@ -350,7 +351,7 @@ void ManageInputsOutputs::allOutputsOnOff(_outputs &outputs, unsigned char cntrl
     outputs.setOutput62(state);
 }
 
-void ManageInputsOutputs::oneOutputOnOff(_outputs &outputs, char device_number, unsigned char cntrl)
+void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl)
 {
     output_state state(error_output);
     if (cntrl == cntrl_on)
@@ -442,4 +443,14 @@ void ManageInputsOutputs::oneOutputOnOff(_outputs &outputs, char device_number, 
     case 0x3d: outputs.setOutput61(state); break;
     case 0x3e: outputs.setOutput62(state); break;
     }
+}
+
+_inputs ManageInputsOutputs::getInputs() const
+{
+    return inputs;
+}
+
+_outputs ManageInputsOutputs::getOutputs() const
+{
+    return outputs;
 }

@@ -12,9 +12,7 @@ public:
     FormingIM_pvkp();
     _is1 createIS1();
     _is2 createIS2(char device_number, output_cntrl cntrl);
-//    _is3 *createIS3();
-//    _is4 *createIS4(char device_number, unsigned char cnrtl);
-//    void createIS5();
+
     void calculateCS();
     bool checkCS(unsigned char _cs);
 
@@ -22,16 +20,13 @@ public:
 
     _is2 getIS2() const;
 
-//    void setIS3(const _is3 &IS3);
-
-//    void setIS4(const _is4 &value);
-
     void parsingIS3(_is3 &IS3);
     void parsingIS4(_is4 &IS4);
 
     _inputs &getInputs();
 
     _outputs &getOutputs();
+    void setOutputs(_outputs values);
 
 private:
     unsigned getInputState(unsigned char word);
@@ -42,11 +37,6 @@ private:
 
     _is1 IS1;
     _is2 IS2;
-//    _is3 IS3;
-//    _is4 IS4;
-//    _is5 IS5;
-//    _rcv_data rcv;
-
 
     InputsOutputs io;
     _inputs inputs;

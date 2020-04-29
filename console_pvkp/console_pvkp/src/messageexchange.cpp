@@ -91,12 +91,14 @@ void messageExchange::startExchange()
                 bytes_rcv = receiveIS4();
             } while (bytes_rcv > 0);
         }
+
 //    }
 
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
 {
+    std::cout << __FUNCTION__ << std::endl;
 //    int bytes_send = dataTransnmit->send(IS1, sizeof(_is1));
     int bytes_send = dataTransnmit->clntSend(IS1, sizeof(_is1));
 
@@ -120,9 +122,10 @@ int messageExchange::receiveIS3()
 //    int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
 //    int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS3, sizeof (_rcv_data));
     int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS3, sizeof (_is3));
-    std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
+
     if (bytes_rcv > 0)
     {
+        std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
         static int bytes(0);
         bytes += bytes_rcv;
 

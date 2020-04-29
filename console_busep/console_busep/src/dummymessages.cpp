@@ -6,9 +6,7 @@ DummyMessages::DummyMessages()
     dataTransnmit = new DataTransmit();
     dataTransnmit->createServer();
 
-//    createIS3();
-//    /// NOTE по умолчанию шлю ИС4 с запросом "включить все выходы"
-//    createIS4(all_outputs, cntrl_on);
+    createIS3(no_input_state);
 }
 
 DummyMessages::~DummyMessages()
@@ -70,7 +68,7 @@ void DummyMessages::setInputsValue()
 
 void DummyMessages::createIS3(input_state state)
 {
-    std::cout << __FUNCTION__ << std::endl;
+    std::cout << __FUNCTION__ << " " << state << std::endl;
     IS3 = formingIM_busep->createIS3(state);
 }
 /*
@@ -99,7 +97,10 @@ void DummyMessages::sendIS3(_is3 *IS3)
 //    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
     int bytes = dataTransnmit->srvSend(IS3, sizeof(_is3));
 
-    std::cout << "send " << bytes << " bytes; " << std::endl;
+    if (bytes > 0)
+    {
+        std::cout << "send " << bytes << " bytes; " << std::endl;
+    }
 }
 
 void DummyMessages::createIS4(char device_number, unsigned char cnrtl)
@@ -138,7 +139,10 @@ void DummyMessages::sendIS4(_is4 *IS4)
 //    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
     int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
 
-    std::cout << "send " << bytes << " bytes; " << std::endl;
+    if (bytes > 0)
+    {
+        std::cout << "send " << bytes << " bytes; " << std::endl;
+    }
 }
 
 _inputs DummyMessages::getInputs() const
@@ -170,7 +174,10 @@ header_and_managed DummyMessages::receiveSmth()
 
 //    int bytes = dataTransnmit->receive(&data, sizeof (_data));
     int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
-    std::cout << "receive " << bytes << " bytes; " << std::endl;
+    if (bytes > 0)
+    {
+        std::cout << "receive " << bytes << " bytes; " << std::endl;
+    }
 
     if (bytes > 0)
     {

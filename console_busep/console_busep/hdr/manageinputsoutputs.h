@@ -9,11 +9,21 @@ public:
     ManageInputsOutputs();
     ~ManageInputsOutputs() {}
 
-    void changeInputs(_inputs &inputs, input_state state);
-    void changeOutputs(_outputs &outputs, char device_number, unsigned char cntrl);
-    void allOutputsOnOff(_outputs &outputs, unsigned char cntrl);
-    void oneOutputOnOff(_outputs &outputs, char device_number, unsigned char cntrl);
-    void setOutputs(const _outputs &value);
+    void changeInputs(input_state state);
+    void changeOutputs(char device_number, unsigned char cntrl);
+    void allOutputsOnOff(unsigned char cntrl);
+    void oneOutputOnOff(char device_number, unsigned char cntrl);
+
+    _inputs getInputs() const;
+
+//    void setOutputs(const _outputs &value);
+    _outputs getOutputs() const;
+
+private:
+    InputsOutputs io;
+
+    _inputs inputs;
+    _outputs outputs;
 };
 
 #endif // MANAGEINPUTSOUTPUTS_H
