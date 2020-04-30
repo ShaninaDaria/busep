@@ -1,7 +1,86 @@
 ﻿#ifndef INPUTS_OUTPUTS_H
 #define INPUTS_OUTPUTS_H
 
+const int output_size = 63;
+
 const char all_outputs = 0x00;
+const char output1 = 0x01;
+const char output2 = 0x02;
+const char output3 = 0x03;
+const char output4 = 0x04;
+
+const char output5 = 0x05;
+const char output6 = 0x06;
+const char output7 = 0x07;
+const char output8 = 0x08;
+
+const char output9 = 0x09;
+const char output10 = 0x0a;
+const char output11 = 0x0b;
+const char output12 = 0x0c;
+
+const char output13 = 0x0d;
+const char output14 = 0x0e;
+const char output15 = 0x0f;
+const char output16 = 0x10;
+
+const char output17 = 0x11;
+const char output18 = 0x12;
+const char output19 = 0x13;
+const char output20 = 0x14;
+
+const char output21 = 0x15;
+const char output22 = 0x16;
+const char output23 = 0x17;
+const char output24 = 0x18;
+
+const char output25 = 0x19;
+const char output26 = 0x1a;
+const char output27 = 0x1b;
+const char output28 = 0x1c;
+
+const char output29 = 0x1d;
+const char output30 = 0x1e;
+const char output31 = 0x1f;
+const char output32 = 0x20;
+
+const char output33 = 0x21;
+const char output34 = 0x22;
+const char output35 = 0x23;
+const char output36 = 0x24;
+
+const char output37 = 0x25;
+const char output38 = 0x26;
+const char output39 = 0x27;
+const char output40 = 0x28;
+
+const char output41 = 0x29;
+const char output42 = 0x2a;
+const char output43 = 0x2b;
+const char output44 = 0x2c;
+
+const char output45 = 0x2d;
+const char output46 = 0x2e;
+const char output47 = 0x2f;
+const char output48 = 0x30;
+
+const char output49 = 0x31;
+const char output50 = 0x32;
+const char output51 = 0x33;
+const char output52 = 0x34;
+
+const char output53 = 0x35;
+const char output54 = 0x36;
+const char output55 = 0x37;
+const char output56 = 0x38;
+
+const char output57 = 0x39;
+const char output58 = 0x3a;
+const char output59 = 0x3b;
+const char output60 = 0x3c;
+
+const char output61 = 0x3d;
+const char output62 = 0x3e;
 
 enum input_state
 {
@@ -215,7 +294,7 @@ public:
     unsigned input123() const; void setInput123(const unsigned &input123);
     unsigned input124() const; void setInput124(const unsigned &input124);
 };
-
+/*
 struct _outputs // 62
 {
     unsigned _output1:2; unsigned _output2:2;
@@ -329,7 +408,7 @@ public:
     unsigned output61() const; void setOutput61(const unsigned &output61);
     unsigned output62() const; void setOutput62(const unsigned &output62);
 };
-
+*/
 
 class InputsOutputs
 {
@@ -341,18 +420,18 @@ public:
     _inputs getInputs() const;
     void setInputs(const _inputs &value);
 
-    _outputs initOutputs();
-    _outputs getOutputs() const;
-    void setOutputs(const _outputs &value);
+//    _outputs initOutputs();
+//    _outputs getOutputs() const;
+//    void setOutputs(const _outputs &value);
 
     _inputs inputs;
-    _outputs outputs;
+//    _outputs outputs;
 
-    char outputs2[16];
+    char outputs2[output_size];
 
     void setAllOutputs(output_state state);
     void setOneOutput(int number, output_state state);
-    char getOutputValue(int number);
+    output_state getOutputValue(int number);
     char *getAllOutputs();
     int sizeOfOutputs() const;
 };

@@ -17,14 +17,15 @@ public:
     _inputs getInputs() const;
 
 //    void setOutputs(const _outputs &value);
-    _outputs getOutputs() const;
+//    _outputs getOutputs() const;
     char *getOutputs2();
+    output_state getOutputState(int number);
 
 private:
     InputsOutputs io;
 
     _inputs inputs;
-    _outputs outputs;
+//    _outputs outputs;
 };
 
 #endif // MANAGEINPUTSOUTPUTS_H

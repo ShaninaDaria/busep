@@ -6,8 +6,8 @@ DummyMessages::DummyMessages()
     dataTransnmit = new DataTransmit();
     dataTransnmit->createServer();
 
-    createIS3(no_input_state);
-    createIS4(0x00, output_off);
+//    createIS3(no_input_state);
+//    createIS4(0x00, output_off);
 }
 
 DummyMessages::~DummyMessages()
@@ -151,9 +151,14 @@ _inputs DummyMessages::getInputs() const
     return formingIM_busep->getInputs();
 }
 
-_outputs DummyMessages::getOutputs() const
+char *DummyMessages::getOutputs()
 {
     return formingIM_busep->getOutputs();
+}
+
+output_state DummyMessages::getOutputState(int number)
+{
+    return formingIM_busep->getOutputState(number);
 }
 
 header_and_managed DummyMessages::receiveSmth()

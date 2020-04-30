@@ -25,7 +25,9 @@ public:
     void sendIS4(_is4 *IS4);
 
     _inputs getInputs() const;
-    _outputs getOutputs() const;
+    char *getOutputs();
+
+    output_state getOutputState(int number);
 
 private:
     header_and_managed receiveSmth();

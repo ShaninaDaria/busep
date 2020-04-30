@@ -308,6 +308,7 @@ void BusepWindow::createPalette()
     yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
     green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
     gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
+    blue_palette.setColor(ui->output1->backgroundRole(), Qt::blue);
     //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
 }
 
@@ -495,90 +496,88 @@ void BusepWindow::setInputColor(const unsigned &input, QPushButton *input_button
 
 void BusepWindow::showOutputsValue()
 {
-    _outputs outputs = dm->getOutputs();
+    setOutputColor(dm->getOutputState(output1), ui->output1);
+    setOutputColor(dm->getOutputState(output2), ui->output2);
+    setOutputColor(dm->getOutputState(output3), ui->output3);
+    setOutputColor(dm->getOutputState(output4), ui->output4);
 
-    setOutputColor(outputs.output1(), ui->output1);
-    setOutputColor(outputs.output2(), ui->output2);
-    setOutputColor(outputs.output3(), ui->output3);
-    setOutputColor(outputs.output4(), ui->output4);
+    setOutputColor(dm->getOutputState(output5), ui->output5);
+    setOutputColor(dm->getOutputState(output6), ui->output6);
+    setOutputColor(dm->getOutputState(output7), ui->output7);
+    setOutputColor(dm->getOutputState(output8), ui->output8);
 
-    setOutputColor(outputs.output5(), ui->output5);
-    setOutputColor(outputs.output6(), ui->output6);
-    setOutputColor(outputs.output7(), ui->output7);
-    setOutputColor(outputs.output8(), ui->output8);
+    setOutputColor(dm->getOutputState(output9), ui->output9);
+    setOutputColor(dm->getOutputState(output10), ui->output10);
+    setOutputColor(dm->getOutputState(output11), ui->output11);
+    setOutputColor(dm->getOutputState(output12), ui->output12);
 
-    setOutputColor(outputs.output9(), ui->output9);
-    setOutputColor(outputs.output10(), ui->output10);
-    setOutputColor(outputs.output11(), ui->output11);
-    setOutputColor(outputs.output12(), ui->output12);
+    setOutputColor(dm->getOutputState(output13), ui->output13);
+    setOutputColor(dm->getOutputState(output14), ui->output14);
+    setOutputColor(dm->getOutputState(output15), ui->output15);
+    setOutputColor(dm->getOutputState(output16), ui->output16);
 
-    setOutputColor(outputs.output13(), ui->output13);
-    setOutputColor(outputs.output14(), ui->output14);
-    setOutputColor(outputs.output15(), ui->output15);
-    setOutputColor(outputs.output16(), ui->output16);
+    setOutputColor(dm->getOutputState(output17), ui->output17);
+    setOutputColor(dm->getOutputState(output18), ui->output18);
+    setOutputColor(dm->getOutputState(output19), ui->output19);
+    setOutputColor(dm->getOutputState(output20), ui->output20);
 
-    setOutputColor(outputs.output17(), ui->output17);
-    setOutputColor(outputs.output18(), ui->output18);
-    setOutputColor(outputs.output19(), ui->output19);
-    setOutputColor(outputs.output20(), ui->output20);
+    setOutputColor(dm->getOutputState(output21), ui->output21);
+    setOutputColor(dm->getOutputState(output22), ui->output22);
+    setOutputColor(dm->getOutputState(output23), ui->output23);
+    setOutputColor(dm->getOutputState(output24), ui->output24);
 
-    setOutputColor(outputs.output21(), ui->output21);
-    setOutputColor(outputs.output22(), ui->output22);
-    setOutputColor(outputs.output23(), ui->output23);
-    setOutputColor(outputs.output24(), ui->output24);
+    setOutputColor(dm->getOutputState(output25), ui->output25);
+    setOutputColor(dm->getOutputState(output26), ui->output26);
+    setOutputColor(dm->getOutputState(output27), ui->output27);
+    setOutputColor(dm->getOutputState(output28), ui->output28);
 
-    setOutputColor(outputs.output25(), ui->output25);
-    setOutputColor(outputs.output26(), ui->output26);
-    setOutputColor(outputs.output27(), ui->output27);
-    setOutputColor(outputs.output28(), ui->output28);
+    setOutputColor(dm->getOutputState(output29), ui->output29);
+    setOutputColor(dm->getOutputState(output30), ui->output30);
+    setOutputColor(dm->getOutputState(output31), ui->output31);
+    setOutputColor(dm->getOutputState(output32), ui->output32);
 
-    setOutputColor(outputs.output29(), ui->output29);
-    setOutputColor(outputs.output30(), ui->output30);
-    setOutputColor(outputs.output31(), ui->output31);
-    setOutputColor(outputs.output32(), ui->output32);
+    setOutputColor(dm->getOutputState(output33), ui->output33);
+    setOutputColor(dm->getOutputState(output34), ui->output34);
+    setOutputColor(dm->getOutputState(output35), ui->output35);
+    setOutputColor(dm->getOutputState(output36), ui->output36);
 
-    setOutputColor(outputs.output33(), ui->output33);
-    setOutputColor(outputs.output34(), ui->output34);
-    setOutputColor(outputs.output35(), ui->output35);
-    setOutputColor(outputs.output36(), ui->output36);
+    setOutputColor(dm->getOutputState(output37), ui->output37);
+    setOutputColor(dm->getOutputState(output38), ui->output38);
+    setOutputColor(dm->getOutputState(output39), ui->output39);
+    setOutputColor(dm->getOutputState(output40), ui->output40);
 
-    setOutputColor(outputs.output37(), ui->output37);
-    setOutputColor(outputs.output38(), ui->output38);
-    setOutputColor(outputs.output39(), ui->output39);
-    setOutputColor(outputs.output40(), ui->output40);
+    setOutputColor(dm->getOutputState(output41), ui->output41);
+    setOutputColor(dm->getOutputState(output42), ui->output42);
+    setOutputColor(dm->getOutputState(output43), ui->output43);
+    setOutputColor(dm->getOutputState(output44), ui->output44);
 
-    setOutputColor(outputs.output41(), ui->output41);
-    setOutputColor(outputs.output42(), ui->output42);
-    setOutputColor(outputs.output43(), ui->output43);
-    setOutputColor(outputs.output44(), ui->output44);
+    setOutputColor(dm->getOutputState(output45), ui->output45);
+    setOutputColor(dm->getOutputState(output46), ui->output46);
+    setOutputColor(dm->getOutputState(output47), ui->output47);
+    setOutputColor(dm->getOutputState(output48), ui->output48);
 
-    setOutputColor(outputs.output45(), ui->output45);
-    setOutputColor(outputs.output46(), ui->output46);
-    setOutputColor(outputs.output47(), ui->output47);
-    setOutputColor(outputs.output48(), ui->output48);
+    setOutputColor(dm->getOutputState(output49), ui->output49);
+    setOutputColor(dm->getOutputState(output50), ui->output50);
+    setOutputColor(dm->getOutputState(output51), ui->output51);
+    setOutputColor(dm->getOutputState(output52), ui->output52);
 
-    setOutputColor(outputs.output49(), ui->output49);
-    setOutputColor(outputs.output50(), ui->output50);
-    setOutputColor(outputs.output51(), ui->output51);
-    setOutputColor(outputs.output52(), ui->output52);
+    setOutputColor(dm->getOutputState(output53), ui->output53);
+    setOutputColor(dm->getOutputState(output54), ui->output54);
+    setOutputColor(dm->getOutputState(output55), ui->output55);
+    setOutputColor(dm->getOutputState(output56), ui->output56);
 
-    setOutputColor(outputs.output53(), ui->output53);
-    setOutputColor(outputs.output54(), ui->output54);
-    setOutputColor(outputs.output55(), ui->output55);
-    setOutputColor(outputs.output56(), ui->output56);
+    setOutputColor(dm->getOutputState(output57), ui->output57);
+    setOutputColor(dm->getOutputState(output58), ui->output58);
+    setOutputColor(dm->getOutputState(output59), ui->output59);
+    setOutputColor(dm->getOutputState(output60), ui->output60);
 
-    setOutputColor(outputs.output57(), ui->output57);
-    setOutputColor(outputs.output58(), ui->output58);
-    setOutputColor(outputs.output59(), ui->output59);
-    setOutputColor(outputs.output60(), ui->output60);
-
-    setOutputColor(outputs.output61(), ui->output61);
-    setOutputColor(outputs.output62(), ui->output62);
+    setOutputColor(dm->getOutputState(output61), ui->output61);
+    setOutputColor(dm->getOutputState(output62), ui->output62);
 }
 
-void BusepWindow::setOutputColor(const unsigned &output, QPushButton *output_button)
+void BusepWindow::setOutputColor(const output_state state, QPushButton *output_button)
 {
-    switch (output)
+    switch (state)
     {
     case output_on:
         output_button->setPalette(green_palette);
@@ -597,7 +596,7 @@ void BusepWindow::setOutputColor(const unsigned &output, QPushButton *output_but
         break;
 
     default:
-        printf("  output \t%02x %s\n", output, "no data");
+        output_button->setPalette(blue_palette);
         break;
     }
 }

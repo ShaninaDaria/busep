@@ -31,13 +31,14 @@ private:
     void setInputColor(const unsigned &input, QPushButton *input_button);
 
     void showOutputsValue();
-    void setOutputColor(const unsigned &output, QPushButton *output_button);
+    void setOutputColor(const output_state state, QPushButton *output_button);
 
     Ui::BusepWindow *ui;
     QPalette green_palette;
     QPalette red_palette;
     QPalette yellow_palette;
     QPalette gray_palette;
+    QPalette blue_palette;
     QTimer *timer;
 
     DummyMessages *dm;

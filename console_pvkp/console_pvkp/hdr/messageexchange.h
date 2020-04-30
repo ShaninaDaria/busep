@@ -29,7 +29,8 @@ public:
     void receiveIS5();
 
     _inputs &getInputsValue();
-    _outputs &getOutputsValue();
+    char *getOutputsValue();
+    output_state getOutputState(int number);
 
 private:
     void createTimer();

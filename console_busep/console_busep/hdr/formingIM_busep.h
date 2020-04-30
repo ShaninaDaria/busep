@@ -20,7 +20,8 @@ public:
 
     _inputs getInputs() const;
 
-    _outputs getOutputs() const;
+    char *getOutputs();
+    output_state getOutputState(int number);
 
 private:
     _is3 IS3;
@@ -29,9 +30,6 @@ private:
     _rcv_data rcv;
 
     ManageInputsOutputs manageIO;
-
-//    _inputs inputs;
-//    _outputs outputs;
 };
 
 #endif // FORMINGIM_BUSEP_H

@@ -25,14 +25,14 @@ public:
 
     _inputs &getInputs();
 
-    _outputs &getOutputs();
-    void setOutputs(_outputs values);
+    char *getOutputs();
+//    void setOutputs(_outputs values);
+    output_state getOutputState(int number);
 
 private:
     unsigned getInputState(unsigned char word);
     void printInputState(const unsigned &input);
 
-    unsigned getOutputState(unsigned char state);
     output_state getOutputState2(unsigned char state);
     void printOutputState(const unsigned &output);
 
@@ -41,7 +41,6 @@ private:
 
     InputsOutputs io;
     _inputs inputs;
-    _outputs outputs;
 };
 
 #endif // FORMINGIM_PVKP_H

@@ -21,9 +21,14 @@ _inputs &messageExchange::getInputsValue()
     return formingIMpvkp->getInputs();
 }
 
-_outputs &messageExchange::getOutputsValue()
+char *messageExchange::getOutputsValue()
 {
     return formingIMpvkp->getOutputs();
+}
+
+output_state messageExchange::getOutputState(int number)
+{
+    return formingIMpvkp->getOutputState(number);
 }
 
 messageExchange::messageExchange(QObject *parent) : QObject(parent)
@@ -73,14 +78,14 @@ void messageExchange::startExchange()
 //    {
         int bytes_send(-1), bytes_rcv(-1);
 
-        bytes_send = sendIS1(&IS1);
-        if (bytes_send > 0)
-        {
-            do
-            {
-                bytes_rcv = receiveIS3();
-            } while (bytes_rcv > 0);
-        }
+//        bytes_send = sendIS1(&IS1);
+//        if (bytes_send > 0)
+//        {
+//            do
+//            {
+//                bytes_rcv = receiveIS3();
+//            } while (bytes_rcv > 0);
+//        }
 
         bytes_rcv = -1;
         bytes_send = sendIS2(&IS2);
@@ -217,13 +222,13 @@ int messageExchange::receiveIS3()
 
 int messageExchange::sendIS2(_is2 *IS2)
 {
-    std::cout << __FUNCTION__ << std::endl;
 
 //    int bytes_send = dataTransnmit->send(IS2, sizeof(_is2));
     int bytes_send = dataTransnmit->clntSend(IS2, sizeof(_is2));
 
     if (bytes_send > 0)
     {
+        std::cout << __FUNCTION__ << std::endl;
         std::cout << "send " << bytes_send << " bytes; " << std::endl;
         printf("       header \t%02x\n", IS2->header);
         printf("      managed \t%02x\n", IS2->managed);
@@ -242,15 +247,16 @@ int messageExchange::receiveIS4()
     bzero(&rcv_IS4, sizeof (_is4));
 //    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
     int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS4, sizeof (_is4));
-    std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
 
     static int bytes(0);
     bytes += bytes_rcv;
 
     if (bytes_rcv > 0)
     {
+//        std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
         if (bytes_rcv == sizeof(_is4))
         {
+            std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
             IS4 = rcv_IS4;
             formingIMpvkp->parsingIS4(IS4);
         }

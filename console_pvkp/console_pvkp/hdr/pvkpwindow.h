@@ -122,7 +122,7 @@ private:
 
     messageExchange *me;
 
-    _outputs outputs;
+//    _outputs outputs;
 };
 
 #endif // PVKPWINDOW_H

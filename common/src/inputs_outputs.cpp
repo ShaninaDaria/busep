@@ -10,11 +10,7 @@ InputsOutputs::InputsOutputs()
     for (int i = 0; i < static_cast<int>(sizeof(outputs2)); i++)
     {
         outputs2[i] = no_output_state;
-        qDebug() << outputs2[i];
     }
-
-    qDebug() << "getOutputValue" << getOutputValue(5);
-    qDebug() << "getOutputValue" << getOutputValue(100);
 }
 
 _inputs InputsOutputs::getInputs() const
@@ -186,7 +182,7 @@ void InputsOutputs::setInputs(const _inputs &value)
 {
     inputs = value;
 }
-
+/*
 _outputs InputsOutputs::initOutputs()
 {
     outputs.setOutput1(no_output_state);
@@ -279,31 +275,31 @@ void InputsOutputs::setOutputs(const _outputs &value)
 {
     outputs = value;
 }
-
+*/
 void InputsOutputs::setAllOutputs(output_state state)
 {
     for (int i = 0; i < sizeOfOutputs(); i++)
     {
         outputs2[i] = state;
-        qDebug() << outputs2[i];
     }
 }
 
 void InputsOutputs::setOneOutput(int number, output_state state)
 {
+//    qDebug() << __FUNCTION__ << number << state;
     if (number < sizeOfOutputs())
     {
-        outputs2[number] = state;
+        outputs2[number - 1] = state;
     }
 }
 
-char InputsOutputs::getOutputValue(int number)
+output_state InputsOutputs::getOutputValue(int number)
 {
     if (number < sizeOfOutputs())
     {
-        return outputs2[number];
+        return static_cast<output_state>(outputs2[number - 1]);
     }
-    return 0xff;
+    return error_output;
 }
 
 char *InputsOutputs::getAllOutputs()
@@ -1555,7 +1551,7 @@ void _inputs::setInput1(const unsigned &input1)
 {
     _input1 = input1;
 }
-
+/*
 unsigned _outputs::output2() const
 {
     return _output2;
@@ -2175,3 +2171,4 @@ void _outputs::setOutput1(const unsigned &output1)
 {
     _output1 = output1;
 }
+*/

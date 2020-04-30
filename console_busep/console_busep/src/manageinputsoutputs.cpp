@@ -3,7 +3,7 @@
 ManageInputsOutputs::ManageInputsOutputs()
 {
     inputs = io.initInputs();
-    outputs = io.initOutputs();
+//    outputs = io.initOutputs();
 }
 
 void ManageInputsOutputs::changeInputs(input_state state)
@@ -269,7 +269,7 @@ void ManageInputsOutputs::allOutputsOnOff(unsigned char cntrl)
     }
 
     io.setAllOutputs(state);
-
+/*
     outputs.setOutput1(state);
     outputs.setOutput2(state);
     outputs.setOutput3(state);
@@ -347,6 +347,7 @@ void ManageInputsOutputs::allOutputsOnOff(unsigned char cntrl)
 
     outputs.setOutput61(state);
     outputs.setOutput62(state);
+*/
 }
 
 void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl)
@@ -362,7 +363,7 @@ void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl
     }
 
     io.setOneOutput(device_number, state);
-
+/*
     switch (device_number)
     {
     case 0x01: outputs.setOutput1(state); break;
@@ -443,6 +444,7 @@ void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl
     case 0x3d: outputs.setOutput61(state); break;
     case 0x3e: outputs.setOutput62(state); break;
     }
+*/
 }
 
 _inputs ManageInputsOutputs::getInputs() const
@@ -450,12 +452,17 @@ _inputs ManageInputsOutputs::getInputs() const
     return inputs;
 }
 
-_outputs ManageInputsOutputs::getOutputs() const
-{
-    return outputs;
-}
+//_outputs ManageInputsOutputs::getOutputs() const
+//{
+//    return outputs;
+//}
 
 char *ManageInputsOutputs::getOutputs2()
 {
     return io.getAllOutputs();
+}
+
+output_state ManageInputsOutputs::getOutputState(int number)
+{
+    return io.getOutputValue(number);
 }
