@@ -146,7 +146,7 @@ void DummyMessages::sendIS4(_is4 *IS4)
     }
 }
 
-_inputs DummyMessages::getInputs() const
+char *DummyMessages::getInputs()
 {
     return formingIM_busep->getInputs();
 }
@@ -159,6 +159,11 @@ char *DummyMessages::getOutputs()
 output_state DummyMessages::getOutputState(int number)
 {
     return formingIM_busep->getOutputState(number);
+}
+
+input_state DummyMessages::getInputState(int number)
+{
+    return formingIM_busep->getInputState(number);
 }
 
 header_and_managed DummyMessages::receiveSmth()

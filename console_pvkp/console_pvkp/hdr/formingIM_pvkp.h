@@ -23,16 +23,19 @@ public:
     void parsingIS3(_is3 &IS3);
     void parsingIS4(_is4 &IS4);
 
-    _inputs &getInputs();
+    char *getInputs();
 
     char *getOutputs();
 //    void setOutputs(_outputs values);
     output_state getOutputState(int number);
 
+    input_state getInputState(int number);
+    /// NOTE 1 byte???
+    input_state getInputState2(unsigned char word);
 private:
-    unsigned getInputState(unsigned char word);
     void printInputState(const unsigned &input);
 
+    /// NOTE 1 byte???
     output_state getOutputState2(unsigned char state);
     void printOutputState(const unsigned &output);
 
@@ -40,7 +43,6 @@ private:
     _is2 IS2;
 
     InputsOutputs io;
-    _inputs inputs;
 };
 
 #endif // FORMINGIM_PVKP_H

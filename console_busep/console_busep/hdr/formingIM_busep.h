@@ -18,10 +18,13 @@ public:
     void calculateCS();
     bool checkCS(unsigned char _cs);
 
-    _inputs getInputs() const;
+//    _inputs getInputs() const;
+
+    char *getInputs();
 
     char *getOutputs();
     output_state getOutputState(int number);
+    input_state getInputState(int number);
 
 private:
     _is3 IS3;

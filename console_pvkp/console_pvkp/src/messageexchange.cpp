@@ -16,9 +16,14 @@ void messageExchange::timer_handler(int signum)
 
 }
 
-_inputs &messageExchange::getInputsValue()
+char *messageExchange::getInputsValue()
 {
     return formingIMpvkp->getInputs();
+}
+
+input_state messageExchange::getInputState(int number)
+{
+    return formingIMpvkp->getInputState(number);
 }
 
 char *messageExchange::getOutputsValue()

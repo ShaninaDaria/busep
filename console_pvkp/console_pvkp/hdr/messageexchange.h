@@ -28,7 +28,9 @@ public:
 
     void receiveIS5();
 
-    _inputs &getInputsValue();
+    char *getInputsValue();
+    input_state getInputState(int number);
+
     char *getOutputsValue();
     output_state getOutputState(int number);
 

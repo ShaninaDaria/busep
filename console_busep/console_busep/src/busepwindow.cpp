@@ -314,162 +314,160 @@ void BusepWindow::createPalette()
 
 void BusepWindow::showInputsValue()
 {
-    _inputs inputs = dm->getInputs();
+    setInputColor(dm->getInputState(input1), ui->input1);
+    setInputColor(dm->getInputState(input2), ui->input2);
+    setInputColor(dm->getInputState(input3), ui->input3);
+    setInputColor(dm->getInputState(input4), ui->input4);
 
-    setInputColor(inputs.input1(), ui->input1);
-    setInputColor(inputs.input2(), ui->input2);
-    setInputColor(inputs.input3(), ui->input3);
-    setInputColor(inputs.input4(), ui->input4);
+    setInputColor(dm->getInputState(input5), ui->input5);
+    setInputColor(dm->getInputState(input6), ui->input6);
+    setInputColor(dm->getInputState(input7), ui->input7);
+    setInputColor(dm->getInputState(input8), ui->input8);
 
-    setInputColor(inputs.input5(), ui->input5);
-    setInputColor(inputs.input6(), ui->input6);
-    setInputColor(inputs.input7(), ui->input7);
-    setInputColor(inputs.input8(), ui->input8);
+    setInputColor(dm->getInputState(input9), ui->input9);
+    setInputColor(dm->getInputState(input10), ui->input10);
+    setInputColor(dm->getInputState(input11), ui->input11);
+    setInputColor(dm->getInputState(input12), ui->input12);
 
-    setInputColor(inputs.input9(), ui->input9);
-    setInputColor(inputs.input10(), ui->input10);
-    setInputColor(inputs.input11(), ui->input11);
-    setInputColor(inputs.input12(), ui->input12);
+    setInputColor(dm->getInputState(input13), ui->input13);
+    setInputColor(dm->getInputState(input14), ui->input14);
+    setInputColor(dm->getInputState(input15), ui->input15);
+    setInputColor(dm->getInputState(input16), ui->input16);
 
-    setInputColor(inputs.input13(), ui->input13);
-    setInputColor(inputs.input14(), ui->input14);
-    setInputColor(inputs.input15(), ui->input15);
-    setInputColor(inputs.input16(), ui->input16);
+    setInputColor(dm->getInputState(input17), ui->input17);
+    setInputColor(dm->getInputState(input18), ui->input18);
+    setInputColor(dm->getInputState(input19), ui->input19);
+    setInputColor(dm->getInputState(input20), ui->input20);
 
-    setInputColor(inputs.input17(), ui->input17);
-    setInputColor(inputs.input18(), ui->input18);
-    setInputColor(inputs.input19(), ui->input19);
-    setInputColor(inputs.input20(), ui->input20);
+    setInputColor(dm->getInputState(input21), ui->input21);
+    setInputColor(dm->getInputState(input22), ui->input22);
+    setInputColor(dm->getInputState(input23), ui->input23);
+    setInputColor(dm->getInputState(input24), ui->input24);
 
-    setInputColor(inputs.input21(), ui->input21);
-    setInputColor(inputs.input22(), ui->input22);
-    setInputColor(inputs.input23(), ui->input23);
-    setInputColor(inputs.input24(), ui->input24);
+    setInputColor(dm->getInputState(input25), ui->input25);
+    setInputColor(dm->getInputState(input26), ui->input26);
+    setInputColor(dm->getInputState(input27), ui->input27);
+    setInputColor(dm->getInputState(input28), ui->input28);
 
-    setInputColor(inputs.input25(), ui->input25);
-    setInputColor(inputs.input26(), ui->input26);
-    setInputColor(inputs.input27(), ui->input27);
-    setInputColor(inputs.input28(), ui->input28);
+    setInputColor(dm->getInputState(input29), ui->input29);
+    setInputColor(dm->getInputState(input30), ui->input30);
+    setInputColor(dm->getInputState(input31), ui->input31);
+    setInputColor(dm->getInputState(input32), ui->input32);
 
-    setInputColor(inputs.input29(), ui->input29);
-    setInputColor(inputs.input30(), ui->input30);
-    setInputColor(inputs.input31(), ui->input31);
-    setInputColor(inputs.input32(), ui->input32);
+    setInputColor(dm->getInputState(input33), ui->input33);
+    setInputColor(dm->getInputState(input34), ui->input34);
+    setInputColor(dm->getInputState(input35), ui->input35);
+    setInputColor(dm->getInputState(input36), ui->input36);
 
-    setInputColor(inputs.input33(), ui->input33);
-    setInputColor(inputs.input34(), ui->input34);
-    setInputColor(inputs.input35(), ui->input35);
-    setInputColor(inputs.input36(), ui->input36);
+    setInputColor(dm->getInputState(input37), ui->input37);
+    setInputColor(dm->getInputState(input38), ui->input38);
+    setInputColor(dm->getInputState(input39), ui->input39);
+    setInputColor(dm->getInputState(input40), ui->input40);
 
-    setInputColor(inputs.input37(), ui->input37);
-    setInputColor(inputs.input38(), ui->input38);
-    setInputColor(inputs.input39(), ui->input39);
-    setInputColor(inputs.input40(), ui->input40);
+    setInputColor(dm->getInputState(input41), ui->input41);
+    setInputColor(dm->getInputState(input42), ui->input42);
+    setInputColor(dm->getInputState(input43), ui->input43);
+    setInputColor(dm->getInputState(input44), ui->input44);
 
-    setInputColor(inputs.input41(), ui->input41);
-    setInputColor(inputs.input42(), ui->input42);
-    setInputColor(inputs.input43(), ui->input43);
-    setInputColor(inputs.input44(), ui->input44);
+    setInputColor(dm->getInputState(input45), ui->input45);
+    setInputColor(dm->getInputState(input46), ui->input46);
+    setInputColor(dm->getInputState(input47), ui->input47);
+    setInputColor(dm->getInputState(input48), ui->input48);
 
-    setInputColor(inputs.input45(), ui->input45);
-    setInputColor(inputs.input46(), ui->input46);
-    setInputColor(inputs.input47(), ui->input47);
-    setInputColor(inputs.input48(), ui->input48);
+    setInputColor(dm->getInputState(input49), ui->input49);
+    setInputColor(dm->getInputState(input50), ui->input50);
+    setInputColor(dm->getInputState(input51), ui->input51);
+    setInputColor(dm->getInputState(input52), ui->input52);
 
-    setInputColor(inputs.input49(), ui->input49);
-    setInputColor(inputs.input50(), ui->input50);
-    setInputColor(inputs.input51(), ui->input51);
-    setInputColor(inputs.input52(), ui->input52);
+    setInputColor(dm->getInputState(input53), ui->input53);
+    setInputColor(dm->getInputState(input54), ui->input54);
+    setInputColor(dm->getInputState(input55), ui->input55);
+    setInputColor(dm->getInputState(input56), ui->input56);
 
-    setInputColor(inputs.input53(), ui->input53);
-    setInputColor(inputs.input54(), ui->input54);
-    setInputColor(inputs.input55(), ui->input55);
-    setInputColor(inputs.input56(), ui->input56);
+    setInputColor(dm->getInputState(input57), ui->input57);
+    setInputColor(dm->getInputState(input58), ui->input58);
+    setInputColor(dm->getInputState(input59), ui->input59);
+    setInputColor(dm->getInputState(input60), ui->input60);
 
-    setInputColor(inputs.input57(), ui->input57);
-    setInputColor(inputs.input58(), ui->input58);
-    setInputColor(inputs.input59(), ui->input59);
-    setInputColor(inputs.input60(), ui->input60);
+    setInputColor(dm->getInputState(input61), ui->input61);
+    setInputColor(dm->getInputState(input62), ui->input62);
+    setInputColor(dm->getInputState(input63), ui->input63);
+    setInputColor(dm->getInputState(input64), ui->input64);
 
-    setInputColor(inputs.input61(), ui->input61);
-    setInputColor(inputs.input62(), ui->input62);
-    setInputColor(inputs.input63(), ui->input63);
-    setInputColor(inputs.input64(), ui->input64);
+    setInputColor(dm->getInputState(input65), ui->input65);
+    setInputColor(dm->getInputState(input66), ui->input66);
+    setInputColor(dm->getInputState(input67), ui->input67);
+    setInputColor(dm->getInputState(input68), ui->input68);
 
-    setInputColor(inputs.input65(), ui->input65);
-    setInputColor(inputs.input66(), ui->input66);
-    setInputColor(inputs.input67(), ui->input67);
-    setInputColor(inputs.input68(), ui->input68);
+    setInputColor(dm->getInputState(input69), ui->input69);
+    setInputColor(dm->getInputState(input70), ui->input70);
+    setInputColor(dm->getInputState(input71), ui->input71);
+    setInputColor(dm->getInputState(input72), ui->input72);
 
-    setInputColor(inputs.input69(), ui->input69);
-    setInputColor(inputs.input70(), ui->input70);
-    setInputColor(inputs.input71(), ui->input71);
-    setInputColor(inputs.input72(), ui->input72);
+    setInputColor(dm->getInputState(input73), ui->input73);
+    setInputColor(dm->getInputState(input74), ui->input74);
+    setInputColor(dm->getInputState(input75), ui->input75);
+    setInputColor(dm->getInputState(input76), ui->input76);
 
-    setInputColor(inputs.input73(), ui->input73);
-    setInputColor(inputs.input74(), ui->input74);
-    setInputColor(inputs.input75(), ui->input75);
-    setInputColor(inputs.input76(), ui->input76);
+    setInputColor(dm->getInputState(input77), ui->input77);
+    setInputColor(dm->getInputState(input78), ui->input78);
+    setInputColor(dm->getInputState(input79), ui->input79);
+    setInputColor(dm->getInputState(input80), ui->input80);
 
-    setInputColor(inputs.input77(), ui->input77);
-    setInputColor(inputs.input78(), ui->input78);
-    setInputColor(inputs.input79(), ui->input79);
-    setInputColor(inputs.input80(), ui->input80);
+    setInputColor(dm->getInputState(input81), ui->input81);
+    setInputColor(dm->getInputState(input82), ui->input82);
+    setInputColor(dm->getInputState(input83), ui->input83);
+    setInputColor(dm->getInputState(input84), ui->input84);
 
-    setInputColor(inputs.input81(), ui->input81);
-    setInputColor(inputs.input82(), ui->input82);
-    setInputColor(inputs.input83(), ui->input83);
-    setInputColor(inputs.input84(), ui->input84);
+    setInputColor(dm->getInputState(input85), ui->input85);
+    setInputColor(dm->getInputState(input86), ui->input86);
+    setInputColor(dm->getInputState(input87), ui->input87);
+    setInputColor(dm->getInputState(input88), ui->input88);
 
-    setInputColor(inputs.input85(), ui->input85);
-    setInputColor(inputs.input86(), ui->input86);
-    setInputColor(inputs.input87(), ui->input87);
-    setInputColor(inputs.input88(), ui->input88);
+    setInputColor(dm->getInputState(input89), ui->input89);
+    setInputColor(dm->getInputState(input90), ui->input90);
+    setInputColor(dm->getInputState(input91), ui->input91);
+    setInputColor(dm->getInputState(input92), ui->input92);
 
-    setInputColor(inputs.input89(), ui->input89);
-    setInputColor(inputs.input90(), ui->input90);
-    setInputColor(inputs.input91(), ui->input91);
-    setInputColor(inputs.input92(), ui->input92);
+    setInputColor(dm->getInputState(input93), ui->input93);
+    setInputColor(dm->getInputState(input94), ui->input94);
+    setInputColor(dm->getInputState(input95), ui->input95);
+    setInputColor(dm->getInputState(input96), ui->input96);
 
-    setInputColor(inputs.input93(), ui->input93);
-    setInputColor(inputs.input94(), ui->input94);
-    setInputColor(inputs.input95(), ui->input95);
-    setInputColor(inputs.input96(), ui->input96);
+    setInputColor(dm->getInputState(input97), ui->input97);
+    setInputColor(dm->getInputState(input98), ui->input98);
+    setInputColor(dm->getInputState(input99), ui->input99);
+    setInputColor(dm->getInputState(input100), ui->input100);
 
-    setInputColor(inputs.input97(), ui->input97);
-    setInputColor(inputs.input98(), ui->input98);
-    setInputColor(inputs.input99(), ui->input99);
-    setInputColor(inputs.input100(), ui->input100);
+    setInputColor(dm->getInputState(input101), ui->input101);
+    setInputColor(dm->getInputState(input102), ui->input102);
+    setInputColor(dm->getInputState(input103), ui->input103);
+    setInputColor(dm->getInputState(input104), ui->input104);
 
-    setInputColor(inputs.input101(), ui->input101);
-    setInputColor(inputs.input102(), ui->input102);
-    setInputColor(inputs.input103(), ui->input103);
-    setInputColor(inputs.input104(), ui->input104);
+    setInputColor(dm->getInputState(input105), ui->input105);
+    setInputColor(dm->getInputState(input106), ui->input106);
+    setInputColor(dm->getInputState(input107), ui->input107);
+    setInputColor(dm->getInputState(input108), ui->input108);
 
-    setInputColor(inputs.input105(), ui->input105);
-    setInputColor(inputs.input106(), ui->input106);
-    setInputColor(inputs.input107(), ui->input107);
-    setInputColor(inputs.input108(), ui->input108);
+    setInputColor(dm->getInputState(input109), ui->input109);
+    setInputColor(dm->getInputState(input110), ui->input110);
+    setInputColor(dm->getInputState(input111), ui->input111);
+    setInputColor(dm->getInputState(input112), ui->input112);
 
-    setInputColor(inputs.input109(), ui->input109);
-    setInputColor(inputs.input110(), ui->input110);
-    setInputColor(inputs.input111(), ui->input111);
-    setInputColor(inputs.input112(), ui->input112);
+    setInputColor(dm->getInputState(input113), ui->input113);
+    setInputColor(dm->getInputState(input114), ui->input114);
+    setInputColor(dm->getInputState(input115), ui->input115);
+    setInputColor(dm->getInputState(input116), ui->input116);
 
-    setInputColor(inputs.input113(), ui->input113);
-    setInputColor(inputs.input114(), ui->input114);
-    setInputColor(inputs.input115(), ui->input115);
-    setInputColor(inputs.input116(), ui->input116);
+    setInputColor(dm->getInputState(input117), ui->input117);
+    setInputColor(dm->getInputState(input118), ui->input118);
+    setInputColor(dm->getInputState(input119), ui->input119);
+    setInputColor(dm->getInputState(input120), ui->input120);
 
-    setInputColor(inputs.input117(), ui->input117);
-    setInputColor(inputs.input118(), ui->input118);
-    setInputColor(inputs.input119(), ui->input119);
-    setInputColor(inputs.input120(), ui->input120);
-
-    setInputColor(inputs.input121(), ui->input121);
-    setInputColor(inputs.input122(), ui->input122);
-    setInputColor(inputs.input123(), ui->input123);
-    setInputColor(inputs.input124(), ui->input124);
+    setInputColor(dm->getInputState(input121), ui->input121);
+    setInputColor(dm->getInputState(input122), ui->input122);
+    setInputColor(dm->getInputState(input123), ui->input123);
+    setInputColor(dm->getInputState(input124), ui->input124);
 }
 
 void BusepWindow::setInputColor(const unsigned &input, QPushButton *input_button)

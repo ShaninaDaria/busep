@@ -24,10 +24,11 @@ public:
 //    int receiveIS2();
     void sendIS4(_is4 *IS4);
 
-    _inputs getInputs() const;
+    char *getInputs();
     char *getOutputs();
 
     output_state getOutputState(int number);
+    input_state getInputState(int number);
 
 private:
     header_and_managed receiveSmth();

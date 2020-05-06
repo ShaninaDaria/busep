@@ -4,15 +4,20 @@
 
 InputsOutputs::InputsOutputs()
 {
-    qDebug() << sizeof(outputs2);
     bzero(outputs2, sizeof(outputs2));
 
-    for (int i = 0; i < static_cast<int>(sizeof(outputs2)); i++)
+    for (int i = 0; i < output_size; i++)
     {
         outputs2[i] = no_output_state;
     }
-}
 
+    bzero(inputs2, sizeof(inputs2));
+    for (int i = 0; i < input_size; i++)
+    {
+        inputs2[i] = no_input_state;
+    }
+}
+/*
 _inputs InputsOutputs::getInputs() const
 {
     return inputs;
@@ -182,6 +187,7 @@ void InputsOutputs::setInputs(const _inputs &value)
 {
     inputs = value;
 }
+*/
 /*
 _outputs InputsOutputs::initOutputs()
 {
@@ -278,7 +284,7 @@ void InputsOutputs::setOutputs(const _outputs &value)
 */
 void InputsOutputs::setAllOutputs(output_state state)
 {
-    for (int i = 0; i < sizeOfOutputs(); i++)
+    for (int i = 0; i < output_size; i++)
     {
         outputs2[i] = state;
     }
@@ -286,8 +292,7 @@ void InputsOutputs::setAllOutputs(output_state state)
 
 void InputsOutputs::setOneOutput(int number, output_state state)
 {
-//    qDebug() << __FUNCTION__ << number << state;
-    if (number < sizeOfOutputs())
+    if (number < output_size)
     {
         outputs2[number - 1] = state;
     }
@@ -295,7 +300,7 @@ void InputsOutputs::setOneOutput(int number, output_state state)
 
 output_state InputsOutputs::getOutputValue(int number)
 {
-    if (number < sizeOfOutputs())
+    if (number < output_size)
     {
         return static_cast<output_state>(outputs2[number - 1]);
     }
@@ -307,11 +312,42 @@ char *InputsOutputs::getAllOutputs()
     return outputs2;
 }
 
+void InputsOutputs::setAllInputs(input_state state)
+{
+    for (int i = 0; i < input_size; i++)
+    {
+        inputs2[i] = state;
+    }
+}
+
+void InputsOutputs::setOneInput(int number, input_state state)
+{
+    if (number < input_size)
+    {
+        inputs2[number - 1] = state;
+    }
+}
+
+input_state InputsOutputs::getInputValue(int number)
+{
+    if (number < input_size)
+    {
+        return static_cast<input_state>(inputs2[number - 1]);
+    }
+    return no_input_state;
+}
+
+char *InputsOutputs::getAllInputs()
+{
+    return inputs2;
+}
+/*
 int InputsOutputs::sizeOfOutputs() const
 {
     return static_cast<int>(sizeof(outputs2));
 }
-
+*/
+/*
 unsigned _inputs::input2() const
 {
     return _input2;
@@ -1551,6 +1587,7 @@ void _inputs::setInput1(const unsigned &input1)
 {
     _input1 = input1;
 }
+*/
 /*
 unsigned _outputs::output2() const
 {

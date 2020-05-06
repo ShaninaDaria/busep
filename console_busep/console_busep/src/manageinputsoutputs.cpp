@@ -2,12 +2,26 @@
 
 ManageInputsOutputs::ManageInputsOutputs()
 {
-    inputs = io.initInputs();
+//    inputs = io.initInputs();
 //    outputs = io.initOutputs();
 }
 
-void ManageInputsOutputs::changeInputs(input_state state)
+void ManageInputsOutputs::changeInputs(int device_number, input_state state)
 {
+    /// TODO сделать генерацию ошибок
+
+    if (device_number == all_inputs)
+    {
+        allInputsOnOff(state);
+    }
+    else
+    {
+        // говнокод - теперь придется делать switch и кучу одинаковых функций
+        // массив был бы удобнее, но не так наглядно
+        // еще моя реализация "жесткая", т.е. без пересборки не удастся изменить кол-во входов/выходов
+        oneInputOnOff(device_number, state);
+    }
+/*
     inputs.setInput1(state); inputs.setInput2(state);
     inputs.setInput3(state); inputs.setInput4(state);
 
@@ -158,6 +172,22 @@ void ManageInputsOutputs::changeInputs(input_state state)
     inputs.setInput122(state);
     inputs.setInput123(state);
     inputs.setInput124(state);
+*/
+}
+
+void ManageInputsOutputs::allInputsOnOff(input_state state)
+{
+    io.setAllInputs(state);
+}
+
+void ManageInputsOutputs::oneInputOnOff(char device_number, input_state state)
+{
+    io.setOneInput(device_number, state);
+}
+
+char *ManageInputsOutputs::getInputs2()
+{
+    return io.getAllInputs();
 }
 
 void ManageInputsOutputs::changeOutputs(char device_number, unsigned char cntrl)
@@ -447,10 +477,10 @@ void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl
 */
 }
 
-_inputs ManageInputsOutputs::getInputs() const
-{
-    return inputs;
-}
+//_inputs ManageInputsOutputs::getInputs() const
+//{
+//    return inputs;
+//}
 
 //_outputs ManageInputsOutputs::getOutputs() const
 //{
@@ -465,4 +495,9 @@ char *ManageInputsOutputs::getOutputs2()
 output_state ManageInputsOutputs::getOutputState(int number)
 {
     return io.getOutputValue(number);
+}
+
+input_state ManageInputsOutputs::getInputState(int number)
+{
+    return io.getInputValue(number);
 }
