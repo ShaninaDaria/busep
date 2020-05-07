@@ -16,6 +16,8 @@ BusepWindow::BusepWindow(QWidget *parent) :
     connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
     timer->start(1000);
 
+
+
 //    slotStartExchangeByTimer();
 }
 

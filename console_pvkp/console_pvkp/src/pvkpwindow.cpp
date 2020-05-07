@@ -15,10 +15,78 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
     timer->start(1000);
 
-    connect(ui->allOutputsOff, SIGNAL(pressed()), this, SLOT(slotAllOutputsOff()));
+    all_buttons_off = false;
+    all_buttons_on = false;
+    all_buttons_on_off = false;
+    last_toggled_o1 = false;
+    last_toggled_o2 = false;
+    last_toggled_o3 = false;
+    last_toggled_o4 = false;
+    last_toggled_o5 = false;
+    last_toggled_o6 = false;
+    last_toggled_o7 = false;
+    last_toggled_o8 = false;
+    last_toggled_o9 = false;
+    last_toggled_o10 = false;
+    last_toggled_o11 = false;
+    last_toggled_o12 = false;
+    last_toggled_o13 = false;
+    last_toggled_o14 = false;
+    last_toggled_o15 = false;
+    last_toggled_o16 = false;
+    last_toggled_o17 = false;
+    last_toggled_o18 = false;
+    last_toggled_o19 = false;
+    last_toggled_o20 = false;
+    last_toggled_o21 = false;
+    last_toggled_o22 = false;
+    last_toggled_o23 = false;
+    last_toggled_o24 = false;
+    last_toggled_o25 = false;
+    last_toggled_o26 = false;
+    last_toggled_o27 = false;
+    last_toggled_o28 = false;
+    last_toggled_o29 = false;
+    last_toggled_o30 = false;
+    last_toggled_o31 = false;
+    last_toggled_o32 = false;
+    last_toggled_o33 = false;
+    last_toggled_o34 = false;
+    last_toggled_o35 = false;
+    last_toggled_o36 = false;
+    last_toggled_o37 = false;
+    last_toggled_o38 = false;
+    last_toggled_o39 = false;
+    last_toggled_o40 = false;
+    last_toggled_o41 = false;
+    last_toggled_o42 = false;
+    last_toggled_o43 = false;
+    last_toggled_o44 = false;
+    last_toggled_o45 = false;
+    last_toggled_o46 = false;
+    last_toggled_o47 = false;
+    last_toggled_o48 = false;
+    last_toggled_o49 = false;
+    last_toggled_o50 = false;
+    last_toggled_o51 = false;
+    last_toggled_o52 = false;
+    last_toggled_o53 = false;
+    last_toggled_o54 = false;
+    last_toggled_o55 = false;
+    last_toggled_o56 = false;
+    last_toggled_o57 = false;
+    last_toggled_o58 = false;
+    last_toggled_o59 = false;
+    last_toggled_o60 = false;
+    last_toggled_o61 = false;
+    last_toggled_o62 = false;
+
+    connect(ui->allOutputsOff, SIGNAL(toggled(bool)), this, SLOT(slotAllOutputsOff(bool)));
+    //    connect(ui->allOutputsOff, SIGNAL(pressed()), this, SLOT(slotAllOutputsOff()));
     connect(ui->allOutputsOn, SIGNAL(pressed()), this, SLOT(slotAllOutputsOn()));
     connect(ui->output1, SIGNAL(toggled(bool)), this, SLOT(slotOutput1toggled(bool)));
     connect(ui->output2, SIGNAL(toggled(bool)), this, SLOT(slotOutput2toggled(bool)));
+    /*
     connect(ui->output3, SIGNAL(toggled(bool)), this, SLOT(slotOutput3toggled(bool)));
     connect(ui->output4, SIGNAL(toggled(bool)), this, SLOT(slotOutput4toggled(bool)));
     connect(ui->output5, SIGNAL(toggled(bool)), this, SLOT(slotOutput5toggled(bool)));
@@ -78,7 +146,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     connect(ui->output59, SIGNAL(toggled(bool)), this, SLOT(slotOutput59toggled(bool)));
     connect(ui->output60, SIGNAL(toggled(bool)), this, SLOT(slotOutput60toggled(bool)));
     connect(ui->output61, SIGNAL(toggled(bool)), this, SLOT(slotOutput61toggled(bool)));
-    connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));
+    connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));*/
 
     /// TODO - кнопку нажала, запрос ушел. Если ответ совпадает, то рамка зеленая,
     /// если нет - красная или желтая
@@ -98,7 +166,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
 PVKPWindow::~PVKPWindow()
 {
-//    timer->stop();
+    //    timer->stop();
     delete me;
     //    delete thread;
     delete ui;
@@ -115,86 +183,111 @@ void PVKPWindow::createPalette()
 
 void PVKPWindow::slotByTimer()
 {
-    me->startExchange();
+    //    me->startExchange();
 
     showInputsValue();
     showOutputsValue();
 }
 /// FIXME при нажатии "выключить/включить все" нажимаются все кнопки,
 /// что приводит к вызову всех слотов
-void PVKPWindow::slotAllOutputsOff()
+void PVKPWindow::slotAllOutputsOff(bool toggled)
 {
-    qDebug() << __FUNCTION__;
-    me->createIS2(all_outputs, cntrl_off);
+    qDebug() << __FUNCTION__ << toggled;
 
-    ui->output1->setChecked(true);
-    ui->output2->setChecked(true);
-    ui->output3->setChecked(true);
-    ui->output4->setChecked(true);
-    ui->output5->setChecked(true);
-    ui->output6->setChecked(true);
-    ui->output7->setChecked(true);
-    ui->output8->setChecked(true);
-    ui->output9->setChecked(true);
-    ui->output10->setChecked(true);
-    ui->output11->setChecked(true);
-    ui->output12->setChecked(true);
-    ui->output13->setChecked(true);
-    ui->output14->setChecked(true);
-    ui->output15->setChecked(true);
-    ui->output16->setChecked(true);
-    ui->output17->setChecked(true);
-    ui->output18->setChecked(true);
-    ui->output19->setChecked(true);
-    ui->output20->setChecked(true);
-    ui->output21->setChecked(true);
-    ui->output22->setChecked(true);
-    ui->output23->setChecked(true);
-    ui->output24->setChecked(true);
-    ui->output25->setChecked(true);
-    ui->output26->setChecked(true);
-    ui->output27->setChecked(true);
-    ui->output28->setChecked(true);
-    ui->output29->setChecked(true);
-    ui->output30->setChecked(true);
-    ui->output31->setChecked(true);
-    ui->output32->setChecked(true);
-    ui->output33->setChecked(true);
-    ui->output34->setChecked(true);
-    ui->output35->setChecked(true);
-    ui->output36->setChecked(true);
-    ui->output37->setChecked(true);
-    ui->output38->setChecked(true);
-    ui->output39->setChecked(true);
-    ui->output40->setChecked(true);
-    ui->output41->setChecked(true);
-    ui->output42->setChecked(true);
-    ui->output43->setChecked(true);
-    ui->output44->setChecked(true);
-    ui->output45->setChecked(true);
-    ui->output46->setChecked(true);
-    ui->output47->setChecked(true);
-    ui->output48->setChecked(true);
-    ui->output49->setChecked(true);
-    ui->output50->setChecked(true);
-    ui->output51->setChecked(true);
-    ui->output52->setChecked(true);
-    ui->output53->setChecked(true);
-    ui->output54->setChecked(true);
-    ui->output55->setChecked(true);
-    ui->output56->setChecked(true);
-    ui->output57->setChecked(true);
-    ui->output58->setChecked(true);
-    ui->output59->setChecked(true);
-    ui->output60->setChecked(true);
-    ui->output61->setChecked(true);
-    ui->output62->setChecked(true);
+    //    all_buttons_off = true;
+    //    all_buttons_on = true;
+//        all_buttons_on_off = true;
+
+    all_buttons_on_off = toggled;
+    qDebug() << "all_buttons_on_off" << all_buttons_on_off;
+    last_toggled_o1 = toggled;
+    last_toggled_o2 = toggled;
+
+    if (toggled)
+    {
+        ui->allOutputsOff->setText("Включить все");
+
+//        me->createIS2(all_outputs, cntrl_off);
+    }
+    else
+    {
+        ui->allOutputsOff->setText("Выключить все");
+
+//        me->createIS2(all_outputs, cntrl_on);
+    }
+
+    ui->output1->setChecked(toggled);
+    ui->output2->setChecked(toggled);
+    ui->output3->setChecked(toggled);
+    ui->output4->setChecked(toggled);
+    ui->output5->setChecked(toggled);
+    ui->output6->setChecked(toggled);
+    ui->output7->setChecked(toggled);
+    ui->output8->setChecked(toggled);
+    ui->output9->setChecked(toggled);
+    ui->output10->setChecked(toggled);
+    ui->output11->setChecked(toggled);
+    ui->output12->setChecked(toggled);
+    ui->output13->setChecked(toggled);
+    ui->output14->setChecked(toggled);
+    ui->output15->setChecked(toggled);
+    ui->output16->setChecked(toggled);
+    ui->output17->setChecked(toggled);
+    ui->output18->setChecked(toggled);
+    ui->output19->setChecked(toggled);
+    ui->output20->setChecked(toggled);
+    ui->output21->setChecked(toggled);
+    ui->output22->setChecked(toggled);
+    ui->output23->setChecked(toggled);
+    ui->output24->setChecked(toggled);
+    ui->output25->setChecked(toggled);
+    ui->output26->setChecked(toggled);
+    ui->output27->setChecked(toggled);
+    ui->output28->setChecked(toggled);
+    ui->output29->setChecked(toggled);
+    ui->output30->setChecked(toggled);
+    ui->output31->setChecked(toggled);
+    ui->output32->setChecked(toggled);
+    ui->output33->setChecked(toggled);
+    ui->output34->setChecked(toggled);
+    ui->output35->setChecked(toggled);
+    ui->output36->setChecked(toggled);
+    ui->output37->setChecked(toggled);
+    ui->output38->setChecked(toggled);
+    ui->output39->setChecked(toggled);
+    ui->output40->setChecked(toggled);
+    ui->output41->setChecked(toggled);
+    ui->output42->setChecked(toggled);
+    ui->output43->setChecked(toggled);
+    ui->output44->setChecked(toggled);
+    ui->output45->setChecked(toggled);
+    ui->output46->setChecked(toggled);
+    ui->output47->setChecked(toggled);
+    ui->output48->setChecked(toggled);
+    ui->output49->setChecked(toggled);
+    ui->output50->setChecked(toggled);
+    ui->output51->setChecked(toggled);
+    ui->output52->setChecked(toggled);
+    ui->output53->setChecked(toggled);
+    ui->output54->setChecked(toggled);
+    ui->output55->setChecked(toggled);
+    ui->output56->setChecked(toggled);
+    ui->output57->setChecked(toggled);
+    ui->output58->setChecked(toggled);
+    ui->output59->setChecked(toggled);
+    ui->output60->setChecked(toggled);
+    ui->output61->setChecked(toggled);
+    ui->output62->setChecked(toggled);
 }
 
 void PVKPWindow::slotAllOutputsOn()
 {
     qDebug() << __FUNCTION__;
     me->createIS2(all_outputs, cntrl_on);
+
+    all_buttons_on = true;
+    all_buttons_off = true;
+    all_buttons_on_off = true;
 
     ui->output1->setChecked(false);
     ui->output2->setChecked(false);
@@ -264,27 +357,40 @@ void PVKPWindow::slotAllOutputsOn()
 
 void PVKPWindow::slotOutput1toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
-    if (toggled)
+    qDebug() << __FUNCTION__ << toggled << "\n";
+    // если пользователь не выключал и не включал все кнопки
+    if (last_toggled_o1 != toggled)
     {
-        me->createIS2(0x01, cntrl_off);
+        qDebug() << "HURAH1" << "\n";
+        last_toggled_o1 = toggled;
+        //        if (toggled)
+        //        {
+        //            me->createIS2(0x01, cntrl_off);
+        //        }
+        //        else
+        //        {
+        //            me->createIS2(0x01, cntrl_on);
+        //        }
+
     }
-    else
-    {
-        me->createIS2(0x01, cntrl_on);
-    }
+
 }
 
 void PVKPWindow::slotOutput2toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
-    if (toggled)
+    qDebug() << __FUNCTION__ << toggled << "\n";
+    if (last_toggled_o2 != toggled)
     {
-        me->createIS2(0x02, cntrl_off);
-    }
-    else
-    {
-        me->createIS2(0x02, cntrl_on);
+        qDebug() << "HURAH2" << "\n";
+        last_toggled_o2 = toggled;
+        if (toggled)
+        {
+            me->createIS2(0x02, cntrl_off);
+        }
+        else
+        {
+            me->createIS2(0x02, cntrl_on);
+        }
     }
 }
 
