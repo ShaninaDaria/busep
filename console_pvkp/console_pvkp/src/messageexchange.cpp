@@ -77,33 +77,50 @@ void messageExchange::createIS2(char number, output_cntrl cntrl)
     IS2 = formingIMpvkp->createIS2(number, cntrl);
 }
 
-void messageExchange::startExchange()
+bool messageExchange::startExchange()
 {
-//    while (1)
-//    {
-        int bytes_send(-1), bytes_rcv(-1);
+    int bytes_send(-1), bytes_rcv(-1);
+    bool ok(false);
 
-//        bytes_send = sendIS1(&IS1);
-//        if (bytes_send > 0)
-//        {
-//            do
-//            {
-//                bytes_rcv = receiveIS3();
-//            } while (bytes_rcv > 0);
-//        }
-
-        bytes_rcv = -1;
-        bytes_send = sendIS2(&IS2);
-        if (bytes_send > 0)
+    bytes_send = sendIS1(&IS1);
+    /// TODO таймер для ожидания!
+    if (bytes_send > 0)
+    {
+        do
         {
-            do
+            bytes_rcv = receiveIS3(ok);
+        } while (bytes_rcv > 0);
+    }
+
+    return ok;
+}
+
+void messageExchange::usualExchange()
+{
+    //    while (1)
+    //    {
+            int bytes_send(-1), bytes_rcv(-1);
+
+    //        bytes_send = sendIS1(&IS1);
+    //        if (bytes_send > 0)
+    //        {
+    //            do
+    //            {
+    //                bytes_rcv = receiveIS3();
+    //            } while (bytes_rcv > 0);
+    //        }
+
+            bytes_rcv = -1;
+            bytes_send = sendIS2(&IS2);
+            if (bytes_send > 0)
             {
-                bytes_rcv = receiveIS4();
-            } while (bytes_rcv > 0);
-        }
+                do
+                {
+                    bytes_rcv = receiveIS4();
+                } while (bytes_rcv > 0);
+            }
 
-//    }
-
+    //    }
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
@@ -123,7 +140,7 @@ int messageExchange::sendIS1(_is1 *IS1)
     return bytes_send;
 }
 
-int messageExchange::receiveIS3()
+int messageExchange::receiveIS3(bool &ok)
 {
     std::cout << __FUNCTION__ << std::endl;
 
@@ -209,7 +226,7 @@ int messageExchange::receiveIS3()
             if (bytes == sizeof(_is3))
             {
                 bytes = 0;
-                formingIMpvkp->parsingIS3(IS3);
+                formingIMpvkp->parsingIS3(IS3, ok);
             }
         }
         else
@@ -217,7 +234,7 @@ int messageExchange::receiveIS3()
             if (bytes_rcv == sizeof(_is3))
             {
                 IS3 = rcv_IS3;
-                formingIMpvkp->parsingIS3(IS3);
+                formingIMpvkp->parsingIS3(IS3, ok);
             }
         }
     }

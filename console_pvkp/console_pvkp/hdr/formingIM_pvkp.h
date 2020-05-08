@@ -20,7 +20,7 @@ public:
 
     _is2 getIS2() const;
 
-    void parsingIS3(_is3 &IS3);
+    void parsingIS3(_is3 &IS3, bool &ok);
     void parsingIS4(_is4 &IS4);
 
     char *getInputs();
@@ -33,6 +33,7 @@ public:
     /// NOTE 1 byte???
     input_state getInputState2(unsigned char word);
 private:
+    void parsingWords(_is3 *IS3);
     void printInputState(const unsigned &input);
 
     /// NOTE 1 byte???

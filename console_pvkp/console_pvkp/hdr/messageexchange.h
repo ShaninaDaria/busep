@@ -18,10 +18,11 @@ public:
 
     void createIS2(char number, output_cntrl cntrl);
 
-    void startExchange();
+    bool startExchange();
+    void usualExchange();
 
     int sendIS1(_is1 *IS1);
-    int receiveIS3();
+    int receiveIS3(bool &ok);
 
     int sendIS2(_is2 *IS2);
     int receiveIS4();

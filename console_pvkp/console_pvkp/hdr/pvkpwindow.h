@@ -22,8 +22,7 @@ public:
 private slots:
     void slotByTimer();
 
-    void slotAllOutputsOff(bool toggled);
-    void slotAllOutputsOn();
+    void slotAllOutputsOnOff(bool toggled);
 
     void slotOutput1toggled(bool toggled);
     void slotOutput2toggled(bool toggled);
@@ -111,6 +110,8 @@ private:
     void showOutputsValue();
     void setOutputColor(const unsigned &output, QPushButton *output_button);
 
+    void manageOneOutput(int number, bool toggled);
+
     Ui::PVKPWindow *ui;
 //    QThread *thread;
     QTimer *timer;
@@ -126,68 +127,7 @@ private:
     bool all_buttons_on;
     bool all_buttons_on_off;
     // для хранения предыдущего статуса кнопки выхода
-    bool last_toggled_o1;
-    bool last_toggled_o2;
-    bool last_toggled_o3;
-    bool last_toggled_o4;
-    bool last_toggled_o5;
-    bool last_toggled_o6;
-    bool last_toggled_o7;
-    bool last_toggled_o8;
-    bool last_toggled_o9;
-    bool last_toggled_o10;
-    bool last_toggled_o11;
-    bool last_toggled_o12;
-    bool last_toggled_o13;
-    bool last_toggled_o14;
-    bool last_toggled_o15;
-    bool last_toggled_o16;
-    bool last_toggled_o17;
-    bool last_toggled_o18;
-    bool last_toggled_o19;
-    bool last_toggled_o20;
-    bool last_toggled_o21;
-    bool last_toggled_o22;
-    bool last_toggled_o23;
-    bool last_toggled_o24;
-    bool last_toggled_o25;
-    bool last_toggled_o26;
-    bool last_toggled_o27;
-    bool last_toggled_o28;
-    bool last_toggled_o29;
-    bool last_toggled_o30;
-    bool last_toggled_o31;
-    bool last_toggled_o32;
-    bool last_toggled_o33;
-    bool last_toggled_o34;
-    bool last_toggled_o35;
-    bool last_toggled_o36;
-    bool last_toggled_o37;
-    bool last_toggled_o38;
-    bool last_toggled_o39;
-    bool last_toggled_o40;
-    bool last_toggled_o41;
-    bool last_toggled_o42;
-    bool last_toggled_o43;
-    bool last_toggled_o44;
-    bool last_toggled_o45;
-    bool last_toggled_o46;
-    bool last_toggled_o47;
-    bool last_toggled_o48;
-    bool last_toggled_o49;
-    bool last_toggled_o50;
-    bool last_toggled_o51;
-    bool last_toggled_o52;
-    bool last_toggled_o53;
-    bool last_toggled_o54;
-    bool last_toggled_o55;
-    bool last_toggled_o56;
-    bool last_toggled_o57;
-    bool last_toggled_o58;
-    bool last_toggled_o59;
-    bool last_toggled_o60;
-    bool last_toggled_o61;
-    bool last_toggled_o62;
+    bool last_toggled_o[output_size];
 
 };
 

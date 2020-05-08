@@ -12,13 +12,13 @@ BusepWindow::BusepWindow(QWidget *parent) :
     connect(ui->allInputsOn, SIGNAL(pressed()), this, SLOT(slotAllInputsOn()));
 
     dm = new DummyMessages();
-    timer = new QTimer(this);
-    connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
-    timer->start(1000);
+//    timer = new QTimer(this);
+//    connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
+//    timer->start(1000);
 
 
 
-//    slotStartExchangeByTimer();
+    slotStartExchangeByTimer();
 }
 
 BusepWindow::~BusepWindow()
