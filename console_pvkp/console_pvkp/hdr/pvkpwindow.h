@@ -22,6 +22,7 @@ public:
 private slots:
     void slotByTimer();
     void slotWaitForIS3();
+    void slotWaitForIS4();
 
     void slotAllOutputsOnOff(bool toggled);
 
@@ -115,7 +116,7 @@ private:
 
     Ui::PVKPWindow *ui;
 //    QThread *thread;
-    QTimer *timer;
+//    QTimer *timer;
 
     QPalette green_palette;
     QPalette red_palette;

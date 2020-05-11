@@ -37,11 +37,15 @@ public:
 
     int getBytes_rcv_IS3() const;
 
+    int getBytes_rcv_IS4() const;
+
 private slots:
     void slotWaitingForIS3();
+    void slotWaitingForIS4();
 
 signals:
     void signalReceiveIS3();
+    void signalReceiveIS4();
 
 private:
     void createTimer();
@@ -58,9 +62,12 @@ private:
     _rcv_data rcv_data;
 
     QTimer *timerIS1_IS3;
+    QTimer *timerIS2_IS4;
 
     int bytes_send_IS1;
     int bytes_rcv_IS3;
+    int bytes_send_IS2;
+    int bytes_rcv_IS4;
 
 };
 

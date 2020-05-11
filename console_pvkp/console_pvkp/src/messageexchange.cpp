@@ -23,10 +23,12 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
 
     bytes_send_IS1 = -1;
     bytes_rcv_IS3 = -1;
+    bytes_send_IS2 = -1;
+    bytes_rcv_IS4 = -1;
 
     createIS1();
     /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
-//    createIS2(all_outputs, cntrl_on);
+    createIS2(all_outputs, cntrl_on);
 
     bzero(&IS3, sizeof(_is3));
     bzero(&IS4, sizeof(_is4));
@@ -37,6 +39,9 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
 //    timerIS1_IS3->setInterval(100);
     connect(timerIS1_IS3, SIGNAL(timeout()), this, SLOT(slotWaitingForIS3()));
 
+    timerIS2_IS4 = new QTimer(this);
+    connect(timerIS2_IS4, SIGNAL(timeout()), this, SLOT(slotWaitingForIS4()));
+
 
 }
 
@@ -45,6 +50,10 @@ messageExchange::~messageExchange()
     if (timerIS1_IS3->isActive())
     {
         timerIS1_IS3->stop();
+    }
+    if (timerIS2_IS4->isActive())
+    {
+        timerIS2_IS4->stop();
     }
     dataTransnmit->endTransmitClient();
     delete dataTransnmit;
@@ -61,6 +70,11 @@ void messageExchange::createIS1()
 {
     std::cout << __FUNCTION__ << std::endl;
     IS1 = formingIMpvkp->createIS1();
+}
+
+int messageExchange::getBytes_rcv_IS4() const
+{
+    return bytes_rcv_IS4;
 }
 
 void messageExchange::createIS2(char number, output_cntrl cntrl)
@@ -97,13 +111,6 @@ void messageExchange::slotWaitingForIS3()
                 bytes_send_IS1 = 0;
             }
             qDebug() << "rt" << timerIS1_IS3->remainingTime();
-//            if (bytes_rcv_IS3 < 0)
-//            {
-//                if ((timerIS1_IS3->remainingTime() > 0) && (timerIS1_IS3->remainingTime() < 100))
-//                {
-
-//                }
-//            }
 //        } while (bytes_rcv_IS3 > 0);
           }  while ((timerIS1_IS3->remainingTime() > 0) && (timerIS1_IS3->remainingTime() < 100));
     }
@@ -121,8 +128,12 @@ void messageExchange::slotWaitingForIS3()
         }
     }
 
+    /// TODO флаг, отвечающий за то, что все хорошо
     if (bytes_rcv_IS3 > 0)
     {
+        timerIS1_IS3->setSingleShot(false);
+        timerIS1_IS3->setInterval(100);
+        timerIS1_IS3->start();
         emit signalReceiveIS3();
     }
 }
@@ -131,8 +142,6 @@ void messageExchange::usualExchange()
 {
     //    while (1)
     //    {
-            int bytes_send(-1), bytes_rcv(-1);
-
     //        bytes_send = sendIS1(&IS1);
     //        if (bytes_send > 0)
     //        {
@@ -142,17 +151,46 @@ void messageExchange::usualExchange()
     //            } while (bytes_rcv > 0);
     //        }
 
-            bytes_rcv = -1;
-            bytes_send = sendIS2(&IS2);
-            if (bytes_send > 0)
-            {
-                do
-                {
-                    bytes_rcv = receiveIS4();
-                } while (bytes_rcv > 0);
-            }
+            bytes_rcv_IS4 = -1;
+            bytes_send_IS2 = sendIS2(&IS2);
+            timerIS2_IS4->start(10);
 
-    //    }
+//            if (bytes_send_IS2 > 0)
+//            {
+//                do
+//                {
+//                    bytes_rcv_IS4 = receiveIS4();
+//                } while (bytes_rcv_IS4 > 0);
+//            }
+//        }
+}
+
+void messageExchange::slotWaitingForIS4()
+{
+    if (bytes_send_IS2 > 0)
+    {
+        do
+        {
+            bytes_rcv_IS4 = receiveIS4();
+            if (bytes_rcv_IS4 > 0)
+            {
+                bytes_send_IS2 = 0;
+            }
+            qDebug() << "rt" << timerIS2_IS4->remainingTime();
+//        } while (bytes_rcv_IS4 > 0);
+        }  while ((timerIS2_IS4->remainingTime() > 0) && (timerIS2_IS4->remainingTime() < 10));
+    }
+
+    if (timerIS2_IS4->remainingTime() <= 0)
+    {
+        qDebug() << "IT`S NO TIME FOR IS4!";
+    }
+
+    /// TODO флаг, отвечающий за то, что все хорошо
+    if (bytes_rcv_IS4 > 0)
+    {
+        emit signalReceiveIS4();
+    }
 }
 
 int messageExchange::sendIS1(_is1 *IS1)

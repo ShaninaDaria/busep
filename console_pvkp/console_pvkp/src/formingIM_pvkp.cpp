@@ -2,8 +2,7 @@
 
 FormingIM_pvkp::FormingIM_pvkp()
 {
-    //    inputs = io.initInputs();
-    //    outputs = io.initOutputs();
+
 }
 
 _is1 FormingIM_pvkp::createIS1()

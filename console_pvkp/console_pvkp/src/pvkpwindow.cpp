@@ -94,11 +94,12 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     //    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     //    thread->start();
 
-    timer = new QTimer(this);
-    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
+//    timer = new QTimer(this);
+//    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
 
     me->startExchange();
     connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotWaitForIS3()));
+    connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotWaitForIS4()));
 
 //    if (!me->startExchange())
 //    {
@@ -116,10 +117,10 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
 PVKPWindow::~PVKPWindow()
 {
-    if (timer->isActive())
-    {
-        timer->stop();
-    }
+//    if (timer->isActive())
+//    {
+//        timer->stop();
+//    }
     delete me;
     //    delete thread;
     delete ui;
@@ -144,19 +145,34 @@ void PVKPWindow::slotByTimer()
 
 void PVKPWindow::slotWaitForIS3()
 {
+    /// TODO флаг!
     if (me->getBytes_rcv_IS3() == sizeof(_is3))
     {
         showInputsValue();
-        qDebug() << "Start main work!";
+//        qDebug() << "Start main work!";
 //        timer->start(1000);
+        me->usualExchange();
     }
     else
     {
-        qDebug() << "Something is wrong";
+        qDebug() << "Something with IS1-IS3 is wrong";
     }
 }
-/// FIXME при нажатии "выключить/включить все" нажимаются все кнопки,
-/// что приводит к вызову всех слотов
+
+void PVKPWindow::slotWaitForIS4()
+{
+    /// TODO флаг!
+    if (me->getBytes_rcv_IS4() == sizeof(_is4))
+    {
+        showOutputsValue();
+//        qDebug() << "Good main work!";
+    }
+    else
+    {
+        qDebug() << "Something with IS2-IS4 is wrong";
+    }
+}
+
 void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 {
     qDebug() << __FUNCTION__ << toggled;
@@ -176,13 +192,13 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
     {
         ui->allOutputsOff->setText("Включить все");
 
-        //        me->createIS2(all_outputs, cntrl_off);
+        me->createIS2(all_outputs, cntrl_off);
     }
     else
     {
         ui->allOutputsOff->setText("Выключить все");
 
-        //        me->createIS2(all_outputs, cntrl_on);
+        me->createIS2(all_outputs, cntrl_on);
     }
 
     ui->output1->setChecked(toggled);
@@ -627,14 +643,14 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
     {
         qDebug() << "HURAH" << number << "\n";
         last_toggled_o[number - 1] = toggled;
-//        if (toggled)
-//        {
-//            me->createIS2(number, cntrl_off);
-//        }
-//        else
-//        {
-//            me->createIS2(number, cntrl_on);
-//        }
+        if (toggled)
+        {
+            me->createIS2(number, cntrl_off);
+        }
+        else
+        {
+            me->createIS2(number, cntrl_on);
+        }
     }
 }
 
