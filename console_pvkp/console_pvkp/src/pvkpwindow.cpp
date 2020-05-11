@@ -93,16 +93,23 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     //    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     //    thread->start();
-    if (!me->startExchange())
-    {
-        qDebug() << "Все плохо";
-    }
-    else
-    {
-        timer = new QTimer(this);
-        connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
-        timer->start(1000);
-    }
+
+    timer = new QTimer(this);
+    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
+
+    me->startExchange();
+    connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotWaitForIS3()));
+
+//    if (!me->startExchange())
+//    {
+//        qDebug() << "Все плохо";
+//    }
+//    else
+//    {
+//        timer = new QTimer(this);
+//        connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
+////        timer->start(1000);
+//    }
 
     //    showInputsValue();
 }
@@ -133,6 +140,20 @@ void PVKPWindow::slotByTimer()
 
     showInputsValue();
     showOutputsValue();
+}
+
+void PVKPWindow::slotWaitForIS3()
+{
+    if (me->getBytes_rcv_IS3() == sizeof(_is3))
+    {
+        showInputsValue();
+        qDebug() << "Start main work!";
+//        timer->start(1000);
+    }
+    else
+    {
+        qDebug() << "Something is wrong";
+    }
 }
 /// FIXME при нажатии "выключить/включить все" нажимаются все кнопки,
 /// что приводит к вызову всех слотов

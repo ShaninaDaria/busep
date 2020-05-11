@@ -12,18 +12,23 @@ BusepWindow::BusepWindow(QWidget *parent) :
     connect(ui->allInputsOn, SIGNAL(pressed()), this, SLOT(slotAllInputsOn()));
 
     dm = new DummyMessages();
-//    timer = new QTimer(this);
-//    connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
-//    timer->start(1000);
+    // как-то не так, конечно - я не знаю, с какой частотой БУСЕП шлет сообщения
+    timer = new QTimer(this);
+    connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
+    timer->start(10);
 
 
 
-    slotStartExchangeByTimer();
+//    slotStartExchangeByTimer();
 }
 
 BusepWindow::~BusepWindow()
 {
-//    timer->stop();
+    if (timer->isActive())
+    {
+        timer->stop();
+
+    }
     delete dm;
     delete ui;
 }

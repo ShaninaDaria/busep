@@ -56,7 +56,8 @@ _is2 FormingIM_pvkp::getIS2() const
 
 void FormingIM_pvkp::parsingIS3(_is3 &IS3, bool &ok)
 {
-    if ((IS3.header == response_state) && checkCS(IS3.cs))
+    if (IS3.header == response_state)
+//    if ((IS3.header == response_state) && checkCS(IS3.cs))
     {
         ok = true;
         printf("    header \t%02x\n", IS3.header);

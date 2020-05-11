@@ -21,6 +21,7 @@ public:
 
 private slots:
     void slotByTimer();
+    void slotWaitForIS3();
 
     void slotAllOutputsOnOff(bool toggled);
 

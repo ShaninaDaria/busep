@@ -35,10 +35,19 @@ public:
     char *getOutputsValue();
     output_state getOutputState(int number);
 
+    int getBytes_rcv_IS3() const;
+
+private slots:
+    void slotWaitingForIS3();
+
+signals:
+    void signalReceiveIS3();
+
 private:
     void createTimer();
     static void timer_handler(int signum);
 
+    void createIS1();
 
     FormingIM_pvkp *formingIMpvkp;
     DataTransmit *dataTransnmit;
@@ -48,7 +57,11 @@ private:
     _is4 IS4;
     _rcv_data rcv_data;
 
-    void createIS1();
+    QTimer *timerIS1_IS3;
+
+    int bytes_send_IS1;
+    int bytes_rcv_IS3;
+
 };
 
 #endif // MESSAGEEXCHANGE_H

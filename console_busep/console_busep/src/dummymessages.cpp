@@ -4,9 +4,10 @@ DummyMessages::DummyMessages()
 {
     formingIM_busep = new FormingIM_busep();
     dataTransnmit = new DataTransmit();
+    /// TODO переподключение, если ПВКП отвалился
     dataTransnmit->createServer();
 
-//    createIS3(no_input_state);
+    createIS3(no_input_state);
 //    createIS4(0x00, output_off);
 }
 
@@ -20,6 +21,7 @@ void DummyMessages::startExchange()
 {
 //    int recv_bytes(-1);
     header_and_managed code(empty);
+//    std::cout << __FUNCTION__ << " waiting for message... ";
 //    while (1)
 //    {
         do
@@ -168,7 +170,8 @@ input_state DummyMessages::getInputState(int number)
 
 header_and_managed DummyMessages::receiveSmth()
 {
-    std::cout << __FUNCTION__ << " waiting for message... " << std::endl;
+
+//    std::cout << '.';
 
 
     struct _data
@@ -187,6 +190,7 @@ header_and_managed DummyMessages::receiveSmth()
     int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
     if (bytes > 0)
     {
+//        std::cout << "\n" << std::endl;
         std::cout << "receive " << bytes << " bytes; " << std::endl;
     }
 
