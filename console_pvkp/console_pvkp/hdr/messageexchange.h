@@ -18,7 +18,7 @@ public:
 
     void createIS2(char number, output_cntrl cntrl);
 
-    bool startExchange();
+    void startExchange();
     void usualExchange();
 
     int sendIS1(_is1 *IS1);
@@ -26,8 +26,6 @@ public:
 
     int sendIS2(_is2 *IS2);
     int receiveIS4();
-
-    void receiveIS5();
 
     char *getInputsValue();
     input_state getInputState(int number);
@@ -40,7 +38,7 @@ public:
     int getBytes_rcv_IS4() const;
 
     void addErrorToIS1();
-    void addErrorToIS2();
+    void addErrorToIS2(char number, output_cntrl cntrl);
 
 private slots:
     void slotWaitingForIS3();
@@ -49,6 +47,7 @@ private slots:
 signals:
     void signalReceiveIS3();
     void signalReceiveIS4();
+    void signalReceiveIS5();
 
 private:
     void createTimer();
@@ -56,8 +55,13 @@ private:
 
     void createIS1();
 
+    void receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3, bool &ok);
+
+    bool checkMessage(_data &data);
+
     FormingIM_pvkp *formingIMpvkp;
     DataTransmit *dataTransnmit;
+    _data data;
     _is1 IS1;
     _is2 IS2;
     _is3 IS3;

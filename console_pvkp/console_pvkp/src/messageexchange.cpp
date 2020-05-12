@@ -76,7 +76,7 @@ void messageExchange::createIS2(char number, output_cntrl cntrl)
     IS2 = formingIMpvkp->createIS2(number, cntrl);
 }
 
-bool messageExchange::startExchange()
+void messageExchange::startExchange()
 {
 //    int bytes_send(-1), bytes_rcv(-1);
 
@@ -84,10 +84,6 @@ bool messageExchange::startExchange()
     /// TODO таймер для ожидания!
     timerIS1_IS3->setSingleShot(true);
     timerIS1_IS3->start(100);
-
-
-//    return ok;
-    return true;
 }
 
 void messageExchange::slotWaitingForIS3()
@@ -127,6 +123,21 @@ void messageExchange::slotWaitingForIS3()
         timerIS1_IS3->setInterval(100);
         timerIS1_IS3->start();
         emit signalReceiveIS3();
+    }
+    else
+    {
+        // раз я повторяю посылку до прихода корректного сообщения,
+        // другое сообщение мне посылать не нужно
+        if (timerIS2_IS4->isActive())
+        {
+            timerIS2_IS4->stop();
+        }
+
+        timerIS1_IS3->setSingleShot(false);
+        timerIS1_IS3->setInterval(100);
+
+        timerIS1_IS3->start();
+        emit signalReceiveIS5();
     }
 }
 
@@ -183,6 +194,18 @@ void messageExchange::slotWaitingForIS4()
     {
         emit signalReceiveIS4();
     }
+    else
+    {
+        // раз я повторяю посылку до прихода корректного сообщения,
+        // другое сообщение мне посылать не нужно
+        if (timerIS1_IS3->isActive())
+        {
+            timerIS1_IS3->stop();
+        }
+
+        timerIS2_IS4->start();
+        emit signalReceiveIS5();
+    }
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
@@ -196,7 +219,7 @@ int messageExchange::sendIS1(_is1 *IS1)
         std::cout << "send " << bytes_send << " bytes; " << std::endl;
         printf("    header \t%02x\n", IS1->header);
         printf("    managed \t%02x\n", IS1->managed);
-        printf("    cs \t%02x\n", IS1->cs);
+        printf("    cs \t%02x\n", IS1->crc);
     }
     return bytes_send;
 }
@@ -214,8 +237,11 @@ int messageExchange::receiveIS3(bool &ok)
     if (bytes_rcv > 0)
     {
         std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
-        static int bytes(0);
-        bytes += bytes_rcv;
+
+        if (checkMessage(data))
+        {
+
+        }
 
         if (bytes_rcv == sizeof(_is3))
         {
@@ -224,83 +250,98 @@ int messageExchange::receiveIS3(bool &ok)
         }
         else
         {
-            if ((bytes_rcv == 8) || (bytes_rcv == 2))
+            if (bytes_rcv == sizeof(_is5))
             {
-                if (rcv_IS3.header == header_and_managed::header)
-                {
-                    // начало посылки
-                    IS3.header = rcv_IS3.header;
-                    IS3.managed = rcv_IS3.managed;
-                    IS3.word00 = rcv_IS3.word00;
-                    IS3.word01 = rcv_IS3.word01;
-                    IS3.word02 = rcv_IS3.word02;
-                    IS3.word03 = rcv_IS3.word03;
-                    IS3.word04 = rcv_IS3.word04;
-                    IS3.word05 = rcv_IS3.word05;
-                }
-                else
-                {
-                    switch (bytes)
-                    {
-                    case 16:
-                    {
-                        // т.к. всегда заполнены первые 8 байт
-                        IS3.word06 = rcv_IS3.header;
-                        IS3.word07 = rcv_IS3.managed;
-                        IS3.word08 = rcv_IS3.word00;
-                        IS3.word09 = rcv_IS3.word01;
-                        IS3.word10 = rcv_IS3.word02;
-                        IS3.word11 = rcv_IS3.word03;
-                        IS3.word12 = rcv_IS3.word04;
-                        IS3.word13 = rcv_IS3.word05;
-                    }
-                        break;
 
-                    case 24:
-                    {
-                        IS3.word14 = rcv_IS3.header;
-                        IS3.word15 = rcv_IS3.managed;
-                        IS3.word16 = rcv_IS3.word00;
-                        IS3.word17 = rcv_IS3.word01;
-                        IS3.word18 = rcv_IS3.word02;
-                        IS3.word19 = rcv_IS3.word03;
-                        IS3.word20 = rcv_IS3.word04;
-                        IS3.word21 = rcv_IS3.word05;
-                    }
-                        break;
-
-                    case 32:
-                    {
-                        IS3.word22 = rcv_IS3.header;
-                        IS3.word23 = rcv_IS3.managed;
-                        IS3.word24 = rcv_IS3.word00;
-                        IS3.word25 = rcv_IS3.word01;
-                        IS3.word26 = rcv_IS3.word02;
-                        IS3.word27 = rcv_IS3.word03;
-                        IS3.word28 = rcv_IS3.word04;
-                        IS3.word29 = rcv_IS3.word05;
-                    }
-                        break;
-
-                    case 34:
-                    {
-                        IS3.word30 = rcv_IS3.header;
-                        IS3.cs = rcv_IS3.managed;
-                    }
-                        break;
-                    }
-                }
-
-                if (bytes == sizeof(_is3))
-                {
-                    bytes = 0;
-                    formingIMpvkp->parsingIS3(IS3, ok);
-                }
+            }
+            else
+            {
+                receiveIS3inParts(bytes_rcv, rcv_IS3, ok);
             }
         }
     }
 
     return bytes_rcv;
+}
+
+void messageExchange::receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3, bool &ok)
+{
+    static int summ_bytes(0);
+    summ_bytes += bytes_rcv;
+
+    if ((bytes_rcv == 8) || (bytes_rcv == 2))
+    {
+        if (rcv_IS3.header == header_and_managed::header)
+        {
+            // начало посылки
+            IS3.header = rcv_IS3.header;
+            IS3.managed = rcv_IS3.managed;
+            IS3.word00 = rcv_IS3.word00;
+            IS3.word01 = rcv_IS3.word01;
+            IS3.word02 = rcv_IS3.word02;
+            IS3.word03 = rcv_IS3.word03;
+            IS3.word04 = rcv_IS3.word04;
+            IS3.word05 = rcv_IS3.word05;
+        }
+        else
+        {
+            switch (summ_bytes)
+            {
+            case 16:
+            {
+                // т.к. всегда заполнены первые 8 байт
+                IS3.word06 = rcv_IS3.header;
+                IS3.word07 = rcv_IS3.managed;
+                IS3.word08 = rcv_IS3.word00;
+                IS3.word09 = rcv_IS3.word01;
+                IS3.word10 = rcv_IS3.word02;
+                IS3.word11 = rcv_IS3.word03;
+                IS3.word12 = rcv_IS3.word04;
+                IS3.word13 = rcv_IS3.word05;
+            }
+                break;
+
+            case 24:
+            {
+                IS3.word14 = rcv_IS3.header;
+                IS3.word15 = rcv_IS3.managed;
+                IS3.word16 = rcv_IS3.word00;
+                IS3.word17 = rcv_IS3.word01;
+                IS3.word18 = rcv_IS3.word02;
+                IS3.word19 = rcv_IS3.word03;
+                IS3.word20 = rcv_IS3.word04;
+                IS3.word21 = rcv_IS3.word05;
+            }
+                break;
+
+            case 32:
+            {
+                IS3.word22 = rcv_IS3.header;
+                IS3.word23 = rcv_IS3.managed;
+                IS3.word24 = rcv_IS3.word00;
+                IS3.word25 = rcv_IS3.word01;
+                IS3.word26 = rcv_IS3.word02;
+                IS3.word27 = rcv_IS3.word03;
+                IS3.word28 = rcv_IS3.word04;
+                IS3.word29 = rcv_IS3.word05;
+            }
+                break;
+
+            case 34:
+            {
+                IS3.word30 = rcv_IS3.header;
+                IS3.crc = rcv_IS3.managed;
+            }
+                break;
+            }
+        }
+
+        if (summ_bytes == sizeof(_is3))
+        {
+            summ_bytes = 0;
+            formingIMpvkp->parsingIS3(IS3, ok);
+        }
+    }
 }
 
 int messageExchange::sendIS2(_is2 *IS2)
@@ -317,7 +358,7 @@ int messageExchange::sendIS2(_is2 *IS2)
         printf("      managed \t%02x\n", IS2->managed);
         printf("device_number \t%02x\n", IS2->device_number);
         printf("        state \t%02x\n", IS2->state);
-        printf("           cs \t%02x\n", IS2->cs);
+        printf("           cs \t%02x\n", IS2->crc);
     }
     return bytes_send;
 }
@@ -336,7 +377,6 @@ int messageExchange::receiveIS4()
 
     if (bytes_rcv > 0)
     {
-//        std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
         if (bytes_rcv == sizeof(_is4))
         {
             std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
@@ -381,7 +421,7 @@ int messageExchange::receiveIS4()
                     {
                         IS4.state14 = rcv_IS4.header;
                         IS4.state15 = rcv_IS4.managed;
-                        IS4.cs = rcv_IS4.state00;
+                        IS4.crc = rcv_IS4.state00;
                     }
                         break;
                     }
@@ -397,6 +437,39 @@ int messageExchange::receiveIS4()
     }
 
     return bytes_rcv;
+}
+
+bool messageExchange::checkMessage(_data &data)
+{
+    if (data.header == header)
+    {
+        if (sizeof (data) == sizeof (_is3))
+        {
+            if (formingIMpvkp->checkCS(data.crc))
+            {
+                return true;
+            }
+        }
+
+        if (sizeof (data) == sizeof (_is4))
+        {
+            if (formingIMpvkp->checkCS(data.crc))
+            {
+                return true;
+            }
+        }
+
+        if (sizeof (data) == sizeof (_is5))
+        {
+            if (formingIMpvkp->checkCS(data.crc))
+            {
+                return true;
+            }
+        }
+    }
+
+    // ну вообще какая-то ерунда пришла!
+    return false;
 }
 
 void messageExchange::createTimer()
@@ -464,8 +537,8 @@ void messageExchange::addErrorToIS1()
     IS1 = formingIMpvkp->createIS1WithError();
 }
 
-void messageExchange::addErrorToIS2()
+void messageExchange::addErrorToIS2(char number, output_cntrl cntrl)
 {
     std::cout << __FUNCTION__ << std::endl;
-    IS2 = formingIMpvkp->createIS2WithError();
+    IS2 = formingIMpvkp->createIS2WithError(number, cntrl);
 }

@@ -14,8 +14,6 @@ public:
 
     void startExchange();
 
-    void setInputsValue();
-
     void createIS3(input_state state);
     void sendIS3(_is3 *IS3);
 
@@ -36,6 +34,7 @@ private:
 
     FormingIM_busep *formingIM_busep;
     DataTransmit *dataTransnmit;
+    _data data;
     _is1 IS1;
     _is2 IS2;
     _is3 *IS3;

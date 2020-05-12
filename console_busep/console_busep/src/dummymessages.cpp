@@ -1,5 +1,7 @@
 ﻿#include "hdr/dummymessages.h"
 
+// ----------------------------------------------------------
+
 DummyMessages::DummyMessages()
 {
     formingIM_busep = new FormingIM_busep();
@@ -11,11 +13,39 @@ DummyMessages::DummyMessages()
 //    createIS4(0x00, output_off);
 }
 
+// ----------------------------------------------------------
+
 DummyMessages::~DummyMessages()
 {
     dataTransnmit->endTransmitServer();
     delete formingIM_busep;
 }
+
+// ----------------------------------------------------------
+
+void DummyMessages::createIS3(input_state state)
+{
+    IS3 = formingIM_busep->createIS3(state);
+}
+
+// ----------------------------------------------------------
+
+void DummyMessages::createIS4(char device_number, unsigned char cnrtl)
+{
+    std::cout << __FUNCTION__ << std::endl;
+
+    IS4 = formingIM_busep->createIS4(device_number, cnrtl);
+}
+
+// ----------------------------------------------------------
+
+void DummyMessages::createIS5()
+{
+    std::cout << __FUNCTION__ << std::endl;
+    IS5 = formingIM_busep->createIS5();
+}
+
+// ----------------------------------------------------------
 
 void DummyMessages::startExchange()
 {
@@ -26,14 +56,6 @@ void DummyMessages::startExchange()
 //    {
         do
         {
-        /*
-                recv_bytes = receiveIS1();
-                if (recv_bytes > 0)
-                {
-                    sendIS3(IS3);
-                }
-        */
-
             code = receiveSmth();
 
             switch (code)
@@ -44,128 +66,23 @@ void DummyMessages::startExchange()
             case change_state:
                 sendIS4(IS4);
                 break;
-            default:
+            case error:
                 sendIS5(IS5);
+                break;
+            default:
                 break;
             }
 
         } while (code != empty) /*(recv_bytes > 0)*/;
 
 //    }
-/*
-    recv_bytes = -1;
-    do
-    {
-        recv_bytes = receiveIS2();
-        if (recv_bytes > 0)
-        {
-            sendIS4(IS4);
-        }
-    } while (recv_bytes > 0);
-*/
-}
-
-void DummyMessages::setInputsValue()
-{
 
 }
 
-void DummyMessages::createIS3(input_state state)
-{
-    std::cout << __FUNCTION__ << " " << state << std::endl;
-    IS3 = formingIM_busep->createIS3(state);
-}
-
-void DummyMessages::sendIS3(_is3 *IS3)
-{
-    std::cout << __FUNCTION__ << std::endl;
-
-//    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
-    int bytes = dataTransnmit->srvSend(IS3, sizeof(_is3));
-
-    if (bytes > 0)
-    {
-        std::cout << "send " << bytes << " bytes; " << std::endl;
-    }
-}
-
-void DummyMessages::createIS4(char device_number, unsigned char cnrtl)
-{
-    std::cout << __FUNCTION__ << std::endl;
-
-    IS4 = formingIM_busep->createIS4(device_number, cnrtl);
-}
-
-void DummyMessages::sendIS4(_is4 *IS4)
-{
-    std::cout << __FUNCTION__ << std::endl;
-
-    createIS4(IS2.device_number, IS2.state);
-
-//    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
-    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
-
-    if (bytes > 0)
-    {
-        std::cout << "send " << bytes << " bytes; " << std::endl;
-    }
-}
-
-void DummyMessages::createIS5()
-{
-    std::cout << __FUNCTION__ << std::endl;
-    IS5 = formingIM_busep->createIS5();
-}
-
-void DummyMessages::sendIS5(_is5 *IS5)
-{
-    std::cout << __FUNCTION__ << std::endl;
-
-    createIS5();
-
-//    int bytes = dataTransnmit->send(IS5, sizeof(_is5));
-    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is5));
-
-    if (bytes > 0)
-    {
-        std::cout << "send " << bytes << " bytes; " << std::endl;
-    }
-}
-
-char *DummyMessages::getInputs()
-{
-    return formingIM_busep->getInputs();
-}
-
-char *DummyMessages::getOutputs()
-{
-    return formingIM_busep->getOutputs();
-}
-
-output_state DummyMessages::getOutputState(int number)
-{
-    return formingIM_busep->getOutputState(number);
-}
-
-input_state DummyMessages::getInputState(int number)
-{
-    return formingIM_busep->getInputState(number);
-}
+// ----------------------------------------------------------
 
 header_and_managed DummyMessages::receiveSmth()
 {
-
-//    std::cout << '.';
-
-
-    struct _data
-    {
-        unsigned char header:8;
-        unsigned char managed:8;
-        unsigned char byte0:8;
-        unsigned char byte1:8;
-        unsigned char cs:8;
-    } data;
     bzero(&data, sizeof (_data));
 
     header_and_managed code(empty);
@@ -174,12 +91,8 @@ header_and_managed DummyMessages::receiveSmth()
     int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
     if (bytes > 0)
     {
-//        std::cout << "\n" << std::endl;
         std::cout << "receive " << bytes << " bytes; " << std::endl;
-    }
 
-    if (bytes > 0)
-    {
         switch (data.managed)
         {
         case request:
@@ -219,8 +132,92 @@ header_and_managed DummyMessages::receiveSmth()
             printf("           cs \t%02x\n", IS1.cs);
         }
             break;
+
+        default:
+            code = error;
+            break;
         }
     }
 
     return code;
 }
+
+// ----------------------------------------------------------
+
+void DummyMessages::sendIS3(_is3 *IS3)
+{
+
+
+//    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
+    int bytes = dataTransnmit->srvSend(IS3, sizeof(_is3));
+
+    if (bytes > 0)
+    {
+        std::cout << __FUNCTION__ << " send " << bytes << " bytes; " << std::endl;
+    }
+}
+
+// ----------------------------------------------------------
+
+void DummyMessages::sendIS4(_is4 *IS4)
+{
+    std::cout << __FUNCTION__ << std::endl;
+
+    createIS4(IS2.device_number, IS2.state);
+
+//    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
+    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
+
+    if (bytes > 0)
+    {
+        std::cout << "send " << bytes << " bytes; " << std::endl;
+    }
+}
+
+// ----------------------------------------------------------
+
+void DummyMessages::sendIS5(_is5 *IS5)
+{
+    std::cout << __FUNCTION__ << std::endl;
+
+    createIS5();
+
+//    int bytes = dataTransnmit->send(IS5, sizeof(_is5));
+    int bytes = dataTransnmit->srvSend(IS5, sizeof(_is5));
+
+    if (bytes > 0)
+    {
+        std::cout << "send " << bytes << " bytes; " << std::endl;
+    }
+}
+
+// ----------------------------------------------------------
+
+char *DummyMessages::getInputs()
+{
+    return formingIM_busep->getInputs();
+}
+
+// ----------------------------------------------------------
+
+char *DummyMessages::getOutputs()
+{
+    return formingIM_busep->getOutputs();
+}
+
+// ----------------------------------------------------------
+
+output_state DummyMessages::getOutputState(int number)
+{
+    return formingIM_busep->getOutputState(number);
+}
+
+// ----------------------------------------------------------
+
+input_state DummyMessages::getInputState(int number)
+{
+    return formingIM_busep->getInputState(number);
+}
+
+// ----------------------------------------------------------
+

@@ -83,7 +83,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     connect(ui->output61, SIGNAL(toggled(bool)), this, SLOT(slotOutput61toggled(bool)));
     connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));
 
-    connect(ui->addError, SIGNAL(clicked(bool)), this, SLOT(slotAddError(bool)));
+//    connect(ui->addError, SIGNAL(clicked(bool)), this, SLOT(slotAddError(bool)));
 
     /// TODO - кнопку нажала, запрос ушел. Если ответ совпадает, то рамка зеленая,
     /// если нет - красная или желтая
@@ -172,16 +172,17 @@ void PVKPWindow::slotWaitForIS4()
     else
     {
         qDebug() << "Something with IS2-IS4 is wrong";
+
+        if (me->getBytes_rcv_IS5() == sizeof(_is5))
+        {
+
+        }
     }
 }
 
 void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 {
     qDebug() << __FUNCTION__ << toggled;
-
-    //    all_buttons_off = true;
-    //    all_buttons_on = true;
-    //        all_buttons_on_off = true;
 
     all_buttons_on_off = toggled;
     qDebug() << "all_buttons_on_off" << all_buttons_on_off;
@@ -194,13 +195,29 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
     {
         ui->allOutputsOff->setText("Включить все");
 
-        me->createIS2(all_outputs, cntrl_off);
+        if (ui->addError->isChecked())
+        {
+    //        me->addErrorToIS1();
+            me->addErrorToIS2(all_outputs, cntrl_off);
+        }
+        else
+        {
+            me->createIS2(all_outputs, cntrl_off);
+        }
     }
     else
     {
         ui->allOutputsOff->setText("Выключить все");
 
-        me->createIS2(all_outputs, cntrl_on);
+
+        if (ui->addError->isChecked())
+        {
+            me->addErrorToIS2(all_outputs, cntrl_on);
+        }
+        else
+        {
+            me->createIS2(all_outputs, cntrl_on);
+        }
     }
 
     ui->output1->setChecked(toggled);
@@ -637,19 +654,6 @@ void PVKPWindow::slotOutput62toggled(bool toggled)
 {
     qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output62, toggled);
-}
-
-void PVKPWindow::slotAddError(bool clicked)
-{
-    /// TODO БУСЭП должен не смочь определить структуру - что испортить?
-    /// Заголовок, управляющий байт, КС?
-
-    qDebug() << clicked;
-    if (clicked)
-    {
-        me->addErrorToIS1();
-        me->addErrorToIS2();
-    }
 }
 
 void PVKPWindow::manageOneOutput(int number, bool toggled)

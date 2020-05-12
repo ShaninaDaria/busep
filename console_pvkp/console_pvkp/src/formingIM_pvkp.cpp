@@ -12,7 +12,7 @@ _is1 FormingIM_pvkp::createIS1()
     qDebug() << "IS1";
     IS1.header = header; printf("    header \t%02x\n", IS1.header);
     IS1.managed = request; printf("    managed \t%02x\n", IS1.managed);
-    IS1.cs = 0x00; printf("    cs \t%02x\n", IS1.cs);
+    IS1.crc = 0x00; printf("    cs \t%02x\n", IS1.crc);
     qDebug() << "-----\n";
 
     return IS1;
@@ -27,20 +27,27 @@ _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
     IS2.managed = change_state; printf("    managed \t%02x\n", IS2.managed);
     IS2.device_number = device_number; printf("    device_number \t%d\n", IS2.device_number);
     IS2.state = cntrl; printf("    state \t%02x\n", IS2.state);
-    IS1.cs = 0x00;  printf("    cs \t%02x\n", IS2.cs);
+    IS1.crc = 0x00;  printf("    cs \t%02x\n", IS2.crc);
     qDebug() << "-----\n";
 
     return IS2;
 }
 
-void FormingIM_pvkp::calculateCS()
+char FormingIM_pvkp::calculateCS(void *p, int bytes)
 {
-
+    char crc = 0x00;
+    char *array = (char *)p;
+    while (bytes--)
+    {
+        crc = CRC8table[crc ^ *array++];
+    }
+    return crc;
 }
 
-bool FormingIM_pvkp::checkCS(unsigned char _cs)
+bool FormingIM_pvkp::checkCS(void *p, int bytes, unsigned char _cs)
 {
-    return true;
+    char crc_check = calculateCS(p, (bytes - 1));
+    return (crc_check == _cs);
 }
 
 _is1 FormingIM_pvkp::getIS1() const
@@ -65,7 +72,7 @@ void FormingIM_pvkp::parsingIS3(_is3 &IS3, bool &ok)
         parsingWords(&IS3);
     }
 
-    printf("        cs \t%02x\n", IS3.cs);
+    printf("        cs \t%02x\n", IS3.crc);
 }
 
 void FormingIM_pvkp::parsingWords(_is3 *IS3)
@@ -387,7 +394,7 @@ void FormingIM_pvkp::parsingIS4(_is4 &IS4)
     }
 
 
-    printf("        cs \t%02x\n", IS4.cs);
+    printf("        cs \t%02x\n", IS4.crc);
 }
 
 input_state FormingIM_pvkp::getInputState(int number)
@@ -420,7 +427,7 @@ _is1 FormingIM_pvkp::createIS1WithError()
 {
     bzero(&IS1, sizeof(_is1));
 
-    qDebug() << "IS1";
+    qDebug() << "IS1 with error";
     IS1.header = header;
     IS1.header = IS1.header & 0xa5;
     printf("    header \t%02x\n", IS1.header);
@@ -429,59 +436,35 @@ _is1 FormingIM_pvkp::createIS1WithError()
     IS1.managed = IS1.managed & 0x5a;
     printf("    managed \t%02x\n", IS1.managed);
 
-    IS1.cs = 0xff;
-    printf("    cs \t%02x\n", IS1.cs);
+    IS1.crc = 0xff;
+    printf("    cs \t%02x\n", IS1.crc);
     qDebug() << "-----\n";
 
     return IS1;
 }
 
-_is2 FormingIM_pvkp::createIS2WithError()
+_is2 FormingIM_pvkp::createIS2WithError(char number, output_cntrl cntrl)
 {
     bzero(&IS2, (sizeof (_is2)));
 
-    qDebug() << "IS2";
-    IS2.header = header;
-    IS2.header = IS2.header & 0xa5;
+    qDebug() << "IS with error";
+    IS2.header = 0x00;
     printf("    header \t%02x\n", IS2.header);
 
-    IS2.managed = change_state;
-    IS2.managed = IS2.managed & 0x5a;
+    IS2.managed = 0xff;
     printf("    managed \t%02x\n", IS2.managed);
 
-    IS2.device_number = (output_size + 1);
+    IS2.device_number = (number++);
     printf("    device_number \t%d\n", IS2.device_number);
 
-    IS2.state = cntrl_on;
+    IS2.state = cntrl;
     printf("    state \t%02x\n", IS2.state);
 
-    IS1.cs = 0xff;
-    printf("    cs \t%02x\n", IS2.cs);
+    IS1.crc = 0x11;
+    printf("    cs \t%02x\n", IS2.crc);
     qDebug() << "-----\n";
 
     return IS2;
-}
-
-void FormingIM_pvkp::printInputState(const unsigned &input)
-{
-    switch (input)
-    {
-    case no_signal_27v:
-        printf("  input \t%02x %s\n", input, "no_signal_27v");
-        break;
-
-    case is_signal_27v:
-        printf("  input \t%02x %s\n", input, "is_signal_27v");
-        break;
-
-    case no_input_state:
-        printf("  input \t%02x %s\n", input, "no_input_state");
-        break;
-
-    default:
-        printf("  input \t%02x %s\n", input, "no data");
-        break;
-    }
 }
 
 output_state FormingIM_pvkp::getOutputState(int number)
@@ -510,46 +493,14 @@ output_state FormingIM_pvkp::getOutputState2(unsigned char state)
         res = error_output;
     }
 
-    //    printOutputState(state);
     return res;
 }
 
-void FormingIM_pvkp::printOutputState(const unsigned &output)
-{
-    switch (output)
-    {
-    case output_on:
-        printf("  output \t%02x %s\n", output, "output_on");
-        break;
-
-    case output_off:
-        printf("  output \t%02x %s\n", output, "output_off");
-        break;
-
-    case no_output_state:
-        printf("  output \t%02x %s\n", output, "no_output_state");
-        break;
-
-    case error_output:
-        printf("  output \t%02x %s\n", output, "error_output");
-        break;
-
-    default:
-        printf("  output \t%02x %s\n", output, "no data");
-        break;
-    }
-}
 char *FormingIM_pvkp::getOutputs()
 {
     return io.getAllOutputs();
 }
 
-/*
-void FormingIM_pvkp::setOutputs(_outputs values)
-{
-    outputs = values;
-}
-*/
 char *FormingIM_pvkp::getInputs()
 {
     return io.getAllInputs();

@@ -13,8 +13,8 @@ public:
     _is1 createIS1();
     _is2 createIS2(char device_number, output_cntrl cntrl);
 
-    void calculateCS();
-    bool checkCS(unsigned char _cs);
+    char calculateCS(void *p, int bytes);
+    bool checkCS(void *p, int bytes, unsigned char _cs);
 
     _is1 getIS1() const;
 
@@ -34,16 +34,14 @@ public:
     input_state getInputState2(unsigned char word);
 
     _is1 createIS1WithError();
-    _is2 createIS2WithError();
+    _is2 createIS2WithError(char number, output_cntrl cntrl);
 
 
 private:
     void parsingWords(_is3 *IS3);
-    void printInputState(const unsigned &input);
 
     /// NOTE 1 byte???
     output_state getOutputState2(unsigned char state);
-    void printOutputState(const unsigned &output);
 
     _is1 IS1;
     _is2 IS2;
