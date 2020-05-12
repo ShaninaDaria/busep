@@ -83,6 +83,14 @@ void DummyMessages::startExchange()
 
 header_and_managed DummyMessages::receiveSmth()
 {
+    struct _data
+    {
+        unsigned char header:8;
+        unsigned char managed:8;
+        unsigned char byte0:8;
+        unsigned char byte1:8;
+        unsigned char crc:8;
+    } data;
     bzero(&data, sizeof (_data));
 
     header_and_managed code(empty);
@@ -93,50 +101,63 @@ header_and_managed DummyMessages::receiveSmth()
     {
         std::cout << "receive " << bytes << " bytes; " << std::endl;
 
-        switch (data.managed)
+        if (data.header == header)
         {
-        case request:
-        {
-            bzero(&IS1, sizeof (_is1));
-            /// TODO checkCS!
+            switch (data.managed)
+            {
+            case request:
+            {
+                bzero(&IS1, sizeof (_is1));
+                /// TODO checkCS!
 
-            code = request;
+                code = request;
 
-            IS1.header = data.header;
-            IS1.managed = data.managed;
-            IS1.cs = data.cs;
+                IS1.header = data.header;
+                IS1.managed = data.managed;
+                IS1.crc = data.byte0;
 
-            printf("    header \t%02x\n", IS1.header);
-            printf("    managed \t%02x\n", IS1.managed);
-            printf("    cs \t%02x\n", IS1.cs);
+                if (formingIM_busep->checkCRC(&IS1, sizeof (_is1), IS1.crc))
+                {
+                    printf("    header \t%02x\n", IS1.header);
+                    printf("    managed \t%02x\n", IS1.managed);
+                    printf("    crc \t%02x\n", IS1.crc);
+                }
+            }
+                break;
+
+            case change_state:
+            {
+                bzero(&IS2, sizeof (_is2));
+                /// TODO checkCS!
+
+                code = change_state;
+
+                IS2.header = data.header;
+                IS2.managed = data.managed;
+                IS2.device_number = data.byte0;
+                IS2.state = data.byte1;
+                IS2.crc = data.crc;
+
+                if (formingIM_busep->checkCRC(&IS2, sizeof (_is2), IS2.crc))
+                {
+
+                    printf("       header \t%02x\n", IS2.header);
+                    printf("      managed \t%02x\n", IS2.managed);
+                    printf("device_number \t%02x\n", IS2.device_number);
+                    printf("        state \t%02x\n", IS2.state);
+                    printf("          crc \t%02x\n", IS1.crc);
+                }
+
+            }
+                break;
+
+            default:
+                code = error;
+                break;
+            }
+
         }
-            break;
 
-        case change_state:
-        {
-            bzero(&IS2, sizeof (_is2));
-            /// TODO checkCS!
-
-            code = change_state;
-
-            IS2.header = data.header;
-            IS2.managed = data.managed;
-            IS2.device_number = data.byte0;
-            IS2.state = data.byte1;
-            IS2.cs = data.cs;
-
-            printf("       header \t%02x\n", IS2.header);
-            printf("      managed \t%02x\n", IS2.managed);
-            printf("device_number \t%02x\n", IS2.device_number);
-            printf("        state \t%02x\n", IS2.state);
-            printf("           cs \t%02x\n", IS1.cs);
-        }
-            break;
-
-        default:
-            code = error;
-            break;
-        }
     }
 
     return code;

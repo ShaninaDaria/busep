@@ -4,14 +4,14 @@
 
 InputsOutputs::InputsOutputs()
 {
-    bzero(outputs2, sizeof(outputs2));
+    bzero(outputs2, sizeof (outputs2));
 
     for (int i = 0; i < output_size; i++)
     {
         outputs2[i] = no_output_state;
     }
 
-    bzero(inputs2, sizeof(inputs2));
+    bzero(inputs2, sizeof (inputs2));
     for (int i = 0; i < input_size; i++)
     {
         inputs2[i] = no_input_state;

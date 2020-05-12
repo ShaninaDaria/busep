@@ -15,8 +15,8 @@ public:
     _is3 *createIS3(input_state state);
     _is4 *createIS4(char device_number, unsigned char cnrtl);
     _is5 *createIS5();
-    void calculateCS();
-    bool checkCS(unsigned char _cs);
+    char calculateCRC(void *p, int bytes);
+    bool checkCRC(void *p, int bytes, unsigned char crc);
 
 //    _inputs getInputs() const;
 

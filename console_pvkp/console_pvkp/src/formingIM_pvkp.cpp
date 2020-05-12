@@ -12,7 +12,7 @@ _is1 FormingIM_pvkp::createIS1()
     qDebug() << "IS1";
     IS1.header = header; printf("    header \t%02x\n", IS1.header);
     IS1.managed = request; printf("    managed \t%02x\n", IS1.managed);
-    IS1.crc = 0x00; printf("    cs \t%02x\n", IS1.crc);
+    IS1.crc = calculateCRC(&IS1, (sizeof (_is1) - 1)); printf("    crc \t%02x\n", IS1.crc);
     qDebug() << "-----\n";
 
     return IS1;
@@ -27,13 +27,13 @@ _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
     IS2.managed = change_state; printf("    managed \t%02x\n", IS2.managed);
     IS2.device_number = device_number; printf("    device_number \t%d\n", IS2.device_number);
     IS2.state = cntrl; printf("    state \t%02x\n", IS2.state);
-    IS1.crc = 0x00;  printf("    cs \t%02x\n", IS2.crc);
+    IS2.crc =  calculateCRC(&IS2, (sizeof (_is2) - 1));  printf("    crc \t%02x\n", IS2.crc);
     qDebug() << "-----\n";
 
     return IS2;
 }
 
-char FormingIM_pvkp::calculateCS(void *p, int bytes)
+char FormingIM_pvkp::calculateCRC(void *p, int bytes)
 {
     char crc = 0x00;
     char *array = (char *)p;
@@ -44,10 +44,10 @@ char FormingIM_pvkp::calculateCS(void *p, int bytes)
     return crc;
 }
 
-bool FormingIM_pvkp::checkCS(void *p, int bytes, unsigned char _cs)
+bool FormingIM_pvkp::checkCRC(void *p, int bytes, unsigned char crc)
 {
-    char crc_check = calculateCS(p, (bytes - 1));
-    return (crc_check == _cs);
+    char crc_check = calculateCRC(p, (bytes - 1));
+    return (crc_check == crc);
 }
 
 _is1 FormingIM_pvkp::getIS1() const
@@ -62,17 +62,19 @@ _is2 FormingIM_pvkp::getIS2() const
 
 void FormingIM_pvkp::parsingIS3(_is3 &IS3, bool &ok)
 {
-    if (IS3.header == response_state)
-//    if ((IS3.header == response_state) && checkCS(IS3.cs))
+    if ((IS3.header == header) &&
+        (IS3.managed == response_state) &&
+        checkCRC(&IS3, sizeof (_is3), IS3.crc))
     {
         ok = true;
         printf("    header \t%02x\n", IS3.header);
         printf("  managed \t%02x\n", IS3.managed);
 
         parsingWords(&IS3);
+
+        printf("        crc \t%02x\n", IS3.crc);
     }
 
-    printf("        cs \t%02x\n", IS3.crc);
 }
 
 void FormingIM_pvkp::parsingWords(_is3 *IS3)
@@ -268,133 +270,157 @@ void FormingIM_pvkp::parsingIS4(_is4 &IS4)
 {
     qDebug() << __FUNCTION__;
 
-    printf("    header \t%02x\n", IS4.header);
-    printf("   managed \t%02x\n", IS4.managed);
-
-    //    printf("   state00 \t%02x\n", IS4.state00);
-    // записываю в "номер входа - 1"
-    io.setOneOutput(output1, getOutputState2(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
-    io.setOneOutput(output2, getOutputState2(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
-    io.setOneOutput(output3, getOutputState2(IS4.state00)); IS4.state00 = IS4.state00 >> 2;
-    io.setOneOutput(output4, getOutputState2(IS4.state00));
-
-    //    printf("   state01 \t%02x\n", IS4.state01);
-    io.setOneOutput(output5, getOutputState2(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
-    io.setOneOutput(output6, getOutputState2(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
-    io.setOneOutput(output7, getOutputState2(IS4.state01)); IS4.state01 = IS4.state01 >> 2;
-    io.setOneOutput(output8, getOutputState2(IS4.state01));
-
-    //    printf("   state02 \t%02x\n", IS4.state02);
-    io.setOneOutput(output9, getOutputState2(IS4.state02)); IS4.state02 = IS4.state02 >> 2;
-    io.setOneOutput(output10, getOutputState2(IS4.state02)); IS4.state02 = IS4.state02 >> 2;
-    io.setOneOutput(output11, getOutputState2(IS4.state02)); IS4.state02 = IS4.state02 >> 2;
-    io.setOneOutput(output12, getOutputState2(IS4.state02));
-
-    //    printf("   state03 \t%02x\n", IS4.state03);
-    io.setOneOutput(output13, getOutputState2(IS4.state03)); IS4.state03 = IS4.state03 >> 2;
-    io.setOneOutput(output14, getOutputState2(IS4.state03)); IS4.state03 = IS4.state03 >> 2;
-    io.setOneOutput(output15, getOutputState2(IS4.state03)); IS4.state03 = IS4.state03 >> 2;
-    io.setOneOutput(output16, getOutputState2(IS4.state03));
-
-    //    printf("   state04 \t%02x\n", IS4.state04);
-    io.setOneOutput(output17, getOutputState2(IS4.state04)); IS4.state04 = IS4.state04 >> 2;
-    io.setOneOutput(output18, getOutputState2(IS4.state04)); IS4.state04 = IS4.state04 >> 2;
-    io.setOneOutput(output19, getOutputState2(IS4.state04)); IS4.state04 = IS4.state04 >> 2;
-    io.setOneOutput(output20, getOutputState2(IS4.state04));
-
-    //    printf("   state05 \t%02x\n", IS4.state05);
-    io.setOneOutput(output21, getOutputState2(IS4.state05)); IS4.state05 = IS4.state05 >> 2;
-    io.setOneOutput(output22, getOutputState2(IS4.state05)); IS4.state05 = IS4.state05 >> 2;
-    io.setOneOutput(output23, getOutputState2(IS4.state05)); IS4.state05 = IS4.state05 >> 2;
-    io.setOneOutput(output24, getOutputState2(IS4.state05));
-
-    //    printf("   state06 \t%02x\n", IS4.state06);
-    io.setOneOutput(output25, getOutputState2(IS4.state06)); IS4.state06 = IS4.state06 >> 2;
-    io.setOneOutput(output26, getOutputState2(IS4.state06)); IS4.state06 = IS4.state06 >> 2;
-    io.setOneOutput(output27, getOutputState2(IS4.state06)); IS4.state06 = IS4.state06 >> 2;
-    io.setOneOutput(output28, getOutputState2(IS4.state06));
-
-    //    printf("   state07 \t%02x\n", IS4.state07);
-    io.setOneOutput(output29, getOutputState2(IS4.state07)); IS4.state07 = IS4.state07 >> 2;
-    io.setOneOutput(output30, getOutputState2(IS4.state07)); IS4.state07 = IS4.state07 >> 2;
-    io.setOneOutput(output31, getOutputState2(IS4.state07)); IS4.state07 = IS4.state07 >> 2;
-    io.setOneOutput(output32, getOutputState2(IS4.state07));
-
-    //    printf("   state08 \t%02x\n", IS4.state08);
-    io.setOneOutput(output33, getOutputState2(IS4.state08)); IS4.state08 = IS4.state08 >> 2;
-    io.setOneOutput(output34, getOutputState2(IS4.state08)); IS4.state08 = IS4.state08 >> 2;
-    io.setOneOutput(output35, getOutputState2(IS4.state08)); IS4.state08 = IS4.state08 >> 2;
-    io.setOneOutput(output36, getOutputState2(IS4.state08));
-
-    //    printf("   state09 \t%02x\n", IS4.state09);
-    io.setOneOutput(output37, getOutputState2(IS4.state09)); IS4.state09 = IS4.state09 >> 2;
-    io.setOneOutput(output38, getOutputState2(IS4.state09)); IS4.state09 = IS4.state09 >> 2;
-    io.setOneOutput(output39, getOutputState2(IS4.state09)); IS4.state09 = IS4.state09 >> 2;
-    io.setOneOutput(output40, getOutputState2(IS4.state09));
-
-    //    printf("   state10 \t%02x\n", IS4.state10);
-    io.setOneOutput(output41, getOutputState2(IS4.state10)); IS4.state10 = IS4.state10 >> 2;
-    io.setOneOutput(output42, getOutputState2(IS4.state10)); IS4.state10 = IS4.state10 >> 2;
-    io.setOneOutput(output43, getOutputState2(IS4.state10)); IS4.state10 = IS4.state10 >> 2;
-    io.setOneOutput(output44, getOutputState2(IS4.state10));
-
-    //    printf("   state11 \t%02x\n", IS4.state11);
-    io.setOneOutput(output45, getOutputState2(IS4.state11)); IS4.state11 = IS4.state11 >> 2;
-    io.setOneOutput(output46, getOutputState2(IS4.state11)); IS4.state11 = IS4.state11 >> 2;
-    io.setOneOutput(output47, getOutputState2(IS4.state11)); IS4.state11 = IS4.state11 >> 2;
-    io.setOneOutput(output48, getOutputState2(IS4.state11));
-
-    //    printf("   state12 \t%02x\n", IS4.state12);
-    io.setOneOutput(output49, getOutputState2(IS4.state12)); IS4.state12 = IS4.state12 >> 2;
-    io.setOneOutput(output50, getOutputState2(IS4.state12)); IS4.state12 = IS4.state12 >> 2;
-    io.setOneOutput(output51, getOutputState2(IS4.state12)); IS4.state12 = IS4.state12 >> 2;
-    io.setOneOutput(output52, getOutputState2(IS4.state12));
-
-    //    printf("   state13 \t%02x\n", IS4.state13);
-    io.setOneOutput(output53, getOutputState2(IS4.state13)); IS4.state13 = IS4.state13 >> 2;
-    io.setOneOutput(output54, getOutputState2(IS4.state13)); IS4.state13 = IS4.state13 >> 2;
-    io.setOneOutput(output55, getOutputState2(IS4.state13)); IS4.state13 = IS4.state13 >> 2;
-    io.setOneOutput(output56, getOutputState2(IS4.state13));
-
-    //    printf("   state14 \t%02x\n", IS4.state14);
-    io.setOneOutput(output57, getOutputState2(IS4.state14)); IS4.state14 = IS4.state14 >> 2;
-    io.setOneOutput(output58, getOutputState2(IS4.state14)); IS4.state14 = IS4.state14 >> 2;
-    io.setOneOutput(output59, getOutputState2(IS4.state14)); IS4.state14 = IS4.state14 >> 2;
-    io.setOneOutput(output60, getOutputState2(IS4.state14));
-
-    //    printf("   state15 \t%02x\n", IS4.state15);
-    io.setOneOutput(output61, getOutputState2(IS4.state15)); IS4.state15 = IS4.state15 >> 2;
-    io.setOneOutput(output62, getOutputState2(IS4.state15));
-
-    if (IS2.device_number != all_outputs)
+    if ((IS4.header == header) &&
+        (IS4.managed == response_change) &&
+        checkCRC(&IS4, sizeof (_is4), IS4.crc))
     {
-        if ((io.getOutputValue(IS2.device_number) == output_on) && (IS2.state == cntrl_on))
+        printf("    header \t%02x\n", IS4.header);
+        printf("   managed \t%02x\n", IS4.managed);
+
+        parsingStates(&IS4);
+
+        if (IS2.device_number != all_outputs)
         {
-            qDebug() << IS2.device_number << IS2.state;
-        }
-        else
-        {
-            if ((io.getOutputValue(IS2.device_number) == output_off) && (IS2.state == cntrl_off))
+            if ((io.getOutputValue(IS2.device_number) == output_on) && (IS2.state == cntrl_on))
             {
-                //        printf("   output %02x = %02x\n", io.getOutputValue(IS2.device_number), IS2.state);
                 qDebug() << IS2.device_number << IS2.state;
             }
             else
             {
-                if (io.getOutputValue(IS2.device_number) == no_output_state)
+                if ((io.getOutputValue(IS2.device_number) == output_off) && (IS2.state == cntrl_off))
                 {
-                    qDebug() << "no_output_state!";
+                    //        printf("   output %02x = %02x\n", io.getOutputValue(IS2.device_number), IS2.state);
+                    qDebug() << IS2.device_number << IS2.state;
                 }
-                if (io.getOutputValue(IS2.device_number) == error_output)
+                else
                 {
-                    qDebug() << "error output!";
+                    if (io.getOutputValue(IS2.device_number) == no_output_state)
+                    {
+                        qDebug() << "no_output_state!";
+                    }
+                    if (io.getOutputValue(IS2.device_number) == error_output)
+                    {
+                        qDebug() << "error output!";
+                    }
                 }
             }
         }
+
+        printf("        crc \t%02x\n", IS4.crc);
     }
 
+}
 
-    printf("        cs \t%02x\n", IS4.crc);
+void FormingIM_pvkp::parsingStates(_is4 *IS4)
+{
+    //    printf("   state00 \t%02x\n", IS4->state00);
+    // записываю в "номер входа - 1"
+    io.setOneOutput(output1, getOutputState2(IS4->state00)); IS4->state00 = IS4->state00 >> 2;
+    io.setOneOutput(output2, getOutputState2(IS4->state00)); IS4->state00 = IS4->state00 >> 2;
+    io.setOneOutput(output3, getOutputState2(IS4->state00)); IS4->state00 = IS4->state00 >> 2;
+    io.setOneOutput(output4, getOutputState2(IS4->state00));
+
+    //    printf("   state01 \t%02x\n", IS4->state01);
+    io.setOneOutput(output5, getOutputState2(IS4->state01)); IS4->state01 = IS4->state01 >> 2;
+    io.setOneOutput(output6, getOutputState2(IS4->state01)); IS4->state01 = IS4->state01 >> 2;
+    io.setOneOutput(output7, getOutputState2(IS4->state01)); IS4->state01 = IS4->state01 >> 2;
+    io.setOneOutput(output8, getOutputState2(IS4->state01));
+
+    //    printf("   state02 \t%02x\n", IS4->state02);
+    io.setOneOutput(output9, getOutputState2(IS4->state02)); IS4->state02 = IS4->state02 >> 2;
+    io.setOneOutput(output10, getOutputState2(IS4->state02)); IS4->state02 = IS4->state02 >> 2;
+    io.setOneOutput(output11, getOutputState2(IS4->state02)); IS4->state02 = IS4->state02 >> 2;
+    io.setOneOutput(output12, getOutputState2(IS4->state02));
+
+    //    printf("   state03 \t%02x\n", IS4->state03);
+    io.setOneOutput(output13, getOutputState2(IS4->state03)); IS4->state03 = IS4->state03 >> 2;
+    io.setOneOutput(output14, getOutputState2(IS4->state03)); IS4->state03 = IS4->state03 >> 2;
+    io.setOneOutput(output15, getOutputState2(IS4->state03)); IS4->state03 = IS4->state03 >> 2;
+    io.setOneOutput(output16, getOutputState2(IS4->state03));
+
+    //    printf("   state04 \t%02x\n", IS4->state04);
+    io.setOneOutput(output17, getOutputState2(IS4->state04)); IS4->state04 = IS4->state04 >> 2;
+    io.setOneOutput(output18, getOutputState2(IS4->state04)); IS4->state04 = IS4->state04 >> 2;
+    io.setOneOutput(output19, getOutputState2(IS4->state04)); IS4->state04 = IS4->state04 >> 2;
+    io.setOneOutput(output20, getOutputState2(IS4->state04));
+
+    //    printf("   state05 \t%02x\n", IS4->state05);
+    io.setOneOutput(output21, getOutputState2(IS4->state05)); IS4->state05 = IS4->state05 >> 2;
+    io.setOneOutput(output22, getOutputState2(IS4->state05)); IS4->state05 = IS4->state05 >> 2;
+    io.setOneOutput(output23, getOutputState2(IS4->state05)); IS4->state05 = IS4->state05 >> 2;
+    io.setOneOutput(output24, getOutputState2(IS4->state05));
+
+    //    printf("   state06 \t%02x\n", IS4->state06);
+    io.setOneOutput(output25, getOutputState2(IS4->state06)); IS4->state06 = IS4->state06 >> 2;
+    io.setOneOutput(output26, getOutputState2(IS4->state06)); IS4->state06 = IS4->state06 >> 2;
+    io.setOneOutput(output27, getOutputState2(IS4->state06)); IS4->state06 = IS4->state06 >> 2;
+    io.setOneOutput(output28, getOutputState2(IS4->state06));
+
+    //    printf("   state07 \t%02x\n", IS4->state07);
+    io.setOneOutput(output29, getOutputState2(IS4->state07)); IS4->state07 = IS4->state07 >> 2;
+    io.setOneOutput(output30, getOutputState2(IS4->state07)); IS4->state07 = IS4->state07 >> 2;
+    io.setOneOutput(output31, getOutputState2(IS4->state07)); IS4->state07 = IS4->state07 >> 2;
+    io.setOneOutput(output32, getOutputState2(IS4->state07));
+
+    //    printf("   state08 \t%02x\n", IS4->state08);
+    io.setOneOutput(output33, getOutputState2(IS4->state08)); IS4->state08 = IS4->state08 >> 2;
+    io.setOneOutput(output34, getOutputState2(IS4->state08)); IS4->state08 = IS4->state08 >> 2;
+    io.setOneOutput(output35, getOutputState2(IS4->state08)); IS4->state08 = IS4->state08 >> 2;
+    io.setOneOutput(output36, getOutputState2(IS4->state08));
+
+    //    printf("   state09 \t%02x\n", IS4->state09);
+    io.setOneOutput(output37, getOutputState2(IS4->state09)); IS4->state09 = IS4->state09 >> 2;
+    io.setOneOutput(output38, getOutputState2(IS4->state09)); IS4->state09 = IS4->state09 >> 2;
+    io.setOneOutput(output39, getOutputState2(IS4->state09)); IS4->state09 = IS4->state09 >> 2;
+    io.setOneOutput(output40, getOutputState2(IS4->state09));
+
+    //    printf("   state10 \t%02x\n", IS4->state10);
+    io.setOneOutput(output41, getOutputState2(IS4->state10)); IS4->state10 = IS4->state10 >> 2;
+    io.setOneOutput(output42, getOutputState2(IS4->state10)); IS4->state10 = IS4->state10 >> 2;
+    io.setOneOutput(output43, getOutputState2(IS4->state10)); IS4->state10 = IS4->state10 >> 2;
+    io.setOneOutput(output44, getOutputState2(IS4->state10));
+
+    //    printf("   state11 \t%02x\n", IS4->state11);
+    io.setOneOutput(output45, getOutputState2(IS4->state11)); IS4->state11 = IS4->state11 >> 2;
+    io.setOneOutput(output46, getOutputState2(IS4->state11)); IS4->state11 = IS4->state11 >> 2;
+    io.setOneOutput(output47, getOutputState2(IS4->state11)); IS4->state11 = IS4->state11 >> 2;
+    io.setOneOutput(output48, getOutputState2(IS4->state11));
+
+    //    printf("   state12 \t%02x\n", IS4->state12);
+    io.setOneOutput(output49, getOutputState2(IS4->state12)); IS4->state12 = IS4->state12 >> 2;
+    io.setOneOutput(output50, getOutputState2(IS4->state12)); IS4->state12 = IS4->state12 >> 2;
+    io.setOneOutput(output51, getOutputState2(IS4->state12)); IS4->state12 = IS4->state12 >> 2;
+    io.setOneOutput(output52, getOutputState2(IS4->state12));
+
+    //    printf("   state13 \t%02x\n", IS4->state13);
+    io.setOneOutput(output53, getOutputState2(IS4->state13)); IS4->state13 = IS4->state13 >> 2;
+    io.setOneOutput(output54, getOutputState2(IS4->state13)); IS4->state13 = IS4->state13 >> 2;
+    io.setOneOutput(output55, getOutputState2(IS4->state13)); IS4->state13 = IS4->state13 >> 2;
+    io.setOneOutput(output56, getOutputState2(IS4->state13));
+
+    //    printf("   state14 \t%02x\n", IS4->state14);
+    io.setOneOutput(output57, getOutputState2(IS4->state14)); IS4->state14 = IS4->state14 >> 2;
+    io.setOneOutput(output58, getOutputState2(IS4->state14)); IS4->state14 = IS4->state14 >> 2;
+    io.setOneOutput(output59, getOutputState2(IS4->state14)); IS4->state14 = IS4->state14 >> 2;
+    io.setOneOutput(output60, getOutputState2(IS4->state14));
+
+    //    printf("   state15 \t%02x\n", IS4->state15);
+    io.setOneOutput(output61, getOutputState2(IS4->state15)); IS4->state15 = IS4->state15 >> 2;
+    io.setOneOutput(output62, getOutputState2(IS4->state15));
+}
+
+void FormingIM_pvkp::parsingIS5(_is5 &IS5)
+{
+    qDebug() << __FUNCTION__;
+
+    if ((IS5.header == header) &&
+        (IS5.managed == integrity_violation) &&
+        (checkCRC(&IS5, sizeof (_is5), IS5.crc)))
+    {
+        printf("    header \t%02x\n", IS5.header);
+        printf("   managed \t%02x\n", IS5.managed);
+        printf("       crc \t%02x\n", IS5.crc);
+    }
 }
 
 input_state FormingIM_pvkp::getInputState(int number)

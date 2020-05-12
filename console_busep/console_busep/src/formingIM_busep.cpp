@@ -201,7 +201,7 @@ _is3 *FormingIM_busep::createIS3(input_state state)
     IS3.word30 |= manageIO.getInputs2()[120];
 //    printf("    word30 \t%02x\n", IS3.word30);
 
-    IS3.cs = 0x00; // printf("    cs \t%02x\n", IS3.cs);
+    IS3.crc = calculateCRC(&IS3, (sizeof (_is3) - 1)); // printf("    crc \t%02x\n", IS3.crc);
 
 
     qDebug() << "-----\n";
@@ -317,7 +317,7 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 //    IS4.state15 |= manageIO.getOutputs2()[62]; IS4.state15 = IS4.state15 << 2;
 //    printf("    state15 \t%02x\n", IS4.state15);
 
-    IS4.cs = 0x00; // printf("    cs \t%02x\n", IS4.cs);
+    IS4.crc = calculateCRC(&IS4, (sizeof (_is4) - 1)); // printf("    crc \t%02x\n", IS4.crc);
 
     qDebug() << "-----\n";
 
@@ -329,19 +329,26 @@ _is5 *FormingIM_busep::createIS5()
     qDebug() << "IS5";
     IS5.header = header; printf("    header \t%02x\n", IS5.header);
     IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
-    IS5.cs = 0x00;
+    IS5.crc =  calculateCRC(&IS5, (sizeof (_is5) - 1));    printf("    crc \t%02x\n", IS5.crc);
 
     return &IS5;
 }
 
-void FormingIM_busep::calculateCS()
+char FormingIM_busep::calculateCRC(void *p, int bytes)
 {
-
+    char crc = 0x00;
+    char *array = (char *)p;
+    while (bytes--)
+    {
+        crc = CRC8table[crc ^ *array++];
+    }
+    return crc;
 }
 
-bool FormingIM_busep::checkCS(unsigned char _cs)
+bool FormingIM_busep::checkCRC(void *p, int bytes, unsigned char crc)
 {
-    return true;
+    char crc_check = calculateCRC(p, (bytes - 1));
+    return (crc_check == crc);
 }
 
 char *FormingIM_busep::getInputs()

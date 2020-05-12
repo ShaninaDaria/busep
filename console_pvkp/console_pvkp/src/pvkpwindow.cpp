@@ -115,6 +115,8 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 //    }
 
     //    showInputsValue();
+
+   ui->statusbar->showMessage("Hello, my dear Daria!");
 }
 
 PVKPWindow::~PVKPWindow()
@@ -148,23 +150,32 @@ void PVKPWindow::slotByTimer()
 void PVKPWindow::slotWaitForIS3()
 {
     /// TODO флаг!
-    if (me->getBytes_rcv_IS3() == sizeof(_is3))
+    if (me->getBytes_rcv_IS3_IS5() == sizeof(_is3))
     {
         showInputsValue();
 //        qDebug() << "Start main work!";
 //        timer->start(1000);
-        me->usualExchange();
+//        me->usualExchange();
     }
     else
     {
         qDebug() << "Something with IS1-IS3 is wrong";
+        if (me->getBytes_rcv_IS3_IS5() == sizeof(_is5))
+        {
+            static int wrong(0);
+            if (wrong == 3)
+            {
+                ui->statusbar->showMessage("Что-то пошло не так!");
+            }
+            wrong++;
+        }
     }
 }
 
 void PVKPWindow::slotWaitForIS4()
 {
     /// TODO флаг!
-    if (me->getBytes_rcv_IS4() == sizeof(_is4))
+    if (me->getBytes_rcv_IS4_IS5() == sizeof(_is4))
     {
         showOutputsValue();
 //        qDebug() << "Good main work!";
@@ -173,9 +184,17 @@ void PVKPWindow::slotWaitForIS4()
     {
         qDebug() << "Something with IS2-IS4 is wrong";
 
-        if (me->getBytes_rcv_IS5() == sizeof(_is5))
+        if (me->getBytes_rcv_IS4_IS5() == sizeof(_is5))
         {
-
+            if (me->getBytes_rcv_IS4_IS5() == sizeof(_is5))
+            {
+                static int wrong(0);
+                if (wrong == 3)
+                {
+                    ui->statusbar->showMessage("Что-то пошло не так!");
+                }
+                wrong++;
+            }
         }
     }
 }

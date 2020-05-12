@@ -22,9 +22,9 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
     dataTransnmit = new DataTransmit();
 
     bytes_send_IS1 = -1;
-    bytes_rcv_IS3 = -1;
+    bytes_rcv_IS3_IS5 = -1;
     bytes_send_IS2 = -1;
-    bytes_rcv_IS4 = -1;
+    bytes_rcv_IS4_IS5 = -1;
 
     createIS1();
     /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
@@ -93,12 +93,12 @@ void messageExchange::slotWaitingForIS3()
     {
         do
         {
-            bytes_rcv_IS3 = receiveIS3(ok);
-            if (bytes_rcv_IS3 > 0)
+            bytes_rcv_IS3_IS5 = receiveIS3(ok);
+            if (bytes_rcv_IS3_IS5 > 0)
             {
                 bytes_send_IS1 = 0;
+                qDebug() << "rt" << timerIS1_IS3->remainingTime();
             }
-            qDebug() << "rt" << timerIS1_IS3->remainingTime();
 //        } while (bytes_rcv_IS3 > 0);
           }  while ((timerIS1_IS3->remainingTime() > 0) && (timerIS1_IS3->remainingTime() < 100));
     }
@@ -117,7 +117,7 @@ void messageExchange::slotWaitingForIS3()
     }
 
     /// TODO флаг, отвечающий за то, что все хорошо
-    if (bytes_rcv_IS3 > 0)
+    if (bytes_rcv_IS3_IS5 > 0)
     {
         timerIS1_IS3->setSingleShot(false);
         timerIS1_IS3->setInterval(100);
@@ -154,7 +154,7 @@ void messageExchange::usualExchange()
     //            } while (bytes_rcv > 0);
     //        }
 
-            bytes_rcv_IS4 = -1;
+            bytes_rcv_IS4_IS5 = -1;
             bytes_send_IS2 = sendIS2(&IS2);
             timerIS2_IS4->start(10);
 
@@ -174,8 +174,8 @@ void messageExchange::slotWaitingForIS4()
     {
         do
         {
-            bytes_rcv_IS4 = receiveIS4();
-            if (bytes_rcv_IS4 > 0)
+            bytes_rcv_IS4_IS5 = receiveIS4();
+            if (bytes_rcv_IS4_IS5 > 0)
             {
                 bytes_send_IS2 = 0;
             }
@@ -190,7 +190,7 @@ void messageExchange::slotWaitingForIS4()
     }
 
     /// TODO флаг, отвечающий за то, что все хорошо
-    if (bytes_rcv_IS4 > 0)
+    if (bytes_rcv_IS4_IS5 > 0)
     {
         emit signalReceiveIS4();
     }
@@ -238,11 +238,6 @@ int messageExchange::receiveIS3(bool &ok)
     {
         std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
 
-        if (checkMessage(data))
-        {
-
-        }
-
         if (bytes_rcv == sizeof(_is3))
         {
             IS3 = rcv_IS3;
@@ -252,7 +247,10 @@ int messageExchange::receiveIS3(bool &ok)
         {
             if (bytes_rcv == sizeof(_is5))
             {
-
+                IS5.header = IS3.header;
+                IS5.managed = IS3.managed;
+                IS5.crc = IS3.crc;
+                formingIMpvkp->parsingIS5(IS5);
             }
             else
             {
@@ -372,9 +370,6 @@ int messageExchange::receiveIS4()
 //    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
     int bytes_rcv = dataTransnmit->clntReceive(&rcv_IS4, sizeof (_is4));
 
-    static int bytes(0);
-    bytes += bytes_rcv;
-
     if (bytes_rcv > 0)
     {
         if (bytes_rcv == sizeof(_is4))
@@ -385,53 +380,16 @@ int messageExchange::receiveIS4()
         }
         else
         {
-            if ((bytes_rcv == 8) || (bytes_rcv == 3))
+            if (bytes_rcv == sizeof (_is5))
             {
-                if (rcv_IS4.header == header_and_managed::header)
-                {
-                    // начало посылки
-                    IS4.header = rcv_IS4.header;
-                    IS4.managed = rcv_IS4.managed;
-                    IS4.state00 = rcv_IS4.state00;
-                    IS4.state01 = rcv_IS4.state01;
-                    IS4.state02 = rcv_IS4.state02;
-                    IS4.state03 = rcv_IS4.state03;
-                    IS4.state04 = rcv_IS4.state04;
-                    IS4.state05 = rcv_IS4.state05;
-                }
-                else
-                {
-                    switch (bytes)
-                    {
-                    case 16:
-                    {
-                        // т.к. всегда заполнены первые 8 байт
-                        IS4.state06 = rcv_IS4.header;
-                        IS4.state07 = rcv_IS4.managed;
-                        IS4.state08 = rcv_IS4.state00;
-                        IS4.state09 = rcv_IS4.state01;
-                        IS4.state10 = rcv_IS4.state02;
-                        IS4.state11 = rcv_IS4.state03;
-                        IS4.state12 = rcv_IS4.state04;
-                        IS4.state13 = rcv_IS4.state05;
-                    }
-                        break;
-
-                    case 19:
-                    {
-                        IS4.state14 = rcv_IS4.header;
-                        IS4.state15 = rcv_IS4.managed;
-                        IS4.crc = rcv_IS4.state00;
-                    }
-                        break;
-                    }
-                }
-
-                if (bytes == sizeof(_is4))
-                {
-                    bytes = 0;
-                    formingIMpvkp->parsingIS4(IS4);
-                }
+                IS5.header = IS4.header;
+                IS5.managed = IS4.managed;
+                IS5.crc = IS4.crc;
+                formingIMpvkp->parsingIS5(IS5);
+            }
+            else
+            {
+                receiveIS4inParts(bytes_rcv, rcv_IS4);
             }
         }
     }
@@ -439,37 +397,59 @@ int messageExchange::receiveIS4()
     return bytes_rcv;
 }
 
-bool messageExchange::checkMessage(_data &data)
+void messageExchange::receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4)
 {
-    if (data.header == header)
+    static int bytes(0);
+    bytes += bytes_rcv;
+
+    if ((bytes_rcv == 8) || (bytes_rcv == 3))
     {
-        if (sizeof (data) == sizeof (_is3))
+        if (rcv_IS4.header == header_and_managed::header)
         {
-            if (formingIMpvkp->checkCS(data.crc))
+            // начало посылки
+            IS4.header = rcv_IS4.header;
+            IS4.managed = rcv_IS4.managed;
+            IS4.state00 = rcv_IS4.state00;
+            IS4.state01 = rcv_IS4.state01;
+            IS4.state02 = rcv_IS4.state02;
+            IS4.state03 = rcv_IS4.state03;
+            IS4.state04 = rcv_IS4.state04;
+            IS4.state05 = rcv_IS4.state05;
+        }
+        else
+        {
+            switch (bytes)
             {
-                return true;
+            case 16:
+            {
+                // т.к. всегда заполнены первые 8 байт
+                IS4.state06 = rcv_IS4.header;
+                IS4.state07 = rcv_IS4.managed;
+                IS4.state08 = rcv_IS4.state00;
+                IS4.state09 = rcv_IS4.state01;
+                IS4.state10 = rcv_IS4.state02;
+                IS4.state11 = rcv_IS4.state03;
+                IS4.state12 = rcv_IS4.state04;
+                IS4.state13 = rcv_IS4.state05;
+            }
+                break;
+
+            case 19:
+            {
+                IS4.state14 = rcv_IS4.header;
+                IS4.state15 = rcv_IS4.managed;
+                IS4.crc = rcv_IS4.state00;
+            }
+                break;
             }
         }
 
-        if (sizeof (data) == sizeof (_is4))
+        if (bytes == sizeof(_is4))
         {
-            if (formingIMpvkp->checkCS(data.crc))
-            {
-                return true;
-            }
-        }
-
-        if (sizeof (data) == sizeof (_is5))
-        {
-            if (formingIMpvkp->checkCS(data.crc))
-            {
-                return true;
-            }
+            bytes = 0;
+            formingIMpvkp->parsingIS4(IS4);
         }
     }
-
-    // ну вообще какая-то ерунда пришла!
-    return false;
 }
 
 void messageExchange::createTimer()
@@ -521,14 +501,14 @@ output_state messageExchange::getOutputState(int number)
     return formingIMpvkp->getOutputState(number);
 }
 
-int messageExchange::getBytes_rcv_IS3() const
+int messageExchange::getBytes_rcv_IS3_IS5() const
 {
-    return bytes_rcv_IS3;
+    return bytes_rcv_IS3_IS5;
 }
 
-int messageExchange::getBytes_rcv_IS4() const
+int messageExchange::getBytes_rcv_IS4_IS5() const
 {
-    return bytes_rcv_IS4;
+    return bytes_rcv_IS4_IS5;
 }
 
 void messageExchange::addErrorToIS1()
