@@ -21,8 +21,7 @@ public:
     ~BusepWindow();
 
 private slots:
-    void slotAllInputsOff();
-    void slotAllInputsOn();
+    void slotAllInputsOnOff(bool toggled);
     void slotStartExchangeByTimer();
 
 private:

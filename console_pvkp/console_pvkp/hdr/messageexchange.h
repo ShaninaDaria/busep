@@ -39,6 +39,9 @@ public:
 
     int getBytes_rcv_IS4() const;
 
+    void addErrorToIS1();
+    void addErrorToIS2();
+
 private slots:
     void slotWaitingForIS3();
     void slotWaitingForIS4();

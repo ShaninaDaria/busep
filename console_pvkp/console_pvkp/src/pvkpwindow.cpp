@@ -83,6 +83,8 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     connect(ui->output61, SIGNAL(toggled(bool)), this, SLOT(slotOutput61toggled(bool)));
     connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));
 
+    connect(ui->addError, SIGNAL(clicked(bool)), this, SLOT(slotAddError(bool)));
+
     /// TODO - кнопку нажала, запрос ушел. Если ответ совпадает, то рамка зеленая,
     /// если нет - красная или желтая
 
@@ -637,11 +639,23 @@ void PVKPWindow::slotOutput62toggled(bool toggled)
     manageOneOutput(output62, toggled);
 }
 
+void PVKPWindow::slotAddError(bool clicked)
+{
+    /// TODO БУСЭП должен не смочь определить структуру - что испортить?
+    /// Заголовок, управляющий байт, КС?
+
+    qDebug() << clicked;
+    if (clicked)
+    {
+        me->addErrorToIS1();
+        me->addErrorToIS2();
+    }
+}
+
 void PVKPWindow::manageOneOutput(int number, bool toggled)
 {
     if (last_toggled_o[number - 1] != toggled)
     {
-        qDebug() << "HURAH" << number << "\n";
         last_toggled_o[number - 1] = toggled;
         if (toggled)
         {

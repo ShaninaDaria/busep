@@ -325,11 +325,14 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
     return &IS4;
 }
 
-void FormingIM_busep::createIS5()
+_is5 *FormingIM_busep::createIS5()
 {
     qDebug() << "IS5";
     IS5.header = header; printf("    header \t%02x\n", IS5.header);
     IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
+    IS5.cs = 0x00;
+
+    return &IS5;
 }
 
 void FormingIM_busep::calculateCS()

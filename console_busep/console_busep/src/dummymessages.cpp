@@ -8,7 +8,7 @@ DummyMessages::DummyMessages()
     dataTransnmit->createServer();
 
     createIS3(no_input_state);
-    createIS4(0x00, output_off);
+//    createIS4(0x00, output_off);
 }
 
 DummyMessages::~DummyMessages()
@@ -45,6 +45,7 @@ void DummyMessages::startExchange()
                 sendIS4(IS4);
                 break;
             default:
+                sendIS5(IS5);
                 break;
             }
 
@@ -74,25 +75,7 @@ void DummyMessages::createIS3(input_state state)
     std::cout << __FUNCTION__ << " " << state << std::endl;
     IS3 = formingIM_busep->createIS3(state);
 }
-/*
-int dummyMessages::receiveIS1()
-{
-    std::cout << __FUNCTION__ << std::endl;
 
-    bzero(&IS1, sizeof (_is1));
-    int bytes = dataTransnmit->receive(&IS1, sizeof (_is1));
-
-    std::cout << "receive " << bytes << " bytes; " << std::endl;
-    if (bytes > 0)
-    {
-        printf("    header \t%02x\n", IS1.header);
-        printf("    managed \t%02x\n", IS1.managed);
-        printf("    cs \t%02x\n", IS1.cs);
-    }
-
-    return bytes;
-}
-*/
 void DummyMessages::sendIS3(_is3 *IS3)
 {
     std::cout << __FUNCTION__ << std::endl;
@@ -112,27 +95,7 @@ void DummyMessages::createIS4(char device_number, unsigned char cnrtl)
 
     IS4 = formingIM_busep->createIS4(device_number, cnrtl);
 }
-/*
-int dummyMessages::receiveIS2()
-{
-    std::cout << __FUNCTION__ << std::endl;
 
-    bzero(&IS2, sizeof (_is2));
-    int bytes = dataTransnmit->receive(&IS1, sizeof (_is2));
-
-    std::cout << "receive " << bytes << " bytes; " << std::endl;
-    if (bytes > 0)
-    {
-        printf("    header \t%02x\n", IS2.header);
-        printf("    managed \t%02x\n", IS2.managed);
-        printf("    device_number \t%02x\n", IS2.device_number);
-        printf("    state \t%02x\n", IS2.state);
-        printf("    cs \t%02x\n", IS1.cs);
-    }
-
-    return bytes;
-}
-*/
 void DummyMessages::sendIS4(_is4 *IS4)
 {
     std::cout << __FUNCTION__ << std::endl;
@@ -141,6 +104,27 @@ void DummyMessages::sendIS4(_is4 *IS4)
 
 //    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
     int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
+
+    if (bytes > 0)
+    {
+        std::cout << "send " << bytes << " bytes; " << std::endl;
+    }
+}
+
+void DummyMessages::createIS5()
+{
+    std::cout << __FUNCTION__ << std::endl;
+    IS5 = formingIM_busep->createIS5();
+}
+
+void DummyMessages::sendIS5(_is5 *IS5)
+{
+    std::cout << __FUNCTION__ << std::endl;
+
+    createIS5();
+
+//    int bytes = dataTransnmit->send(IS5, sizeof(_is5));
+    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is5));
 
     if (bytes > 0)
     {

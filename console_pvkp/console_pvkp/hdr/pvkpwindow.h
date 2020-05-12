@@ -104,6 +104,8 @@ private slots:
     void slotOutput61toggled(bool toggled);
     void slotOutput62toggled(bool toggled);
 
+    void slotAddError(bool clicked);
+
 private:
     void createPalette();
     void showInputsValue();

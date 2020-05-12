@@ -14,7 +14,7 @@ public:
 
     _is3 *createIS3(input_state state);
     _is4 *createIS4(char device_number, unsigned char cnrtl);
-    void createIS5();
+    _is5 *createIS5();
     void calculateCS();
     bool checkCS(unsigned char _cs);
 

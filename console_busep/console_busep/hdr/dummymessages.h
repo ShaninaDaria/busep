@@ -17,12 +17,13 @@ public:
     void setInputsValue();
 
     void createIS3(input_state state);
-//    int receiveIS1();
     void sendIS3(_is3 *IS3);
 
     void createIS4(char device_number, unsigned char cnrtl);
-//    int receiveIS2();
     void sendIS4(_is4 *IS4);
+
+    void createIS5();
+    void sendIS5(_is5 *IS5);
 
     char *getInputs();
     char *getOutputs();
@@ -39,6 +40,7 @@ private:
     _is2 IS2;
     _is3 *IS3;
     _is4 *IS4;
+    _is5 *IS5;
 };
 
 #endif // DUMMYMESSAGES_H

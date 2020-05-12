@@ -32,6 +32,11 @@ public:
     input_state getInputState(int number);
     /// NOTE 1 byte???
     input_state getInputState2(unsigned char word);
+
+    _is1 createIS1WithError();
+    _is2 createIS2WithError();
+
+
 private:
     void parsingWords(_is3 *IS3);
     void printInputState(const unsigned &input);

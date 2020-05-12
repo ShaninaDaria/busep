@@ -36,12 +36,10 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
 //    createTimer();
 
     timerIS1_IS3 = new QTimer(this);
-//    timerIS1_IS3->setInterval(100);
     connect(timerIS1_IS3, SIGNAL(timeout()), this, SLOT(slotWaitingForIS3()));
 
     timerIS2_IS4 = new QTimer(this);
     connect(timerIS2_IS4, SIGNAL(timeout()), this, SLOT(slotWaitingForIS4()));
-
 
 }
 
@@ -72,11 +70,6 @@ void messageExchange::createIS1()
     IS1 = formingIMpvkp->createIS1();
 }
 
-int messageExchange::getBytes_rcv_IS4() const
-{
-    return bytes_rcv_IS4;
-}
-
 void messageExchange::createIS2(char number, output_cntrl cntrl)
 {
     printf("%s number %02x\n", __FUNCTION__, number);
@@ -96,7 +89,6 @@ bool messageExchange::startExchange()
 //    return ok;
     return true;
 }
-
 
 void messageExchange::slotWaitingForIS3()
 {
@@ -461,3 +453,19 @@ int messageExchange::getBytes_rcv_IS3() const
     return bytes_rcv_IS3;
 }
 
+int messageExchange::getBytes_rcv_IS4() const
+{
+    return bytes_rcv_IS4;
+}
+
+void messageExchange::addErrorToIS1()
+{
+    std::cout << __FUNCTION__ << std::endl;
+    IS1 = formingIMpvkp->createIS1WithError();
+}
+
+void messageExchange::addErrorToIS2()
+{
+    std::cout << __FUNCTION__ << std::endl;
+    IS2 = formingIMpvkp->createIS2WithError();
+}

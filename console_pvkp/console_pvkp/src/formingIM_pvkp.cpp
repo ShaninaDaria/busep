@@ -416,6 +416,52 @@ input_state FormingIM_pvkp::getInputState2(unsigned char word)
     return res;
 }
 
+_is1 FormingIM_pvkp::createIS1WithError()
+{
+    bzero(&IS1, sizeof(_is1));
+
+    qDebug() << "IS1";
+    IS1.header = header;
+    IS1.header = IS1.header & 0xa5;
+    printf("    header \t%02x\n", IS1.header);
+
+    IS1.managed = request;
+    IS1.managed = IS1.managed & 0x5a;
+    printf("    managed \t%02x\n", IS1.managed);
+
+    IS1.cs = 0xff;
+    printf("    cs \t%02x\n", IS1.cs);
+    qDebug() << "-----\n";
+
+    return IS1;
+}
+
+_is2 FormingIM_pvkp::createIS2WithError()
+{
+    bzero(&IS2, (sizeof (_is2)));
+
+    qDebug() << "IS2";
+    IS2.header = header;
+    IS2.header = IS2.header & 0xa5;
+    printf("    header \t%02x\n", IS2.header);
+
+    IS2.managed = change_state;
+    IS2.managed = IS2.managed & 0x5a;
+    printf("    managed \t%02x\n", IS2.managed);
+
+    IS2.device_number = (output_size + 1);
+    printf("    device_number \t%d\n", IS2.device_number);
+
+    IS2.state = cntrl_on;
+    printf("    state \t%02x\n", IS2.state);
+
+    IS1.cs = 0xff;
+    printf("    cs \t%02x\n", IS2.cs);
+    qDebug() << "-----\n";
+
+    return IS2;
+}
+
 void FormingIM_pvkp::printInputState(const unsigned &input)
 {
     switch (input)
