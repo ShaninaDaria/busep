@@ -15,8 +15,6 @@ void ManageInputsOutputs::changeInputs(int device_number, input_state state)
     }
     else
     {
-        // говнокод - теперь придется делать switch и кучу одинаковых функций
-        // массив был бы удобнее, но не так наглядно
         // еще моя реализация "жесткая", т.е. без пересборки не удастся изменить кол-во входов/выходов
         oneInputOnOff(device_number, state);
     }

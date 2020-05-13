@@ -8,7 +8,7 @@ BusepWindow::BusepWindow(QWidget *parent) :
     ui->setupUi(this);
     createPalette();
 
-    connect(ui->allInputsOff, SIGNAL(toggled(bool)), this, SLOT(slotAllInputsOnOff(bool)));
+    connect(ui->allInputsOnOff, SIGNAL(toggled(bool)), this, SLOT(slotAllInputsOnOff(bool)));
 
     dm = new DummyMessages();
     // как-то не так, конечно - я не знаю, с какой частотой БУСЕП шлет сообщения
@@ -34,18 +34,17 @@ BusepWindow::~BusepWindow()
 
 void BusepWindow::slotAllInputsOnOff(bool toggled)
 {
-    qDebug() << __FUNCTION__;
-
+    qDebug() << __FUNCTION__ << toggled;
 
     if (toggled)
     {
-        ui->allInputsOff->setText("Включить все");
+        ui->allInputsOnOff->setText("Выключить все");
 
-        dm->createIS3(is_signal_27v);
+        dm->createIS3(no_signal_27v);
     }
     else
     {
-        ui->allInputsOff->setText("Выключить все");
+        ui->allInputsOnOff->setText("Включить все");
 
         dm->createIS3(is_signal_27v);
     }
@@ -189,9 +188,9 @@ void BusepWindow::slotStartExchangeByTimer()
 
 void BusepWindow::createPalette()
 {
-    red_palette.setColor(ui->output1->backgroundRole(), Qt::red/*255, 0, 0*/ );
-    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
-    green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
+    red_palette.setColor(ui->output1->backgroundRole(), Qt::red);
+    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow);
+    green_palette.setColor(ui->output1->backgroundRole(), Qt::green);
     gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
     blue_palette.setColor(ui->output1->backgroundRole(), Qt::blue);
     //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка

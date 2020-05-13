@@ -1,20 +1,9 @@
-﻿#include <signal.h>
+#include <signal.h>
 //#include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
 #include <time.h>
 #include "hdr/messageexchange.h"
-
-void messageExchange::timer_handler(int signum)
-{
-
-    static int count = 0;
-
-//    printf("timer expired %d times ", ++count);
-
-    qDebug() << signum << " one timer expired" << ++count << "times ";
-
-}
 
 messageExchange::messageExchange(QObject *parent) : QObject(parent)
 {
@@ -25,6 +14,9 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
     bytes_rcv_IS3_IS5 = -1;
     bytes_send_IS2 = -1;
     bytes_rcv_IS4_IS5 = -1;
+
+    _parse_IS3 = false;
+    _parse_IS4 = false;
 
     createIS1();
     /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
@@ -66,65 +58,60 @@ void messageExchange::initTransmit()
 
 void messageExchange::createIS1()
 {
-    std::cout << __FUNCTION__ << std::endl;
+//    std::cout << __FUNCTION__ << std::endl;
     IS1 = formingIMpvkp->createIS1();
 }
 
 void messageExchange::createIS2(char number, output_cntrl cntrl)
 {
-    printf("%s number %02x\n", __FUNCTION__, number);
+//    printf("%s number %02x\n", __FUNCTION__, number);
     IS2 = formingIMpvkp->createIS2(number, cntrl);
 }
 
 void messageExchange::startExchange()
 {
-//    int bytes_send(-1), bytes_rcv(-1);
-
     bytes_send_IS1 = sendIS1(&IS1);
-    /// TODO таймер для ожидания!
     timerIS1_IS3->setSingleShot(true);
     timerIS1_IS3->start(100);
+    qDebug() << "1 timer start; remainingTime" << timerIS1_IS3->remainingTime();
 }
 
 void messageExchange::slotWaitingForIS3()
 {
-    bool ok(false);
+    qDebug() << "remainingTime" << timerIS1_IS3->remainingTime();
     if (bytes_send_IS1 > 0)
     {
         do
         {
-            bytes_rcv_IS3_IS5 = receiveIS3(ok);
+            bytes_rcv_IS3_IS5 = receiveIS3(_parse_IS3);
             if (bytes_rcv_IS3_IS5 > 0)
             {
                 bytes_send_IS1 = 0;
-                qDebug() << "rt" << timerIS1_IS3->remainingTime();
+                qDebug() << "remainingTime after" << timerIS1_IS3->remainingTime() << "\n";
             }
 //        } while (bytes_rcv_IS3 > 0);
           }  while ((timerIS1_IS3->remainingTime() > 0) && (timerIS1_IS3->remainingTime() < 100));
     }
-
-    if (timerIS1_IS3->remainingTime() == 0)
-    {
-        qDebug() << "IT`S NO TIME FOR IS3!";
-    }
-
-    if (timerIS1_IS3->remainingTime() == -1)
+    else
     {
         if (timerIS1_IS3->isActive())
         {
             timerIS1_IS3->stop();
         }
+        qDebug() << "not send IS1!";
     }
 
-    /// TODO флаг, отвечающий за то, что все хорошо
-    if (bytes_rcv_IS3_IS5 > 0)
+    if (timerIS1_IS3->remainingTime() == 0)
     {
-        timerIS1_IS3->setSingleShot(false);
-        timerIS1_IS3->setInterval(100);
-        timerIS1_IS3->start();
-        emit signalReceiveIS3();
+        qDebug() << "IT`S NO TIME FOR IS3!";
+        timerIS1_IS3->stop();
     }
-    else
+
+    if (timerIS1_IS3->remainingTime() == -1)
+    {
+        qDebug() << "timerIS1_IS3 is inactive!";
+    }
+    if (!_parse_IS3)
     {
         // раз я повторяю посылку до прихода корректного сообщения,
         // другое сообщение мне посылать не нужно
@@ -133,16 +120,18 @@ void messageExchange::slotWaitingForIS3()
             timerIS2_IS4->stop();
         }
 
-        timerIS1_IS3->setSingleShot(false);
-        timerIS1_IS3->setInterval(100);
-
-        timerIS1_IS3->start();
-        emit signalReceiveIS5();
+//        if (!timerIS1_IS3->isActive())
+//        {
+//            timerIS1_IS3->setSingleShot(false);
+//            timerIS1_IS3->start(100);
+//        }
     }
+    emit signalReceiveIS3();
 }
 
 void messageExchange::usualExchange()
 {
+    qDebug() << __FUNCTION__;
     //    while (1)
     //    {
     //        bytes_send = sendIS1(&IS1);
@@ -153,10 +142,22 @@ void messageExchange::usualExchange()
     //                bytes_rcv = receiveIS3();
     //            } while (bytes_rcv > 0);
     //        }
+    bytes_send_IS1 = sendIS1(&IS1);
+    if (!timerIS1_IS3->isActive())
+    {
+        if (timerIS1_IS3->isSingleShot())
+        {
+            timerIS1_IS3->setSingleShot(false);
+        }
+        timerIS1_IS3->start(100);
+        qDebug() << "2 timer start; remainingTime" << timerIS1_IS3->remainingTime();
+    }
 
-            bytes_rcv_IS4_IS5 = -1;
-            bytes_send_IS2 = sendIS2(&IS2);
-            timerIS2_IS4->start(10);
+//            bytes_send_IS2 = sendIS2(&IS2);
+//            if (!timerIS2_IS4->isActive())
+//            {
+//                timerIS2_IS4->start(10);
+//            }
 
 //            if (bytes_send_IS2 > 0)
 //            {
@@ -189,8 +190,7 @@ void messageExchange::slotWaitingForIS4()
         qDebug() << "IT`S NO TIME FOR IS4!";
     }
 
-    /// TODO флаг, отвечающий за то, что все хорошо
-    if (bytes_rcv_IS4_IS5 > 0)
+    if (_parse_IS4)
     {
         emit signalReceiveIS4();
     }
@@ -210,24 +210,19 @@ void messageExchange::slotWaitingForIS4()
 
 int messageExchange::sendIS1(_is1 *IS1)
 {
-    std::cout << __FUNCTION__ << std::endl;
+    ;
 //    int bytes_send = dataTransnmit->send(IS1, sizeof(_is1));
     int bytes_send = dataTransnmit->clntSend(IS1, sizeof(_is1));
 
-    if (bytes_send > 0)
-    {
-        std::cout << "send " << bytes_send << " bytes; " << std::endl;
-        printf("    header \t%02x\n", IS1->header);
-        printf("    managed \t%02x\n", IS1->managed);
-        printf("    cs \t%02x\n", IS1->crc);
-    }
+//    if (bytes_send > 0)
+//    {
+        qDebug() << __FUNCTION__ << "send " << bytes_send << " bytes;";
+//    }
     return bytes_send;
 }
 
 int messageExchange::receiveIS3(bool &ok)
 {
-    std::cout << __FUNCTION__ << std::endl;
-
     _is3 rcv_IS3;
     bzero(&rcv_IS3, sizeof (_is3));
 //    int bytes_rcv = dataTransnmit->receive(&rcv_IS3, sizeof (_rcv_data));
@@ -236,12 +231,12 @@ int messageExchange::receiveIS3(bool &ok)
 
     if (bytes_rcv > 0)
     {
-        std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
+        qDebug() << __FUNCTION__ << " receive " << bytes_rcv << " bytes; ";
 
         if (bytes_rcv == sizeof(_is3))
         {
             IS3 = rcv_IS3;
-            formingIMpvkp->parsingIS3(IS3, ok);
+            formingIMpvkp->parsingIS3(&IS3, ok);
         }
         else
         {
@@ -337,7 +332,7 @@ void messageExchange::receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3, bool &ok)
         if (summ_bytes == sizeof(_is3))
         {
             summ_bytes = 0;
-            formingIMpvkp->parsingIS3(IS3, ok);
+            formingIMpvkp->parsingIS3(&IS3, ok);
         }
     }
 }
@@ -350,13 +345,12 @@ int messageExchange::sendIS2(_is2 *IS2)
 
     if (bytes_send > 0)
     {
-        std::cout << __FUNCTION__ << std::endl;
-        std::cout << "send " << bytes_send << " bytes; " << std::endl;
-        printf("       header \t%02x\n", IS2->header);
-        printf("      managed \t%02x\n", IS2->managed);
-        printf("device_number \t%02x\n", IS2->device_number);
-        printf("        state \t%02x\n", IS2->state);
-        printf("           cs \t%02x\n", IS2->crc);
+        std::cout << __FUNCTION__ << " send " << bytes_send << " bytes; " << std::endl;
+//        printf("       header \t%02x\n", IS2->header);
+//        printf("      managed \t%02x\n", IS2->managed);
+//        printf("device_number \t%02x\n", IS2->device_number);
+//        printf("        state \t%02x\n", IS2->state);
+//        printf("          crc \t%02x\n", IS2->crc);
     }
     return bytes_send;
 }
@@ -376,7 +370,7 @@ int messageExchange::receiveIS4()
         {
             std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
             IS4 = rcv_IS4;
-            formingIMpvkp->parsingIS4(IS4);
+            formingIMpvkp->parsingIS4(IS4, _parse_IS4);
         }
         else
         {
@@ -447,9 +441,19 @@ void messageExchange::receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4)
         if (bytes == sizeof(_is4))
         {
             bytes = 0;
-            formingIMpvkp->parsingIS4(IS4);
+            formingIMpvkp->parsingIS4(IS4, _parse_IS4);
         }
     }
+}
+
+bool messageExchange::parse_IS4() const
+{
+    return _parse_IS4;
+}
+
+bool messageExchange::parse_IS3() const
+{
+    return _parse_IS3;
 }
 
 void messageExchange::createTimer()
@@ -479,6 +483,17 @@ void messageExchange::createTimer()
     /* Переход в бесконечный цикл. */
 
     while (1);
+}
+
+void messageExchange::timer_handler(int signum)
+{
+
+    static int count = 0;
+
+//    printf("timer expired %d times ", ++count);
+
+    qDebug() << signum << " one timer expired" << ++count << "times ";
+
 }
 
 char *messageExchange::getInputsValue()

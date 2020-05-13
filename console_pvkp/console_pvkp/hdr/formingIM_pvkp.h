@@ -13,15 +13,15 @@ public:
     _is1 createIS1();
     _is2 createIS2(char device_number, output_cntrl cntrl);
 
-    char calculateCRC(void *p, int bytes);
-    bool checkCRC(void *p, int bytes, unsigned char crc);
+//    char calculateCRC(void *p, int bytes);
+//    bool checkCRC(void *p, int bytes, unsigned char crc);
 
     _is1 getIS1() const;
 
     _is2 getIS2() const;
 
-    void parsingIS3(_is3 &IS3, bool &ok);
-    void parsingIS4(_is4 &IS4);
+    void parsingIS3(_is3 *IS3, bool &ok);
+    void parsingIS4(_is4 &IS4, bool &ok);
     void parsingIS5(_is5 &IS5);
 
     char *getInputs();
@@ -48,6 +48,7 @@ private:
     _is1 IS1;
     _is2 IS2;
 
+    InformationMessages im;
     InputsOutputs io;
 };
 

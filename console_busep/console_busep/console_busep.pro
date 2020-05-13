@@ -23,6 +23,7 @@ SOURCES += \
         src/busepwindow.cpp \
         src/main.cpp \
         ../../common/src/inputs_outputs.cpp \
+        ../../common/src/informationmessages.cpp \
         ../../common/src/datatransmit.cpp
 
 # Default rules for deployment.

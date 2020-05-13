@@ -12,9 +12,25 @@ _is3 *FormingIM_busep::createIS3(input_state state)
     qDebug() << __FUNCTION__ << state;
     IS3.header = header; // printf("    header \t%02x\n", IS3.header);
     IS3.managed = response_state; // printf("    managed \t%02x\n", IS3.managed);
+    // printf("    state \t%02x\n", state);
 
     manageIO.changeInputs(all_inputs, state);
+    setWordsIS3(IS3);
 
+    IS3.crc = im.calculateCRC(&IS3, sizeof (_is3)); // printf("    crc \t%02x\n", IS3.crc);
+
+    qDebug() << "   header" << IS3.header;
+    qDebug() << "  managed" << IS3.managed;
+    qDebug() << "   inputs" << all_inputs;
+    qDebug() << "    state" << state;
+    qDebug() << "      crc" << IS3.crc;
+
+    return &IS3;
+}
+
+
+void FormingIM_busep::setWordsIS3(_is3 &IS3)
+{
     IS3.word00 |= manageIO.getInputs2()[3]; IS3.word00 = IS3.word00 << 2;
     IS3.word00 |= manageIO.getInputs2()[2]; IS3.word00 = IS3.word00 << 2;
     IS3.word00 |= manageIO.getInputs2()[1]; IS3.word00 = IS3.word00 << 2;
@@ -200,26 +216,30 @@ _is3 *FormingIM_busep::createIS3(input_state state)
     IS3.word30 |= manageIO.getInputs2()[121]; IS3.word30 = IS3.word30 << 2;
     IS3.word30 |= manageIO.getInputs2()[120];
 //    printf("    word30 \t%02x\n", IS3.word30);
-
-    IS3.crc = calculateCRC(&IS3, (sizeof (_is3) - 1)); // printf("    crc \t%02x\n", IS3.crc);
-
-
-    qDebug() << "-----\n";
-
-    return &IS3;
 }
 
 _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 {
+    qDebug() << __FUNCTION__;
+
     bzero(&IS4, (sizeof (_is4)));
 
-    qDebug() << "IS4";
-    IS4.header = header; // printf("    header \t%02x\n", IS4.header);
-    IS4.managed = response_change; // printf("    managed \t%02x\n", IS4.managed);
+    IS4.header = header; printf("    header \t%02x\n", IS4.header);
+    IS4.managed = response_change; printf("    managed \t%02x\n", IS4.managed);
+    printf("    cnrtl \t%02x\n", cnrtl);
 
     // записываю в "номер входа - 1"
     manageIO.changeOutputs(device_number, cnrtl);
 
+    setStatesIS4(IS4);
+
+    IS4.crc = im.calculateCRC(&IS4, sizeof (_is4)); // printf("    crc \t%02x\n", IS4.crc);
+
+    return &IS4;
+}
+
+void FormingIM_busep::setStatesIS4(_is4 &IS4)
+{
     // посылаю как есть - с нулевого входа
     IS4.state00 |= manageIO.getOutputs2()[3]; IS4.state00 = IS4.state00 << 2;
     IS4.state00 |= manageIO.getOutputs2()[2]; IS4.state00 = IS4.state00 << 2;
@@ -316,12 +336,6 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 
 //    IS4.state15 |= manageIO.getOutputs2()[62]; IS4.state15 = IS4.state15 << 2;
 //    printf("    state15 \t%02x\n", IS4.state15);
-
-    IS4.crc = calculateCRC(&IS4, (sizeof (_is4) - 1)); // printf("    crc \t%02x\n", IS4.crc);
-
-    qDebug() << "-----\n";
-
-    return &IS4;
 }
 
 _is5 *FormingIM_busep::createIS5()
@@ -329,15 +343,44 @@ _is5 *FormingIM_busep::createIS5()
     qDebug() << "IS5";
     IS5.header = header; printf("    header \t%02x\n", IS5.header);
     IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
-    IS5.crc =  calculateCRC(&IS5, (sizeof (_is5) - 1));    printf("    crc \t%02x\n", IS5.crc);
+    IS5.crc = im.calculateCRC(&IS5, sizeof (_is5));    printf("    crc \t%02x\n", IS5.crc);
 
     return &IS5;
 }
 
+bool FormingIM_busep::parseIS1(_is1 *IS1)
+{
+    if (im.checkCRC(&IS1, sizeof (_is1), IS1->crc))
+    {
+        printf("    header \t%02x\n", IS1->header);
+        printf("    managed \t%02x\n", IS1->managed);
+        printf("    crc \t%02x\n", IS1->crc);
+
+        return true;
+    }
+    return false;
+}
+
+bool FormingIM_busep::parseIS2(_is2 *IS2)
+{
+    if (im.checkCRC(&IS2, sizeof (_is2), IS2->crc))
+    {
+        printf("       header \t%02x\n", IS2->header);
+        printf("      managed \t%02x\n", IS2->managed);
+        printf("device_number \t%02x\n", IS2->device_number);
+        printf("        state \t%02x\n", IS2->state);
+        printf("          crc \t%02x\n", IS2->crc);
+
+        return true;
+    }
+    return false;
+}
+/*
 char FormingIM_busep::calculateCRC(void *p, int bytes)
 {
     char crc = 0x00;
     char *array = (char *)p;
+    bytes--;
     while (bytes--)
     {
         crc = CRC8table[crc ^ *array++];
@@ -347,10 +390,10 @@ char FormingIM_busep::calculateCRC(void *p, int bytes)
 
 bool FormingIM_busep::checkCRC(void *p, int bytes, unsigned char crc)
 {
-    char crc_check = calculateCRC(p, (bytes - 1));
+    char crc_check = calculateCRC(p, bytes);
     return (crc_check == crc);
 }
-
+*/
 char *FormingIM_busep::getInputs()
 {
     return manageIO.getOutputs2();

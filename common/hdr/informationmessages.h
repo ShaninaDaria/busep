@@ -120,7 +120,7 @@ const unsigned char CRC8table[256] =
     0, 94, 188, 226, 97, 63, 221, 131,
     194, 156, 126, 32, 163, 253, 31, 65,
     157, 195, 33, 127, 252, 162, 64, 30,
-    95, 1,227, 189, 62, 96, 130, 220,
+    95, 1, 227, 189, 62, 96, 130, 220,
     35, 125, 159, 193, 66, 28, 254, 160,
     225, 191, 93, 3,128, 222, 60, 98,
     190, 224, 2, 92, 223, 129, 99, 61,
@@ -151,52 +151,53 @@ const unsigned char CRC8table[256] =
     182, 232, 10, 84, 215, 137, 107, 53
 };
 
-/*
-class informationMessages
+
+class InformationMessages
 {
 public:
-    informationMessages();
-    _is1 createIS1();
-    _is2 createIS2(char device_number, output_cntrl cntrl);
-    _is3 *createIS3();
-    _is4 *createIS4(char device_number, unsigned char cnrtl);
-    void createIS5();
-    void calculateCS();
-    bool checkCS(unsigned char _cs);
+    InformationMessages() {}
+    ~InformationMessages() {}
+//    _is1 createIS1();
+//    _is2 createIS2(char device_number, output_cntrl cntrl);
+//    _is3 *createIS3();
+//    _is4 *createIS4(char device_number, unsigned char cnrtl);
+//    void createIS5();
+    char calculateCRC(void *p, int bytes);
+    bool checkCRC(void *p, int bytes, unsigned char crc);
 
-    _is1 getIS1() const;
+//    _is1 getIS1() const;
 
-    _is2 getIS2() const;
+//    _is2 getIS2() const;
 
-    void setIS3(const _is3 &IS3);
+//    void setIS3(const _is3 &IS3);
 
-    void setIS4(const _is4 &value);
+//    void setIS4(const _is4 &value);
 
-    void parsingIS3(_is3 &IS3);
-    void parsingIS4(_is4 &IS4);
+//    void parsingIS3(_is3 &IS3);
+//    void parsingIS4(_is4 &IS4);
 
-    _inputs &getInputs();
+//    _inputs &getInputs();
 
-    _outputs &getOutputs();
+//    _outputs &getOutputs();
 
-private:
-    unsigned getInputState(unsigned char word);
-    void printInputState(const unsigned &input);
+//private:
+//    unsigned getInputState(unsigned char word);
+//    void printInputState(const unsigned &input);
 
-    unsigned getOutputState(unsigned char state);
-    void printOutputState(const unsigned &output);
+//    unsigned getOutputState(unsigned char state);
+//    void printOutputState(const unsigned &output);
 
-    _is1 IS1;
-    _is2 IS2;
-    _is3 IS3;
-    _is4 IS4;
-    _is5 IS5;
-    _rcv_data rcv;
+//    _is1 IS1;
+//    _is2 IS2;
+//    _is3 IS3;
+//    _is4 IS4;
+//    _is5 IS5;
+//    _rcv_data rcv;
 
 
-    InputsOutputs io;
-    _inputs inputs;
-    _outputs outputs;
+//    InputsOutputs io;
+//    _inputs inputs;
+//    _outputs outputs;
 };
-*/
+
 #endif // INFORMATIONMESSAGES_H

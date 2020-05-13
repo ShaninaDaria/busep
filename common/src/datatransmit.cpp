@@ -14,7 +14,7 @@ DataTransmit::~DataTransmit()
 
 void DataTransmit::createServer()
 {
-    server = socket(AF_UNIX, SOCK_DGRAM/*SOCK_STREAM*/, 0);
+    server = socket(AF_UNIX, SOCK_DGRAM, 0);
     if (server < 0)
     {
         perror("-socket error\n");
@@ -77,7 +77,7 @@ void DataTransmit::createClient()
     server_addr.sun_family = AF_UNIX;
     strcpy(server_addr.sun_path, file_server);
 
-    if ((client = socket(AF_LOCAL, /*SOCK_STREAM*/SOCK_DGRAM, 0)) < 0)
+    if ((client = socket(AF_LOCAL, SOCK_DGRAM, 0)) < 0)
     {
         perror("-socket error\n");
         exit(1);
@@ -85,34 +85,32 @@ void DataTransmit::createClient()
     else
     {
         std::cout << "create client socket" << std::endl;
+        bzero(&client_addr, sizeof (client_addr));
+        client_addr.sun_family = AF_UNIX;
+        strcpy(client_addr.sun_path, file_client);
+        mkstemp(client_addr.sun_path);
     }
 
-    bzero(&client_addr, sizeof (client_addr));
-    client_addr.sun_family = AF_UNIX/*AF_LOCAL*/;
-    strcpy(client_addr.sun_path, file_client);
-    mkstemp(client_addr.sun_path);
 
     if (bind (client, (struct sockaddr*)&client_addr, /*server_add_len*/ SUN_LEN (&client_addr)) < 0)
     {
         perror("-bind error");
         endTransmitClient();
-//        exit(1);
+        exit(1);
 
-        if ((client = socket(AF_LOCAL, /*SOCK_STREAM*/SOCK_DGRAM, 0)) < 0)
-        {
-            perror("-socket error\n");
-            exit(1);
-        }
-        else
-        {
-            std::cout << "create client socket" << std::endl;
-        }
-
-        bzero(&client_addr, sizeof (client_addr));
-        client_addr.sun_family = AF_UNIX/*AF_LOCAL*/;
-        strcpy(client_addr.sun_path, file_client);
-        mkstemp(client_addr.sun_path);
-
+//        if ((client = socket(AF_LOCAL, SOCK_DGRAM, 0)) < 0)
+//        {
+//            perror("-socket error\n");
+//            exit(1);
+//        }
+//        else
+//        {
+//            std::cout << "create client socket" << std::endl;
+//            bzero(&client_addr, sizeof (client_addr));
+//            client_addr.sun_family = AF_UNIX/*AF_LOCAL*/;
+//            strcpy(client_addr.sun_path, file_client);
+//            mkstemp(client_addr.sun_path);
+//        }
     }
     else
     {

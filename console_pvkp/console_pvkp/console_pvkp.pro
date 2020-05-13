@@ -23,6 +23,7 @@ SOURCES += \
         src/main.cpp \
         src/formingIM_pvkp.cpp \
         src/messageexchange.cpp \
+        ../../common/src/informationmessages.cpp \
         ../../common/src/inputs_outputs.cpp \
         ../../common/src/datatransmit.cpp
 

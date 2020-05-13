@@ -20,9 +20,10 @@ public:
     ~PVKPWindow();
 
 private slots:
-    void slotByTimer();
-    void slotWaitForIS3();
+//    void slotByTimer();
+    void slotWaitForSignalIS3();
     void slotWaitForIS4();
+    void slotWaitForIS5();
 
     void slotAllOutputsOnOff(bool toggled);
 
@@ -125,9 +126,9 @@ private:
 
     messageExchange *me;
 
-    bool all_buttons_off;
-    bool all_buttons_on;
-    bool all_buttons_on_off;
+//    bool all_buttons_off;
+//    bool all_buttons_on;
+//    bool all_buttons_on_off;
     // для хранения предыдущего статуса кнопки выхода
     bool last_toggled_o[output_size];
 

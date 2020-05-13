@@ -40,6 +40,10 @@ public:
     void addErrorToIS1();
     void addErrorToIS2(char number, output_cntrl cntrl);
 
+    bool parse_IS3() const;
+
+    bool parse_IS4() const;
+
 private slots:
     void slotWaitingForIS3();
     void slotWaitingForIS4();
@@ -74,6 +78,9 @@ private:
     int bytes_rcv_IS3_IS5;
     int bytes_send_IS2;
     int bytes_rcv_IS4_IS5;
+
+    bool _parse_IS3;
+    bool _parse_IS4;
 
 };
 

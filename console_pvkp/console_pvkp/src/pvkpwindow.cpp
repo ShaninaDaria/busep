@@ -11,9 +11,6 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     me = new messageExchange();
 
-    all_buttons_off = false;
-    all_buttons_on = false;
-    all_buttons_on_off = false;
     for (int i = 0; i < output_size; i++)
     {
         last_toggled_o[i] = false;
@@ -85,7 +82,8 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
 //    connect(ui->addError, SIGNAL(clicked(bool)), this, SLOT(slotAddError(bool)));
 
-    /// TODO - кнопку нажала, запрос ушел. Если ответ совпадает, то рамка зеленая,
+    /// TODO - кнопку нажала, запрос ушел. Рамка!
+    /// Если ответ совпадает, то рамка зеленая,
     /// если нет - красная или желтая
 
     //    thread = new QThread(this);
@@ -100,7 +98,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 //    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
 
     me->startExchange();
-    connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotWaitForIS3()));
+    connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotWaitForSignalIS3()));
     connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotWaitForIS4()));
 
 //    if (!me->startExchange())
@@ -139,43 +137,38 @@ void PVKPWindow::createPalette()
     //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
 }
 
-void PVKPWindow::slotByTimer()
-{
-    me->usualExchange();
+//void PVKPWindow::slotByTimer()
+//{
+//    me->usualExchange();
 
-    showInputsValue();
-    showOutputsValue();
-}
+//    showInputsValue();
+//    showOutputsValue();
+//}
 
-void PVKPWindow::slotWaitForIS3()
+void PVKPWindow::slotWaitForSignalIS3()
 {
-    /// TODO флаг!
-    if (me->getBytes_rcv_IS3_IS5() == sizeof(_is3))
+    if (me->parse_IS3())
     {
         showInputsValue();
 //        qDebug() << "Start main work!";
-//        timer->start(1000);
-//        me->usualExchange();
+        ui->statusbar->showMessage("Обмен ИС1-ИС3 идёт в штатном режиме");
     }
     else
     {
         qDebug() << "Something with IS1-IS3 is wrong";
-        if (me->getBytes_rcv_IS3_IS5() == sizeof(_is5))
+        static int wrong(0);
+        if (wrong == 3)
         {
-            static int wrong(0);
-            if (wrong == 3)
-            {
-                ui->statusbar->showMessage("Что-то пошло не так!");
-            }
-            wrong++;
+            ui->statusbar->showMessage("При разборе ИС3 прозошла ошибка!");
         }
+        wrong++;
     }
+    me->usualExchange();
 }
 
 void PVKPWindow::slotWaitForIS4()
 {
-    /// TODO флаг!
-    if (me->getBytes_rcv_IS4_IS5() == sizeof(_is4))
+    if (me->parse_IS4())
     {
         showOutputsValue();
 //        qDebug() << "Good main work!";
@@ -183,19 +176,14 @@ void PVKPWindow::slotWaitForIS4()
     else
     {
         qDebug() << "Something with IS2-IS4 is wrong";
+    }
+}
 
-        if (me->getBytes_rcv_IS4_IS5() == sizeof(_is5))
-        {
-            if (me->getBytes_rcv_IS4_IS5() == sizeof(_is5))
-            {
-                static int wrong(0);
-                if (wrong == 3)
-                {
-                    ui->statusbar->showMessage("Что-то пошло не так!");
-                }
-                wrong++;
-            }
-        }
+void PVKPWindow::slotWaitForIS5()
+{
+    if ((me->getBytes_rcv_IS3_IS5() == sizeof(_is5)) || (me->getBytes_rcv_IS4_IS5() == sizeof(_is5)))
+    {
+
     }
 }
 
@@ -203,8 +191,6 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 {
     qDebug() << __FUNCTION__ << toggled;
 
-    all_buttons_on_off = toggled;
-    qDebug() << "all_buttons_on_off" << all_buttons_on_off;
     for (int i = 0; i < output_size; i++)
     {
         last_toggled_o[i] = toggled;
@@ -216,7 +202,6 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 
         if (ui->addError->isChecked())
         {
-    //        me->addErrorToIS1();
             me->addErrorToIS2(all_outputs, cntrl_off);
         }
         else
@@ -227,7 +212,6 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
     else
     {
         ui->allOutputsOff->setText("Выключить все");
-
 
         if (ui->addError->isChecked())
         {

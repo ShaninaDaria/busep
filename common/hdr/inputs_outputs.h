@@ -240,8 +240,6 @@ const int input122 = 0x7a;
 const int input123 = 0x7b;
 const int input124 = 0x7c;
 
-
-
 enum input_state
 {
     no_signal_27v = 0x01,

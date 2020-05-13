@@ -9,7 +9,8 @@ DummyMessages::DummyMessages()
     /// TODO переподключение, если ПВКП отвалился
     dataTransnmit->createServer();
 
-    createIS3(no_input_state);
+    createIS3(is_signal_27v);
+//    createIS3(no_signal_27v);
 //    createIS4(0x00, output_off);
 }
 
@@ -108,19 +109,14 @@ header_and_managed DummyMessages::receiveSmth()
             case request:
             {
                 bzero(&IS1, sizeof (_is1));
-                /// TODO checkCS!
-
-                code = request;
 
                 IS1.header = data.header;
                 IS1.managed = data.managed;
                 IS1.crc = data.byte0;
 
-                if (formingIM_busep->checkCRC(&IS1, sizeof (_is1), IS1.crc))
+                if (formingIM_busep->parseIS1(&IS1))
                 {
-                    printf("    header \t%02x\n", IS1.header);
-                    printf("    managed \t%02x\n", IS1.managed);
-                    printf("    crc \t%02x\n", IS1.crc);
+                    code = request;
                 }
             }
                 break;
@@ -128,9 +124,6 @@ header_and_managed DummyMessages::receiveSmth()
             case change_state:
             {
                 bzero(&IS2, sizeof (_is2));
-                /// TODO checkCS!
-
-                code = change_state;
 
                 IS2.header = data.header;
                 IS2.managed = data.managed;
@@ -138,16 +131,10 @@ header_and_managed DummyMessages::receiveSmth()
                 IS2.state = data.byte1;
                 IS2.crc = data.crc;
 
-                if (formingIM_busep->checkCRC(&IS2, sizeof (_is2), IS2.crc))
+                if (formingIM_busep->parseIS2(&IS2))
                 {
-
-                    printf("       header \t%02x\n", IS2.header);
-                    printf("      managed \t%02x\n", IS2.managed);
-                    printf("device_number \t%02x\n", IS2.device_number);
-                    printf("        state \t%02x\n", IS2.state);
-                    printf("          crc \t%02x\n", IS1.crc);
+                    code = change_state;
                 }
-
             }
                 break;
 
@@ -174,7 +161,7 @@ void DummyMessages::sendIS3(_is3 *IS3)
 
     if (bytes > 0)
     {
-        std::cout << __FUNCTION__ << " send " << bytes << " bytes; " << std::endl;
+        qDebug() << __FUNCTION__ << " send " << bytes << " bytes; ";
     }
 }
 
