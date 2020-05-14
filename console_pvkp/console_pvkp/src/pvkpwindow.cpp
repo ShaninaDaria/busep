@@ -99,7 +99,8 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     me->startExchange();
     connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotWaitForSignalIS3()));
-    connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotWaitForIS4()));
+    connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotWaitForSignalIS4()));
+    connect(me, SIGNAL(signalReceiveIS5()), this, SLOT(slotWaitForSignalIS5()));
 
 //    if (!me->startExchange())
 //    {
@@ -183,7 +184,7 @@ void PVKPWindow::slotWaitForSignalIS3()
 //    me->usualExchange();
 }
 
-void PVKPWindow::slotWaitForIS4()
+void PVKPWindow::slotWaitForSignalIS4()
 {
     if (me->parse_IS4())
     {
@@ -204,8 +205,9 @@ void PVKPWindow::slotWaitForIS4()
     }
 }
 /// TODO slotWaitForIS5
-void PVKPWindow::slotWaitForIS5()
+void PVKPWindow::slotWaitForISignalS5()
 {
+    qDebug() << __FUNCTION__;
 //    if ((me->getBytes_rcv_IS3_IS5() == sizeof(_is5)) || (me->getBytes_rcv_IS4_IS5() == sizeof(_is5)))
 //    {
 
@@ -589,13 +591,11 @@ void PVKPWindow::slotOutput55toggled(bool toggled)
 
 void PVKPWindow::slotOutput56toggled(bool toggled)
 {
-
     manageOneOutput(output56, toggled);
 }
 
 void PVKPWindow::slotOutput57toggled(bool toggled)
 {
-
     manageOneOutput(output57, toggled);
 }
 

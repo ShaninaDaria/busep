@@ -22,8 +22,8 @@ public:
 private slots:
 //    void slotByTimer();
     void slotWaitForSignalIS3();
-    void slotWaitForIS4();
-    void slotWaitForIS5();
+    void slotWaitForSignalIS4();
+    void slotWaitForISignalS5();
 
     void slotAllOutputsOnOff(bool toggled);
 

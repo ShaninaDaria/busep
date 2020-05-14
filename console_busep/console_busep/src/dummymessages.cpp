@@ -144,6 +144,10 @@ header_and_managed DummyMessages::receiveSmth()
             }
 
         }
+        else
+        {
+            code = error;
+        }
 
     }
 

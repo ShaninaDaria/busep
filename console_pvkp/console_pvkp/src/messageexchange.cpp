@@ -135,14 +135,22 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
             second_timer->stop();
         }
     }
-    if (var_exch == 1)
+    if (!_parse_IS5)
     {
-        emit signalReceiveIS3();
+        if (var_exch == 1)
+        {
+            emit signalReceiveIS3();
+        }
+        if (var_exch == 2)
+        {
+            emit signalReceiveIS4();
+        }
     }
-    if (var_exch == 2)
+    else
     {
-        emit signalReceiveIS4();
+        emit signalReceiveIS5();
     }
+
 }
 
 void messageExchange::usualExchange()
