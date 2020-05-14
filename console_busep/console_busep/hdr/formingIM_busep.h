@@ -35,7 +35,7 @@ private:
     _is3 IS3;
     _is4 IS4;
     _is5 IS5;
-    _rcv_data rcv;
+//    _rcv_data rcv;
 
     ManageInputsOutputs manageIO;
     InformationMessages im;

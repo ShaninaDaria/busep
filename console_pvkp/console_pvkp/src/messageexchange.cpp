@@ -11,12 +11,11 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
     dataTransnmit = new DataTransmit();
 
     bytes_send_IS1 = -1;
-//    bytes_rcv_IS3_IS5 = -1;
     bytes_send_IS2 = -1;
-//    bytes_rcv_IS4_IS5 = -1;
 
     _parse_IS3 = false;
     _parse_IS4 = false;
+    _parse_IS5 = false;
     _start_exchange = false;
 
     createIS1();
@@ -81,107 +80,16 @@ void messageExchange::startExchange()
 void messageExchange::slotWaitingForIS3()
 {
     exchange(timerIS1_IS3, timerIS2_IS4, bytes_send_IS1, IS1_IS3_wait, _parse_IS3, 1);
-/*
-    qDebug() << "remainingTime" << timerIS1_IS3->remainingTime();
-    if (bytes_send_IS1 > 0)
-    {
-        do
-        {
-            bytes_rcv_IS3_IS5 = receiveIS3();
-            if (bytes_rcv_IS3_IS5 > 0)
-            {
-                bytes_send_IS1 = 0;
-                qDebug() << "remainingTime after" << timerIS1_IS3->remainingTime() << "\n";
-            }
-            //        } while (bytes_rcv_IS3 > 0);
-        }  while ((timerIS1_IS3->remainingTime() > 0) && (timerIS1_IS3->remainingTime() < 100));
-    }
-    else
-    {
-        if (timerIS1_IS3->isActive())
-        {
-            timerIS1_IS3->stop();
-        }
-        qDebug() << "not send IS1!";
-    }
-
-    if (timerIS1_IS3->remainingTime() == 0)
-    {
-        qDebug() << "IT`S NO TIME FOR IS3!";
-        timerIS1_IS3->stop();
-    }
-
-    if (timerIS1_IS3->remainingTime() == -1)
-    {
-        qDebug() << "timerIS1_IS3 is inactive!";
-    }
-    if (!_parse_IS3)
-    {
-        // раз я повторяю посылку до прихода корректного сообщения,
-        // другое сообщение мне посылать не нужно
-        if (timerIS2_IS4->isActive())
-        {
-            timerIS2_IS4->stop();
-        }
-
-        //        if (!timerIS1_IS3->isActive())
-        //        {
-        //            timerIS1_IS3->setSingleShot(false);
-        //            timerIS1_IS3->start(IS1_IS3_wait);
-        //        }
-    }
-    emit signalReceiveIS3();
-*/
 }
 
 void messageExchange::slotWaitingForIS4()
 {
-//    exchange(timerIS2_IS4, timerIS1_IS3, bytes_send_IS2, IS2_IS4_wait, _parse_IS4, 2);
-
-    if (bytes_send_IS2 > 0)
-    {
-        int bytes_rcv(-1);
-        do
-        {
-            bytes_rcv = receiveIS4();
-            if (bytes_rcv > 0)
-            {
-                bytes_send_IS2 = 0;
-            }
-            qDebug() << "timerIS2_IS4 remainingTime after" << timerIS2_IS4->remainingTime() << "\n";
-            //        } while (bytes_rcv_IS4 > 0);
-        }  while ((timerIS2_IS4->remainingTime() > 0) && (timerIS2_IS4->remainingTime() < 10));
-    }
-    else
-    {
-        if (timerIS2_IS4->isActive())
-        {
-            timerIS2_IS4->stop();
-        }
-        qDebug() << "not send IS2!";
-    }
-
-    if (timerIS2_IS4->remainingTime() <= 0)
-    {
-        qDebug() << "IT`S NO TIME FOR IS4!";
-    }
-
-    if (!_parse_IS4)
-    {
-        // раз я повторяю посылку до прихода корректного сообщения,
-        // другое сообщение мне посылать не нужно
-        if (timerIS1_IS3->isActive())
-        {
-            timerIS1_IS3->stop();
-        }
-    }
-    emit signalReceiveIS4();
-
+    exchange(timerIS2_IS4, timerIS1_IS3, bytes_send_IS2, IS2_IS4_wait, _parse_IS4, 2);
 }
 
 
 void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
-                               int &bytes_send, int d, bool parse_ok, int var_exch)
+                               int &bytes_send, int d, bool &parse_ok, int var_exch)
 {
     qDebug() << "remainingTime" << main_timer->remainingTime();
     if (bytes_send > 0)
@@ -189,14 +97,7 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
         int bytes_rcv(-1);
         do
         {
-            if (var_exch == 1)
-            {
-                bytes_rcv = receiveIS3();
-            }
-            if (var_exch == 2)
-            {
-                bytes_rcv = receiveIS4();
-            }
+            bytes_rcv = receiveSmth();
             if (bytes_rcv > 0)
             {
                 bytes_send = 0;
@@ -220,24 +121,11 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
         }
     }
 
-    if (main_timer->remainingTime() == 0)
-    {
-        if (var_exch == 1)
-        {
-            qDebug() << "IT`S NO TIME FOR IS3!";
-        }
-        if (var_exch == 2)
-        {
-            qDebug() << "IT`S NO TIME FOR IS4!";
-        }
-
-        main_timer->stop();
-    }
-
     if (main_timer->remainingTime() == -1)
     {
         qDebug() << "main_timer is inactive!";
     }
+
     if (!parse_ok)
     {
         // раз я повторяю посылку до прихода корректного сообщения,
@@ -261,16 +149,7 @@ void messageExchange::usualExchange()
 {
     qDebug() << __FUNCTION__;
     _start_exchange = false;
-    //    while (1)
-    //    {
-    //        bytes_send = sendIS1(&IS1);
-    //        if (bytes_send > 0)
-    //        {
-    //            do
-    //            {
-    //                bytes_rcv = receiveIS3();
-    //            } while (bytes_rcv > 0);
-    //        }
+
     bytes_send_IS1 = sendIS1(&IS1);
     if (!timerIS1_IS3->isActive())
     {
@@ -286,17 +165,8 @@ void messageExchange::usualExchange()
     if (!timerIS2_IS4->isActive())
     {
         timerIS2_IS4->start(IS2_IS4_wait);
-        qDebug() << "3 timer start; remainingTime" << timerIS1_IS3->remainingTime();
+        qDebug() << "3 timer start; remainingTime" << timerIS2_IS4->remainingTime();
     }
-
-    //            if (bytes_send_IS2 > 0)
-    //            {
-    //                do
-    //                {
-    //                    bytes_rcv_IS4 = receiveIS4();
-    //                } while (bytes_rcv_IS4 > 0);
-    //            }
-    //        }
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
@@ -310,7 +180,7 @@ int messageExchange::sendIS1(_is1 *IS1)
     //    }
     return bytes_send;
 }
-
+/*
 int messageExchange::receiveIS3()
 {
     _is3 rcv_IS3;
@@ -426,7 +296,7 @@ void messageExchange::receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3)
         }
     }
 }
-
+*/
 int messageExchange::sendIS2(_is2 *IS2)
 {
 
@@ -444,7 +314,7 @@ int messageExchange::sendIS2(_is2 *IS2)
     }
     return bytes_send;
 }
-
+/*
 int messageExchange::receiveIS4()
 {
     _is4 rcv_IS4;
@@ -532,6 +402,40 @@ void messageExchange::receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4)
             formingIMpvkp->parsingIS4(&IS4, _parse_IS4);
         }
     }
+}
+*/
+
+int messageExchange::receiveSmth()
+{
+    bzero(&rcv_data, sizeof (_rcv_data));
+    //    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
+    int bytes_rcv = dataTransnmit->clntReceive(&rcv_data, sizeof (_rcv_data));
+
+    if (bytes_rcv > 0)
+    {
+        qDebug() << __FUNCTION__ << " receive " << bytes_rcv << " bytes;";
+        if (bytes_rcv == sizeof(_is3))
+        {
+            formingIMpvkp->parsingIS3(&rcv_data, IS3, _parse_IS3);
+            /// TODO
+//            receiveIS3inParts(bytes_rcv, rcv_IS4);
+        }
+        if (bytes_rcv == sizeof(_is4))
+        {
+            formingIMpvkp->parsingIS4(&rcv_data, IS4, _parse_IS4);
+            /// TODO
+//            receiveIS4inParts(bytes_rcv, rcv_IS4);
+        }
+        if (bytes_rcv == sizeof (_is5))
+        {
+            IS5.header = IS4.header;
+            IS5.managed = IS4.managed;
+            IS5.crc = IS4.crc;
+            formingIMpvkp->parsingIS5(&rcv_data, IS5, _parse_IS5);
+        }
+    }
+
+    return bytes_rcv;
 }
 
 bool messageExchange::start_exchange() const

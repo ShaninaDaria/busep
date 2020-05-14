@@ -79,6 +79,47 @@ _is2 FormingIM_pvkp::getIS2() const
     return IS2;
 }
 
+void FormingIM_pvkp::parsingIS3(_rcv_data *rcv_data, _is3 &IS3, bool &ok)
+{
+    IS3.header = rcv_data->byte00;
+    IS3.managed = rcv_data->byte01;
+    IS3.word00 = rcv_data->byte02;
+    IS3.word01 = rcv_data->byte03;
+    IS3.word02 = rcv_data->byte04;
+    IS3.word03 = rcv_data->byte05;
+    IS3.word04 = rcv_data->byte06;
+    IS3.word05 = rcv_data->byte07;
+    IS3.word06 = rcv_data->byte08;
+    IS3.word07 = rcv_data->byte09;
+    IS3.word08 = rcv_data->byte10;
+    IS3.word09 = rcv_data->byte11;
+    IS3.word10 = rcv_data->byte12;
+    IS3.word11 = rcv_data->byte13;
+    IS3.word12 = rcv_data->byte14;
+    IS3.word13 = rcv_data->byte15;
+    IS3.word14 = rcv_data->byte16;
+    IS3.word15 = rcv_data->byte17;
+    IS3.word16 = rcv_data->byte18;
+    IS3.word17 = rcv_data->byte19;
+    IS3.word18 = rcv_data->byte20;
+    IS3.word19 = rcv_data->byte21;
+    IS3.word20 = rcv_data->byte22;
+    IS3.word21 = rcv_data->byte23;
+    IS3.word22 = rcv_data->byte24;
+    IS3.word23 = rcv_data->byte25;
+    IS3.word24 = rcv_data->byte26;
+    IS3.word25 = rcv_data->byte27;
+    IS3.word26 = rcv_data->byte28;
+    IS3.word27 = rcv_data->byte29;
+    IS3.word28 = rcv_data->byte30;
+    IS3.word29 = rcv_data->byte31;
+    IS3.word30 = rcv_data->byte32;
+    IS3.crc = rcv_data->byte33;
+
+    parsingIS3(&IS3, ok);
+
+}
+
 void FormingIM_pvkp::parsingIS3(_is3 *IS3, bool &ok)
 {
     qDebug() << "<<<" << __FUNCTION__ << "<<<";
@@ -305,6 +346,34 @@ void FormingIM_pvkp::parsingWords(_is3 *IS3)
     io.setOneInput(input124, getInputState2(IS3->word30));
 }
 
+void FormingIM_pvkp::parsingIS4(_rcv_data *rcv_data, _is4 &IS4, bool &ok)
+{
+    IS4.header = rcv_data->byte00;
+    IS4.managed = rcv_data->byte01;
+
+    IS4.state00 = rcv_data->byte02;
+    IS4.state01 = rcv_data->byte03;
+    IS4.state02 = rcv_data->byte04;
+    IS4.state03 = rcv_data->byte05;
+    IS4.state04 = rcv_data->byte06;
+    IS4.state05 = rcv_data->byte07;
+    IS4.state06 = rcv_data->byte08;
+    IS4.state07 = rcv_data->byte09;
+    IS4.state08 = rcv_data->byte10;
+    IS4.state09 = rcv_data->byte11;
+    IS4.state10 = rcv_data->byte12;
+    IS4.state11 = rcv_data->byte13;
+    IS4.state12 = rcv_data->byte14;
+    IS4.state13 = rcv_data->byte15;
+    IS4.state14 = rcv_data->byte16;
+    IS4.state15 = rcv_data->byte17;
+
+    IS4.crc = rcv_data->byte18;
+
+    parsingIS4(&IS4, ok);
+
+}
+
 void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
 {
     qDebug() << "<<<" << __FUNCTION__ << "<<<";
@@ -464,7 +533,15 @@ void FormingIM_pvkp::parsingStates(_is4 *IS4)
     io.setOneOutput(output62, getOutputState2(IS4->state15));
 }
 
-void FormingIM_pvkp::parsingIS5(_is5 *IS5)
+void FormingIM_pvkp::parsingIS5(_rcv_data *rcv_data, _is5 &IS5, bool &ok)
+{
+    IS5.header = rcv_data->byte00;
+    IS5.managed = rcv_data->byte01;
+    IS5.crc = rcv_data->byte02;
+    parsingIS5(&IS5, ok);
+}
+
+void FormingIM_pvkp::parsingIS5(_is5 *IS5, bool &ok)
 {
     qDebug() << __FUNCTION__;
 
@@ -472,9 +549,14 @@ void FormingIM_pvkp::parsingIS5(_is5 *IS5)
         (IS5->managed == integrity_violation) &&
         (im.checkCRC(IS5, (sizeof (_is5) - 1), IS5->crc)))
     {
+        ok = true;
         printf("    header \t%02x\n", IS5->header);
         printf("   managed \t%02x\n", IS5->managed);
         printf("       crc \t%02x\n", IS5->crc);
+    }
+    else
+    {
+        ok = false;
     }
 }
 

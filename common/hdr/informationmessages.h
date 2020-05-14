@@ -96,10 +96,40 @@ struct _is5
 // для приема данных
 struct _rcv_data
 {
-    unsigned char byte0:8;
-    unsigned char byte1:8;
-    unsigned char byte2:8;
-    unsigned char byte3:8;
+    unsigned char byte00:8;
+    unsigned char byte01:8;
+    unsigned char byte02:8;
+    unsigned char byte03:8;
+    unsigned char byte04:8;
+    unsigned char byte05:8;
+    unsigned char byte06:8;
+    unsigned char byte07:8;
+    unsigned char byte08:8;
+    unsigned char byte09:8;
+    unsigned char byte10:8;
+    unsigned char byte11:8;
+    unsigned char byte12:8;
+    unsigned char byte13:8;
+    unsigned char byte14:8;
+    unsigned char byte15:8;
+    unsigned char byte16:8;
+    unsigned char byte17:8;
+    unsigned char byte18:8;
+    unsigned char byte19:8;
+    unsigned char byte20:8;
+    unsigned char byte21:8;
+    unsigned char byte22:8;
+    unsigned char byte23:8;
+    unsigned char byte24:8;
+    unsigned char byte25:8;
+    unsigned char byte26:8;
+    unsigned char byte27:8;
+    unsigned char byte28:8;
+    unsigned char byte29:8;
+    unsigned char byte30:8;
+    unsigned char byte31:8;
+    unsigned char byte32:8;
+    unsigned char byte33:8;
 };
 
 enum header_and_managed
