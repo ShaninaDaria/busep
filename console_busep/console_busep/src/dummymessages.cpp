@@ -9,8 +9,8 @@ DummyMessages::DummyMessages()
     /// TODO переподключение, если ПВКП отвалился
     dataTransnmit->createServer();
 
-    createIS3(is_signal_27v);
-//    createIS3(no_signal_27v);
+//    createIS3(is_signal_27v);
+    createIS3(no_signal_27v);
 //    createIS4(0x00, output_off);
 }
 
@@ -100,7 +100,7 @@ header_and_managed DummyMessages::receiveSmth()
     int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
     if (bytes > 0)
     {
-        std::cout << "receive " << bytes << " bytes; " << std::endl;
+        qDebug() << "receive " << bytes << " bytes;";
 
         if (data.header == header)
         {

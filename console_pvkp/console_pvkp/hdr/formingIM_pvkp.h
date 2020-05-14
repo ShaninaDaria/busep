@@ -21,8 +21,8 @@ public:
     _is2 getIS2() const;
 
     void parsingIS3(_is3 *IS3, bool &ok);
-    void parsingIS4(_is4 &IS4, bool &ok);
-    void parsingIS5(_is5 &IS5);
+    void parsingIS4(_is4 *IS4, bool &ok);
+    void parsingIS5(_is5 *IS5);
 
     char *getInputs();
 

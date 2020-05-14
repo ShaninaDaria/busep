@@ -162,7 +162,7 @@ public:
 //    _is3 *createIS3();
 //    _is4 *createIS4(char device_number, unsigned char cnrtl);
 //    void createIS5();
-    char calculateCRC(void *p, int bytes);
+    unsigned char calculateCRC(void *p, int bytes);
     bool checkCRC(void *p, int bytes, unsigned char crc);
 
 //    _is1 getIS1() const;

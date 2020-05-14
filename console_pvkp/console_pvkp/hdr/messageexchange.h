@@ -44,6 +44,8 @@ public:
 
     bool parse_IS4() const;
 
+    bool start_exchange() const;
+
 private slots:
     void slotWaitingForIS3();
     void slotWaitingForIS4();
@@ -81,6 +83,8 @@ private:
 
     bool _parse_IS3;
     bool _parse_IS4;
+
+    bool _start_exchange;    // начало обработки
 
 };
 

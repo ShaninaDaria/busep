@@ -17,7 +17,7 @@ _is3 *FormingIM_busep::createIS3(input_state state)
     manageIO.changeInputs(all_inputs, state);
     setWordsIS3(IS3);
 
-    IS3.crc = im.calculateCRC(&IS3, sizeof (_is3)); // printf("    crc \t%02x\n", IS3.crc);
+    IS3.crc = im.calculateCRC(&IS3, (sizeof (_is3) - 1)); // printf("    crc \t%02x\n", IS3.crc);
 
     qDebug() << "   header" << IS3.header;
     qDebug() << "  managed" << IS3.managed;
@@ -233,7 +233,7 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 
     setStatesIS4(IS4);
 
-    IS4.crc = im.calculateCRC(&IS4, sizeof (_is4)); // printf("    crc \t%02x\n", IS4.crc);
+    IS4.crc = im.calculateCRC(&IS4, (sizeof (_is4) - 1)); // printf("    crc \t%02x\n", IS4.crc);
 
     return &IS4;
 }
@@ -343,18 +343,19 @@ _is5 *FormingIM_busep::createIS5()
     qDebug() << "IS5";
     IS5.header = header; printf("    header \t%02x\n", IS5.header);
     IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
-    IS5.crc = im.calculateCRC(&IS5, sizeof (_is5));    printf("    crc \t%02x\n", IS5.crc);
+    IS5.crc = im.calculateCRC(&IS5, (sizeof (_is5) - 1));    printf("    crc \t%02x\n", IS5.crc);
 
     return &IS5;
 }
 
 bool FormingIM_busep::parseIS1(_is1 *IS1)
 {
-    if (im.checkCRC(&IS1, sizeof (_is1), IS1->crc))
+    qDebug() << __FUNCTION__;
+    if (im.checkCRC(IS1, (sizeof (_is1) - 1), IS1->crc))
     {
-        printf("    header \t%02x\n", IS1->header);
-        printf("    managed \t%02x\n", IS1->managed);
-        printf("    crc \t%02x\n", IS1->crc);
+        qDebug() << "           header" << IS1->header;
+        qDebug() << "          managed" << IS1->managed;
+        qDebug() << "              crc" << IS1->crc;
 
         return true;
     }
@@ -363,13 +364,13 @@ bool FormingIM_busep::parseIS1(_is1 *IS1)
 
 bool FormingIM_busep::parseIS2(_is2 *IS2)
 {
-    if (im.checkCRC(&IS2, sizeof (_is2), IS2->crc))
-    {
-        printf("       header \t%02x\n", IS2->header);
-        printf("      managed \t%02x\n", IS2->managed);
-        printf("device_number \t%02x\n", IS2->device_number);
-        printf("        state \t%02x\n", IS2->state);
-        printf("          crc \t%02x\n", IS2->crc);
+    if (im.checkCRC(IS2, (sizeof (_is2) - 1), IS2->crc))
+    {      
+        qDebug() << "           header" << IS2->header;
+        qDebug() << "          managed" << IS2->managed;
+        qDebug() << "    device_number" << IS2->device_number;
+        qDebug() << "            state" << IS2->state;
+        qDebug() << "              crc" << IS2->crc;
 
         return true;
     }

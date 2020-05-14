@@ -12,7 +12,7 @@ _is1 FormingIM_pvkp::createIS1()
     qDebug() << "IS1";
     IS1.header = header; // printf("    header \t%02x\n", IS1.header);
     IS1.managed = request; // printf("    managed \t%02x\n", IS1.managed);
-    IS1.crc = im.calculateCRC(&IS1, sizeof (_is1)); // printf("    crc \t%02x\n", IS1.crc);
+    IS1.crc = im.calculateCRC(&IS1, (sizeof (_is1) - 1)); // printf("    crc \t%02x\n", IS1.crc);
 
     qDebug() << ">>>header" << IS1.header;
     qDebug() << ">>managed" << IS1.managed;
@@ -31,7 +31,7 @@ _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
     IS2.managed = change_state; // printf("    managed \t%02x\n", IS2.managed);
     IS2.device_number = device_number; // printf("    device_number \t%d\n", IS2.device_number);
     IS2.state = cntrl; // printf("    state \t%02x\n", IS2.state);
-    IS2.crc = im.calculateCRC(&IS2, sizeof (_is2));  // printf("    crc \t%02x\n", IS2.crc);
+    IS2.crc = im.calculateCRC(&IS2, (sizeof (_is2) - 1));  // printf("    crc \t%02x\n", IS2.crc);
 
     qDebug() << ">>>>>>>>>>header" << IS2.header;
     qDebug() << ">>>>>>>>>managed" << IS2.managed;
@@ -83,11 +83,11 @@ void FormingIM_pvkp::parsingIS3(_is3 *IS3, bool &ok)
 {
     qDebug() << "<<<" << __FUNCTION__ << "<<<";
 
-    char crc = im.calculateCRC(IS3, sizeof (_is3));
+    char crc = im.calculateCRC(IS3, (sizeof (_is3) - 1));
 
     if ((IS3->header == header) &&
         (IS3->managed == response_state) &&
-        im.checkCRC(IS3, sizeof (_is3), IS3->crc))
+        im.checkCRC(IS3, (sizeof (_is3) - 1), IS3->crc))
     {
         ok = true;
 //        printf("   header \t%02x\n", IS3.header);
@@ -306,19 +306,19 @@ void FormingIM_pvkp::parsingWords(_is3 *IS3)
     io.setOneInput(input124, getInputState2(IS3->word30));
 }
 
-void FormingIM_pvkp::parsingIS4(_is4 &IS4, bool &ok)
+void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
 {
     qDebug() << __FUNCTION__;
 
-    if ((IS4.header == header) &&
-        (IS4.managed == response_change) &&
-        im.checkCRC(&IS4, sizeof (_is4), IS4.crc))
+    if ((IS4->header == header) &&
+        (IS4->managed == response_change) &&
+        im.checkCRC(IS4, (sizeof (_is4) - 1), IS4->crc))
     {
         ok = true;
-        printf("    header \t%02x\n", IS4.header);
-        printf("   managed \t%02x\n", IS4.managed);
+        printf("    header \t%02x\n", IS4->header);
+        printf("   managed \t%02x\n", IS4->managed);
 
-        parsingStates(&IS4);
+        parsingStates(IS4);
 
         /// NOTE подготовка к рамке
         if (IS2.device_number != all_outputs)
@@ -347,7 +347,7 @@ void FormingIM_pvkp::parsingIS4(_is4 &IS4, bool &ok)
             }
         }
 
-        printf("        crc \t%02x\n", IS4.crc);
+        printf("        crc \t%02x\n", IS4->crc);
         qDebug() << "-----\n";
     }
     else
@@ -454,17 +454,17 @@ void FormingIM_pvkp::parsingStates(_is4 *IS4)
     io.setOneOutput(output62, getOutputState2(IS4->state15));
 }
 
-void FormingIM_pvkp::parsingIS5(_is5 &IS5)
+void FormingIM_pvkp::parsingIS5(_is5 *IS5)
 {
     qDebug() << __FUNCTION__;
 
-    if ((IS5.header == header) &&
-        (IS5.managed == integrity_violation) &&
-        (im.checkCRC(&IS5, sizeof (_is5), IS5.crc)))
+    if ((IS5->header == header) &&
+        (IS5->managed == integrity_violation) &&
+        (im.checkCRC(IS5, (sizeof (_is5) - 1), IS5->crc)))
     {
-        printf("    header \t%02x\n", IS5.header);
-        printf("   managed \t%02x\n", IS5.managed);
-        printf("       crc \t%02x\n", IS5.crc);
+        printf("    header \t%02x\n", IS5->header);
+        printf("   managed \t%02x\n", IS5->managed);
+        printf("       crc \t%02x\n", IS5->crc);
     }
 }
 
@@ -508,7 +508,7 @@ _is1 FormingIM_pvkp::createIS1WithError()
     IS1.managed = IS1.managed & 0x5a;
     printf("    managed \t%02x\n", IS1.managed);
 
-    IS1.crc = im.calculateCRC(&IS1, sizeof (_is1));
+    IS1.crc = im.calculateCRC(&IS1, (sizeof (_is1) - 1));
     printf("    cs \t%02x\n", IS1.crc);
     qDebug() << "-----\n";
 
@@ -533,7 +533,7 @@ _is2 FormingIM_pvkp::createIS2WithError(char number, output_cntrl cntrl)
     IS2.state = cntrl;
     printf("    state \t%02x\n", IS2.state);
 
-    IS1.crc = im.calculateCRC(&IS2, sizeof (_is2));
+    IS1.crc = im.calculateCRC(&IS2, (sizeof (_is2) - 1));
     printf("    cs \t%02x\n", IS2.crc);
     qDebug() << "-----\n";
 

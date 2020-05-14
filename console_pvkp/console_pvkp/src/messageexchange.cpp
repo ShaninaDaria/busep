@@ -17,6 +17,7 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
 
     _parse_IS3 = false;
     _parse_IS4 = false;
+    _start_exchange = false;
 
     createIS1();
     /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
@@ -70,6 +71,7 @@ void messageExchange::createIS2(char number, output_cntrl cntrl)
 
 void messageExchange::startExchange()
 {
+    _start_exchange = true;
     bytes_send_IS1 = sendIS1(&IS1);
     timerIS1_IS3->setSingleShot(true);
     timerIS1_IS3->start(100);
@@ -132,6 +134,7 @@ void messageExchange::slotWaitingForIS3()
 void messageExchange::usualExchange()
 {
     qDebug() << __FUNCTION__;
+    _start_exchange = false;
     //    while (1)
     //    {
     //        bytes_send = sendIS1(&IS1);
@@ -245,7 +248,7 @@ int messageExchange::receiveIS3(bool &ok)
                 IS5.header = IS3.header;
                 IS5.managed = IS3.managed;
                 IS5.crc = IS3.crc;
-                formingIMpvkp->parsingIS5(IS5);
+                formingIMpvkp->parsingIS5(&IS5);
             }
             else
             {
@@ -370,7 +373,7 @@ int messageExchange::receiveIS4()
         {
             std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
             IS4 = rcv_IS4;
-            formingIMpvkp->parsingIS4(IS4, _parse_IS4);
+            formingIMpvkp->parsingIS4(&IS4, _parse_IS4);
         }
         else
         {
@@ -379,7 +382,7 @@ int messageExchange::receiveIS4()
                 IS5.header = IS4.header;
                 IS5.managed = IS4.managed;
                 IS5.crc = IS4.crc;
-                formingIMpvkp->parsingIS5(IS5);
+                formingIMpvkp->parsingIS5(&IS5);
             }
             else
             {
@@ -441,9 +444,14 @@ void messageExchange::receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4)
         if (bytes == sizeof(_is4))
         {
             bytes = 0;
-            formingIMpvkp->parsingIS4(IS4, _parse_IS4);
+            formingIMpvkp->parsingIS4(&IS4, _parse_IS4);
         }
     }
+}
+
+bool messageExchange::start_exchange() const
+{
+    return _start_exchange;
 }
 
 bool messageExchange::parse_IS4() const
