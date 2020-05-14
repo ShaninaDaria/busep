@@ -157,7 +157,7 @@ void PVKPWindow::slotWaitForSignalIS3()
         }
         else
         {
-            ui->statusbar->showMessage("Обмен ИС1-ИС3 идёт в штатном режиме");
+            ui->statusbar->showMessage("Обмен идёт в штатном режиме");
         }
 
         me->usualExchange();
@@ -189,7 +189,7 @@ void PVKPWindow::slotWaitForIS4()
     {
         showOutputsValue();
 //        qDebug() << "Good main work!";
-        ui->statusbar->showMessage("Обмен ИС2-ИС4 идёт в штатном режиме");
+        ui->statusbar->showMessage("Обмен идёт в штатном режиме");
     }
     else
     {
@@ -203,19 +203,17 @@ void PVKPWindow::slotWaitForIS4()
         me->usualExchange();
     }
 }
-
+/// TODO slotWaitForIS5
 void PVKPWindow::slotWaitForIS5()
 {
-    if ((me->getBytes_rcv_IS3_IS5() == sizeof(_is5)) || (me->getBytes_rcv_IS4_IS5() == sizeof(_is5)))
-    {
+//    if ((me->getBytes_rcv_IS3_IS5() == sizeof(_is5)) || (me->getBytes_rcv_IS4_IS5() == sizeof(_is5)))
+//    {
 
-    }
+//    }
 }
 
 void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
-
     for (int i = 0; i < output_size; i++)
     {
         last_toggled_o[i] = toggled;
@@ -314,373 +312,315 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 
 void PVKPWindow::slotOutput1toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output1, toggled);
 }
 
 void PVKPWindow::slotOutput2toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output2, toggled);
 }
 
 void PVKPWindow::slotOutput3toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output3, toggled);
 }
 
 void PVKPWindow::slotOutput4toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output4, toggled);
 }
 
 void PVKPWindow::slotOutput5toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output5, toggled);
 }
 
 void PVKPWindow::slotOutput6toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output6, toggled);
 }
 
 void PVKPWindow::slotOutput7toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output7, toggled);
 }
 
 void PVKPWindow::slotOutput8toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output8, toggled);
 }
 
 void PVKPWindow::slotOutput9toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output9, toggled);
 }
 
 void PVKPWindow::slotOutput10toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output10, toggled);
 }
 
 void PVKPWindow::slotOutput11toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output11, toggled);
 }
 
 void PVKPWindow::slotOutput12toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output12, toggled);
 }
 
 void PVKPWindow::slotOutput13toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output13, toggled);
 }
 
 void PVKPWindow::slotOutput14toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output14, toggled);
 }
 
 void PVKPWindow::slotOutput15toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output15, toggled);
 }
 
 void PVKPWindow::slotOutput16toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output16, toggled);
 }
 
 void PVKPWindow::slotOutput17toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output17, toggled);
 }
 
 void PVKPWindow::slotOutput18toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output18, toggled);
 }
 
 void PVKPWindow::slotOutput19toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output19, toggled);
 }
 
 void PVKPWindow::slotOutput20toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output20, toggled);
 }
 
 void PVKPWindow::slotOutput21toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output21, toggled);
 }
 
 void PVKPWindow::slotOutput22toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
+
     manageOneOutput(output22, toggled);
 }
 
 void PVKPWindow::slotOutput23toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output23, toggled);
 }
 
 void PVKPWindow::slotOutput24toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output24, toggled);
 }
 
 void PVKPWindow::slotOutput25toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output25, toggled);
 }
 
 void PVKPWindow::slotOutput26toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
+
     manageOneOutput(output26, toggled);
 }
 
 void PVKPWindow::slotOutput27toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output27, toggled);
 }
 
 void PVKPWindow::slotOutput28toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output28, toggled);
 }
 
 void PVKPWindow::slotOutput29toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output29, toggled);
 }
 
 void PVKPWindow::slotOutput30toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output30, toggled);
 }
 
 void PVKPWindow::slotOutput31toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output31, toggled);
 }
 
 void PVKPWindow::slotOutput32toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output32, toggled);
 }
 
 void PVKPWindow::slotOutput33toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output33, toggled);
 }
 
 void PVKPWindow::slotOutput34toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output34, toggled);
 }
 
 void PVKPWindow::slotOutput35toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output35, toggled);
 }
 
 void PVKPWindow::slotOutput36toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output36, toggled);
 }
 
 void PVKPWindow::slotOutput37toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output37, toggled);
 }
 
 void PVKPWindow::slotOutput38toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output38, toggled);
 }
 
 void PVKPWindow::slotOutput39toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output39, toggled);
 }
 
 void PVKPWindow::slotOutput40toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output40, toggled);
 }
 
 void PVKPWindow::slotOutput41toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output41, toggled);
 }
 
 void PVKPWindow::slotOutput42toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output42, toggled);
 }
 
 void PVKPWindow::slotOutput43toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output43, toggled);
 }
 
 void PVKPWindow::slotOutput44toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output44, toggled);
 }
 
 void PVKPWindow::slotOutput45toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output45, toggled);
 }
 
 void PVKPWindow::slotOutput46toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output46, toggled);
 }
 
 void PVKPWindow::slotOutput47toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output47, toggled);
 }
 
 void PVKPWindow::slotOutput48toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output48, toggled);
 }
 
 void PVKPWindow::slotOutput49toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output49, toggled);
 }
 
 void PVKPWindow::slotOutput50toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output50, toggled);
 }
 
 void PVKPWindow::slotOutput51toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output51, toggled);
 }
 
 void PVKPWindow::slotOutput52toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output52, toggled);
 }
 
 void PVKPWindow::slotOutput53toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output53, toggled);
 }
 
 void PVKPWindow::slotOutput54toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output54, toggled);
 }
 
 void PVKPWindow::slotOutput55toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output55, toggled);
 }
 
 void PVKPWindow::slotOutput56toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
+
     manageOneOutput(output56, toggled);
 }
 
 void PVKPWindow::slotOutput57toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
+
     manageOneOutput(output57, toggled);
 }
 
 void PVKPWindow::slotOutput58toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output58, toggled);
 }
 
 void PVKPWindow::slotOutput59toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output59, toggled);
 }
 
 void PVKPWindow::slotOutput60toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output60, toggled);
 }
 
 void PVKPWindow::slotOutput61toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output61, toggled);
 }
 
 void PVKPWindow::slotOutput62toggled(bool toggled)
 {
-    qDebug() << __FUNCTION__ << toggled;
     manageOneOutput(output62, toggled);
 }
 

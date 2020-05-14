@@ -83,7 +83,6 @@ void FormingIM_pvkp::parsingIS3(_is3 *IS3, bool &ok)
 {
     qDebug() << "<<<" << __FUNCTION__ << "<<<";
 
-    char crc = im.calculateCRC(IS3, (sizeof (_is3) - 1));
 
     if ((IS3->header == header) &&
         (IS3->managed == response_state) &&
@@ -101,12 +100,12 @@ void FormingIM_pvkp::parsingIS3(_is3 *IS3, bool &ok)
         qDebug() << "<<<header" << IS3->header;
         qDebug() << "<<managed" << IS3->managed;
         qDebug() << "<<<<<<crc" << IS3->crc;
-        qDebug() << crc;
         qDebug() << "<<<<<<<<<<<<";
     }
     else
     {
         ok = false;
+        char crc = im.calculateCRC(IS3, (sizeof (_is3) - 1));
         qDebug() << "<<<NO PARSE IS3"
                  << IS3->header
                  << IS3->managed

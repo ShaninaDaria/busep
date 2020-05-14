@@ -22,7 +22,7 @@ public:
     void usualExchange();
 
     int sendIS1(_is1 *IS1);
-    int receiveIS3(bool &ok);
+    int receiveIS3();
 
     int sendIS2(_is2 *IS2);
     int receiveIS4();
@@ -32,10 +32,6 @@ public:
 
     char *getOutputsValue();
     output_state getOutputState(int number);
-
-    int getBytes_rcv_IS3_IS5() const;
-
-    int getBytes_rcv_IS4_IS5() const;
 
     void addErrorToIS1();
     void addErrorToIS2(char number, output_cntrl cntrl);
@@ -61,6 +57,8 @@ private:
 
     void createIS1();
 
+    void exchange(QTimer *main_timer, QTimer *second_timer, int &bytes_send, int d, bool parse_ok, int var_exch);
+
     void receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3);
     void receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4);
 
@@ -77,9 +75,9 @@ private:
     QTimer *timerIS2_IS4;
 
     int bytes_send_IS1;
-    int bytes_rcv_IS3_IS5;
+//    int bytes_rcv_IS3_IS5;
     int bytes_send_IS2;
-    int bytes_rcv_IS4_IS5;
+//    int bytes_rcv_IS4_IS5;
 
     bool _parse_IS3;
     bool _parse_IS4;

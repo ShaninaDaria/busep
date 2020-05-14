@@ -16,6 +16,6 @@ bool InformationMessages::checkCRC(void *p, int bytes, unsigned char crc)
 {
 //    qDebug() << __FUNCTION__ << "; p" << p << "; bytes" << bytes << "; crc" << crc;
     unsigned char crc_check = calculateCRC(p, bytes);
-    qDebug() << "crc_check" << crc_check;
+//    qDebug() << "crc_check" << crc_check;
     return (crc_check == crc);
 }

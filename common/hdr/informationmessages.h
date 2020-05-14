@@ -151,6 +151,9 @@ const unsigned char CRC8table[256] =
     182, 232, 10, 84, 215, 137, 107, 53
 };
 
+const int IS1_IS3_wait = 100;
+const int IS2_IS4_wait = 10;
+
 
 class InformationMessages
 {
