@@ -156,11 +156,12 @@ void messageExchange::usualExchange()
         qDebug() << "2 timer start; remainingTime" << timerIS1_IS3->remainingTime();
     }
 
-//            bytes_send_IS2 = sendIS2(&IS2);
-//            if (!timerIS2_IS4->isActive())
-//            {
-//                timerIS2_IS4->start(10);
-//            }
+        bytes_send_IS2 = sendIS2(&IS2);
+        if (!timerIS2_IS4->isActive())
+        {
+            timerIS2_IS4->start(10);
+            qDebug() << "3 timer start; remainingTime" << timerIS1_IS3->remainingTime();
+        }
 
 //            if (bytes_send_IS2 > 0)
 //            {
@@ -193,11 +194,7 @@ void messageExchange::slotWaitingForIS4()
         qDebug() << "IT`S NO TIME FOR IS4!";
     }
 
-    if (_parse_IS4)
-    {
-        emit signalReceiveIS4();
-    }
-    else
+    if (!_parse_IS4)
     {
         // раз я повторяю посылку до прихода корректного сообщения,
         // другое сообщение мне посылать не нужно
@@ -207,8 +204,8 @@ void messageExchange::slotWaitingForIS4()
         }
 
         timerIS2_IS4->start();
-        emit signalReceiveIS5();
     }
+    emit signalReceiveIS4();
 }
 
 int messageExchange::sendIS1(_is1 *IS1)
@@ -252,7 +249,7 @@ int messageExchange::receiveIS3(bool &ok)
             }
             else
             {
-                receiveIS3inParts(bytes_rcv, rcv_IS3, ok);
+                receiveIS3inParts(bytes_rcv, rcv_IS3);
             }
         }
     }
@@ -260,7 +257,7 @@ int messageExchange::receiveIS3(bool &ok)
     return bytes_rcv;
 }
 
-void messageExchange::receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3, bool &ok)
+void messageExchange::receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3)
 {
     static int summ_bytes(0);
     summ_bytes += bytes_rcv;
@@ -335,7 +332,7 @@ void messageExchange::receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3, bool &ok)
         if (summ_bytes == sizeof(_is3))
         {
             summ_bytes = 0;
-            formingIMpvkp->parsingIS3(&IS3, ok);
+            formingIMpvkp->parsingIS3(&IS3, _parse_IS3);
         }
     }
 }
@@ -360,8 +357,6 @@ int messageExchange::sendIS2(_is2 *IS2)
 
 int messageExchange::receiveIS4()
 {
-    std::cout << __FUNCTION__ << std::endl;
-
     _is4 rcv_IS4;
     bzero(&rcv_IS4, sizeof (_is4));
 //    int bytes_rcv = dataTransnmit->receive(&rcv_IS4, sizeof (_rcv_data));
@@ -371,7 +366,7 @@ int messageExchange::receiveIS4()
     {
         if (bytes_rcv == sizeof(_is4))
         {
-            std::cout << "receive " << bytes_rcv << " bytes; " << std::endl;
+            qDebug() << __FUNCTION__ << " receive " << bytes_rcv << " bytes;";
             IS4 = rcv_IS4;
             formingIMpvkp->parsingIS4(&IS4, _parse_IS4);
         }

@@ -9,8 +9,8 @@ DummyMessages::DummyMessages()
     /// TODO переподключение, если ПВКП отвалился
     dataTransnmit->createServer();
 
-//    createIS3(is_signal_27v);
-    createIS3(no_signal_27v);
+    createIS3(is_signal_27v);
+//    createIS3(no_signal_27v);
 //    createIS4(0x00, output_off);
 }
 

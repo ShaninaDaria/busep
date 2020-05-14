@@ -61,7 +61,7 @@ private:
 
     void createIS1();
 
-    void receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3, bool &ok);
+    void receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3);
     void receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4);
 
     FormingIM_pvkp *formingIMpvkp;

@@ -151,7 +151,14 @@ void PVKPWindow::slotWaitForSignalIS3()
     {
         showInputsValue();
 //        qDebug() << "Start main work!";
-        ui->statusbar->showMessage("Обмен ИС1-ИС3 идёт в штатном режиме");
+        if (me->start_exchange())
+        {
+            ui->statusbar->showMessage("Связь установлена.");
+        }
+        else
+        {
+            ui->statusbar->showMessage("Обмен ИС1-ИС3 идёт в штатном режиме");
+        }
 
         me->usualExchange();
     }
@@ -163,7 +170,7 @@ void PVKPWindow::slotWaitForSignalIS3()
         }
         else
         {
-            qDebug() << "Something with IS1-IS3 is wrong";
+//            qDebug() << "Something with IS1-IS3 is wrong";
             static int wrong(0);
             if (wrong == 3)
             {
@@ -182,10 +189,18 @@ void PVKPWindow::slotWaitForIS4()
     {
         showOutputsValue();
 //        qDebug() << "Good main work!";
+        ui->statusbar->showMessage("Обмен ИС2-ИС4 идёт в штатном режиме");
     }
     else
     {
-        qDebug() << "Something with IS2-IS4 is wrong";
+//        qDebug() << "Something with IS2-IS4 is wrong";
+        static int wrong(0);
+        if (wrong == 3)
+        {
+            ui->statusbar->showMessage("При разборе ИС4 прозошла ошибка!");
+        }
+        wrong++;
+        me->usualExchange();
     }
 }
 

@@ -308,17 +308,25 @@ void FormingIM_pvkp::parsingWords(_is3 *IS3)
 
 void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
 {
-    qDebug() << __FUNCTION__;
+    qDebug() << "<<<" << __FUNCTION__ << "<<<";
+
+    char crc = im.calculateCRC(IS4, (sizeof (_is4) - 1));
 
     if ((IS4->header == header) &&
         (IS4->managed == response_change) &&
         im.checkCRC(IS4, (sizeof (_is4) - 1), IS4->crc))
     {
         ok = true;
-        printf("    header \t%02x\n", IS4->header);
-        printf("   managed \t%02x\n", IS4->managed);
+//        printf("    header \t%02x\n", IS4->header);
+//        printf("   managed \t%02x\n", IS4->managed);
 
         parsingStates(IS4);
+
+        qDebug() << "<<<header" << IS4->header;
+        qDebug() << "<<managed" << IS4->managed;
+        qDebug() << "<<<<<<crc" << IS4->crc;
+        qDebug() << "<<<<<<<<<<<<";
+
 
         /// NOTE подготовка к рамке
         if (IS2.device_number != all_outputs)
@@ -346,13 +354,16 @@ void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
                 }
             }
         }
-
-        printf("        crc \t%02x\n", IS4->crc);
-        qDebug() << "-----\n";
     }
     else
     {
         ok = false;
+
+        qDebug() << "<<<NO PARSE IS4"
+                 << IS4->header
+                 << IS4->managed
+                 << IS4->crc
+                 << crc;
     }
 }
 
