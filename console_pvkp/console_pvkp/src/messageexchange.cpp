@@ -74,7 +74,7 @@ void messageExchange::startExchange()
     bytes_send_IS1 = sendIS1(&IS1);
     timerIS1_IS3->setSingleShot(true);
     timerIS1_IS3->start(IS1_IS3_wait);
-    qDebug() << "1 timer start; remainingTime" << timerIS1_IS3->remainingTime();
+//    qDebug() << "1 timer start; remainingTime" << timerIS1_IS3->remainingTime();
 }
 
 void messageExchange::slotWaitingForIS3()
@@ -91,7 +91,7 @@ void messageExchange::slotWaitingForIS4()
 void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
                                int &bytes_send, int d, bool &parse_ok, int var_exch)
 {
-    qDebug() << "remainingTime" << main_timer->remainingTime();
+//    qDebug() << "remainingTime" << main_timer->remainingTime();
     if (bytes_send > 0)
     {
         int bytes_rcv(-1);
@@ -101,7 +101,7 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
             if (bytes_rcv > 0)
             {
                 bytes_send = 0;
-                qDebug() << "remainingTime after" << main_timer->remainingTime() << "\n";
+//                qDebug() << "remainingTime after" << main_timer->remainingTime() << "\n";
             }
         }  while ((main_timer->remainingTime() > 0) && (main_timer->remainingTime() < d));
     }
@@ -111,20 +111,20 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
         {
             main_timer->stop();
         }
-        if (var_exch == 1)
-        {
-            qDebug() << "not send IS1!";
-        }
-        if (var_exch == 2)
-        {
-            qDebug() << "not send IS2!";
-        }
+//        if (var_exch == 1)
+//        {
+//            qDebug() << "not send IS1!";
+//        }
+//        if (var_exch == 2)
+//        {
+//            qDebug() << "not send IS2!";
+//        }
     }
 
-    if (main_timer->remainingTime() == -1)
-    {
-        qDebug() << "main_timer is inactive!";
-    }
+//    if (main_timer->remainingTime() == -1)
+//    {
+//        qDebug() << "main_timer is inactive!";
+//    }
 
     if (!parse_ok)
     {
@@ -135,6 +135,13 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
             second_timer->stop();
         }
     }
+
+
+    if ((_parse_IS3 || _parse_IS4) && (_parse_IS5))
+    {
+        _parse_IS5 = false;
+    }
+
     if (!_parse_IS5)
     {
         if (var_exch == 1)
@@ -155,7 +162,7 @@ void messageExchange::exchange(QTimer *main_timer, QTimer *second_timer,
 
 void messageExchange::usualExchange()
 {
-    qDebug() << __FUNCTION__;
+//    qDebug() << __FUNCTION__;
     _start_exchange = false;
 
     bytes_send_IS1 = sendIS1(&IS1);
@@ -166,14 +173,14 @@ void messageExchange::usualExchange()
             timerIS1_IS3->setSingleShot(false);
         }
         timerIS1_IS3->start(IS1_IS3_wait);
-        qDebug() << "2 timer start; remainingTime" << timerIS1_IS3->remainingTime();
+//        qDebug() << "2 timer start; remainingTime" << timerIS1_IS3->remainingTime();
     }
 
     bytes_send_IS2 = sendIS2(&IS2);
     if (!timerIS2_IS4->isActive())
     {
         timerIS2_IS4->start(IS2_IS4_wait);
-        qDebug() << "3 timer start; remainingTime" << timerIS2_IS4->remainingTime();
+//        qDebug() << "3 timer start; remainingTime" << timerIS2_IS4->remainingTime();
     }
 }
 
@@ -184,7 +191,7 @@ int messageExchange::sendIS1(_is1 *IS1)
 
     //    if (bytes_send > 0)
     //    {
-    qDebug() << __FUNCTION__ << "send " << bytes_send << " bytes;";
+//    qDebug() << __FUNCTION__ << "send " << bytes_send << " bytes;";
     //    }
     return bytes_send;
 }
@@ -313,7 +320,7 @@ int messageExchange::sendIS2(_is2 *IS2)
 
     if (bytes_send > 0)
     {
-        std::cout << __FUNCTION__ << " send " << bytes_send << " bytes; " << std::endl;
+//        qDebug() << __FUNCTION__ << " send " << bytes_send << " bytes;";
         //        printf("       header \t%02x\n", IS2->header);
         //        printf("      managed \t%02x\n", IS2->managed);
         //        printf("device_number \t%02x\n", IS2->device_number);
@@ -421,7 +428,7 @@ int messageExchange::receiveSmth()
 
     if (bytes_rcv > 0)
     {
-        qDebug() << __FUNCTION__ << " receive " << bytes_rcv << " bytes;";
+//        qDebug() << __FUNCTION__ << " receive " << bytes_rcv << " bytes;";
         if (bytes_rcv == sizeof(_is3))
         {
             formingIMpvkp->parsingIS3(&rcv_data, IS3, _parse_IS3);

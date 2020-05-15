@@ -1,15 +1,17 @@
 #ifndef DUMMYMESSAGES_H
 #define DUMMYMESSAGES_H
 
+#include <QObject>
 #include "../../common/hdr/informationmessages.h"
 #include "../../common/hdr/datatransmit.h"
 #include "formingIM_busep.h"
 
 
-class DummyMessages
+class DummyMessages : public QObject
 {
+    Q_OBJECT
 public:
-    DummyMessages();
+    explicit DummyMessages(QObject *parent = nullptr);
     ~DummyMessages();
 
     void startExchange();
@@ -28,6 +30,10 @@ public:
 
     output_state getOutputState(int number);
     input_state getInputState(int number);
+
+signals:
+    void signalUsualExchange();
+    void signalSendIS5();
 
 private:
     header_and_managed receiveSmth();

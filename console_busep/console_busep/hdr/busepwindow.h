@@ -23,6 +23,8 @@ public:
 private slots:
     void slotAllInputsOnOff(bool toggled);
     void slotStartExchangeByTimer();
+    void slotUsualExchange();
+    void slotSendIS5();
 
 private:
     void createPalette();

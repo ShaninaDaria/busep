@@ -1,4 +1,4 @@
-#include "../hdr/pvkpwindow.h"
+﻿#include "../hdr/pvkpwindow.h"
 #include "ui_pvkpwindow.h"
 
 PVKPWindow::PVKPWindow(QWidget *parent) :
@@ -205,9 +205,10 @@ void PVKPWindow::slotWaitForSignalIS4()
     }
 }
 /// TODO slotWaitForIS5
-void PVKPWindow::slotWaitForISignalS5()
+void PVKPWindow::slotWaitForSignalIS5()
 {
-    qDebug() << __FUNCTION__;
+//    qDebug() << __FUNCTION__;
+    me->usualExchange();
 //    if ((me->getBytes_rcv_IS3_IS5() == sizeof(_is5)) || (me->getBytes_rcv_IS4_IS5() == sizeof(_is5)))
 //    {
 
@@ -631,11 +632,27 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
         last_toggled_o[number - 1] = toggled;
         if (toggled)
         {
-            me->createIS2(number, cntrl_off);
+//            me->createIS2(number, cntrl_off);
+            if (ui->addError->isChecked())
+            {
+                me->addErrorToIS2(number, cntrl_off);
+            }
+            else
+            {
+                me->createIS2(number, cntrl_off);
+            }
         }
         else
         {
-            me->createIS2(number, cntrl_on);
+//            me->createIS2(number, cntrl_on);
+            if (ui->addError->isChecked())
+            {
+                me->addErrorToIS2(number, cntrl_on);
+            }
+            else
+            {
+                me->createIS2(number, cntrl_on);
+            }
         }
     }
 }
@@ -923,7 +940,7 @@ void PVKPWindow::setOutputColor(const unsigned &output, QPushButton *output_butt
         break;
 
     default:
-        printf("  output \t%02x %s\n", output, "no data");
+        qDebug() << "output " << output << "no data";
         break;
     }
 }

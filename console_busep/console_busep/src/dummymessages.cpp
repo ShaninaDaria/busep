@@ -2,7 +2,7 @@
 
 // ----------------------------------------------------------
 
-DummyMessages::DummyMessages()
+DummyMessages::DummyMessages(QObject *parent) : QObject(parent)
 {
     formingIM_busep = new FormingIM_busep();
     dataTransnmit = new DataTransmit();
@@ -62,13 +62,22 @@ void DummyMessages::startExchange()
             switch (code)
             {
             case request:
+            {
                 sendIS3(IS3);
+                emit signalUsualExchange();
+            }
                 break;
             case change_state:
+            {
                 sendIS4(IS4);
+                emit signalUsualExchange();
+            }
                 break;
             case error:
+            {
                 sendIS5(IS5);
+                emit signalSendIS5();
+            }
                 break;
             default:
                 break;

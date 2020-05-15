@@ -16,6 +16,9 @@ BusepWindow::BusepWindow(QWidget *parent) :
     connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
     timer->start(10);
 
+    connect(dm, SIGNAL(signalUsualExchange()), this, SLOT(slotUsualExchange()));
+    connect(dm, SIGNAL(signalSendIS5()), this, SLOT(slotSendIS5()));
+
 
 
 //    slotStartExchangeByTimer();
@@ -184,6 +187,16 @@ void BusepWindow::slotStartExchangeByTimer()
 
     showOutputsValue();
     showInputsValue();
+}
+
+void BusepWindow::slotUsualExchange()
+{
+    ui->statusbar->showMessage("Обмен в штатном режиме");
+}
+
+void BusepWindow::slotSendIS5()
+{
+    ui->statusbar->showMessage("Отправка сообщения ИС5");
 }
 
 void BusepWindow::createPalette()

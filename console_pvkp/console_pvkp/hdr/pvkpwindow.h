@@ -23,7 +23,7 @@ private slots:
 //    void slotByTimer();
     void slotWaitForSignalIS3();
     void slotWaitForSignalIS4();
-    void slotWaitForISignalS5();
+    void slotWaitForSignalIS5();
 
     void slotAllOutputsOnOff(bool toggled);
 
