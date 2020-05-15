@@ -16,6 +16,13 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
         last_toggled_o[i] = false;
     }
 
+    /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
+    me->createIS2(all_outputs, cntrl_on);
+    for (int i = 0; i < output_size; i++)
+    {
+        o_cntrl[i] = cntrl_on;
+    }
+
     connect(ui->allOutputsOff, SIGNAL(toggled(bool)), this, SLOT(slotAllOutputsOnOff(bool)));
     connect(ui->output1, SIGNAL(toggled(bool)), this, SLOT(slotOutput1toggled(bool)));
     connect(ui->output2, SIGNAL(toggled(bool)), this, SLOT(slotOutput2toggled(bool)));
@@ -135,7 +142,6 @@ void PVKPWindow::createPalette()
     yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
     green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
     gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
-    //    red_palette.setColor(QPalette::ColorRole::Background, QColor(255, 0, 0) );    // рамка
 }
 
 //void PVKPWindow::slotByTimer()
@@ -204,7 +210,7 @@ void PVKPWindow::slotWaitForSignalIS4()
         me->usualExchange();
     }
 }
-/// TODO slotWaitForIS5
+
 void PVKPWindow::slotWaitForSignalIS5()
 {
 //    qDebug() << __FUNCTION__;
@@ -234,6 +240,12 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
         {
             me->createIS2(all_outputs, cntrl_off);
         }
+
+        // сохраняю для дальнейшего сравения с результатом
+        for (int i = 0; i < output_size; i++)
+        {
+            o_cntrl[i] = cntrl_off;
+        }
     }
     else
     {
@@ -246,6 +258,11 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
         else
         {
             me->createIS2(all_outputs, cntrl_on);
+        }
+        // сохраняю для дальнейшего сравения с результатом
+        for (int i = 0; i < output_size; i++)
+        {
+            o_cntrl[i] = cntrl_on;
         }
     }
 
@@ -632,7 +649,6 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
         last_toggled_o[number - 1] = toggled;
         if (toggled)
         {
-//            me->createIS2(number, cntrl_off);
             if (ui->addError->isChecked())
             {
                 me->addErrorToIS2(number, cntrl_off);
@@ -641,10 +657,15 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
             {
                 me->createIS2(number, cntrl_off);
             }
+
+            // сохраняю для дальнейшего сравения с результатом
+            for (int i = 0; i < output_size; i++)
+            {
+                o_cntrl[i] = cntrl_off;
+            }
         }
         else
         {
-//            me->createIS2(number, cntrl_on);
             if (ui->addError->isChecked())
             {
                 me->addErrorToIS2(number, cntrl_on);
@@ -652,6 +673,12 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
             else
             {
                 me->createIS2(number, cntrl_on);
+            }
+
+            // сохраняю для дальнейшего сравения с результатом
+            for (int i = 0; i < output_size; i++)
+            {
+                o_cntrl[i] = cntrl_on;
             }
         }
     }
@@ -919,28 +946,53 @@ void PVKPWindow::showOutputsValue()
     setOutputColor(me->getOutputState(output62), ui->output62);
 }
 
-void PVKPWindow::setOutputColor(const unsigned &output, QPushButton *output_button)
+void PVKPWindow::setOutputColor(int o_nmb, QPushButton *output_button)
 {
-    switch (output)
+    output_state state = me->getOutputState(o_nmb);
+    if (o_nmb < output_size)
     {
-    case output_on:
-        output_button->setPalette(green_palette);
-        break;
+        switch (state)
+        {
+        case output_on:
+            output_button->setPalette(green_palette);
+            if (o_cntrl[o_nmb - 1] == cntrl_on)
+            {
+                green_palette.setColor(QPalette::ColorRole::Background, Qt::green);    // рамка
+            }
+            else
+            {
+                green_palette.setColor(QPalette::ColorRole::Background, Qt::red);    // рамка
+            }
+            break;
 
-    case output_off:
-        output_button->setPalette(gray_palette);
-        break;
+        case output_off:
+            output_button->setPalette(gray_palette);
+            if (o_cntrl[o_nmb - 1] == cntrl_off)
+            {
+                gray_palette.setColor(QPalette::ColorRole::Background, Qt::green);    // рамка
+            }
+            else
+            {
+                gray_palette.setColor(QPalette::ColorRole::Background, Qt::red);    // рамка
+            }
+            break;
 
-    case no_output_state:
-        output_button->setPalette(yellow_palette);
-        break;
+        case no_output_state:
+            output_button->setPalette(yellow_palette);
+            break;
 
-    case error_output:
-        output_button->setPalette(red_palette);
-        break;
+        case error_output:
+            output_button->setPalette(red_palette);
+            break;
 
-    default:
-        qDebug() << "output " << output << "no data";
-        break;
+        default:
+            qDebug() << "output " << state << "no data";
+            break;
+        }
     }
+    else
+    {
+
+    }
+
 }

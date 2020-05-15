@@ -111,7 +111,7 @@ private:
     void setInputColor(const unsigned &input, QPushButton *input_button);
 
     void showOutputsValue();
-    void setOutputColor(output_state output, QPushButton *output_button);
+    void setOutputColor(int o_nmb, QPushButton *output_button);
 
     void manageOneOutput(int number, bool toggled);
 

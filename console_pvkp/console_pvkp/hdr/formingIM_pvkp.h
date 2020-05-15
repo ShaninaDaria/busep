@@ -31,7 +31,7 @@ public:
     output_state getOutputState(int number);
 
     input_state getInputState(int number);
-    /// NOTE 1 byte???
+
     input_state getInputState2(unsigned char word);
 
     _is1 createIS1WithError();
@@ -47,7 +47,6 @@ private:
 
     void parsingIS5(_is5 *IS5, bool &ok);
 
-    /// NOTE 1 byte???
     output_state getOutputState2(unsigned char state);
 
     _is1 IS1;

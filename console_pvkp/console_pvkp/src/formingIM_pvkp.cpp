@@ -406,17 +406,17 @@ void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
             {
                 if ((io.getOutputValue(IS2.device_number) == output_off) && (IS2.state == cntrl_off))
                 {
-//                    qDebug() << IS2.device_number << IS2.state;
+                    qDebug() << IS2.device_number << IS2.state;
                 }
                 else
                 {
                     if (io.getOutputValue(IS2.device_number) == no_output_state)
                     {
-//                        qDebug() << "no_output_state!";
+                        qDebug() << "no_output_state!";
                     }
                     if (io.getOutputValue(IS2.device_number) == error_output)
                     {
-//                        qDebug() << "error output!";
+                        qDebug() << "error output!";
                     }
                 }
             }

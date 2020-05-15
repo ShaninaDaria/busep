@@ -19,8 +19,6 @@ messageExchange::messageExchange(QObject *parent) : QObject(parent)
     _start_exchange = false;
 
     createIS1();
-    /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
-    createIS2(all_outputs, cntrl_on);
 
     bzero(&IS3, sizeof(_is3));
     bzero(&IS4, sizeof(_is4));
@@ -432,13 +430,13 @@ int messageExchange::receiveSmth()
         if (bytes_rcv == sizeof(_is3))
         {
             formingIMpvkp->parsingIS3(&rcv_data, IS3, _parse_IS3);
-            /// TODO
+            /// TODO receiveIS3inParts
 //            receiveIS3inParts(bytes_rcv, rcv_IS4);
         }
         if (bytes_rcv == sizeof(_is4))
         {
             formingIMpvkp->parsingIS4(&rcv_data, IS4, _parse_IS4);
-            /// TODO
+            /// TODO receiveIS4inParts
 //            receiveIS4inParts(bytes_rcv, rcv_IS4);
         }
         if (bytes_rcv == sizeof (_is5))

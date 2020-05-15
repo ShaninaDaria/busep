@@ -10,14 +10,13 @@ _is3 *FormingIM_busep::createIS3(input_state state)
     bzero(&IS3, (sizeof (_is3)));
 
     qDebug() << __FUNCTION__ << state;
-    IS3.header = header; // printf("    header \t%02x\n", IS3.header);
-    IS3.managed = response_state; // printf("    managed \t%02x\n", IS3.managed);
-    // printf("    state \t%02x\n", state);
+    IS3.header = header;
+    IS3.managed = response_state;
 
     manageIO.changeInputs(all_inputs, state);
     setWordsIS3(IS3);
 
-    IS3.crc = im.calculateCRC(&IS3, (sizeof (_is3) - 1)); // printf("    crc \t%02x\n", IS3.crc);
+    IS3.crc = im.calculateCRC(&IS3, (sizeof (_is3) - 1));
 
     qDebug() << "   header" << IS3.header;
     qDebug() << "  managed" << IS3.managed;
@@ -224,16 +223,20 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
 
     bzero(&IS4, (sizeof (_is4)));
 
-    IS4.header = header; printf("    header \t%02x\n", IS4.header);
-    IS4.managed = response_change; printf("    managed \t%02x\n", IS4.managed);
-    printf("    cnrtl \t%02x\n", cnrtl);
+    IS4.header = header;
+    IS4.managed = response_change;
 
     // записываю в "номер входа - 1"
     manageIO.changeOutputs(device_number, cnrtl);
 
     setStatesIS4(IS4);
 
-    IS4.crc = im.calculateCRC(&IS4, (sizeof (_is4) - 1)); // printf("    crc \t%02x\n", IS4.crc);
+    IS4.crc = im.calculateCRC(&IS4, (sizeof (_is4) - 1));
+
+    qDebug() << "   header" << IS4.header;
+    qDebug() << "  managed" << IS4.managed;
+    qDebug() << "    cnrtl" << cnrtl;
+    qDebug() << "      crc" << IS3.crc;
 
     return &IS4;
 }
@@ -341,9 +344,13 @@ void FormingIM_busep::setStatesIS4(_is4 &IS4)
 _is5 *FormingIM_busep::createIS5()
 {
     qDebug() << "IS5";
-    IS5.header = header; printf("    header \t%02x\n", IS5.header);
-    IS5.managed = integrity_violation; printf("    managed \t%02x\n", IS5.managed);
-    IS5.crc = im.calculateCRC(&IS5, (sizeof (_is5) - 1));    printf("    crc \t%02x\n", IS5.crc);
+    IS5.header = header;
+    IS5.managed = integrity_violation;
+    IS5.crc = im.calculateCRC(&IS5, (sizeof (_is5) - 1));
+
+    qDebug() << "   header" << IS3.header;
+    qDebug() << "  managed" << IS3.managed;
+    qDebug() << "      crc" << IS3.crc;
 
     return &IS5;
 }
