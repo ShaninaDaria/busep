@@ -31,11 +31,11 @@ void DummyMessages::createIS3(input_state state)
 
 // ----------------------------------------------------------
 
-void DummyMessages::createIS4(char device_number, unsigned char cnrtl)
+void DummyMessages::createIS4(char device_number, unsigned char cnrtl, bool add_error, bool no_state)
 {
     std::cout << __FUNCTION__ << std::endl;
 
-    IS4 = formingIM_busep->createIS4(device_number, cnrtl);
+    IS4 = formingIM_busep->createIS4(device_number, cnrtl, add_error, no_state);
 }
 
 // ----------------------------------------------------------
@@ -48,7 +48,7 @@ void DummyMessages::createIS5()
 
 // ----------------------------------------------------------
 
-void DummyMessages::startExchange()
+void DummyMessages::startExchange(bool add_error, bool no_state)
 {
 //    int recv_bytes(-1);
     header_and_managed code(empty);
@@ -69,6 +69,14 @@ void DummyMessages::startExchange()
                 break;
             case change_state:
             {
+                if (!add_error && !no_state)
+                {
+                    createIS4(IS2.device_number, IS2.state);
+                }
+                else
+                {
+                    createIS4(IS2.device_number, IS2.state, add_error, no_state);
+                }
                 sendIS4(IS4);
                 emit signalUsualExchange();
             }
@@ -183,8 +191,6 @@ void DummyMessages::sendIS3(_is3 *IS3)
 void DummyMessages::sendIS4(_is4 *IS4)
 {
     std::cout << __FUNCTION__ << std::endl;
-
-    createIS4(IS2.device_number, IS2.state);
 
 //    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
     int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));

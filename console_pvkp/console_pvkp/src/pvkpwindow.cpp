@@ -337,7 +337,6 @@ void PVKPWindow::manageOneOutput(int number, bool pressed, QPushButton *output_b
         if (last_pressed_o[number - 1])
         {
             last_pressed_o[number - 1] = false;
-//            output_button->setText(QString::number(number) + " Выключен");
 
             if (ui->addError->isChecked())
             {
@@ -354,7 +353,6 @@ void PVKPWindow::manageOneOutput(int number, bool pressed, QPushButton *output_b
         else
         {
             last_pressed_o[number - 1] = true;
-//            output_button->setText(QString::number(number) + " Включен");
 
             if (ui->addError->isChecked())
             {
@@ -369,29 +367,6 @@ void PVKPWindow::manageOneOutput(int number, bool pressed, QPushButton *output_b
             o_cntrl[number - 1] = cntrl_on;
         }
     }
-//    else
-//    {
-//        if (last_pressed_o[number - 1])
-//        {
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-//            ui->output1->setText(QString::number(output1) + " Выключен");
-
-//        }
-//        else
-//        {
-//            output_button->setText(QString::number(number) + " Включен");
-//        }
-//    }
 }
 
 void PVKPWindow::slotOutput1clicked(bool pressed)

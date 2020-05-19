@@ -13,7 +13,8 @@ public:
     ~FormingIM_busep() {}
 
     _is3 *createIS3(input_state state);
-    _is4 *createIS4(char device_number, unsigned char cnrtl);
+    _is4 *createIS4(char device_number, unsigned char cnrtl,
+                    bool add_error = false, bool no_state = false);
     _is5 *createIS5();
 //    char calculateCRC(void *p, int bytes);
 //    bool checkCRC(void *p, int bytes, unsigned char crc);

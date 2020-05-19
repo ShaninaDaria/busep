@@ -217,7 +217,8 @@ void FormingIM_busep::setWordsIS3(_is3 &IS3)
 //    printf("    word30 \t%02x\n", IS3.word30);
 }
 
-_is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
+_is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl,
+                                 bool add_error, bool no_state)
 {
     qDebug() << __FUNCTION__;
 
@@ -227,7 +228,7 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl)
     IS4.managed = response_change;
 
     // записываю в "номер входа - 1"
-    manageIO.changeOutputs(device_number, cnrtl);
+    manageIO.changeOutputs(device_number, cnrtl, add_error, no_state);
 
     setStatesIS4(IS4);
 

@@ -32,7 +32,7 @@ private:
     void setInputColor(const unsigned &input, QPushButton *input_button);
 
     void showOutputsValue();
-    void setOutputColor(const output_state state, QPushButton *output_button);
+    void setOutputColor(int o_nmb, QPushButton *output_button);
 
     Ui::BusepWindow *ui;
     QPalette green_palette;
@@ -40,6 +40,7 @@ private:
     QPalette yellow_palette;
     QPalette gray_palette;
     QPalette blue_palette;
+    QPalette button_palette[output_size];
     QTimer *timer;
 
     DummyMessages *dm;

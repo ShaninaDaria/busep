@@ -14,12 +14,13 @@ public:
     explicit DummyMessages(QObject *parent = nullptr);
     ~DummyMessages();
 
-    void startExchange();
+    void startExchange(bool add_error, bool no_state);
 
     void createIS3(input_state state);
     void sendIS3(_is3 *IS3);
 
-    void createIS4(char device_number, unsigned char cnrtl);
+    void createIS4(char device_number, unsigned char cnrtl,
+                   bool add_error = false, bool no_state = false);
     void sendIS4(_is4 *IS4);
 
     void createIS5();

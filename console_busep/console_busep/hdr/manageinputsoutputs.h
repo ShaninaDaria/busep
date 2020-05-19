@@ -14,9 +14,9 @@ public:
     void oneInputOnOff(char device_number, input_state state);
     char *getInputs2();
 
-    void changeOutputs(char device_number, unsigned char cntrl);
-    void allOutputsOnOff(unsigned char cntrl);
-    void oneOutputOnOff(char device_number, unsigned char cntrl);
+    void changeOutputs(char device_number, unsigned char cntrl, bool add_error = false, bool no_state = false);
+    void allOutputsOnOff(unsigned char cntrl, bool add_error = false, bool no_state = false);
+    void oneOutputOnOff(char device_number, unsigned char cntrl, bool add_error = false, bool no_state = false);
 
 //    _inputs getInputs() const;
 
