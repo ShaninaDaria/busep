@@ -13,9 +13,6 @@ public:
     _is1 createIS1();
     _is2 createIS2(char device_number, output_cntrl cntrl);
 
-//    char calculateCRC(void *p, int bytes);
-//    bool checkCRC(void *p, int bytes, unsigned char crc);
-
     _is1 getIS1() const;
 
     _is2 getIS2() const;
@@ -27,7 +24,7 @@ public:
     char *getInputs();
 
     char *getOutputs();
-//    void setOutputs(_outputs values);
+
     output_state getOutputState(int number);
 
     input_state getInputState(int number);

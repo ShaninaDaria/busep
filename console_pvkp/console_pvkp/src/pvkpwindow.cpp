@@ -13,7 +13,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     for (int i = 0; i < output_size; i++)
     {
-        last_toggled_o[i] = false;
+        last_pressed_o[i] = true;
     }
 
     /// NOTE по умолчанию шлю ИС2 с запросом "включить все выходы"
@@ -24,68 +24,68 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     }
 
     connect(ui->allOutputsOff, SIGNAL(toggled(bool)), this, SLOT(slotAllOutputsOnOff(bool)));
-    connect(ui->output1, SIGNAL(toggled(bool)), this, SLOT(slotOutput1toggled(bool)));
-    connect(ui->output2, SIGNAL(toggled(bool)), this, SLOT(slotOutput2toggled(bool)));
-    connect(ui->output3, SIGNAL(toggled(bool)), this, SLOT(slotOutput3toggled(bool)));
-    connect(ui->output4, SIGNAL(toggled(bool)), this, SLOT(slotOutput4toggled(bool)));
-    connect(ui->output5, SIGNAL(toggled(bool)), this, SLOT(slotOutput5toggled(bool)));
-    connect(ui->output6, SIGNAL(toggled(bool)), this, SLOT(slotOutput6toggled(bool)));
-    connect(ui->output7, SIGNAL(toggled(bool)), this, SLOT(slotOutput7toggled(bool)));
-    connect(ui->output8, SIGNAL(toggled(bool)), this, SLOT(slotOutput8toggled(bool)));
-    connect(ui->output9, SIGNAL(toggled(bool)), this, SLOT(slotOutput9toggled(bool)));
-    connect(ui->output10, SIGNAL(toggled(bool)), this, SLOT(slotOutput10toggled(bool)));
-    connect(ui->output11, SIGNAL(toggled(bool)), this, SLOT(slotOutput11toggled(bool)));
-    connect(ui->output12, SIGNAL(toggled(bool)), this, SLOT(slotOutput12toggled(bool)));
-    connect(ui->output13, SIGNAL(toggled(bool)), this, SLOT(slotOutput13toggled(bool)));
-    connect(ui->output14, SIGNAL(toggled(bool)), this, SLOT(slotOutput14toggled(bool)));
-    connect(ui->output15, SIGNAL(toggled(bool)), this, SLOT(slotOutput15toggled(bool)));
-    connect(ui->output16, SIGNAL(toggled(bool)), this, SLOT(slotOutput16toggled(bool)));
-    connect(ui->output17, SIGNAL(toggled(bool)), this, SLOT(slotOutput17toggled(bool)));
-    connect(ui->output18, SIGNAL(toggled(bool)), this, SLOT(slotOutput18toggled(bool)));
-    connect(ui->output19, SIGNAL(toggled(bool)), this, SLOT(slotOutput19toggled(bool)));
-    connect(ui->output20, SIGNAL(toggled(bool)), this, SLOT(slotOutput20toggled(bool)));
-    connect(ui->output21, SIGNAL(toggled(bool)), this, SLOT(slotOutput21toggled(bool)));
-    connect(ui->output22, SIGNAL(toggled(bool)), this, SLOT(slotOutput22toggled(bool)));
-    connect(ui->output23, SIGNAL(toggled(bool)), this, SLOT(slotOutput23toggled(bool)));
-    connect(ui->output24, SIGNAL(toggled(bool)), this, SLOT(slotOutput24toggled(bool)));
-    connect(ui->output25, SIGNAL(toggled(bool)), this, SLOT(slotOutput25toggled(bool)));
-    connect(ui->output26, SIGNAL(toggled(bool)), this, SLOT(slotOutput26toggled(bool)));
-    connect(ui->output27, SIGNAL(toggled(bool)), this, SLOT(slotOutput27toggled(bool)));
-    connect(ui->output28, SIGNAL(toggled(bool)), this, SLOT(slotOutput28toggled(bool)));
-    connect(ui->output29, SIGNAL(toggled(bool)), this, SLOT(slotOutput29toggled(bool)));
-    connect(ui->output30, SIGNAL(toggled(bool)), this, SLOT(slotOutput30toggled(bool)));
-    connect(ui->output31, SIGNAL(toggled(bool)), this, SLOT(slotOutput31toggled(bool)));
-    connect(ui->output32, SIGNAL(toggled(bool)), this, SLOT(slotOutput32toggled(bool)));
-    connect(ui->output33, SIGNAL(toggled(bool)), this, SLOT(slotOutput33toggled(bool)));
-    connect(ui->output34, SIGNAL(toggled(bool)), this, SLOT(slotOutput34toggled(bool)));
-    connect(ui->output35, SIGNAL(toggled(bool)), this, SLOT(slotOutput35toggled(bool)));
-    connect(ui->output36, SIGNAL(toggled(bool)), this, SLOT(slotOutput36toggled(bool)));
-    connect(ui->output37, SIGNAL(toggled(bool)), this, SLOT(slotOutput38toggled(bool)));
-    connect(ui->output38, SIGNAL(toggled(bool)), this, SLOT(slotOutput38toggled(bool)));
-    connect(ui->output39, SIGNAL(toggled(bool)), this, SLOT(slotOutput39toggled(bool)));
-    connect(ui->output40, SIGNAL(toggled(bool)), this, SLOT(slotOutput40toggled(bool)));
-    connect(ui->output41, SIGNAL(toggled(bool)), this, SLOT(slotOutput41toggled(bool)));
-    connect(ui->output42, SIGNAL(toggled(bool)), this, SLOT(slotOutput42toggled(bool)));
-    connect(ui->output43, SIGNAL(toggled(bool)), this, SLOT(slotOutput43toggled(bool)));
-    connect(ui->output44, SIGNAL(toggled(bool)), this, SLOT(slotOutput44toggled(bool)));
-    connect(ui->output45, SIGNAL(toggled(bool)), this, SLOT(slotOutput45toggled(bool)));
-    connect(ui->output46, SIGNAL(toggled(bool)), this, SLOT(slotOutput46toggled(bool)));
-    connect(ui->output47, SIGNAL(toggled(bool)), this, SLOT(slotOutput47toggled(bool)));
-    connect(ui->output48, SIGNAL(toggled(bool)), this, SLOT(slotOutput48toggled(bool)));
-    connect(ui->output49, SIGNAL(toggled(bool)), this, SLOT(slotOutput49toggled(bool)));
-    connect(ui->output50, SIGNAL(toggled(bool)), this, SLOT(slotOutput50toggled(bool)));
-    connect(ui->output51, SIGNAL(toggled(bool)), this, SLOT(slotOutput51toggled(bool)));
-    connect(ui->output52, SIGNAL(toggled(bool)), this, SLOT(slotOutput52toggled(bool)));
-    connect(ui->output53, SIGNAL(toggled(bool)), this, SLOT(slotOutput53toggled(bool)));
-    connect(ui->output54, SIGNAL(toggled(bool)), this, SLOT(slotOutput54toggled(bool)));
-    connect(ui->output55, SIGNAL(toggled(bool)), this, SLOT(slotOutput55toggled(bool)));
-    connect(ui->output56, SIGNAL(toggled(bool)), this, SLOT(slotOutput56toggled(bool)));
-    connect(ui->output57, SIGNAL(toggled(bool)), this, SLOT(slotOutput57toggled(bool)));
-    connect(ui->output58, SIGNAL(toggled(bool)), this, SLOT(slotOutput58toggled(bool)));
-    connect(ui->output59, SIGNAL(toggled(bool)), this, SLOT(slotOutput59toggled(bool)));
-    connect(ui->output60, SIGNAL(toggled(bool)), this, SLOT(slotOutput60toggled(bool)));
-    connect(ui->output61, SIGNAL(toggled(bool)), this, SLOT(slotOutput61toggled(bool)));
-    connect(ui->output62, SIGNAL(toggled(bool)), this, SLOT(slotOutput62toggled(bool)));
+    connect(ui->output1, SIGNAL(clicked(bool)), this, SLOT(slotOutput1clicked(bool)));
+    connect(ui->output2, SIGNAL(clicked(bool)), this, SLOT(slotOutput2clicked(bool)));
+    connect(ui->output3, SIGNAL(clicked(bool)), this, SLOT(slotOutput3clicked(bool)));
+    connect(ui->output4, SIGNAL(clicked(bool)), this, SLOT(slotOutput4clicked(bool)));
+    connect(ui->output5, SIGNAL(clicked(bool)), this, SLOT(slotOutput5clicked(bool)));
+    connect(ui->output6, SIGNAL(clicked(bool)), this, SLOT(slotOutput6clicked(bool)));
+    connect(ui->output7, SIGNAL(clicked(bool)), this, SLOT(slotOutput7clicked(bool)));
+    connect(ui->output8, SIGNAL(clicked(bool)), this, SLOT(slotOutput8clicked(bool)));
+    connect(ui->output9, SIGNAL(clicked(bool)), this, SLOT(slotOutput9clicked(bool)));
+    connect(ui->output10, SIGNAL(clicked(bool)), this, SLOT(slotOutput10clicked(bool)));
+    connect(ui->output11, SIGNAL(clicked(bool)), this, SLOT(slotOutput11clicked(bool)));
+    connect(ui->output12, SIGNAL(clicked(bool)), this, SLOT(slotOutput12clicked(bool)));
+    connect(ui->output13, SIGNAL(clicked(bool)), this, SLOT(slotOutput13clicked(bool)));
+    connect(ui->output14, SIGNAL(clicked(bool)), this, SLOT(slotOutput14clicked(bool)));
+    connect(ui->output15, SIGNAL(clicked(bool)), this, SLOT(slotOutput15clicked(bool)));
+    connect(ui->output16, SIGNAL(clicked(bool)), this, SLOT(slotOutput16clicked(bool)));
+    connect(ui->output17, SIGNAL(clicked(bool)), this, SLOT(slotOutput17clicked(bool)));
+    connect(ui->output18, SIGNAL(clicked(bool)), this, SLOT(slotOutput18clicked(bool)));
+    connect(ui->output19, SIGNAL(clicked(bool)), this, SLOT(slotOutput19clicked(bool)));
+    connect(ui->output20, SIGNAL(clicked(bool)), this, SLOT(slotOutput20clicked(bool)));
+    connect(ui->output21, SIGNAL(clicked(bool)), this, SLOT(slotOutput21clicked(bool)));
+    connect(ui->output22, SIGNAL(clicked(bool)), this, SLOT(slotOutput22clicked(bool)));
+    connect(ui->output23, SIGNAL(clicked(bool)), this, SLOT(slotOutput23clicked(bool)));
+    connect(ui->output24, SIGNAL(clicked(bool)), this, SLOT(slotOutput24clicked(bool)));
+    connect(ui->output25, SIGNAL(clicked(bool)), this, SLOT(slotOutput25clicked(bool)));
+    connect(ui->output26, SIGNAL(clicked(bool)), this, SLOT(slotOutput26clicked(bool)));
+    connect(ui->output27, SIGNAL(clicked(bool)), this, SLOT(slotOutput27clicked(bool)));
+    connect(ui->output28, SIGNAL(clicked(bool)), this, SLOT(slotOutput28clicked(bool)));
+    connect(ui->output29, SIGNAL(clicked(bool)), this, SLOT(slotOutput29clicked(bool)));
+    connect(ui->output30, SIGNAL(clicked(bool)), this, SLOT(slotOutput30clicked(bool)));
+    connect(ui->output31, SIGNAL(clicked(bool)), this, SLOT(slotOutput31clicked(bool)));
+    connect(ui->output32, SIGNAL(clicked(bool)), this, SLOT(slotOutput32clicked(bool)));
+    connect(ui->output33, SIGNAL(clicked(bool)), this, SLOT(slotOutput33clicked(bool)));
+    connect(ui->output34, SIGNAL(clicked(bool)), this, SLOT(slotOutput34clicked(bool)));
+    connect(ui->output35, SIGNAL(clicked(bool)), this, SLOT(slotOutput35clicked(bool)));
+    connect(ui->output36, SIGNAL(clicked(bool)), this, SLOT(slotOutput36clicked(bool)));
+    connect(ui->output37, SIGNAL(clicked(bool)), this, SLOT(slotOutput37clicked(bool)));
+    connect(ui->output38, SIGNAL(clicked(bool)), this, SLOT(slotOutput38clicked(bool)));
+    connect(ui->output39, SIGNAL(clicked(bool)), this, SLOT(slotOutput39clicked(bool)));
+    connect(ui->output40, SIGNAL(clicked(bool)), this, SLOT(slotOutput40clicked(bool)));
+    connect(ui->output41, SIGNAL(clicked(bool)), this, SLOT(slotOutput41clicked(bool)));
+    connect(ui->output42, SIGNAL(clicked(bool)), this, SLOT(slotOutput42clicked(bool)));
+    connect(ui->output43, SIGNAL(clicked(bool)), this, SLOT(slotOutput43clicked(bool)));
+    connect(ui->output44, SIGNAL(clicked(bool)), this, SLOT(slotOutput44clicked(bool)));
+    connect(ui->output45, SIGNAL(clicked(bool)), this, SLOT(slotOutput45clicked(bool)));
+    connect(ui->output46, SIGNAL(clicked(bool)), this, SLOT(slotOutput46clicked(bool)));
+    connect(ui->output47, SIGNAL(clicked(bool)), this, SLOT(slotOutput47clicked(bool)));
+    connect(ui->output48, SIGNAL(clicked(bool)), this, SLOT(slotOutput48clicked(bool)));
+    connect(ui->output49, SIGNAL(clicked(bool)), this, SLOT(slotOutput49clicked(bool)));
+    connect(ui->output50, SIGNAL(clicked(bool)), this, SLOT(slotOutput50clicked(bool)));
+    connect(ui->output51, SIGNAL(clicked(bool)), this, SLOT(slotOutput51clicked(bool)));
+    connect(ui->output52, SIGNAL(clicked(bool)), this, SLOT(slotOutput52clicked(bool)));
+    connect(ui->output53, SIGNAL(clicked(bool)), this, SLOT(slotOutput53clicked(bool)));
+    connect(ui->output54, SIGNAL(clicked(bool)), this, SLOT(slotOutput54clicked(bool)));
+    connect(ui->output55, SIGNAL(clicked(bool)), this, SLOT(slotOutput55clicked(bool)));
+    connect(ui->output56, SIGNAL(clicked(bool)), this, SLOT(slotOutput56clicked(bool)));
+    connect(ui->output57, SIGNAL(clicked(bool)), this, SLOT(slotOutput57clicked(bool)));
+    connect(ui->output58, SIGNAL(clicked(bool)), this, SLOT(slotOutput58clicked(bool)));
+    connect(ui->output59, SIGNAL(clicked(bool)), this, SLOT(slotOutput59clicked(bool)));
+    connect(ui->output60, SIGNAL(clicked(bool)), this, SLOT(slotOutput60clicked(bool)));
+    connect(ui->output61, SIGNAL(clicked(bool)), this, SLOT(slotOutput61clicked(bool)));
+    connect(ui->output62, SIGNAL(clicked(bool)), this, SLOT(slotOutput62clicked(bool)));
 
 //    connect(ui->addError, SIGNAL(clicked(bool)), this, SLOT(slotAddError(bool)));
 
@@ -95,15 +95,15 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     //    thread = new QThread(this);
     /// TODO - в отдельный поток?
-    //    me->moveToThread(thread);
-    me->initTransmit();
-
+    //    me->moveToThread(thread);    
     //    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     //    thread->start();
 
-//    timer = new QTimer(this);
+    //    timer = new QTimer(this);
 //    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
 
+
+    me->initTransmit();
     me->startExchange();
     connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotWaitForSignalIS3()));
     connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotWaitForSignalIS4()));
@@ -225,7 +225,7 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 {
     for (int i = 0; i < output_size; i++)
     {
-        last_toggled_o[i] = toggled;
+        last_pressed_o[i] = !toggled;
     }
 
     if (toggled)
@@ -266,389 +266,79 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
         }
     }
 
-    ui->output1->setChecked(toggled);
-    ui->output2->setChecked(toggled);
-    ui->output3->setChecked(toggled);
-    ui->output4->setChecked(toggled);
-    ui->output5->setChecked(toggled);
-    ui->output6->setChecked(toggled);
-    ui->output7->setChecked(toggled);
-    ui->output8->setChecked(toggled);
-    ui->output9->setChecked(toggled);
-    ui->output10->setChecked(toggled);
-    ui->output11->setChecked(toggled);
-    ui->output12->setChecked(toggled);
-    ui->output13->setChecked(toggled);
-    ui->output14->setChecked(toggled);
-    ui->output15->setChecked(toggled);
-    ui->output16->setChecked(toggled);
-    ui->output17->setChecked(toggled);
-    ui->output18->setChecked(toggled);
-    ui->output19->setChecked(toggled);
-    ui->output20->setChecked(toggled);
-    ui->output21->setChecked(toggled);
-    ui->output22->setChecked(toggled);
-    ui->output23->setChecked(toggled);
-    ui->output24->setChecked(toggled);
-    ui->output25->setChecked(toggled);
-    ui->output26->setChecked(toggled);
-    ui->output27->setChecked(toggled);
-    ui->output28->setChecked(toggled);
-    ui->output29->setChecked(toggled);
-    ui->output30->setChecked(toggled);
-    ui->output31->setChecked(toggled);
-    ui->output32->setChecked(toggled);
-    ui->output33->setChecked(toggled);
-    ui->output34->setChecked(toggled);
-    ui->output35->setChecked(toggled);
-    ui->output36->setChecked(toggled);
-    ui->output37->setChecked(toggled);
-    ui->output38->setChecked(toggled);
-    ui->output39->setChecked(toggled);
-    ui->output40->setChecked(toggled);
-    ui->output41->setChecked(toggled);
-    ui->output42->setChecked(toggled);
-    ui->output43->setChecked(toggled);
-    ui->output44->setChecked(toggled);
-    ui->output45->setChecked(toggled);
-    ui->output46->setChecked(toggled);
-    ui->output47->setChecked(toggled);
-    ui->output48->setChecked(toggled);
-    ui->output49->setChecked(toggled);
-    ui->output50->setChecked(toggled);
-    ui->output51->setChecked(toggled);
-    ui->output52->setChecked(toggled);
-    ui->output53->setChecked(toggled);
-    ui->output54->setChecked(toggled);
-    ui->output55->setChecked(toggled);
-    ui->output56->setChecked(toggled);
-    ui->output57->setChecked(toggled);
-    ui->output58->setChecked(toggled);
-    ui->output59->setChecked(toggled);
-    ui->output60->setChecked(toggled);
-    ui->output61->setChecked(toggled);
-    ui->output62->setChecked(toggled);
+    ui->output1->clicked(true);
+    ui->output2->clicked(true);
+    ui->output3->clicked(true);
+    ui->output4->clicked(true);
+    ui->output5->clicked(true);
+    ui->output6->clicked(true);
+    ui->output7->clicked(true);
+    ui->output8->clicked(true);
+    ui->output9->clicked(true);
+    ui->output10->clicked(true);
+    ui->output11->clicked(true);
+    ui->output12->clicked(true);
+    ui->output13->clicked(true);
+    ui->output14->clicked(true);
+    ui->output15->clicked(true);
+    ui->output16->clicked(true);
+    ui->output17->clicked(true);
+    ui->output18->clicked(true);
+    ui->output19->clicked(true);
+    ui->output20->clicked(true);
+    ui->output21->clicked(true);
+    ui->output22->clicked(true);
+    ui->output23->clicked(true);
+    ui->output24->clicked(true);
+    ui->output25->clicked(true);
+    ui->output26->clicked(true);
+    ui->output27->clicked(true);
+    ui->output28->clicked(true);
+    ui->output29->clicked(true);
+    ui->output30->clicked(true);
+    ui->output31->clicked(true);
+    ui->output32->clicked(true);
+    ui->output33->clicked(true);
+    ui->output34->clicked(true);
+    ui->output35->clicked(true);
+    ui->output36->clicked(true);
+    ui->output37->clicked(true);
+    ui->output38->clicked(true);
+    ui->output39->clicked(true);
+    ui->output40->clicked(true);
+    ui->output41->clicked(true);
+    ui->output42->clicked(true);
+    ui->output43->clicked(true);
+    ui->output44->clicked(true);
+    ui->output45->clicked(true);
+    ui->output46->clicked(true);
+    ui->output47->clicked(true);
+    ui->output48->clicked(true);
+    ui->output49->clicked(true);
+    ui->output50->clicked(true);
+    ui->output51->clicked(true);
+    ui->output52->clicked(true);
+    ui->output53->clicked(true);
+    ui->output54->clicked(true);
+    ui->output55->clicked(true);
+    ui->output56->clicked(true);
+    ui->output57->clicked(true);
+    ui->output58->clicked(true);
+    ui->output59->clicked(true);
+    ui->output60->clicked(true);
+    ui->output61->clicked(true);
+    ui->output62->clicked(true);
 }
 
-void PVKPWindow::slotOutput1toggled(bool toggled)
+void PVKPWindow::manageOneOutput(int number, bool pressed, QPushButton *output_button)
 {
-    manageOneOutput(output1, toggled);
-}
-
-void PVKPWindow::slotOutput2toggled(bool toggled)
-{
-    manageOneOutput(output2, toggled);
-}
-
-void PVKPWindow::slotOutput3toggled(bool toggled)
-{
-    manageOneOutput(output3, toggled);
-}
-
-void PVKPWindow::slotOutput4toggled(bool toggled)
-{
-    manageOneOutput(output4, toggled);
-}
-
-void PVKPWindow::slotOutput5toggled(bool toggled)
-{
-    manageOneOutput(output5, toggled);
-}
-
-void PVKPWindow::slotOutput6toggled(bool toggled)
-{
-    manageOneOutput(output6, toggled);
-}
-
-void PVKPWindow::slotOutput7toggled(bool toggled)
-{
-    manageOneOutput(output7, toggled);
-}
-
-void PVKPWindow::slotOutput8toggled(bool toggled)
-{
-    manageOneOutput(output8, toggled);
-}
-
-void PVKPWindow::slotOutput9toggled(bool toggled)
-{
-    manageOneOutput(output9, toggled);
-}
-
-void PVKPWindow::slotOutput10toggled(bool toggled)
-{
-    manageOneOutput(output10, toggled);
-}
-
-void PVKPWindow::slotOutput11toggled(bool toggled)
-{
-    manageOneOutput(output11, toggled);
-}
-
-void PVKPWindow::slotOutput12toggled(bool toggled)
-{
-    manageOneOutput(output12, toggled);
-}
-
-void PVKPWindow::slotOutput13toggled(bool toggled)
-{
-    manageOneOutput(output13, toggled);
-}
-
-void PVKPWindow::slotOutput14toggled(bool toggled)
-{
-    manageOneOutput(output14, toggled);
-}
-
-void PVKPWindow::slotOutput15toggled(bool toggled)
-{
-    manageOneOutput(output15, toggled);
-}
-
-void PVKPWindow::slotOutput16toggled(bool toggled)
-{
-    manageOneOutput(output16, toggled);
-}
-
-void PVKPWindow::slotOutput17toggled(bool toggled)
-{
-    manageOneOutput(output17, toggled);
-}
-
-void PVKPWindow::slotOutput18toggled(bool toggled)
-{
-    manageOneOutput(output18, toggled);
-}
-
-void PVKPWindow::slotOutput19toggled(bool toggled)
-{
-    manageOneOutput(output19, toggled);
-}
-
-void PVKPWindow::slotOutput20toggled(bool toggled)
-{
-    manageOneOutput(output20, toggled);
-}
-
-void PVKPWindow::slotOutput21toggled(bool toggled)
-{
-    manageOneOutput(output21, toggled);
-}
-
-void PVKPWindow::slotOutput22toggled(bool toggled)
-{
-
-    manageOneOutput(output22, toggled);
-}
-
-void PVKPWindow::slotOutput23toggled(bool toggled)
-{
-    manageOneOutput(output23, toggled);
-}
-
-void PVKPWindow::slotOutput24toggled(bool toggled)
-{
-    manageOneOutput(output24, toggled);
-}
-
-void PVKPWindow::slotOutput25toggled(bool toggled)
-{
-    manageOneOutput(output25, toggled);
-}
-
-void PVKPWindow::slotOutput26toggled(bool toggled)
-{
-
-    manageOneOutput(output26, toggled);
-}
-
-void PVKPWindow::slotOutput27toggled(bool toggled)
-{
-    manageOneOutput(output27, toggled);
-}
-
-void PVKPWindow::slotOutput28toggled(bool toggled)
-{
-    manageOneOutput(output28, toggled);
-}
-
-void PVKPWindow::slotOutput29toggled(bool toggled)
-{
-    manageOneOutput(output29, toggled);
-}
-
-void PVKPWindow::slotOutput30toggled(bool toggled)
-{
-    manageOneOutput(output30, toggled);
-}
-
-void PVKPWindow::slotOutput31toggled(bool toggled)
-{
-    manageOneOutput(output31, toggled);
-}
-
-void PVKPWindow::slotOutput32toggled(bool toggled)
-{
-    manageOneOutput(output32, toggled);
-}
-
-void PVKPWindow::slotOutput33toggled(bool toggled)
-{
-    manageOneOutput(output33, toggled);
-}
-
-void PVKPWindow::slotOutput34toggled(bool toggled)
-{
-    manageOneOutput(output34, toggled);
-}
-
-void PVKPWindow::slotOutput35toggled(bool toggled)
-{
-    manageOneOutput(output35, toggled);
-}
-
-void PVKPWindow::slotOutput36toggled(bool toggled)
-{
-    manageOneOutput(output36, toggled);
-}
-
-void PVKPWindow::slotOutput37toggled(bool toggled)
-{
-    manageOneOutput(output37, toggled);
-}
-
-void PVKPWindow::slotOutput38toggled(bool toggled)
-{
-    manageOneOutput(output38, toggled);
-}
-
-void PVKPWindow::slotOutput39toggled(bool toggled)
-{
-    manageOneOutput(output39, toggled);
-}
-
-void PVKPWindow::slotOutput40toggled(bool toggled)
-{
-    manageOneOutput(output40, toggled);
-}
-
-void PVKPWindow::slotOutput41toggled(bool toggled)
-{
-    manageOneOutput(output41, toggled);
-}
-
-void PVKPWindow::slotOutput42toggled(bool toggled)
-{
-    manageOneOutput(output42, toggled);
-}
-
-void PVKPWindow::slotOutput43toggled(bool toggled)
-{
-    manageOneOutput(output43, toggled);
-}
-
-void PVKPWindow::slotOutput44toggled(bool toggled)
-{
-    manageOneOutput(output44, toggled);
-}
-
-void PVKPWindow::slotOutput45toggled(bool toggled)
-{
-    manageOneOutput(output45, toggled);
-}
-
-void PVKPWindow::slotOutput46toggled(bool toggled)
-{
-    manageOneOutput(output46, toggled);
-}
-
-void PVKPWindow::slotOutput47toggled(bool toggled)
-{
-    manageOneOutput(output47, toggled);
-}
-
-void PVKPWindow::slotOutput48toggled(bool toggled)
-{
-    manageOneOutput(output48, toggled);
-}
-
-void PVKPWindow::slotOutput49toggled(bool toggled)
-{
-    manageOneOutput(output49, toggled);
-}
-
-void PVKPWindow::slotOutput50toggled(bool toggled)
-{
-    manageOneOutput(output50, toggled);
-}
-
-void PVKPWindow::slotOutput51toggled(bool toggled)
-{
-    manageOneOutput(output51, toggled);
-}
-
-void PVKPWindow::slotOutput52toggled(bool toggled)
-{
-    manageOneOutput(output52, toggled);
-}
-
-void PVKPWindow::slotOutput53toggled(bool toggled)
-{
-    manageOneOutput(output53, toggled);
-}
-
-void PVKPWindow::slotOutput54toggled(bool toggled)
-{
-    manageOneOutput(output54, toggled);
-}
-
-void PVKPWindow::slotOutput55toggled(bool toggled)
-{
-    manageOneOutput(output55, toggled);
-}
-
-void PVKPWindow::slotOutput56toggled(bool toggled)
-{
-    manageOneOutput(output56, toggled);
-}
-
-void PVKPWindow::slotOutput57toggled(bool toggled)
-{
-    manageOneOutput(output57, toggled);
-}
-
-void PVKPWindow::slotOutput58toggled(bool toggled)
-{
-    manageOneOutput(output58, toggled);
-}
-
-void PVKPWindow::slotOutput59toggled(bool toggled)
-{
-    manageOneOutput(output59, toggled);
-}
-
-void PVKPWindow::slotOutput60toggled(bool toggled)
-{
-    manageOneOutput(output60, toggled);
-}
-
-void PVKPWindow::slotOutput61toggled(bool toggled)
-{
-    manageOneOutput(output61, toggled);
-}
-
-void PVKPWindow::slotOutput62toggled(bool toggled)
-{
-    manageOneOutput(output62, toggled);
-}
-
-void PVKPWindow::manageOneOutput(int number, bool toggled)
-{
-    if (last_toggled_o[number - 1] != toggled)
+    if (!pressed)
     {
-        last_toggled_o[number - 1] = toggled;
-        if (toggled)
+        if (last_pressed_o[number - 1])
         {
+            last_pressed_o[number - 1] = false;
+//            output_button->setText(QString::number(number) + " Выключен");
+
             if (ui->addError->isChecked())
             {
                 me->addErrorToIS2(number, cntrl_off);
@@ -659,13 +349,13 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
             }
 
             // сохраняю для дальнейшего сравения с результатом
-            for (int i = 0; i < output_size; i++)
-            {
-                o_cntrl[i] = cntrl_off;
-            }
+            o_cntrl[number - 1] = cntrl_off;
         }
         else
         {
+            last_pressed_o[number - 1] = true;
+//            output_button->setText(QString::number(number) + " Включен");
+
             if (ui->addError->isChecked())
             {
                 me->addErrorToIS2(number, cntrl_on);
@@ -676,11 +366,440 @@ void PVKPWindow::manageOneOutput(int number, bool toggled)
             }
 
             // сохраняю для дальнейшего сравения с результатом
-            for (int i = 0; i < output_size; i++)
-            {
-                o_cntrl[i] = cntrl_on;
-            }
+            o_cntrl[number - 1] = cntrl_on;
         }
+    }
+//    else
+//    {
+//        if (last_pressed_o[number - 1])
+//        {
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+//            ui->output1->setText(QString::number(output1) + " Выключен");
+
+//        }
+//        else
+//        {
+//            output_button->setText(QString::number(number) + " Включен");
+//        }
+//    }
+}
+
+void PVKPWindow::slotOutput1clicked(bool pressed)
+{
+    manageOneOutput(output1, pressed, ui->output1);
+}
+
+void PVKPWindow::slotOutput2clicked(bool pressed)
+{
+
+    manageOneOutput(output2, pressed, ui->output2);
+}
+
+void PVKPWindow::slotOutput3clicked(bool pressed)
+{
+
+    manageOneOutput(output3, pressed, ui->output3);
+}
+
+void PVKPWindow::slotOutput4clicked(bool pressed)
+{
+
+    manageOneOutput(output4, pressed, ui->output4);
+}
+
+void PVKPWindow::slotOutput5clicked(bool pressed)
+{
+
+    manageOneOutput(output5, pressed, ui->output5);
+}
+
+void PVKPWindow::slotOutput6clicked(bool pressed)
+{
+
+    manageOneOutput(output6, pressed, ui->output6);
+}
+
+void PVKPWindow::slotOutput7clicked(bool pressed)
+{
+
+    manageOneOutput(output7, pressed, ui->output7);
+}
+
+void PVKPWindow::slotOutput8clicked(bool pressed)
+{
+
+    manageOneOutput(output8, pressed, ui->output8);
+}
+
+void PVKPWindow::slotOutput9clicked(bool pressed)
+{
+
+    manageOneOutput(output9, pressed, ui->output9);
+}
+
+void PVKPWindow::slotOutput10clicked(bool pressed)
+{
+
+    manageOneOutput(output10, pressed, ui->output10);
+}
+
+void PVKPWindow::slotOutput11clicked(bool pressed)
+{
+
+    manageOneOutput(output11, pressed, ui->output11);
+}
+
+void PVKPWindow::slotOutput12clicked(bool pressed)
+{
+
+    manageOneOutput(output12, pressed, ui->output12);
+}
+
+void PVKPWindow::slotOutput13clicked(bool pressed)
+{
+
+    manageOneOutput(output13, pressed, ui->output13);
+}
+
+void PVKPWindow::slotOutput14clicked(bool pressed)
+{
+
+    manageOneOutput(output14, pressed, ui->output14);
+}
+
+void PVKPWindow::slotOutput15clicked(bool pressed)
+{
+
+    manageOneOutput(output15, pressed, ui->output15);
+}
+
+void PVKPWindow::slotOutput16clicked(bool pressed)
+{
+
+    manageOneOutput(output16, pressed, ui->output16);
+}
+
+void PVKPWindow::slotOutput17clicked(bool pressed)
+{
+
+    manageOneOutput(output17, pressed, ui->output17);
+}
+
+void PVKPWindow::slotOutput18clicked(bool pressed)
+{
+
+    manageOneOutput(output18, pressed, ui->output18);
+}
+
+void PVKPWindow::slotOutput19clicked(bool pressed)
+{
+
+    manageOneOutput(output19, pressed, ui->output19);
+}
+
+void PVKPWindow::slotOutput20clicked(bool pressed)
+{
+
+    manageOneOutput(output20, pressed, ui->output20);
+}
+
+void PVKPWindow::slotOutput21clicked(bool pressed)
+{
+
+    manageOneOutput(output21, pressed, ui->output21);
+}
+
+void PVKPWindow::slotOutput22clicked(bool pressed)
+{
+
+    manageOneOutput(output22, pressed, ui->output22);
+}
+
+void PVKPWindow::slotOutput23clicked(bool pressed)
+{
+
+    manageOneOutput(output23, pressed, ui->output23);
+}
+
+void PVKPWindow::slotOutput24clicked(bool pressed)
+{
+
+    manageOneOutput(output24, pressed, ui->output24);
+}
+
+void PVKPWindow::slotOutput25clicked(bool pressed)
+{
+
+    manageOneOutput(output25, pressed, ui->output25);
+}
+
+void PVKPWindow::slotOutput26clicked(bool pressed)
+{
+
+    manageOneOutput(output26, pressed, ui->output26);
+}
+
+void PVKPWindow::slotOutput27clicked(bool pressed)
+{
+
+    manageOneOutput(output27, pressed, ui->output27);
+}
+
+void PVKPWindow::slotOutput28clicked(bool pressed)
+{
+
+    manageOneOutput(output28, pressed, ui->output28);
+}
+
+void PVKPWindow::slotOutput29clicked(bool pressed)
+{
+
+    manageOneOutput(output29, pressed, ui->output29);
+}
+
+void PVKPWindow::slotOutput30clicked(bool pressed)
+{
+
+    manageOneOutput(output30, pressed, ui->output30);
+}
+
+void PVKPWindow::slotOutput31clicked(bool pressed)
+{
+
+    manageOneOutput(output31, pressed, ui->output31);
+}
+
+void PVKPWindow::slotOutput32clicked(bool pressed)
+{
+
+    manageOneOutput(output32, pressed, ui->output32);
+}
+
+void PVKPWindow::slotOutput33clicked(bool pressed)
+{
+
+    manageOneOutput(output33, pressed, ui->output33);
+}
+
+void PVKPWindow::slotOutput34clicked(bool pressed)
+{
+
+    manageOneOutput(output34, pressed, ui->output34);
+}
+
+void PVKPWindow::slotOutput35clicked(bool pressed)
+{
+
+    manageOneOutput(output35, pressed, ui->output35);
+}
+
+void PVKPWindow::slotOutput36clicked(bool pressed)
+{
+
+    manageOneOutput(output36, pressed, ui->output36);
+}
+
+void PVKPWindow::slotOutput37clicked(bool pressed)
+{
+
+    manageOneOutput(output37, pressed, ui->output37);
+}
+
+void PVKPWindow::slotOutput38clicked(bool pressed)
+{
+
+    manageOneOutput(output38, pressed, ui->output38);
+}
+
+void PVKPWindow::slotOutput39clicked(bool pressed)
+{
+
+    manageOneOutput(output39, pressed, ui->output39);
+}
+
+void PVKPWindow::slotOutput40clicked(bool pressed)
+{
+
+    manageOneOutput(output40, pressed, ui->output40);
+}
+
+void PVKPWindow::slotOutput41clicked(bool pressed)
+{
+
+    manageOneOutput(output41, pressed, ui->output41);
+}
+
+void PVKPWindow::slotOutput42clicked(bool pressed)
+{
+
+    manageOneOutput(output42, pressed, ui->output42);
+}
+
+void PVKPWindow::slotOutput43clicked(bool pressed)
+{
+
+    manageOneOutput(output43, pressed, ui->output43);
+}
+
+void PVKPWindow::slotOutput44clicked(bool pressed)
+{
+
+    manageOneOutput(output44, pressed, ui->output44);
+}
+
+void PVKPWindow::slotOutput45clicked(bool pressed)
+{
+
+    manageOneOutput(output45, pressed, ui->output45);
+}
+
+void PVKPWindow::slotOutput46clicked(bool pressed)
+{
+
+    manageOneOutput(output46, pressed, ui->output46);
+}
+
+void PVKPWindow::slotOutput47clicked(bool pressed)
+{
+
+    manageOneOutput(output47, pressed, ui->output47);
+}
+
+void PVKPWindow::slotOutput48clicked(bool pressed)
+{
+
+    manageOneOutput(output48, pressed, ui->output48);
+}
+
+void PVKPWindow::slotOutput49clicked(bool pressed)
+{
+
+    manageOneOutput(output49, pressed, ui->output49);
+}
+
+void PVKPWindow::slotOutput50clicked(bool pressed)
+{
+
+    manageOneOutput(output50, pressed, ui->output50);
+}
+
+void PVKPWindow::slotOutput51clicked(bool pressed)
+{
+
+    manageOneOutput(output51, pressed, ui->output51);
+}
+
+void PVKPWindow::slotOutput52clicked(bool pressed)
+{
+
+    manageOneOutput(output52, pressed, ui->output52);
+}
+
+void PVKPWindow::slotOutput53clicked(bool pressed)
+{
+
+    manageOneOutput(output53, pressed, ui->output53);
+}
+
+void PVKPWindow::slotOutput54clicked(bool pressed)
+{
+
+    manageOneOutput(output54, pressed, ui->output54);
+}
+
+void PVKPWindow::slotOutput55clicked(bool pressed)
+{
+
+    manageOneOutput(output55, pressed, ui->output55);
+}
+
+void PVKPWindow::slotOutput56clicked(bool pressed)
+{
+
+    manageOneOutput(output56, pressed, ui->output56);
+}
+
+void PVKPWindow::slotOutput57clicked(bool pressed)
+{
+
+    manageOneOutput(output57, pressed, ui->output57);
+}
+
+void PVKPWindow::slotOutput58clicked(bool pressed)
+{
+
+    manageOneOutput(output58, pressed, ui->output58);
+}
+
+void PVKPWindow::slotOutput59clicked(bool pressed)
+{
+
+    manageOneOutput(output59, pressed, ui->output59);
+}
+
+void PVKPWindow::slotOutput60clicked(bool pressed)
+{
+
+    manageOneOutput(output60, pressed, ui->output60);
+}
+
+void PVKPWindow::slotOutput61clicked(bool pressed)
+{
+
+    manageOneOutput(output61, pressed, ui->output61);
+}
+
+void PVKPWindow::slotOutput62clicked(bool pressed)
+{
+
+    manageOneOutput(output62, pressed, ui->output62);
+}
+
+void PVKPWindow::manageOneOutput(int number, QPushButton *output_button)
+{
+    if (last_pressed_o[number - 1])
+    {
+        output_button->setText(QString::number(number) + " Выключен");
+        last_pressed_o[number - 1] = false;
+
+        if (ui->addError->isChecked())
+        {
+            me->addErrorToIS2(number, cntrl_off);
+        }
+        else
+        {
+            me->createIS2(number, cntrl_off);
+        }
+
+        // сохраняю для дальнейшего сравения с результатом
+        o_cntrl[number - 1] = cntrl_off;
+    }
+    else
+    {
+        output_button->setText(QString::number(number) + " Включен");
+        last_pressed_o[number - 1] = true;
+
+        if (ui->addError->isChecked())
+        {
+            me->addErrorToIS2(number, cntrl_on);
+        }
+        else
+        {
+            me->createIS2(number, cntrl_on);
+        }
+
+        // сохраняю для дальнейшего сравения с результатом
+        o_cntrl[number - 1] = cntrl_on;
     }
 }
 
@@ -867,83 +986,83 @@ void PVKPWindow::setInputColor(const unsigned &input, QPushButton *input_button)
 
 void PVKPWindow::showOutputsValue()
 {
-    setOutputColor(me->getOutputState(output1), ui->output1);
-    setOutputColor(me->getOutputState(output2), ui->output2);
-    setOutputColor(me->getOutputState(output3), ui->output3);
-    setOutputColor(me->getOutputState(output4), ui->output4);
+    setOutputColor(output1,  ui->output1);
+    setOutputColor(output2,  ui->output2);
+    setOutputColor(output3,  ui->output3);
+    setOutputColor(output4,  ui->output4);
 
-    setOutputColor(me->getOutputState(output5), ui->output5);
-    setOutputColor(me->getOutputState(output6), ui->output6);
-    setOutputColor(me->getOutputState(output7), ui->output7);
-    setOutputColor(me->getOutputState(output8), ui->output8);
+    setOutputColor(output5,  ui->output5);
+    setOutputColor(output6,  ui->output6);
+    setOutputColor(output7,  ui->output7);
+    setOutputColor(output8,  ui->output8);
 
-    setOutputColor(me->getOutputState(output9), ui->output9);
-    setOutputColor(me->getOutputState(output10), ui->output10);
-    setOutputColor(me->getOutputState(output11), ui->output11);
-    setOutputColor(me->getOutputState(output12), ui->output12);
+    setOutputColor(output9,  ui->output9);
+    setOutputColor(output10,  ui->output10);
+    setOutputColor(output11,  ui->output11);
+    setOutputColor(output12,  ui->output12);
 
-    setOutputColor(me->getOutputState(output13), ui->output13);
-    setOutputColor(me->getOutputState(output14), ui->output14);
-    setOutputColor(me->getOutputState(output15), ui->output15);
-    setOutputColor(me->getOutputState(output16), ui->output16);
+    setOutputColor(output13,  ui->output13);
+    setOutputColor(output14,  ui->output14);
+    setOutputColor(output15,  ui->output15);
+    setOutputColor(output16,  ui->output16);
 
-    setOutputColor(me->getOutputState(output17), ui->output17);
-    setOutputColor(me->getOutputState(output18), ui->output18);
-    setOutputColor(me->getOutputState(output19), ui->output19);
-    setOutputColor(me->getOutputState(output20), ui->output20);
+    setOutputColor(output17,  ui->output17);
+    setOutputColor(output18,  ui->output18);
+    setOutputColor(output19,  ui->output19);
+    setOutputColor(output20,  ui->output20);
 
-    setOutputColor(me->getOutputState(output21), ui->output21);
-    setOutputColor(me->getOutputState(output22), ui->output22);
-    setOutputColor(me->getOutputState(output23), ui->output23);
-    setOutputColor(me->getOutputState(output24), ui->output24);
+    setOutputColor(output21,  ui->output21);
+    setOutputColor(output22,  ui->output22);
+    setOutputColor(output23,  ui->output23);
+    setOutputColor(output24,  ui->output24);
 
-    setOutputColor(me->getOutputState(output25), ui->output25);
-    setOutputColor(me->getOutputState(output26), ui->output26);
-    setOutputColor(me->getOutputState(output27), ui->output27);
-    setOutputColor(me->getOutputState(output28), ui->output28);
+    setOutputColor(output25,  ui->output25);
+    setOutputColor(output26,  ui->output26);
+    setOutputColor(output27,  ui->output27);
+    setOutputColor(output28,  ui->output28);
 
-    setOutputColor(me->getOutputState(output29), ui->output29);
-    setOutputColor(me->getOutputState(output30), ui->output30);
-    setOutputColor(me->getOutputState(output31), ui->output31);
-    setOutputColor(me->getOutputState(output32), ui->output32);
+    setOutputColor(output29,  ui->output29);
+    setOutputColor(output30,  ui->output30);
+    setOutputColor(output31,  ui->output31);
+    setOutputColor(output32,  ui->output32);
 
-    setOutputColor(me->getOutputState(output33), ui->output33);
-    setOutputColor(me->getOutputState(output34), ui->output34);
-    setOutputColor(me->getOutputState(output35), ui->output35);
-    setOutputColor(me->getOutputState(output36), ui->output36);
+    setOutputColor(output33,  ui->output33);
+    setOutputColor(output34,  ui->output34);
+    setOutputColor(output35,  ui->output35);
+    setOutputColor(output36,  ui->output36);
 
-    setOutputColor(me->getOutputState(output37), ui->output37);
-    setOutputColor(me->getOutputState(output38), ui->output38);
-    setOutputColor(me->getOutputState(output39), ui->output39);
-    setOutputColor(me->getOutputState(output40), ui->output40);
+    setOutputColor(output37,  ui->output37);
+    setOutputColor(output38,  ui->output38);
+    setOutputColor(output39,  ui->output39);
+    setOutputColor(output40,  ui->output40);
 
-    setOutputColor(me->getOutputState(output41), ui->output41);
-    setOutputColor(me->getOutputState(output42), ui->output42);
-    setOutputColor(me->getOutputState(output43), ui->output43);
-    setOutputColor(me->getOutputState(output44), ui->output44);
+    setOutputColor(output41,  ui->output41);
+    setOutputColor(output42,  ui->output42);
+    setOutputColor(output43,  ui->output43);
+    setOutputColor(output44,  ui->output44);
 
-    setOutputColor(me->getOutputState(output45), ui->output45);
-    setOutputColor(me->getOutputState(output46), ui->output46);
-    setOutputColor(me->getOutputState(output47), ui->output47);
-    setOutputColor(me->getOutputState(output48), ui->output48);
+    setOutputColor(output45,  ui->output45);
+    setOutputColor(output46,  ui->output46);
+    setOutputColor(output47,  ui->output47);
+    setOutputColor(output48,  ui->output48);
 
-    setOutputColor(me->getOutputState(output49), ui->output49);
-    setOutputColor(me->getOutputState(output50), ui->output50);
-    setOutputColor(me->getOutputState(output51), ui->output51);
-    setOutputColor(me->getOutputState(output52), ui->output52);
+    setOutputColor(output49,  ui->output49);
+    setOutputColor(output50,  ui->output50);
+    setOutputColor(output51,  ui->output51);
+    setOutputColor(output52,  ui->output52);
 
-    setOutputColor(me->getOutputState(output53), ui->output53);
-    setOutputColor(me->getOutputState(output54), ui->output54);
-    setOutputColor(me->getOutputState(output55), ui->output55);
-    setOutputColor(me->getOutputState(output56), ui->output56);
+    setOutputColor(output53,  ui->output53);
+    setOutputColor(output54,  ui->output54);
+    setOutputColor(output55,  ui->output55);
+    setOutputColor(output56,  ui->output56);
 
-    setOutputColor(me->getOutputState(output57), ui->output57);
-    setOutputColor(me->getOutputState(output58), ui->output58);
-    setOutputColor(me->getOutputState(output59), ui->output59);
-    setOutputColor(me->getOutputState(output60), ui->output60);
+    setOutputColor(output57,  ui->output57);
+    setOutputColor(output58,  ui->output58);
+    setOutputColor(output59,  ui->output59);
+    setOutputColor(output60,  ui->output60);
 
-    setOutputColor(me->getOutputState(output61), ui->output61);
-    setOutputColor(me->getOutputState(output62), ui->output62);
+    setOutputColor(output61,  ui->output61);
+    setOutputColor(output62,  ui->output62);
 }
 
 void PVKPWindow::setOutputColor(int o_nmb, QPushButton *output_button)
@@ -951,6 +1070,61 @@ void PVKPWindow::setOutputColor(int o_nmb, QPushButton *output_button)
     output_state state = me->getOutputState(o_nmb);
     if (o_nmb < output_size)
     {
+        if (o_cntrl[o_nmb - 1] == cntrl_on)
+        {
+            switch (state)
+            {
+            case output_on:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::green);
+                break;
+
+            case output_off:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::gray);
+                break;
+
+            case no_output_state:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::yellow);
+                break;
+
+            case error_output:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::red);
+                break;
+
+            default:
+                qDebug() << "output " << state << "no data";
+                break;
+            }
+            output_button->setPalette(button_palette[o_nmb - 1]);
+        }
+
+        if (o_cntrl[o_nmb - 1] == cntrl_off)
+        {
+            switch (state)
+            {
+            case output_on:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::gray);
+                break;
+
+            case output_off:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::gray);
+                break;
+
+            case no_output_state:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::yellow);
+                break;
+
+            case error_output:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::red);
+                break;
+
+            default:
+                qDebug() << "output " << state << "no data";
+                break;
+            }
+            output_button->setPalette(button_palette[o_nmb - 1]);
+        }
+
+/*
         switch (state)
         {
         case output_on:
@@ -989,6 +1163,7 @@ void PVKPWindow::setOutputColor(int o_nmb, QPushButton *output_button)
             qDebug() << "output " << state << "no data";
             break;
         }
+*/
     }
     else
     {

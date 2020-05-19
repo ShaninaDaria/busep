@@ -63,6 +63,7 @@ void messageExchange::createIS1()
 void messageExchange::createIS2(char number, output_cntrl cntrl)
 {
     //    printf("%s number %02x\n", __FUNCTION__, number);
+//    qDebug() << number;
     IS2 = formingIMpvkp->createIS2(number, cntrl);
 }
 

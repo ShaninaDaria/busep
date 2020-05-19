@@ -9,11 +9,11 @@ _is1 FormingIM_pvkp::createIS1()
 {
     bzero(&IS1, sizeof(_is1));
 
-//    qDebug() << "IS1";
     IS1.header = header; // printf("    header \t%02x\n", IS1.header);
     IS1.managed = request; // printf("    managed \t%02x\n", IS1.managed);
     IS1.crc = im.calculateCRC(&IS1, (sizeof (_is1) - 1)); // printf("    crc \t%02x\n", IS1.crc);
 
+//    qDebug() << __FUNCTION__;
 //    qDebug() << ">>>header" << IS1.header;
 //    qDebug() << ">>managed" << IS1.managed;
 //    qDebug() << ">>>>>>crc" << IS1.crc;
@@ -26,13 +26,13 @@ _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
 {
     bzero(&IS2, (sizeof (_is2)));
 
-    qDebug() << __FUNCTION__;
     IS2.header = header; // printf("    header \t%02x\n", IS2.header);
     IS2.managed = change_state; // printf("    managed \t%02x\n", IS2.managed);
     IS2.device_number = device_number; // printf("    device_number \t%d\n", IS2.device_number);
     IS2.state = cntrl; // printf("    state \t%02x\n", IS2.state);
     IS2.crc = im.calculateCRC(&IS2, (sizeof (_is2) - 1));  // printf("    crc \t%02x\n", IS2.crc);
 
+//    qDebug() << __FUNCTION__;
 //    qDebug() << ">>>>>>>>>>header" << IS2.header;
 //    qDebug() << ">>>>>>>>>managed" << IS2.managed;
 //    if (device_number == 0x00)
@@ -49,25 +49,7 @@ _is2 FormingIM_pvkp::createIS2(char device_number, output_cntrl cntrl)
 
     return IS2;
 }
-/*
-char FormingIM_pvkp::calculateCRC(void *p, int bytes)
-{
-    char crc = 0xff;
-    char *array = (char *)p;
-    bytes--;
-    while (bytes--)
-    {
-        crc = CRC8table[crc ^ *array++];
-    }
-    return crc;
-}
 
-bool FormingIM_pvkp::checkCRC(void *p, int bytes, unsigned char crc)
-{
-    char crc_check = calculateCRC(p, bytes);
-    return (crc_check == crc);
-}
-*/
 _is1 FormingIM_pvkp::getIS1() const
 {
     return IS1;
@@ -395,32 +377,32 @@ void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
 //        qDebug() << "<<<<<<<<<<<<";
 
 
-        /// NOTE подготовка к рамке
-        if (IS2.device_number != all_outputs)
-        {
-            if ((io.getOutputValue(IS2.device_number) == output_on) && (IS2.state == cntrl_on))
-            {
-                qDebug() << IS2.device_number << IS2.state;
-            }
-            else
-            {
-                if ((io.getOutputValue(IS2.device_number) == output_off) && (IS2.state == cntrl_off))
-                {
-                    qDebug() << IS2.device_number << IS2.state;
-                }
-                else
-                {
-                    if (io.getOutputValue(IS2.device_number) == no_output_state)
-                    {
-                        qDebug() << "no_output_state!";
-                    }
-                    if (io.getOutputValue(IS2.device_number) == error_output)
-                    {
-                        qDebug() << "error output!";
-                    }
-                }
-            }
-        }
+        // подготовка к рамке
+//        if (IS2.device_number != all_outputs)
+//        {
+//            if ((io.getOutputValue(IS2.device_number) == output_on) && (IS2.state == cntrl_on))
+//            {
+//                qDebug() << IS2.device_number << IS2.state;
+//            }
+//            else
+//            {
+//                if ((io.getOutputValue(IS2.device_number) == output_off) && (IS2.state == cntrl_off))
+//                {
+//                    qDebug() << IS2.device_number << IS2.state;
+//                }
+//                else
+//                {
+//                    if (io.getOutputValue(IS2.device_number) == no_output_state)
+//                    {
+//                        qDebug() << "no_output_state!";
+//                    }
+//                    if (io.getOutputValue(IS2.device_number) == error_output)
+//                    {
+//                        qDebug() << "error output!";
+//                    }
+//                }
+//            }
+//        }
     }
     else
     {

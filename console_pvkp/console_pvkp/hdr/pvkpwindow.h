@@ -27,83 +27,83 @@ private slots:
 
     void slotAllOutputsOnOff(bool toggled);
 
-    void slotOutput1toggled(bool toggled);
-    void slotOutput2toggled(bool toggled);
-    void slotOutput3toggled(bool toggled);
-    void slotOutput4toggled(bool toggled);
+    void slotOutput1clicked(bool pressed);
+    void slotOutput2clicked(bool pressed);
+    void slotOutput3clicked(bool pressed);
+    void slotOutput4clicked(bool pressed);
 
-    void slotOutput5toggled(bool toggled);
-    void slotOutput6toggled(bool toggled);
-    void slotOutput7toggled(bool toggled);
-    void slotOutput8toggled(bool toggled);
+    void slotOutput5clicked(bool pressed);
+    void slotOutput6clicked(bool pressed);
+    void slotOutput7clicked(bool pressed);
+    void slotOutput8clicked(bool pressed);
 
-    void slotOutput9toggled(bool toggled);
-    void slotOutput10toggled(bool toggled);
-    void slotOutput11toggled(bool toggled);
-    void slotOutput12toggled(bool toggled);
+    void slotOutput9clicked(bool pressed);
+    void slotOutput10clicked(bool pressed);
+    void slotOutput11clicked(bool pressed);
+    void slotOutput12clicked(bool pressed);
 
-    void slotOutput13toggled(bool toggled);
-    void slotOutput14toggled(bool toggled);
-    void slotOutput15toggled(bool toggled);
-    void slotOutput16toggled(bool toggled);
+    void slotOutput13clicked(bool pressed);
+    void slotOutput14clicked(bool pressed);
+    void slotOutput15clicked(bool pressed);
+    void slotOutput16clicked(bool pressed);
 
-    void slotOutput17toggled(bool toggled);
-    void slotOutput18toggled(bool toggled);
-    void slotOutput19toggled(bool toggled);
-    void slotOutput20toggled(bool toggled);
+    void slotOutput17clicked(bool pressed);
+    void slotOutput18clicked(bool pressed);
+    void slotOutput19clicked(bool pressed);
+    void slotOutput20clicked(bool pressed);
 
-    void slotOutput21toggled(bool toggled);
-    void slotOutput22toggled(bool toggled);
-    void slotOutput23toggled(bool toggled);
-    void slotOutput24toggled(bool toggled);
+    void slotOutput21clicked(bool pressed);
+    void slotOutput22clicked(bool pressed);
+    void slotOutput23clicked(bool pressed);
+    void slotOutput24clicked(bool pressed);
 
-    void slotOutput25toggled(bool toggled);
-    void slotOutput26toggled(bool toggled);
-    void slotOutput27toggled(bool toggled);
-    void slotOutput28toggled(bool toggled);
+    void slotOutput25clicked(bool pressed);
+    void slotOutput26clicked(bool pressed);
+    void slotOutput27clicked(bool pressed);
+    void slotOutput28clicked(bool pressed);
 
-    void slotOutput29toggled(bool toggled);
-    void slotOutput30toggled(bool toggled);
-    void slotOutput31toggled(bool toggled);
-    void slotOutput32toggled(bool toggled);
+    void slotOutput29clicked(bool pressed);
+    void slotOutput30clicked(bool pressed);
+    void slotOutput31clicked(bool pressed);
+    void slotOutput32clicked(bool pressed);
 
-    void slotOutput33toggled(bool toggled);
-    void slotOutput34toggled(bool toggled);
-    void slotOutput35toggled(bool toggled);
-    void slotOutput36toggled(bool toggled);
+    void slotOutput33clicked(bool pressed);
+    void slotOutput34clicked(bool pressed);
+    void slotOutput35clicked(bool pressed);
+    void slotOutput36clicked(bool pressed);
 
-    void slotOutput37toggled(bool toggled);
-    void slotOutput38toggled(bool toggled);
-    void slotOutput39toggled(bool toggled);
-    void slotOutput40toggled(bool toggled);
+    void slotOutput37clicked(bool pressed);
+    void slotOutput38clicked(bool pressed);
+    void slotOutput39clicked(bool pressed);
+    void slotOutput40clicked(bool pressed);
 
-    void slotOutput41toggled(bool toggled);
-    void slotOutput42toggled(bool toggled);
-    void slotOutput43toggled(bool toggled);
-    void slotOutput44toggled(bool toggled);
+    void slotOutput41clicked(bool pressed);
+    void slotOutput42clicked(bool pressed);
+    void slotOutput43clicked(bool pressed);
+    void slotOutput44clicked(bool pressed);
 
-    void slotOutput45toggled(bool toggled);
-    void slotOutput46toggled(bool toggled);
-    void slotOutput47toggled(bool toggled);
-    void slotOutput48toggled(bool toggled);
+    void slotOutput45clicked(bool pressed);
+    void slotOutput46clicked(bool pressed);
+    void slotOutput47clicked(bool pressed);
+    void slotOutput48clicked(bool pressed);
 
-    void slotOutput49toggled(bool toggled);
-    void slotOutput50toggled(bool toggled);
-    void slotOutput51toggled(bool toggled);
-    void slotOutput52toggled(bool toggled);
+    void slotOutput49clicked(bool pressed);
+    void slotOutput50clicked(bool pressed);
+    void slotOutput51clicked(bool pressed);
+    void slotOutput52clicked(bool pressed);
 
-    void slotOutput53toggled(bool toggled);
-    void slotOutput54toggled(bool toggled);
-    void slotOutput55toggled(bool toggled);
-    void slotOutput56toggled(bool toggled);
+    void slotOutput53clicked(bool pressed);
+    void slotOutput54clicked(bool pressed);
+    void slotOutput55clicked(bool pressed);
+    void slotOutput56clicked(bool pressed);
 
-    void slotOutput57toggled(bool toggled);
-    void slotOutput58toggled(bool toggled);
-    void slotOutput59toggled(bool toggled);
-    void slotOutput60toggled(bool toggled);
+    void slotOutput57clicked(bool pressed);
+    void slotOutput58clicked(bool pressed);
+    void slotOutput59clicked(bool pressed);
+    void slotOutput60clicked(bool pressed);
 
-    void slotOutput61toggled(bool toggled);
-    void slotOutput62toggled(bool toggled);
+    void slotOutput61clicked(bool pressed);
+    void slotOutput62clicked(bool pressed);
 
 private:
     void createPalette();
@@ -111,9 +111,10 @@ private:
     void setInputColor(const unsigned &input, QPushButton *input_button);
 
     void showOutputsValue();
-    void setOutputColor(output_state output, QPushButton *output_button);
+    void setOutputColor(int o_nmb, QPushButton *output_button);
 
-    void manageOneOutput(int number, bool toggled);
+    void manageOneOutput(int number, bool pressed, QPushButton *output_button);
+    void manageOneOutput(int number, QPushButton *output_button);
 
     Ui::PVKPWindow *ui;
 //    QThread *thread;
@@ -130,8 +131,9 @@ private:
 //    bool all_buttons_on;
 //    bool all_buttons_on_off;
     // для хранения предыдущего статуса кнопки выхода
-    bool last_toggled_o[output_size];
+    bool last_pressed_o[output_size];
     output_cntrl o_cntrl[output_size];
+    QPalette button_palette[output_size];
 
 };
 
