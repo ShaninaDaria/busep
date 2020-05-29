@@ -4,7 +4,7 @@ unsigned char InformationMessages::calculateCRC(void *p, int bytes)
 {
 //    qDebug() << __FUNCTION__ << "; p" << p << "; bytes" << bytes;
     unsigned char crc = 0x00;
-    unsigned char *array = (unsigned char *)p;
+    unsigned char *array = static_cast<unsigned char *>(p);
     while (bytes--)
     {
         crc = CRC8table[crc ^ *array++];

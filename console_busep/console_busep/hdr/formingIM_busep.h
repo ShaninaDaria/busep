@@ -12,17 +12,15 @@ public:
     FormingIM_busep();
     ~FormingIM_busep() {}
 
-    _is3 *createIS3(input_state state);
-    _is4 *createIS4(char device_number, unsigned char cnrtl,
+    _is3 *createIS3(int device_number, input_state state);
+    _is4 *createIS4(unsigned char device_number, unsigned char cnrtl,
                     bool add_error = false, bool no_state = false);
     _is5 *createIS5();
-//    char calculateCRC(void *p, int bytes);
-//    bool checkCRC(void *p, int bytes, unsigned char crc);
 
 //    _inputs getInputs() const;
 
-    bool parseIS1(_is1 *IS1);
-    bool parseIS2(_is2 *IS2);
+    bool parsingIS1(_is1 *IS1);
+    bool parsingIS2(_is2 *IS2);
 
     char *getInputs();
 

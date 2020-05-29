@@ -11,12 +11,12 @@ public:
 
     void changeInputs(int device_number, input_state state);
     void allInputsOnOff(input_state state);
-    void oneInputOnOff(char device_number, input_state state);
+    void oneInputOnOff(unsigned char device_number, input_state state);
     char *getInputs2();
 
-    void changeOutputs(char device_number, unsigned char cntrl, bool add_error = false, bool no_state = false);
+    void changeOutputs(unsigned char device_number, unsigned char cntrl, bool add_error = false, bool no_state = false);
     void allOutputsOnOff(unsigned char cntrl, bool add_error = false, bool no_state = false);
-    void oneOutputOnOff(char device_number, unsigned char cntrl, bool add_error = false, bool no_state = false);
+    void oneOutputOnOff(unsigned char device_number, unsigned char cntrl, bool add_error = false, bool no_state = false);
 
 //    _inputs getInputs() const;
 

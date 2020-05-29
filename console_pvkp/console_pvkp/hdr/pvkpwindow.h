@@ -16,14 +16,16 @@ class PVKPWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit PVKPWindow(QWidget *parent = nullptr);
+    explicit PVKPWindow(QWidget *parent = NULL);    /*nullptr*/
     ~PVKPWindow();
 
 private slots:
 //    void slotByTimer();
-    void slotWaitForSignalIS3();
-    void slotWaitForSignalIS4();
-    void slotWaitForSignalIS5();
+    void slotReceiveSignalIS3();
+    void slotReceiveSignalIS4();
+    void slotReceiveSignalIS5();
+
+    void slotStartStop();
 
     void slotAllOutputsOnOff(bool toggled);
 
@@ -113,8 +115,8 @@ private:
     void showOutputsValue();
     void setOutputColor(int o_nmb, QPushButton *output_button);
 
-    void manageOneOutput(int number, bool pressed, QPushButton *output_button);
-    void manageOneOutput(int number, QPushButton *output_button);
+    void manageOneOutput(int number, bool pressed);
+//    void manageOneOutput(int number, QPushButton *output_button);
 
     Ui::PVKPWindow *ui;
 //    QThread *thread;
@@ -134,6 +136,8 @@ private:
     bool last_pressed_o[output_size];
     output_cntrl o_cntrl[output_size];
     QPalette button_palette[output_size];
+
+    bool start_simulator;
 
 };
 

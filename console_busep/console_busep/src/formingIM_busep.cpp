@@ -5,24 +5,24 @@ FormingIM_busep::FormingIM_busep()
 
 }
 
-_is3 *FormingIM_busep::createIS3(input_state state)
+_is3 *FormingIM_busep::createIS3(int device_number, input_state state)
 {
     bzero(&IS3, (sizeof (_is3)));
 
-    qDebug() << __FUNCTION__ << state;
     IS3.header = header;
     IS3.managed = response_state;
 
-    manageIO.changeInputs(all_inputs, state);
+    manageIO.changeInputs(device_number, state);
     setWordsIS3(IS3);
 
     IS3.crc = im.calculateCRC(&IS3, (sizeof (_is3) - 1));
 
-    qDebug() << "   header" << IS3.header;
-    qDebug() << "  managed" << IS3.managed;
-    qDebug() << "   inputs" << all_inputs;
-    qDebug() << "    state" << state;
-    qDebug() << "      crc" << IS3.crc;
+//    qDebug() << __FUNCTION__ << state;
+//    qDebug() << "   header" << IS3.header;
+//    qDebug() << "  managed" << IS3.managed;
+//    qDebug() << "   inputs" << device_number;
+//    qDebug() << "    state" << state;
+//    qDebug() << "      crc" << IS3.crc;
 
     return &IS3;
 }
@@ -217,10 +217,9 @@ void FormingIM_busep::setWordsIS3(_is3 &IS3)
 //    printf("    word30 \t%02x\n", IS3.word30);
 }
 
-_is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl,
+_is4 *FormingIM_busep::createIS4(unsigned char device_number, unsigned char cnrtl,
                                  bool add_error, bool no_state)
 {
-    qDebug() << __FUNCTION__;
 
     bzero(&IS4, (sizeof (_is4)));
 
@@ -234,10 +233,27 @@ _is4 *FormingIM_busep::createIS4(char device_number, unsigned char cnrtl,
 
     IS4.crc = im.calculateCRC(&IS4, (sizeof (_is4) - 1));
 
-    qDebug() << "   header" << IS4.header;
-    qDebug() << "  managed" << IS4.managed;
-    qDebug() << "    cnrtl" << cnrtl;
-    qDebug() << "      crc" << IS3.crc;
+//    qDebug() << __FUNCTION__;
+//    qDebug() << "   header" << IS4.header;
+//    qDebug() << "  managed" << IS4.managed;
+//    qDebug() << "    cnrtl" << cnrtl;
+//    qDebug() << "  state00" << IS4.state00;
+//    qDebug() << "  state01" << IS4.state01;
+//    qDebug() << "  state02" << IS4.state02;
+//    qDebug() << "  state03" << IS4.state03;
+//    qDebug() << "  state04" << IS4.state04;
+//    qDebug() << "  state05" << IS4.state05;
+//    qDebug() << "  state06" << IS4.state06;
+//    qDebug() << "  state07" << IS4.state07;
+//    qDebug() << "  state08" << IS4.state08;
+//    qDebug() << "  state09" << IS4.state09;
+//    qDebug() << "  state10" << IS4.state10;
+//    qDebug() << "  state11" << IS4.state11;
+//    qDebug() << "  state12" << IS4.state12;
+//    qDebug() << "  state13" << IS4.state13;
+//    qDebug() << "  state14" << IS4.state14;
+//    qDebug() << "  state15" << IS4.state15;
+//    qDebug() << "      crc" << IS4.crc;
 
     return &IS4;
 }
@@ -344,65 +360,70 @@ void FormingIM_busep::setStatesIS4(_is4 &IS4)
 
 _is5 *FormingIM_busep::createIS5()
 {
-    qDebug() << "IS5";
     IS5.header = header;
     IS5.managed = integrity_violation;
     IS5.crc = im.calculateCRC(&IS5, (sizeof (_is5) - 1));
 
-    qDebug() << "   header" << IS3.header;
-    qDebug() << "  managed" << IS3.managed;
-    qDebug() << "      crc" << IS3.crc;
+//    qDebug() << __FUNCTION__;
+//    qDebug() << "   header" << IS5.header;
+//    qDebug() << "  managed" << IS5.managed;
+//    qDebug() << "      crc" << IS5.crc;
 
     return &IS5;
 }
 
-bool FormingIM_busep::parseIS1(_is1 *IS1)
+bool FormingIM_busep::parsingIS1(_is1 *IS1)
 {
-    qDebug() << __FUNCTION__;
+    unsigned char crc = im.calculateCRC(IS1, (sizeof (_is1) - 1));
+
     if (im.checkCRC(IS1, (sizeof (_is1) - 1), IS1->crc))
     {
-        qDebug() << "           header" << IS1->header;
-        qDebug() << "          managed" << IS1->managed;
-        qDebug() << "              crc" << IS1->crc;
+//        qDebug() << "<<<" << __FUNCTION__ << "<<< ...OK";
+//        qDebug() << "           header" << IS1->header;
+//        qDebug() << "          managed" << IS1->managed;
+//        qDebug() << "              crc" << IS1->crc;
 
         return true;
     }
-    return false;
-}
-
-bool FormingIM_busep::parseIS2(_is2 *IS2)
-{
-    if (im.checkCRC(IS2, (sizeof (_is2) - 1), IS2->crc))
-    {      
-        qDebug() << "           header" << IS2->header;
-        qDebug() << "          managed" << IS2->managed;
-        qDebug() << "    device_number" << IS2->device_number;
-        qDebug() << "            state" << IS2->state;
-        qDebug() << "              crc" << IS2->crc;
-
-        return true;
-    }
-    return false;
-}
-/*
-char FormingIM_busep::calculateCRC(void *p, int bytes)
-{
-    char crc = 0x00;
-    char *array = (char *)p;
-    bytes--;
-    while (bytes--)
+    else
     {
-        crc = CRC8table[crc ^ *array++];
+        qDebug() << "NO PARSE IS1"
+                << IS1->header
+                << IS1->managed
+                << IS1->crc
+                << crc;
+    qDebug() << "sizeof (_is1)" << sizeof (&IS1);
     }
-    return crc;
+    return false;
 }
 
-bool FormingIM_busep::checkCRC(void *p, int bytes, unsigned char crc)
+bool FormingIM_busep::parsingIS2(_is2 *IS2)
 {
-    char crc_check = calculateCRC(p, bytes);
-    return (crc_check == crc);
+    unsigned char crc = im.calculateCRC(IS2, (sizeof (_is2) - 1));
+
+    if (im.checkCRC(IS2, (sizeof (_is2) - 1), IS2->crc))
+    {
+        qDebug() << "<<<" << __FUNCTION__ << "<<< ...OK";
+//        qDebug() << "           header" << IS2->header;
+//        qDebug() << "          managed" << IS2->managed;
+//        qDebug() << "    device_number" << IS2->device_number;
+//        qDebug() << "            state" << IS2->state;
+//        qDebug() << "              crc" << IS2->crc;
+
+        return true;
+    }
+    else
+    {
+        qDebug() << "NO PARSE IS2"
+                 << IS2->header
+                 << IS2->managed
+                 << IS2->crc
+                 << crc;
+        qDebug() << "sizeof (_is2)" << sizeof (&IS2);
+    }
+    return false;
 }
-*/
+
 char *FormingIM_busep::getInputs()
 {
     return manageIO.getOutputs2();

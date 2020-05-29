@@ -5,36 +5,51 @@
 DummyMessages::DummyMessages(QObject *parent) : QObject(parent)
 {
     formingIM_busep = new FormingIM_busep();
+//    thread = new QThread(this);
     dataTransnmit = new DataTransmit();
-    /// TODO переподключение, если ПВКП отвалился
-    dataTransnmit->createServer();
 
-    createIS3(is_signal_27v);
-//    createIS3(no_signal_27v);
-//    createIS4(0x00, output_off);
+//    dataTransnmit->moveToThread(thread);
+//    connect(thread, SIGNAL(finished()), dataTransnmit, SLOT(deleteLater()));
+//    thread->start();
+
+
+//    dataTransnmit->createServer();
+
+    // по умолчанию все входы выключены
+    createIS3(all_inputs, no_signal_27v);
 }
 
 // ----------------------------------------------------------
 
 DummyMessages::~DummyMessages()
 {
-    dataTransnmit->endTransmitServer();
+//    dataTransnmit->endTransmitServer();
+    dataTransnmit->closeSerialPort();
+    delete dataTransnmit;
+//    delete thread;
     delete formingIM_busep;
 }
 
 // ----------------------------------------------------------
 
-void DummyMessages::createIS3(input_state state)
+bool DummyMessages::openSerialPort(QString port_name, int baud_rate)
 {
-    IS3 = formingIM_busep->createIS3(state);
+    dataTransnmit->initSerialPort(port_name, baud_rate);
+
+    return dataTransnmit->openSerialPort();
 }
 
 // ----------------------------------------------------------
 
-void DummyMessages::createIS4(char device_number, unsigned char cnrtl, bool add_error, bool no_state)
+void DummyMessages::createIS3(int device_number, input_state state)
 {
-    std::cout << __FUNCTION__ << std::endl;
+    IS3 = formingIM_busep->createIS3(device_number, state);
+}
 
+// ----------------------------------------------------------
+
+void DummyMessages::createIS4(unsigned char device_number, unsigned char cnrtl, bool add_error, bool no_state)
+{
     IS4 = formingIM_busep->createIS4(device_number, cnrtl, add_error, no_state);
 }
 
@@ -42,14 +57,14 @@ void DummyMessages::createIS4(char device_number, unsigned char cnrtl, bool add_
 
 void DummyMessages::createIS5()
 {
-    std::cout << __FUNCTION__ << std::endl;
     IS5 = formingIM_busep->createIS5();
 }
 
 // ----------------------------------------------------------
 
-void DummyMessages::startExchange(bool add_error, bool no_state)
+void DummyMessages::startExchange(bool add_error, bool no_state, int wait_ms)
 {
+    static bool start = true;
 //    int recv_bytes(-1);
     header_and_managed code(empty);
 //    std::cout << __FUNCTION__ << " waiting for message... ";
@@ -57,16 +72,23 @@ void DummyMessages::startExchange(bool add_error, bool no_state)
 //    {
         do
         {
-            code = receiveSmth();
+            code = receiveSmth(wait_ms);
+//            qDebug() << "receive code" << code;
 
             switch (code)
             {
             case request:
             {
-                sendIS3(IS3);
+                if (start)
+                {
+                    qDebug() << "HANGUP";
+                    start = false;
+                }
+                sendIS3();
                 emit signalUsualExchange();
             }
                 break;
+
             case change_state:
             {
                 if (!add_error && !no_state)
@@ -77,16 +99,18 @@ void DummyMessages::startExchange(bool add_error, bool no_state)
                 {
                     createIS4(IS2.device_number, IS2.state, add_error, no_state);
                 }
-                sendIS4(IS4);
+                sendIS4();
                 emit signalUsualExchange();
             }
                 break;
+
             case error:
             {
-                sendIS5(IS5);
+                sendIS5();
                 emit signalSendIS5();
             }
                 break;
+
             default:
                 break;
             }
@@ -99,7 +123,7 @@ void DummyMessages::startExchange(bool add_error, bool no_state)
 
 // ----------------------------------------------------------
 
-header_and_managed DummyMessages::receiveSmth()
+header_and_managed DummyMessages::receiveSmth(int wait_ms)
 {
     struct _data
     {
@@ -113,12 +137,12 @@ header_and_managed DummyMessages::receiveSmth()
 
     header_and_managed code(empty);
 
-//    int bytes = dataTransnmit->receive(&data, sizeof (_data));
-    int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
+    static bool start = true;
+
+    qint64 bytes = dataTransnmit->receive(&data, sizeof (_data), wait_ms);
+//    int bytes = dataTransnmit->srvReceive(&data, sizeof (_data));
     if (bytes > 0)
     {
-        qDebug() << "receive " << bytes << " bytes;";
-
         if (data.header == header)
         {
             switch (data.managed)
@@ -131,36 +155,59 @@ header_and_managed DummyMessages::receiveSmth()
                 IS1.managed = data.managed;
                 IS1.crc = data.byte0;
 
-                if (formingIM_busep->parseIS1(&IS1))
+                if (formingIM_busep->parsingIS1(&IS1))
                 {
                     code = request;
+
+                    if  (start) start = false;
                 }
             }
                 break;
 
             case change_state:
             {
-                bzero(&IS2, sizeof (_is2));
-
-                IS2.header = data.header;
-                IS2.managed = data.managed;
-                IS2.device_number = data.byte0;
-                IS2.state = data.byte1;
-                IS2.crc = data.crc;
-
-                if (formingIM_busep->parseIS2(&IS2))
+                // надо допринять остатки
+                if (start)
                 {
-                    code = change_state;
+                    while (bytes > 0)
+                    {
+                        bytes = dataTransnmit->receive(&data, sizeof (_data), wait_ms);
+                    }
                 }
+                else
+                {
+                    bzero(&IS2, sizeof (_is2));
+
+                    IS2.header = data.header;
+                    IS2.managed = data.managed;
+                    IS2.device_number = data.byte0;
+                    IS2.state = data.byte1;
+                    IS2.crc = data.crc;
+
+                    if (formingIM_busep->parsingIS2(&IS2))
+                    {
+                        code = change_state;
+                    }
+                }
+
             }
                 break;
 
             default:
+            {
+                qDebug() << " header" << data.header;
+                qDebug() << "managed" << data.managed;
+                qDebug() << "  byte0" << data.byte0;
+                qDebug() <<   "byte1" << data.byte1;
+                qDebug() << "    crc" << data.crc;
+                qDebug() << "Unknown managed byte " << data.managed << "! Send ERROR";
                 code = error;
+            }
                 break;
             }
 
         }
+        /// FIXME а если заголовок - не заголовок? что за 1 или 3 байта я принимаю?
         else
         {
             code = error;
@@ -173,48 +220,43 @@ header_and_managed DummyMessages::receiveSmth()
 
 // ----------------------------------------------------------
 
-void DummyMessages::sendIS3(_is3 *IS3)
+void DummyMessages::sendIS3()
 {
-
-
-//    int bytes = dataTransnmit->send(IS3, sizeof(_is3));
-    int bytes = dataTransnmit->srvSend(IS3, sizeof(_is3));
+    qint64 bytes = dataTransnmit->send(IS3, sizeof(_is3), wait10ms);
+//    int bytes = dataTransnmit->srvSend(IS3, sizeof(_is3));
 
     if (bytes > 0)
     {
-        qDebug() << __FUNCTION__ << " send " << bytes << " bytes; ";
+//        qDebug() << __FUNCTION__ << " send " << bytes << " bytes;\n";
     }
 }
 
 // ----------------------------------------------------------
 
-void DummyMessages::sendIS4(_is4 *IS4)
+void DummyMessages::sendIS4()
 {
-    std::cout << __FUNCTION__ << std::endl;
-
-//    int bytes = dataTransnmit->send(IS4, sizeof(_is4));
-    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
+    qint64 bytes = dataTransnmit->send(IS4, sizeof(_is4), wait100ms);
+//    int bytes = dataTransnmit->srvSend(IS4, sizeof(_is4));
 
     if (bytes > 0)
     {
-        std::cout << "send " << bytes << " bytes; " << std::endl;
+        qDebug() << __FUNCTION__ << " send " << bytes << " bytes;\n";
     }
 }
 
 // ----------------------------------------------------------
 
-void DummyMessages::sendIS5(_is5 *IS5)
+void DummyMessages::sendIS5()
 {
-    std::cout << __FUNCTION__ << std::endl;
-
     createIS5();
 
-//    int bytes = dataTransnmit->send(IS5, sizeof(_is5));
-    int bytes = dataTransnmit->srvSend(IS5, sizeof(_is5));
+    /// NOTE IS2_IS4_wait
+    qint64 bytes = dataTransnmit->send(IS5, sizeof(_is5), wait100ms);
+//    int bytes = dataTransnmit->srvSend(IS5, sizeof(_is5));
 
     if (bytes > 0)
     {
-        std::cout << "send " << bytes << " bytes; " << std::endl;
+        qDebug() << __FUNCTION__ << " send " << bytes << " bytes;";
     }
 }
 

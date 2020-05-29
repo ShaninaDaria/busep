@@ -3,31 +3,40 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QThread>
 
 #include "hdr/formingIM_pvkp.h"
 #include "../../common/hdr/datatransmit.h"
+
+enum type_exchange
+{
+    is1_is3 = 1,
+    is2_is4 = 2
+};
 
 class messageExchange : public QObject
 {
     Q_OBJECT
 public:
-    explicit messageExchange(QObject *parent = nullptr);
+    explicit messageExchange(QObject *parent = NULL);   /*nullptr*/
     ~messageExchange();
 
     void initTransmit();
 
-    void createIS2(char number, output_cntrl cntrl);
+    QList <QSerialPortInfo> getAllSerialPorts();
+    bool openSerialPort(QString port_name, int baud_rate);
+
+    void createIS2(int number, output_cntrl cntrl);
 
     void startExchange();
     void usualExchange();
+    void stopExchange();
 
-    int sendIS1(_is1 *IS1);
-//    int receiveIS3();
+    qint64 sendIS1();
 
-    int sendIS2(_is2 *IS2);
-//    int receiveIS4();
+    qint64 sendIS2();
 
-    int receiveSmth();
+    qint64 receiveSmth(int wait_ms);
 
     char *getInputsValue();
     input_state getInputState(int number);
@@ -36,7 +45,7 @@ public:
     output_state getOutputState(int number);
 
     void addErrorToIS1();
-    void addErrorToIS2(char number, output_cntrl cntrl);
+    void addErrorToIS2(int number, output_cntrl cntrl);
 
     bool parse_IS3() const;
 
@@ -54,12 +63,12 @@ signals:
     void signalReceiveIS5();
 
 private:
-    void createTimer();
-    static void timer_handler(int signum);
+//    void createTimer();
+//    static void timer_handler(int signum);
 
     void createIS1();
 
-    void exchange(QTimer *main_timer, QTimer *second_timer, int &bytes_send, int d, bool &parse_ok, int var_exch);
+    void exchange(QTimer *main_timer, qint64 &bytes_send, int wait_ms, type_exchange var_exch);
 
     void receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3);
     void receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4);
@@ -76,9 +85,9 @@ private:
     QTimer *timerIS1_IS3;
     QTimer *timerIS2_IS4;
 
-    int bytes_send_IS1;
+    qint64 bytes_send_IS1;
 //    int bytes_rcv_IS3_IS5;
-    int bytes_send_IS2;
+    qint64 bytes_send_IS2;
 //    int bytes_rcv_IS4_IS5;
 
     bool _parse_IS3;
@@ -86,6 +95,8 @@ private:
     bool _parse_IS5;
 
     bool _start_exchange;    // начало обработки
+
+    QThread *thread;
 
 };
 

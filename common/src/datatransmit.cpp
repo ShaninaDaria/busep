@@ -1,21 +1,24 @@
 #include "../../common/hdr/datatransmit.h"
 
-DataTransmit::DataTransmit()
+DataTransmit::DataTransmit(QObject *parent) : QObject (parent)
 {
     //    _rs485 = new rs485();
     //    _rs485->receive();
     //    _rs485->close();
 }
 
+//----------------------------------------------------------
+
 DataTransmit::~DataTransmit()
 {
     //    delete  _rs485;
 }
 
+//----------------------------------------------------------
+
 void DataTransmit::createServer()
 {
-    server = socket(AF_UNIX, SOCK_DGRAM, 0);
-    if (server < 0)
+    if ((server = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
     {
         perror("-socket error\n");
         exit(1);
@@ -71,6 +74,8 @@ void DataTransmit::createServer()
     }
 }
 
+//----------------------------------------------------------
+
 void DataTransmit::createClient()
 {
     bzero(&server_addr, sizeof (server_addr));
@@ -92,7 +97,7 @@ void DataTransmit::createClient()
     }
 
 
-    if (bind (client, (struct sockaddr*)&client_addr, /*server_add_len*/ SUN_LEN (&client_addr)) < 0)
+    if (bind (client, (struct sockaddr *)&client_addr, /*server_add_len*/ SUN_LEN (&client_addr)) < 0)
     {
         perror("-bind error");
         endTransmitClient();
@@ -134,19 +139,7 @@ void DataTransmit::createClient()
     }
 }
 
-int DataTransmit::receive(void *buf, size_t size)
-{
-    int bytes_recv = read(client, buf, sizeof(size));
-
-    return bytes_recv;
-}
-
-int DataTransmit::send(const void *buf, size_t size)
-{
-    int bytes_send = write(client, buf, size);
-
-    return bytes_send;
-}
+//----------------------------------------------------------
 
 int DataTransmit::srvReceive(void *buf, size_t size)
 {
@@ -160,6 +153,8 @@ int DataTransmit::srvReceive(void *buf, size_t size)
     return bytes_recv;
 }
 
+//----------------------------------------------------------
+
 int DataTransmit::srvSend(const void *buf, size_t size)
 {
     socklen_t addr_len = sizeof(struct sockaddr_un);
@@ -170,6 +165,8 @@ int DataTransmit::srvSend(const void *buf, size_t size)
 
     return bytes_send;
 }
+
+//----------------------------------------------------------
 
 int DataTransmit::clntReceive(void *buf, size_t size)
 {
@@ -183,6 +180,8 @@ int DataTransmit::clntReceive(void *buf, size_t size)
     return bytes_recv;
 }
 
+//----------------------------------------------------------
+
 int DataTransmit::clntSend(const void *buf, size_t size)
 {
     int bytes_send(0);
@@ -192,14 +191,94 @@ int DataTransmit::clntSend(const void *buf, size_t size)
     return bytes_send;
 }
 
+//----------------------------------------------------------
+
 void DataTransmit::endTransmitServer()
 {
-    close (server);
+    close(server);
     unlink (file_server);
 }
+
+//----------------------------------------------------------
 
 void DataTransmit::endTransmitClient()
 {
     close(client);
     unlink(file_client);
 }
+
+//----------------------------------------------------------
+
+QList<QSerialPortInfo> DataTransmit::getAllSerialPorts()
+{
+    QSerialPortInfo sp_i;
+    return sp_info = sp_i.availablePorts();
+}
+
+//----------------------------------------------------------
+
+void DataTransmit::setOneSerialPort(int number_serial_port)
+{
+    serial_port->setPort(sp_info.at(number_serial_port));
+}
+
+//----------------------------------------------------------
+
+bool DataTransmit::openSerialPort()
+{
+    return serial_port->open(QSerialPort::ReadWrite);
+}
+
+//----------------------------------------------------------
+
+void DataTransmit::initSerialPort(QString port_name, int baud_rate)
+{
+    serial_port = new QSerialPort(this);
+    serial_port->setPortName(port_name);
+    serial_port->setBaudRate(baud_rate, QSerialPort::AllDirections);
+    serial_port->setDataBits(QSerialPort::Data8);
+    serial_port->setParity(QSerialPort::NoParity);
+    serial_port->setStopBits(QSerialPort::OneStop);
+    serial_port->setFlowControl(QSerialPort::NoFlowControl);
+}
+
+//----------------------------------------------------------
+
+qint64 DataTransmit::receive(void *buf, size_t size, int wait_ms)
+{
+//    int bytes_recv = read(client, buf, sizeof(size));
+//    return bytes_recv;
+
+    serial_port->waitForReadyRead(wait_ms);
+    qint64 bytes = serial_port->read(static_cast<char *>(buf), size);
+
+    return bytes;
+}
+
+//----------------------------------------------------------
+
+qint64 DataTransmit::send(const void *buf, size_t size, int wait_ms)
+{
+//    int bytes_send = write(client, buf, size);
+//    return bytes_send;
+
+    qint64 bytes_send = serial_port->write(static_cast<const char *>(buf), size);
+//    qDebug() << "bytesToWrite1" << serial_port->bytesToWrite();
+    while (serial_port->bytesToWrite() != 0)
+    {
+//        qDebug() << "waitForBytesWritten" << serial_port->waitForBytesWritten(wait_ms);
+        serial_port->waitForBytesWritten(wait_ms);
+    }
+//    qDebug() << "bytesToWrite2" << serial_port->bytesToWrite();
+
+    return bytes_send;
+}
+
+//----------------------------------------------------------
+
+void DataTransmit::closeSerialPort()
+{
+    serial_port->close();
+}
+
+//----------------------------------------------------------

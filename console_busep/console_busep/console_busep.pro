@@ -1,9 +1,12 @@
-#QT -= gui
-QT += core gui
+QT += core
+QT += gui
+QT += serialport
 
-CONFIG += c++11 #console
+CONFIG += c++11
+#CONFIG += console
 #CONFIG -= app_bundle
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QMAKE_CXXFLAGS += -std=c++0x
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -26,19 +29,21 @@ SOURCES += \
         ../../common/src/informationmessages.cpp \
         ../../common/src/datatransmit.cpp
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 HEADERS += \
     hdr/manageinputsoutputs.h \
     hdr/formingIM_busep.h \
     hdr/dummymessages.h \
     hdr/busepwindow.h \
+    ../../common/hdr/common.h \
     ../../common/hdr/inputs_outputs.h \
     ../../common/hdr/informationmessages.h \
     ../../common/hdr/datatransmit.h
 
 FORMS += \
     busepwindow.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+

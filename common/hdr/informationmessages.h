@@ -137,6 +137,7 @@ enum header_and_managed
     empty = 0x00,               // для меня - инициализация
     error = 0x55,               // для меня - на случай ошибки
     header = 0xff,              // заголовок
+
     request = 0x01,             // ИС1
     change_state = 0x02,        // ИС2
     response_change = 0x03,     // ИС4
@@ -181,20 +182,15 @@ const unsigned char CRC8table[256] =
     182, 232, 10, 84, 215, 137, 107, 53
 };
 
-const int IS1_IS3_wait = 100;
-const int IS2_IS4_wait = 10;
-
+const int wait100ms = 100;
+const int wait10ms = 10;
 
 class InformationMessages
 {
 public:
     InformationMessages() {}
     ~InformationMessages() {}
-//    _is1 createIS1();
-//    _is2 createIS2(char device_number, output_cntrl cntrl);
-//    _is3 *createIS3();
-//    _is4 *createIS4(char device_number, unsigned char cnrtl);
-//    void createIS5();
+
     unsigned char calculateCRC(void *p, int bytes);
     bool checkCRC(void *p, int bytes, unsigned char crc);
 

@@ -11,7 +11,7 @@ class FormingIM_pvkp
 public:
     FormingIM_pvkp();
     _is1 createIS1();
-    _is2 createIS2(char device_number, output_cntrl cntrl);
+    _is2 createIS2(unsigned char device_number, output_cntrl cntrl);
 
     _is1 getIS1() const;
 
@@ -32,7 +32,7 @@ public:
     input_state getInputState2(unsigned char word);
 
     _is1 createIS1WithError();
-    _is2 createIS2WithError(char number, output_cntrl cntrl);
+    _is2 createIS2WithError(unsigned char number, output_cntrl cntrl);
 
 
 private:

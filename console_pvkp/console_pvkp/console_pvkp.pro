@@ -1,11 +1,12 @@
 QT += core
 QT += gui
-#QT += serialport
+QT += serialport
 
 CONFIG += c++11
 #CONFIG += console
 #CONFIG -= app_bundle
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QMAKE_CXXFLAGS += -std=c++0x
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -27,18 +28,22 @@ SOURCES += \
         ../../common/src/inputs_outputs.cpp \
         ../../common/src/datatransmit.cpp
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 HEADERS += \
     hdr/formingIM_pvkp.h \
     hdr/messageexchange.h \
     hdr/pvkpwindow.h \
+    ../../common/hdr/common.h \
     ../../common/hdr/informationmessages.h \
     ../../common/hdr/inputs_outputs.h \
     ../../common/hdr/datatransmit.h
 
 FORMS += \
     pvkpwindow.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+#qnx: target.path = /tmp/$$QMAKE_TARGET
+#INSTALLS += target

@@ -7,8 +7,6 @@ ManageInputsOutputs::ManageInputsOutputs()
 
 void ManageInputsOutputs::changeInputs(int device_number, input_state state)
 {
-    /// TODO сделать генерацию ошибок
-
     if (device_number == all_inputs)
     {
         allInputsOnOff(state);
@@ -16,7 +14,7 @@ void ManageInputsOutputs::changeInputs(int device_number, input_state state)
     else
     {
         // еще моя реализация "жесткая", т.е. без пересборки не удастся изменить кол-во входов/выходов
-        oneInputOnOff(device_number, state);
+        oneInputOnOff(static_cast<unsigned char>(device_number), state);
     }
 }
 
@@ -25,7 +23,7 @@ void ManageInputsOutputs::allInputsOnOff(input_state state)
     io.setAllInputs(state);
 }
 
-void ManageInputsOutputs::oneInputOnOff(char device_number, input_state state)
+void ManageInputsOutputs::oneInputOnOff(unsigned char device_number, input_state state)
 {
     io.setOneInput(device_number, state);
 }
@@ -35,11 +33,9 @@ char *ManageInputsOutputs::getInputs2()
     return io.getAllInputs();
 }
 
-void ManageInputsOutputs::changeOutputs(char device_number, unsigned char cntrl,
+void ManageInputsOutputs::changeOutputs(unsigned char device_number, unsigned char cntrl,
                                         bool add_error, bool no_state)
 {
-    /// TODO сделать генерацию ошибок
-
     if (device_number == all_outputs)
     {
         allOutputsOnOff(cntrl, add_error, no_state);
@@ -55,7 +51,7 @@ void ManageInputsOutputs::changeOutputs(char device_number, unsigned char cntrl,
 
 void ManageInputsOutputs::allOutputsOnOff(unsigned char cntrl, bool add_error, bool no_state)
 {
-    output_state state;
+    output_state state(no_output_state);
     if (add_error) state = error_output;
     if (no_state) state = no_output_state;
     if (!add_error && !no_state)
@@ -64,17 +60,16 @@ void ManageInputsOutputs::allOutputsOnOff(unsigned char cntrl, bool add_error, b
         {
             state = output_on;
         }
-        else
+        if (cntrl == cntrl_off)
         {
             state = output_off;
         }
     }
 
-
     io.setAllOutputs(state);
 }
 
-void ManageInputsOutputs::oneOutputOnOff(char device_number, unsigned char cntrl,
+void ManageInputsOutputs::oneOutputOnOff(unsigned char device_number, unsigned char cntrl,
                                          bool add_error, bool no_state)
 {
     output_state state;
