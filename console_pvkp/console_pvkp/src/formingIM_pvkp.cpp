@@ -1,13 +1,10 @@
 ﻿#include "hdr/formingIM_pvkp.h"
 
-FormingIM_pvkp::FormingIM_pvkp()
-{
-
-}
+//----------------------------------------------------------
 
 _is1 FormingIM_pvkp::createIS1()
 {
-    bzero(&IS1, sizeof(_is1));
+    clearIS1();
 
     IS1.header = header; // printf("    header \t%02x\n", IS1.header);
     IS1.managed = request; // printf("    managed \t%02x\n", IS1.managed);
@@ -22,9 +19,11 @@ _is1 FormingIM_pvkp::createIS1()
     return IS1;
 }
 
+//----------------------------------------------------------
+
 _is2 FormingIM_pvkp::createIS2(unsigned char device_number, output_cntrl cntrl)
 {
-    bzero(&IS2, (sizeof (_is2)));
+    clearIS2();
 
     IS2.header = header; // printf("    header \t%02x\n", IS2.header);
     IS2.managed = change_state; // printf("    managed \t%02x\n", IS2.managed);
@@ -32,35 +31,34 @@ _is2 FormingIM_pvkp::createIS2(unsigned char device_number, output_cntrl cntrl)
     IS2.state = cntrl; // printf("    state \t%02x\n", IS2.state);
     IS2.crc = im.calculateCRC(&IS2, (sizeof (_is2) - 1));  // printf("    crc \t%02x\n", IS2.crc);
 
-    qDebug() << __FUNCTION__;
-    qDebug() << ">>>>>>>>>>header" << IS2.header;
-    qDebug() << ">>>>>>>>>managed" << IS2.managed;
-//    if (device_number == 0x00)
-//    {
-//        qDebug() << ">>>device_number" << 0;
-//    }
-//    else
-//    {
-//    }
-    qDebug() << ">>>device_number" << device_number;
-    qDebug() << ">>>>>>>>>>>state" << IS2.state;
-    qDebug() << ">>>>>>>>>>>>>crc" << IS2.crc;
-    qDebug() << "-----\n";
+//    qDebug() << __FUNCTION__;
+//    qDebug() << ">>>>>>>>>>header" << IS2.header;
+//    qDebug() << ">>>>>>>>>managed" << IS2.managed;
+//    qDebug() << ">>>device_number" << device_number;
+//    qDebug() << ">>>>>>>>>>>state" << IS2.state;
+//    qDebug() << ">>>>>>>>>>>>>crc" << IS2.crc;
+//    qDebug() << "-----\n";
 
     return IS2;
 }
+
+//----------------------------------------------------------
 
 _is1 FormingIM_pvkp::getIS1() const
 {
     return IS1;
 }
 
+//----------------------------------------------------------
+
 _is2 FormingIM_pvkp::getIS2() const
 {
     return IS2;
 }
 
-void FormingIM_pvkp::parsingIS3(_rcv_data *rcv_data, _is3 &IS3, bool &ok)
+//----------------------------------------------------------
+
+void FormingIM_pvkp::copyIS3fromRcvData(_rcv_data *rcv_data, _is3 &IS3)
 {
     IS3.header = rcv_data->byte00;
     IS3.managed = rcv_data->byte01;
@@ -98,10 +96,9 @@ void FormingIM_pvkp::parsingIS3(_rcv_data *rcv_data, _is3 &IS3, bool &ok)
     IS3.word30 = rcv_data->byte32;
 
     IS3.crc = rcv_data->byte33;
-
-    parsingIS3(&IS3, ok);
-
 }
+
+//----------------------------------------------------------
 
 void FormingIM_pvkp::parsingIS3(_is3 *IS3, bool &ok)
 {
@@ -123,13 +120,21 @@ void FormingIM_pvkp::parsingIS3(_is3 *IS3, bool &ok)
 
         unsigned char crc = im.calculateCRC(IS3, (sizeof (_is3) - 1));
         qDebug() << "<<<NO PARSE IS3"
-                 << IS3->header
-                 << IS3->managed
-                 << IS3->word00
-                 << IS3->crc
-                 << crc;
+                << IS3->header
+                << IS3->managed
+                << IS3->word00 << IS3->word01 << IS3->word02 << IS3->word03 << IS3->word04
+                << IS3->word05 << IS3->word06 << IS3->word07 << IS3->word08 << IS3->word09
+                << IS3->word10 << IS3->word11 << IS3->word12 << IS3->word12 << IS3->word14
+                << IS3->word15 << IS3->word16 << IS3->word17 << IS3->word18 << IS3->word19
+                << IS3->word20 << IS3->word21 << IS3->word22 << IS3->word23 << IS3->word24
+                << IS3->word25 << IS3->word26 << IS3->word27 << IS3->word28 << IS3->word29
+                << IS3->word30
+                << IS3->crc
+                << "calc crc" << crc;
     }
 }
+
+//----------------------------------------------------------
 
 void FormingIM_pvkp::parsingWords(_is3 *IS3)
 {
@@ -322,7 +327,9 @@ void FormingIM_pvkp::parsingWords(_is3 *IS3)
     io.setOneInput(input124, getInputState2(IS3->word30));
 }
 
-void FormingIM_pvkp::parsingIS4(_rcv_data *rcv_data, _is4 &IS4, bool &ok)
+//----------------------------------------------------------
+
+void FormingIM_pvkp::copyIS4fromRcvData(_rcv_data *rcv_data, _is4 &IS4)
 {
     IS4.header = rcv_data->byte00;
     IS4.managed = rcv_data->byte01;
@@ -345,20 +352,19 @@ void FormingIM_pvkp::parsingIS4(_rcv_data *rcv_data, _is4 &IS4, bool &ok)
     IS4.state15 = rcv_data->byte17;
 
     IS4.crc = rcv_data->byte18;
-
-    parsingIS4(&IS4, ok);
-
 }
+
+//----------------------------------------------------------
 
 void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
 {
     if (im.checkCRC(IS4, (sizeof (_is4) - 1), IS4->crc))
     {
-        qDebug() << "<<<" << __FUNCTION__ << "<<< ...OK\n";
         ok = true;
 
         parsingStates(IS4);
 
+//        qDebug() << "<<<" << __FUNCTION__ << "<<< ...OK\n";
 //        qDebug() << "<<<header" << IS4->header;
 //        qDebug() << "<<managed" << IS4->managed;
 //        qDebug() << "<<<<<<crc" << IS4->crc;
@@ -369,29 +375,31 @@ void FormingIM_pvkp::parsingIS4(_is4 *IS4, bool &ok)
         ok = false;
 
         unsigned char crc = im.calculateCRC(IS4, (sizeof (_is4) - 1));
-        qDebug() << "<<<NO PARSE IS4";
-        qDebug() << "<<<header" << IS4->header;
-        qDebug() << "<<managed" << IS4->managed;
-        qDebug() << "<<state00" << IS4->state00;
-        qDebug() << "<<state01" << IS4->state01;
-        qDebug() << "<<state02" << IS4->state02;
-        qDebug() << "<<state03" << IS4->state03;
-        qDebug() << "<<state04" << IS4->state04;
-        qDebug() << "<<state05" << IS4->state05;
-        qDebug() << "<<state06" << IS4->state06;
-        qDebug() << "<<state07" << IS4->state07;
-        qDebug() << "<<state08" << IS4->state08;
-        qDebug() << "<<state09" << IS4->state09;
-        qDebug() << "<<state10" << IS4->state10;
-        qDebug() << "<<state11" << IS4->state11;
-        qDebug() << "<<state12" << IS4->state12;
-        qDebug() << "<<state13" << IS4->state13;
-        qDebug() << "<<state14" << IS4->state14;
-        qDebug() << "<<state15" << IS4->state15;
-        qDebug() << "<<<<<<crc" << IS4->crc;
-        qDebug() << "<calc crc" << crc;
+        qDebug() << "<<<NO PARSE IS4 "
+                << "<<<header" << IS4->header
+                << "<<managed" << IS4->managed
+                << "<<state00" << IS4->state00
+                << "<<state01" << IS4->state01
+                << "<<state02" << IS4->state02
+                << "<<state03" << IS4->state03
+                << "<<state04" << IS4->state04
+                << "<<state05" << IS4->state05
+                << "<<state06" << IS4->state06
+                << "<<state07" << IS4->state07
+                << "<<state08" << IS4->state08
+                << "<<state09" << IS4->state09
+                << "<<state10" << IS4->state10
+                << "<<state11" << IS4->state11
+                << "<<state12" << IS4->state12
+                << "<<state13" << IS4->state13
+                << "<<state14" << IS4->state14
+                << "<<state15" << IS4->state15
+                << "<<<<<<crc" << IS4->crc
+                << "<calc crc" << crc;
     }
 }
+
+//----------------------------------------------------------
 
 void FormingIM_pvkp::parsingStates(_is4 *IS4)
 {
@@ -491,17 +499,19 @@ void FormingIM_pvkp::parsingStates(_is4 *IS4)
     io.setOneOutput(output62, getOutputState2(IS4->state15));
 }
 
-void FormingIM_pvkp::parsingIS5(_rcv_data *rcv_data, _is5 &IS5, bool &ok)
+//----------------------------------------------------------
+
+void FormingIM_pvkp::copyIS5fromRcvData(_rcv_data *rcv_data, _is5 &IS5)
 {
     IS5.header = rcv_data->byte00;
     IS5.managed = rcv_data->byte01;
     IS5.crc = rcv_data->byte02;
-    parsingIS5(&IS5, ok);
 }
+
+//----------------------------------------------------------
 
 void FormingIM_pvkp::parsingIS5(_is5 *IS5, bool &ok)
 {
-
     if (im.checkCRC(IS5, (sizeof (_is5) - 1), IS5->crc))
     {
         ok = true;
@@ -518,10 +528,14 @@ void FormingIM_pvkp::parsingIS5(_is5 *IS5, bool &ok)
     }
 }
 
+//----------------------------------------------------------
+
 input_state FormingIM_pvkp::getInputState(int number)
 {
     return io.getInputValue(number);
 }
+
+//----------------------------------------------------------
 
 input_state FormingIM_pvkp::getInputState2(unsigned char word)
 {
@@ -544,9 +558,11 @@ input_state FormingIM_pvkp::getInputState2(unsigned char word)
     return res;
 }
 
+//----------------------------------------------------------
+
 _is1 FormingIM_pvkp::createIS1WithError()
 {
-    bzero(&IS1, sizeof(_is1));
+    clearIS1();
 
     /// TODO random!
     qDebug() << "IS1 with error";
@@ -565,9 +581,11 @@ _is1 FormingIM_pvkp::createIS1WithError()
     return IS1;
 }
 
+//----------------------------------------------------------
+
 _is2 FormingIM_pvkp::createIS2WithError(unsigned char number, output_cntrl cntrl)
 {
-    bzero(&IS2, (sizeof (_is2)));
+    clearIS2();
 
     /// TODO random!
     qDebug() << __FUNCTION__;
@@ -587,10 +605,36 @@ _is2 FormingIM_pvkp::createIS2WithError(unsigned char number, output_cntrl cntrl
     return IS2;
 }
 
+//----------------------------------------------------------
+
+void FormingIM_pvkp::clearIS1()
+{
+#ifdef QNX
+    bzero(&IS1, sizeof(_is1));
+#else
+    memset(&IS1, 0, sizeof (_is1));
+#endif
+}
+
+//----------------------------------------------------------
+
+void FormingIM_pvkp::clearIS2()
+{
+#ifdef QNX
+    bzero(&IS2, (sizeof (_is2)));
+#else
+    memset(&IS2, 0, sizeof (_is2));
+#endif
+}
+
+//----------------------------------------------------------
+
 output_state FormingIM_pvkp::getOutputState(int number)
 {
     return io.getOutputValue(number);
 }
+
+//----------------------------------------------------------
 
 output_state FormingIM_pvkp::getOutputState2(unsigned char state)
 {
@@ -616,12 +660,18 @@ output_state FormingIM_pvkp::getOutputState2(unsigned char state)
     return res;
 }
 
+//----------------------------------------------------------
+
 char *FormingIM_pvkp::getOutputs()
 {
     return io.getAllOutputs();
 }
 
+//----------------------------------------------------------
+
 char *FormingIM_pvkp::getInputs()
 {
     return io.getAllInputs();
 }
+
+//----------------------------------------------------------

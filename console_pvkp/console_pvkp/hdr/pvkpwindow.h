@@ -20,12 +20,18 @@ public:
     ~PVKPWindow();
 
 private slots:
-//    void slotByTimer();
-    void slotReceiveSignalIS3();
-    void slotReceiveSignalIS4();
-    void slotReceiveSignalIS5();
+    void slotPortChecked(int port_index);
+
+    void slotReceiveIS3();
+    void slotReceiveIS4();
+    void slotReceiveIS5();
+    void slotTestReceive(QString str);
+
+    void slotNoReceiveIS3();
+    void slotNoReceiveIS4();
 
     void slotStartStop();
+    void slotTestConnection();
 
     void slotAllOutputsOnOff(bool toggled);
 
@@ -108,19 +114,18 @@ private slots:
     void slotOutput62clicked(bool pressed);
 
 private:
+    bool readConfigFile();
     void createPalette();
     void showInputsValue();
-    void setInputColor(const unsigned &input, QPushButton *input_button);
+    void setInputColor(int i_nmb, QPushButton *input_button);
 
     void showOutputsValue();
     void setOutputColor(int o_nmb, QPushButton *output_button);
 
     void manageOneOutput(int number, bool pressed);
-//    void manageOneOutput(int number, QPushButton *output_button);
 
     Ui::PVKPWindow *ui;
 //    QThread *thread;
-//    QTimer *timer;
 
     QPalette green_palette;
     QPalette red_palette;
@@ -129,9 +134,6 @@ private:
 
     messageExchange *me;
 
-//    bool all_buttons_off;
-//    bool all_buttons_on;
-//    bool all_buttons_on_off;
     // для хранения предыдущего статуса кнопки выхода
     bool last_pressed_o[output_size];
     output_cntrl o_cntrl[output_size];

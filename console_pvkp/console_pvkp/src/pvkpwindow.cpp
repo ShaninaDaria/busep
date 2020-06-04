@@ -1,5 +1,9 @@
+#include <QTime>
+
 #include "../hdr/pvkpwindow.h"
 #include "ui_pvkpwindow.h"
+
+//----------------------------------------------------------
 
 PVKPWindow::PVKPWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +16,12 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
 
     for (int i = 0; i < output_size; i++)
     {
-        last_pressed_o[i] = true;
+        last_pressed_o[i] = false;
+    }
+
+    for (int i = 0; i < output_size; i++)
+    {
+        o_cntrl[i] = cntrl_off;
     }
 
     start_simulator = true;
@@ -20,6 +29,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     ui->startStopButton->setPalette(green_palette);
 
     connect(ui->startStopButton, SIGNAL(pressed()), this, SLOT(slotStartStop()));
+    connect(ui->testConnection, SIGNAL(pressed()), this, SLOT(slotTestConnection()));
 
     connect(ui->allOutputsOff, SIGNAL(toggled(bool)), this, SLOT(slotAllOutputsOnOff(bool)));
 
@@ -98,44 +108,72 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     //    me->moveToThread(thread);    
     //    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     //    thread->start();
-    //    timer = new QTimer(this);
-//    connect(timer, SIGNAL (timeout()), this, SLOT(slotByTimer()));
 
-
-    // работа с сетью
-//    me->initTransmit();
 
     /// проверка работы с последовательным портом
-    /// не удалось вывести список всех портов
+    /// не удалось вывести список всех портов - Failed to load the library: udev, supported version(s): 1 and 0
 //    QList <QSerialPortInfo> list_sp_info = me->getAllSerialPorts();
-//    for (int i = 0; i < list_sp_info.size(); i++)
+//    for (int i = (list_sp_info.size() - 1); i >= 0 ; i--)
 //    {
-//        ui->list_serial_ports->addItem(list_sp_info.at(i).portName());
+//        if (!list_sp_info.at(i).description().isEmpty())
+//        {
+//            ui->listSerialPorts->addItem(list_sp_info.at(i).portName());
+//            qDebug() << list_sp_info.at(i).portName();
+//        }
+//        else
+//        {
+//            list_sp_info.removeAt(i);
+//        }
 //    }
 
-    if (!me->openSerialPort(port_pvkp, baud_rate))
-    {
-        ui->statusbar->showMessage("Error with serial port /dev/ttyAP2");
-    }
-    else
-    {
-        ui->label_serial_port->setText(port_pvkp);
-        ui->statusbar->showMessage("Hello, my dear Daria!");
+//    if (!list_sp_info.isEmpty())
+//    {
+//        if (me->openSerialPort(list_sp_info.at(ui->listSerialPorts->currentIndex()).portName(), baud_rate))
+//        {
+//            ui->statusbar->showMessage("Ready");
 
-        connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotReceiveSignalIS3()));
-        connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotReceiveSignalIS4()));
-        connect(me, SIGNAL(signalReceiveIS5()), this, SLOT(slotReceiveSignalIS5()));
-    }
+//            connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotReceiveIS3()));
+//            connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotReceiveIS4()));
+//            connect(me, SIGNAL(signalReceiveIS5()), this, SLOT(slotReceiveIS5()));
+//            connect(me, SIGNAL(signalNoReceiveIS3()), this, SLOT(slotNoReceiveIS3()));
+//            connect(me, SIGNAL(signalNoReceiveIS4()), this, SLOT(slotNoReceiveIS4()));
+//        }
+//        else
+//        {
+//            ui->statusbar->showMessage("Error with serial port " +
+//                                       list_sp_info.at(ui->listSerialPorts->currentIndex()).portName());
+//        }
+//    }
+//    else
+//    {
+//        ui->listSerialPorts->hide();
+
+        // вариант с конфигурационным файлом
+        if (readConfigFile())
+        {
+            connect(ui->listSerialPorts, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPortChecked(int)));
+            connect(me, SIGNAL(signalReceiveIS3()), this, SLOT(slotReceiveIS3()));
+            connect(me, SIGNAL(signalReceiveIS4()), this, SLOT(slotReceiveIS4()));
+            connect(me, SIGNAL(signalReceiveIS5()), this, SLOT(slotReceiveIS5()));
+            connect(me, SIGNAL(signalNoReceiveIS3()), this, SLOT(slotNoReceiveIS3()));
+            connect(me, SIGNAL(signalNoReceiveIS4()), this, SLOT(slotNoReceiveIS4()));
+            connect(me, SIGNAL(signalTest(QString)), this, SLOT(slotTestReceive(QString)));
+
+            ui->listSerialPorts->setCurrentIndex(1);
+//            slotPortChecked(1);
+        }
+        else
+        {
+            ui->startStopButton->setEnabled(false);
+        }
+
+//    }
 }
 
 //----------------------------------------------------------
 
 PVKPWindow::~PVKPWindow()
 {
-//    if (timer->isActive())
-//    {
-//        timer->stop();
-//    }
 //    delete thread;
 
     delete me;
@@ -145,32 +183,104 @@ PVKPWindow::~PVKPWindow()
 
 //----------------------------------------------------------
 
+bool PVKPWindow::readConfigFile()
+{
+    QFile file;
+    file.setFileName(file_name);
+    QString port_name1, port_name2, baud_rate;
+    if (file.exists())
+    {
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+//        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        if (file.isOpen())
+        {
+            qDebug() << file.fileName();
+            while (!file.atEnd())
+            {
+                port_name1 = file.readLine();
+                port_name2 = file.readLine();
+                baud_rate = file.readLine();
+                port_name1 = port_name1.trimmed();
+                port_name2 = port_name2.trimmed();
+                baud_rate = baud_rate.trimmed();
+                ui->listSerialPorts->addItem(port_name1);
+                ui->listSerialPorts->addItem(port_name2);
+                ui->baud_rate->setText(baud_rate);
+
+                qDebug() << port_name1 << port_name2 << baud_rate;
+            }
+
+            file.close();
+
+            if (!port_name1.isEmpty() && !port_name2.isEmpty() && !baud_rate.isEmpty())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            ui->statusbar->showMessage("Error open file 'config.ini'");
+        }
+    }
+    else
+    {
+        ui->statusbar->showMessage("No file 'config.ini'");
+    }
+
+    return false;
+}
+
+//----------------------------------------------------------
+
+void PVKPWindow::slotPortChecked(int port_index)
+{
+    if (me->openSerialPort(ui->listSerialPorts->itemText(port_index), ui->baud_rate->text().toInt()))
+    {
+        ui->statusbar->showMessage(ui->listSerialPorts->itemText(port_index) + " is ready");
+        qDebug() << __FUNCTION__ << ui->listSerialPorts->itemText(port_index) + " is ready";
+    }
+    else
+    {
+        ui->statusbar->showMessage("Error with serial port " + ui->listSerialPorts->itemText(port_index));
+         qDebug() << __FUNCTION__ << "Error with serial port " + ui->listSerialPorts->itemText(port_index);
+    }
+
+}
+
+//----------------------------------------------------------
+
 void PVKPWindow::createPalette()
 {
-    red_palette.setColor(ui->output1->backgroundRole(), Qt::red/*255, 0, 0*/ );
-    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow/*0, 0, 255*/ );
-    green_palette.setColor(ui->output1->backgroundRole(), Qt::green/*0, 255, 0*/ );
+    red_palette.setColor(ui->output1->backgroundRole(), Qt::red);
+    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow);
+    green_palette.setColor(ui->output1->backgroundRole(), Qt::green);
     gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
 }
 
 //----------------------------------------------------------
 
-void PVKPWindow::slotReceiveSignalIS3()
+void PVKPWindow::slotReceiveIS3()
 {
     if (me->parse_IS3())
     {
         showInputsValue();
         if (me->start_exchange())
         {
+            ui->log->append("Подключено к БУСЭП");
             ui->statusbar->showMessage("Связь установлена.");
             qDebug() << "HANGUP";
         }
         else
         {
-            ui->statusExchangeIS1_IS3->setText("Обмен ИС1 - ИС3 идёт в штатном режиме");
+            if (!me->parse_IS5())
+            {
+                ui->statusExchangeIS1_IS3->setText("Обмен ИС1 - ИС3 идёт в штатном режиме");
+                ui->statusReceiveIS5->clear();
+            }
         }
+        me->setParse_IS3(false);
 
-        me->usualExchange();
+        me->usualExchange2();
     }
     else
     {
@@ -184,46 +294,72 @@ void PVKPWindow::slotReceiveSignalIS3()
             if (wrong == 3)
             {
                 ui->statusExchangeIS1_IS3->setText("При разборе ИС3 прозошла ошибка!");
+                ui->statusReceiveIS5->clear();
             }
             wrong++;
-            me->usualExchange();
+            me->usualExchange2();
         }
     }
 }
 
 //----------------------------------------------------------
 
-void PVKPWindow::slotReceiveSignalIS4()
+void PVKPWindow::slotReceiveIS4()
 {
-    qDebug() << __FUNCTION__;
+//    qDebug() << __FUNCTION__;
+    static int wrong(0);
     if (me->parse_IS4())
     {
         showOutputsValue();
-        ui->statusExchangeIS2_IS4->setText("Обмен ИС2 - ИС4 идёт в штатном режиме");
+        if (!me->parse_IS5())
+        {
+            ui->statusExchangeIS2_IS4->setText("Обмен ИС2 - ИС4 идёт в штатном режиме");
+            me->setParse_IS4(false);
+            wrong = 0;
+        }
+
     }
     else
     {
-        static int wrong(0);
         if (wrong == 3)
         {
-//            ui->statusbar->showMessage("При разборе ИС4 прозошла ошибка!");
             ui->statusExchangeIS2_IS4->setText("При разборе ИС4 прозошла ошибка!");
         }
         wrong++;
     }
-    /// NOTE на тот случай, если я решу останавливать таймер ИС1-ИС3
-//    qDebug() << "usualExchange()";
-    me->usualExchange();
+    ui->statusReceiveIS5->clear();
+    me->usualExchange2();
 }
 
 //----------------------------------------------------------
 
-void PVKPWindow::slotReceiveSignalIS5()
+void PVKPWindow::slotReceiveIS5()
 {
-    qDebug() << __FUNCTION__;
-//    ui->statusbar->showMessage("Приём сообщения ИС5!");
-    ui->log->append("Приём сообщения ИС5!");
-    me->usualExchange();
+//    qDebug() << __FUNCTION__;
+//    ui->statusReceiveIS5->setText("Принято сообщение ИС5!");
+    ui->log->append("Принято сообщение ИС5!");
+    me->usualExchange2();
+}
+
+//----------------------------------------------------------
+
+void PVKPWindow::slotTestReceive(QString str)
+{
+    ui->log->append(str);
+}
+
+//----------------------------------------------------------
+
+void PVKPWindow::slotNoReceiveIS3()
+{
+    ui->log->append(QTime::currentTime().toString("hh:mm:ss:zzz") + " За ожидаемое время (100 мс) не принято ИС3");
+}
+
+//----------------------------------------------------------
+
+void PVKPWindow::slotNoReceiveIS4()
+{
+    ui->log->append(QTime::currentTime().toString("hh:mm:ss:zzz") + " За ожидаемое время (10 мс) не принято ИС4");
 }
 
 //----------------------------------------------------------
@@ -236,7 +372,7 @@ void PVKPWindow::slotStartStop()
 
         ui->startStopButton->setPalette(red_palette);
         ui->startStopButton->setText("Стоп");
-        ui->log->append("Подключено к БУСЭП");
+        ui->log->append("Старт");
         start_simulator = false;
     }
     else
@@ -244,9 +380,17 @@ void PVKPWindow::slotStartStop()
         me->stopExchange();
         ui->startStopButton->setPalette(green_palette);
         ui->startStopButton->setText("Старт");
-        ui->log->append("Останов");
+        ui->log->append("Стоп");
+        ui->statusbar->showMessage("Стоп");
         start_simulator = true;
     }
+}
+
+//----------------------------------------------------------
+
+void PVKPWindow::slotTestConnection()
+{
+    me->testConnection();
 }
 
 //----------------------------------------------------------
@@ -298,11 +442,11 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 
     if (me->sendIS2() < 0)
     {
-        ui->log->append("Ошибка передачи ИС2");
+        ui->log->append("Ошибка передачи ИС2 <" + QString(toggled? "включить" : "выключить") + " все выходы>");
     }
     else
     {
-        ui->log->append("ИС2 отправлено успешно");
+        ui->log->append("ИС2 <" + QString(toggled? "включить" : "выключить") + " все выходы> отправлено успешно");
     }
 
     ui->output1->clicked(true);
@@ -377,14 +521,15 @@ void PVKPWindow::manageOneOutput(int number, bool pressed)
     {
         if (last_pressed_o[number - 1])
         {
-            last_pressed_o[number - 1] = false;
-
             if (ui->addError->isChecked())
             {
+                qDebug() << number << "off with error";
                 me->addErrorToIS2(number, cntrl_off);
             }
             else
             {
+                qDebug() << number << "off";
+                last_pressed_o[number - 1] = false;
                 me->createIS2(number, cntrl_off);
             }
 
@@ -393,14 +538,15 @@ void PVKPWindow::manageOneOutput(int number, bool pressed)
         }
         else
         {
-            last_pressed_o[number - 1] = true;
-
             if (ui->addError->isChecked())
             {
+                qDebug() << number << "on with error";
                 me->addErrorToIS2(number, cntrl_on);
             }
             else
             {
+                qDebug() << number << "on";
+                last_pressed_o[number - 1] = true;
                 me->createIS2(number, cntrl_on);
             }
 
@@ -408,7 +554,17 @@ void PVKPWindow::manageOneOutput(int number, bool pressed)
             o_cntrl[number - 1] = cntrl_on;
         }
 
-        me->sendIS2();
+        if (me->sendIS2() < 0)
+        {
+            ui->log->append("Ошибка передачи ИС2 <" +
+                            QString(last_pressed_o[number - 1]? "включить выход %1>" : "выключить выход %1>").arg(number));
+        }
+        else
+        {
+            ui->log->append("ИС2 <" +
+                            QString(last_pressed_o[number - 1]? "включить выход %1>" : "выключить выход %1>").arg(number) +
+                    " отправлено успешно");
+        }
     }
 }
 
@@ -447,31 +603,43 @@ void PVKPWindow::slotOutput5clicked(bool pressed)
     manageOneOutput(output5, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput6clicked(bool pressed)
 {
 
     manageOneOutput(output6, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput7clicked(bool pressed)
 {
     manageOneOutput(output7, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput8clicked(bool pressed)
 {
     manageOneOutput(output8, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput9clicked(bool pressed)
 {
     manageOneOutput(output9, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput10clicked(bool pressed)
 {
     manageOneOutput(output10, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput11clicked(bool pressed)
 {
@@ -479,75 +647,105 @@ void PVKPWindow::slotOutput11clicked(bool pressed)
     manageOneOutput(output11, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput12clicked(bool pressed)
 {
     manageOneOutput(output12, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput13clicked(bool pressed)
 {
     manageOneOutput(output13, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput14clicked(bool pressed)
 {
     manageOneOutput(output14, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput15clicked(bool pressed)
 {
     manageOneOutput(output15, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput16clicked(bool pressed)
 {
     manageOneOutput(output16, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput17clicked(bool pressed)
 {
     manageOneOutput(output17, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput18clicked(bool pressed)
 {
     manageOneOutput(output18, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput19clicked(bool pressed)
 {
     manageOneOutput(output19, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput20clicked(bool pressed)
 {
     manageOneOutput(output20, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput21clicked(bool pressed)
 {
     manageOneOutput(output21, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput22clicked(bool pressed)
 {
     manageOneOutput(output22, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput23clicked(bool pressed)
 {
     manageOneOutput(output23, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput24clicked(bool pressed)
 {
     manageOneOutput(output24, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput25clicked(bool pressed)
 {
     manageOneOutput(output25, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput26clicked(bool pressed)
 {
@@ -555,25 +753,35 @@ void PVKPWindow::slotOutput26clicked(bool pressed)
     manageOneOutput(output26, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput27clicked(bool pressed)
 {
     manageOneOutput(output27, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput28clicked(bool pressed)
 {
     manageOneOutput(output28, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput29clicked(bool pressed)
 {
     manageOneOutput(output29, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput30clicked(bool pressed)
 {
     manageOneOutput(output30, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput31clicked(bool pressed)
 {
@@ -581,20 +789,28 @@ void PVKPWindow::slotOutput31clicked(bool pressed)
     manageOneOutput(output31, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput32clicked(bool pressed)
 {
     manageOneOutput(output32, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput33clicked(bool pressed)
 {
     manageOneOutput(output33, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput34clicked(bool pressed)
 {
     manageOneOutput(output34, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput35clicked(bool pressed)
 {
@@ -602,139 +818,189 @@ void PVKPWindow::slotOutput35clicked(bool pressed)
     manageOneOutput(output35, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput36clicked(bool pressed)
 {
     manageOneOutput(output36, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput37clicked(bool pressed)
 {
     manageOneOutput(output37, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput38clicked(bool pressed)
 {
     manageOneOutput(output38, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput39clicked(bool pressed)
 {
     manageOneOutput(output39, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput40clicked(bool pressed)
 {
     manageOneOutput(output40, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput41clicked(bool pressed)
 {
-
     manageOneOutput(output41, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput42clicked(bool pressed)
 {
     manageOneOutput(output42, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput43clicked(bool pressed)
 {
     manageOneOutput(output43, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput44clicked(bool pressed)
 {
     manageOneOutput(output44, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput45clicked(bool pressed)
 {
     manageOneOutput(output45, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput46clicked(bool pressed)
 {
-
     manageOneOutput(output46, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput47clicked(bool pressed)
 {
     manageOneOutput(output47, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput48clicked(bool pressed)
 {
-
     manageOneOutput(output48, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput49clicked(bool pressed)
 {
     manageOneOutput(output49, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput50clicked(bool pressed)
 {
     manageOneOutput(output50, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput51clicked(bool pressed)
 {
     manageOneOutput(output51, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput52clicked(bool pressed)
 {
     manageOneOutput(output52, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput53clicked(bool pressed)
 {
     manageOneOutput(output53, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput54clicked(bool pressed)
 {
-
     manageOneOutput(output54, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput55clicked(bool pressed)
 {
     manageOneOutput(output55, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput56clicked(bool pressed)
 {
     manageOneOutput(output56, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput57clicked(bool pressed)
 {
     manageOneOutput(output57, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput58clicked(bool pressed)
 {
     manageOneOutput(output58, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput59clicked(bool pressed)
 {
     manageOneOutput(output59, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput60clicked(bool pressed)
 {
     manageOneOutput(output60, pressed);
 }
 
+//----------------------------------------------------------
+
 void PVKPWindow::slotOutput61clicked(bool pressed)
 {
     manageOneOutput(output61, pressed);
 }
+
+//----------------------------------------------------------
 
 void PVKPWindow::slotOutput62clicked(bool pressed)
 {
@@ -745,167 +1011,168 @@ void PVKPWindow::slotOutput62clicked(bool pressed)
 
 void PVKPWindow::showInputsValue()
 {
-    setInputColor(me->getInputState(input1), ui->input1);
-    setInputColor(me->getInputState(input2), ui->input2);
-    setInputColor(me->getInputState(input3), ui->input3);
-    setInputColor(me->getInputState(input4), ui->input4);
+    setInputColor(input1, ui->input1);
+    setInputColor(input2, ui->input2);
+    setInputColor(input3, ui->input3);
+    setInputColor(input4, ui->input4);
 
-    setInputColor(me->getInputState(input5), ui->input5);
-    setInputColor(me->getInputState(input6), ui->input6);
-    setInputColor(me->getInputState(input7), ui->input7);
-    setInputColor(me->getInputState(input8), ui->input8);
+    setInputColor(input5, ui->input5);
+    setInputColor(input6, ui->input6);
+    setInputColor(input7, ui->input7);
+    setInputColor(input8, ui->input8);
 
-    setInputColor(me->getInputState(input9), ui->input9);
-    setInputColor(me->getInputState(input10), ui->input10);
-    setInputColor(me->getInputState(input11), ui->input11);
-    setInputColor(me->getInputState(input12), ui->input12);
+    setInputColor(input9, ui->input9);
+    setInputColor(input10, ui->input10);
+    setInputColor(input11, ui->input11);
+    setInputColor(input12, ui->input12);
 
-    setInputColor(me->getInputState(input13), ui->input13);
-    setInputColor(me->getInputState(input14), ui->input14);
-    setInputColor(me->getInputState(input15), ui->input15);
-    setInputColor(me->getInputState(input16), ui->input16);
+    setInputColor(input13, ui->input13);
+    setInputColor(input14, ui->input14);
+    setInputColor(input15, ui->input15);
+    setInputColor(input16, ui->input16);
 
-    setInputColor(me->getInputState(input17), ui->input17);
-    setInputColor(me->getInputState(input18), ui->input18);
-    setInputColor(me->getInputState(input19), ui->input19);
-    setInputColor(me->getInputState(input20), ui->input20);
+    setInputColor(input17, ui->input17);
+    setInputColor(input18, ui->input18);
+    setInputColor(input19, ui->input19);
+    setInputColor(input20, ui->input20);
 
-    setInputColor(me->getInputState(input21), ui->input21);
-    setInputColor(me->getInputState(input22), ui->input22);
-    setInputColor(me->getInputState(input23), ui->input23);
-    setInputColor(me->getInputState(input24), ui->input24);
+    setInputColor(input21, ui->input21);
+    setInputColor(input22, ui->input22);
+    setInputColor(input23, ui->input23);
+    setInputColor(input24, ui->input24);
 
-    setInputColor(me->getInputState(input25), ui->input25);
-    setInputColor(me->getInputState(input26), ui->input26);
-    setInputColor(me->getInputState(input27), ui->input27);
-    setInputColor(me->getInputState(input28), ui->input28);
+    setInputColor(input25, ui->input25);
+    setInputColor(input26, ui->input26);
+    setInputColor(input27, ui->input27);
+    setInputColor(input28, ui->input28);
 
-    setInputColor(me->getInputState(input29), ui->input29);
-    setInputColor(me->getInputState(input30), ui->input30);
-    setInputColor(me->getInputState(input31), ui->input31);
-    setInputColor(me->getInputState(input32), ui->input32);
+    setInputColor(input29, ui->input29);
+    setInputColor(input30, ui->input30);
+    setInputColor(input31, ui->input31);
+    setInputColor(input32, ui->input32);
 
-    setInputColor(me->getInputState(input33), ui->input33);
-    setInputColor(me->getInputState(input34), ui->input34);
-    setInputColor(me->getInputState(input35), ui->input35);
-    setInputColor(me->getInputState(input36), ui->input36);
+    setInputColor(input33, ui->input33);
+    setInputColor(input34, ui->input34);
+    setInputColor(input35, ui->input35);
+    setInputColor(input36, ui->input36);
 
-    setInputColor(me->getInputState(input37), ui->input37);
-    setInputColor(me->getInputState(input38), ui->input38);
-    setInputColor(me->getInputState(input39), ui->input39);
-    setInputColor(me->getInputState(input40), ui->input40);
+    setInputColor(input37, ui->input37);
+    setInputColor(input38, ui->input38);
+    setInputColor(input39, ui->input39);
+    setInputColor(input40, ui->input40);
 
-    setInputColor(me->getInputState(input41), ui->input41);
-    setInputColor(me->getInputState(input42), ui->input42);
-    setInputColor(me->getInputState(input43), ui->input43);
-    setInputColor(me->getInputState(input44), ui->input44);
+    setInputColor(input41, ui->input41);
+    setInputColor(input42, ui->input42);
+    setInputColor(input43, ui->input43);
+    setInputColor(input44, ui->input44);
 
-    setInputColor(me->getInputState(input45), ui->input45);
-    setInputColor(me->getInputState(input46), ui->input46);
-    setInputColor(me->getInputState(input47), ui->input47);
-    setInputColor(me->getInputState(input48), ui->input48);
+    setInputColor(input45, ui->input45);
+    setInputColor(input46, ui->input46);
+    setInputColor(input47, ui->input47);
+    setInputColor(input48, ui->input48);
 
-    setInputColor(me->getInputState(input49), ui->input49);
-    setInputColor(me->getInputState(input50), ui->input50);
-    setInputColor(me->getInputState(input51), ui->input51);
-    setInputColor(me->getInputState(input52), ui->input52);
+    setInputColor(input49, ui->input49);
+    setInputColor(input50, ui->input50);
+    setInputColor(input51, ui->input51);
+    setInputColor(input52, ui->input52);
 
-    setInputColor(me->getInputState(input53), ui->input53);
-    setInputColor(me->getInputState(input54), ui->input54);
-    setInputColor(me->getInputState(input55), ui->input55);
-    setInputColor(me->getInputState(input56), ui->input56);
+    setInputColor(input53, ui->input53);
+    setInputColor(input54, ui->input54);
+    setInputColor(input55, ui->input55);
+    setInputColor(input56, ui->input56);
 
-    setInputColor(me->getInputState(input57), ui->input57);
-    setInputColor(me->getInputState(input58), ui->input58);
-    setInputColor(me->getInputState(input59), ui->input59);
-    setInputColor(me->getInputState(input60), ui->input60);
+    setInputColor(input57, ui->input57);
+    setInputColor(input58, ui->input58);
+    setInputColor(input59, ui->input59);
+    setInputColor(input60, ui->input60);
 
-    setInputColor(me->getInputState(input61), ui->input61);
-    setInputColor(me->getInputState(input62), ui->input62);
-    setInputColor(me->getInputState(input63), ui->input63);
-    setInputColor(me->getInputState(input64), ui->input64);
+    setInputColor(input61, ui->input61);
+    setInputColor(input62, ui->input62);
+    setInputColor(input63, ui->input63);
+    setInputColor(input64, ui->input64);
 
-    setInputColor(me->getInputState(input65), ui->input65);
-    setInputColor(me->getInputState(input66), ui->input66);
-    setInputColor(me->getInputState(input67), ui->input67);
-    setInputColor(me->getInputState(input68), ui->input68);
+    setInputColor(input65, ui->input65);
+    setInputColor(input66, ui->input66);
+    setInputColor(input67, ui->input67);
+    setInputColor(input68, ui->input68);
 
-    setInputColor(me->getInputState(input69), ui->input69);
-    setInputColor(me->getInputState(input70), ui->input70);
-    setInputColor(me->getInputState(input71), ui->input71);
-    setInputColor(me->getInputState(input72), ui->input72);
+    setInputColor(input69, ui->input69);
+    setInputColor(input70, ui->input70);
+    setInputColor(input71, ui->input71);
+    setInputColor(input72, ui->input72);
 
-    setInputColor(me->getInputState(input73), ui->input73);
-    setInputColor(me->getInputState(input74), ui->input74);
-    setInputColor(me->getInputState(input75), ui->input75);
-    setInputColor(me->getInputState(input76), ui->input76);
+    setInputColor(input73, ui->input73);
+    setInputColor(input74, ui->input74);
+    setInputColor(input75, ui->input75);
+    setInputColor(input76, ui->input76);
 
-    setInputColor(me->getInputState(input77), ui->input77);
-    setInputColor(me->getInputState(input78), ui->input78);
-    setInputColor(me->getInputState(input79), ui->input79);
-    setInputColor(me->getInputState(input80), ui->input80);
+    setInputColor(input77, ui->input77);
+    setInputColor(input78, ui->input78);
+    setInputColor(input79, ui->input79);
+    setInputColor(input80, ui->input80);
 
-    setInputColor(me->getInputState(input81), ui->input81);
-    setInputColor(me->getInputState(input82), ui->input82);
-    setInputColor(me->getInputState(input83), ui->input83);
-    setInputColor(me->getInputState(input84), ui->input84);
+    setInputColor(input81, ui->input81);
+    setInputColor(input82, ui->input82);
+    setInputColor(input83, ui->input83);
+    setInputColor(input84, ui->input84);
 
-    setInputColor(me->getInputState(input85), ui->input85);
-    setInputColor(me->getInputState(input86), ui->input86);
-    setInputColor(me->getInputState(input87), ui->input87);
-    setInputColor(me->getInputState(input88), ui->input88);
+    setInputColor(input85, ui->input85);
+    setInputColor(input86, ui->input86);
+    setInputColor(input87, ui->input87);
+    setInputColor(input88, ui->input88);
 
-    setInputColor(me->getInputState(input89), ui->input89);
-    setInputColor(me->getInputState(input90), ui->input90);
-    setInputColor(me->getInputState(input91), ui->input91);
-    setInputColor(me->getInputState(input92), ui->input92);
+    setInputColor(input89, ui->input89);
+    setInputColor(input90, ui->input90);
+    setInputColor(input91, ui->input91);
+    setInputColor(input92, ui->input92);
 
-    setInputColor(me->getInputState(input93), ui->input93);
-    setInputColor(me->getInputState(input94), ui->input94);
-    setInputColor(me->getInputState(input95), ui->input95);
-    setInputColor(me->getInputState(input96), ui->input96);
+    setInputColor(input93, ui->input93);
+    setInputColor(input94, ui->input94);
+    setInputColor(input95, ui->input95);
+    setInputColor(input96, ui->input96);
 
-    setInputColor(me->getInputState(input97), ui->input97);
-    setInputColor(me->getInputState(input98), ui->input98);
-    setInputColor(me->getInputState(input99), ui->input99);
-    setInputColor(me->getInputState(input100), ui->input100);
+    setInputColor(input97, ui->input97);
+    setInputColor(input98, ui->input98);
+    setInputColor(input99, ui->input99);
+    setInputColor(input100, ui->input100);
 
-    setInputColor(me->getInputState(input101), ui->input101);
-    setInputColor(me->getInputState(input102), ui->input102);
-    setInputColor(me->getInputState(input103), ui->input103);
-    setInputColor(me->getInputState(input104), ui->input104);
+    setInputColor(input101, ui->input101);
+    setInputColor(input102, ui->input102);
+    setInputColor(input103, ui->input103);
+    setInputColor(input104, ui->input104);
 
-    setInputColor(me->getInputState(input105), ui->input105);
-    setInputColor(me->getInputState(input106), ui->input106);
-    setInputColor(me->getInputState(input107), ui->input107);
-    setInputColor(me->getInputState(input108), ui->input108);
+    setInputColor(input105, ui->input105);
+    setInputColor(input106, ui->input106);
+    setInputColor(input107, ui->input107);
+    setInputColor(input108, ui->input108);
 
-    setInputColor(me->getInputState(input109), ui->input109);
-    setInputColor(me->getInputState(input110), ui->input110);
-    setInputColor(me->getInputState(input111), ui->input111);
-    setInputColor(me->getInputState(input112), ui->input112);
+    setInputColor(input109, ui->input109);
+    setInputColor(input110, ui->input110);
+    setInputColor(input111, ui->input111);
+    setInputColor(input112, ui->input112);
 
-    setInputColor(me->getInputState(input113), ui->input113);
-    setInputColor(me->getInputState(input114), ui->input114);
-    setInputColor(me->getInputState(input115), ui->input115);
-    setInputColor(me->getInputState(input116), ui->input116);
+    setInputColor(input113, ui->input113);
+    setInputColor(input114, ui->input114);
+    setInputColor(input115, ui->input115);
+    setInputColor(input116, ui->input116);
 
-    setInputColor(me->getInputState(input117), ui->input117);
-    setInputColor(me->getInputState(input118), ui->input118);
-    setInputColor(me->getInputState(input119), ui->input119);
-    setInputColor(me->getInputState(input120), ui->input120);
+    setInputColor(input117, ui->input117);
+    setInputColor(input118, ui->input118);
+    setInputColor(input119, ui->input119);
+    setInputColor(input120, ui->input120);
 
-    setInputColor(me->getInputState(input121), ui->input121);
-    setInputColor(me->getInputState(input122), ui->input122);
-    setInputColor(me->getInputState(input123), ui->input123);
-    setInputColor(me->getInputState(input124), ui->input124);
+    setInputColor(input121, ui->input121);
+    setInputColor(input122, ui->input122);
+    setInputColor(input123, ui->input123);
+    setInputColor(input124, ui->input124);
 }
 
 //----------------------------------------------------------
 
-void PVKPWindow::setInputColor(const unsigned &input, QPushButton *input_button)
+void PVKPWindow::setInputColor(int i_nmb, QPushButton *input_button)
 {
-    switch (input)
+    input_state state = me->getInputState(i_nmb);
+    switch (state)
     {
     case no_signal_27v:
         input_button->setPalette(gray_palette);
@@ -1009,16 +1276,45 @@ void PVKPWindow::showOutputsValue()
 }
 
 //----------------------------------------------------------
-
+// к сожалению, нет команды опроса выходов, поэтому такая радуга
 void PVKPWindow::setOutputColor(int o_nmb, QPushButton *output_button)
 {
     output_state state = me->getOutputState(o_nmb);
     if (o_nmb < output_size)
     {
+        // по моим данным, выход был включен
         if (o_cntrl[o_nmb - 1] == cntrl_on)
         {
             switch (state)
             {
+            case output_on:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::green);
+                break;
+
+            // а из имитатора БУСЭП пришло состояние "выключен" (т.е. выход не был объявлен)
+            // или имататор БУСЭПа упал
+            case output_off:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::blue);
+                break;
+
+            case no_output_state:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::yellow);
+                break;
+
+            case error_output:
+                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::red);
+                break;
+            }
+            output_button->setPalette(button_palette[o_nmb - 1]);
+        }
+
+        // по моим данным, выход был выключен
+        if (o_cntrl[o_nmb - 1] == cntrl_off)
+        {
+            switch (state)
+            {
+            // а из имитатора БУСЭП пришло состояние "включен"
+            // (надеюсь, имитатор ПВКП переподключался, а это не была ошибка)
             case output_on:
                 button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::green);
                 break;
@@ -1038,32 +1334,10 @@ void PVKPWindow::setOutputColor(int o_nmb, QPushButton *output_button)
             output_button->setPalette(button_palette[o_nmb - 1]);
         }
 
-        if (o_cntrl[o_nmb - 1] == cntrl_off)
-        {
-            switch (state)
-            {
-            case output_on:
-                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::gray);
-                break;
-
-            case output_off:
-                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::gray);
-                break;
-
-            case no_output_state:
-                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::yellow);
-                break;
-
-            case error_output:
-                button_palette[o_nmb - 1].setColor(output_button->backgroundRole(), Qt::red);
-                break;
-            }
-            output_button->setPalette(button_palette[o_nmb - 1]);
-        }
+//        qDebug() << "STATE " << o_nmb << me->getOutputState(o_nmb);
     }
     else
     {
-
+        ui->log->append(QString("Номер выхода %1 превышает количество выходов %2").arg(o_nmb).arg(output_size));
     }
-
 }

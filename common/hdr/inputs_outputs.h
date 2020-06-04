@@ -1,6 +1,8 @@
 ﻿#ifndef INPUTS_OUTPUTS_H
 #define INPUTS_OUTPUTS_H
 
+#include "common.h"
+
 const int output_size = 63;
 
 const int all_outputs = 0x00;
@@ -272,7 +274,6 @@ public:
     void setOneOutput(int number, output_state state);
     output_state getOutputValue(int number);
     char *getAllOutputs();
-//    int sizeOfOutputs() const;
 
     char inputs2[input_size];
     void setAllInputs(input_state state);

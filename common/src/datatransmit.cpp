@@ -2,211 +2,57 @@
 
 DataTransmit::DataTransmit(QObject *parent) : QObject (parent)
 {
-    //    _rs485 = new rs485();
-    //    _rs485->receive();
-    //    _rs485->close();
+    _serial_port = new QSerialPort(this);
 }
 
 //----------------------------------------------------------
 
 DataTransmit::~DataTransmit()
 {
-    //    delete  _rs485;
+    delete _serial_port;
 }
 
 //----------------------------------------------------------
-
-void DataTransmit::createServer()
+/*
+bool DataTransmit::readConfigFile()
 {
-    if ((server = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0)
+    QFile file;
+    file.setFileName("config.ini");
+    QString port_name;
+    int baud_rate;
+    if (file.exists())
     {
-        perror("-socket error\n");
-        exit(1);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+//        if (file.isOpen())
+        {
+            qDebug() << file.fileName();
+            while (!file.atEnd())
+            {
+                port_name = file.readLine();
+                baud_rate = file.readLine().toInt();
+                qDebug() << port_name << baud_rate;
+            }
+
+            file.close();
+
+            if (!port_name.isEmpty() && (baud_rate != 0))
+            {
+                return openSerialPort(port_name, baud_rate);
+            }
+        }
+        else
+        {
+            qDebug() << "Error open file 'config.ini'";
+        }
     }
     else
     {
-        std::cout << "create server socket" << std::endl;
+        qDebug() << "No file 'config.ini'";
     }
 
-    unlink(file_server);
-    bzero(&server_addr, sizeof(server_addr));
-
-    server_addr.sun_family = AF_UNIX/*AF_LOCAL*/;
-    strcpy(server_addr.sun_path, file_server);
-
-    if (bind (server, (struct sockaddr *)&server_addr, /*server_add_len*/ SUN_LEN (&server_addr)) < 0)
-    {
-        perror("-bind error");
-
-        exit(1);
-    }
-    else
-    {
-        std::cout << "bind ok " << std::endl;
-    }
-
-//    if (listen (server, 1) == -1)
-//    {
-//        perror("-listen error");
-//        exit(1);
-//    }
-//    else
-//    {
-//        std::cout << "listen ok " << std::endl;
-//    }
-
-//    socklen_t client_add_len = sizeof (server_addr);
-//    fd_socket = accept (server, (struct sockaddr*)&client_addr, &client_add_len);
-//    if (fd_socket < 0)
-//    {
-//        perror("-accept error\n");
-//        exit(1);
-//    }
-//    else
-//    {
-//        std::cout << "accept ok " << fd_socket << std::endl;
-//    }
-
-    if (fcntl(server, F_SETFL, O_NONBLOCK) != 0)
-    {
-        perror("-fcntl error\n");
-        exit(1);
-    }
+    return false;
 }
-
-//----------------------------------------------------------
-
-void DataTransmit::createClient()
-{
-    bzero(&server_addr, sizeof (server_addr));
-    server_addr.sun_family = AF_UNIX;
-    strcpy(server_addr.sun_path, file_server);
-
-    if ((client = socket(AF_LOCAL, SOCK_DGRAM, 0)) < 0)
-    {
-        perror("-socket error\n");
-        exit(1);
-    }
-    else
-    {
-        std::cout << "create client socket" << std::endl;
-        bzero(&client_addr, sizeof (client_addr));
-        client_addr.sun_family = AF_UNIX;
-        strcpy(client_addr.sun_path, file_client);
-        mkstemp(client_addr.sun_path);
-    }
-
-
-    if (bind (client, (struct sockaddr *)&client_addr, /*server_add_len*/ SUN_LEN (&client_addr)) < 0)
-    {
-        perror("-bind error");
-        endTransmitClient();
-        exit(1);
-
-//        if ((client = socket(AF_LOCAL, SOCK_DGRAM, 0)) < 0)
-//        {
-//            perror("-socket error\n");
-//            exit(1);
-//        }
-//        else
-//        {
-//            std::cout << "create client socket" << std::endl;
-//            bzero(&client_addr, sizeof (client_addr));
-//            client_addr.sun_family = AF_UNIX/*AF_LOCAL*/;
-//            strcpy(client_addr.sun_path, file_client);
-//            mkstemp(client_addr.sun_path);
-//        }
-    }
-    else
-    {
-        std::cout << "bind ok " << std::endl;
-    }
-
-//    if (connect (fd_socket, (struct sockaddr*)&client_addr, SUN_LEN (&client_addr)) < 0)
-//    {
-//        perror("-connect error\n");
-//        exit(1);
-//    }
-//    else
-//    {
-//        std::cout << "connect ok" << std::endl;
-//    }
-
-    if (fcntl(client, F_SETFL, O_NONBLOCK) != 0)
-    {
-        perror("-fcntl error\n");
-        exit(1);
-    }
-}
-
-//----------------------------------------------------------
-
-int DataTransmit::srvReceive(void *buf, size_t size)
-{
-    socklen_t addr_len = sizeof(struct sockaddr_un);
-
-    int bytes_recv(0);
-
-    bytes_recv = recvfrom(server, buf, size, 0,
-                          (struct sockaddr *)&client_addr, &addr_len);
-
-    return bytes_recv;
-}
-
-//----------------------------------------------------------
-
-int DataTransmit::srvSend(const void *buf, size_t size)
-{
-    socklen_t addr_len = sizeof(struct sockaddr_un);
-
-    int bytes_send(0);
-    bytes_send = sendto(server, buf, size, 0,
-                        (struct sockaddr*)&client_addr, addr_len);
-
-    return bytes_send;
-}
-
-//----------------------------------------------------------
-
-int DataTransmit::clntReceive(void *buf, size_t size)
-{
-//    socklen_t addr_len = SUN_LEN(&server_addr);
-
-    int bytes_recv(0);
-
-    bytes_recv = recvfrom(client, buf, size, 0,
-                          /*(struct sockaddr *)&server_addr*/ NULL, /*&addr_len*/0);
-
-    return bytes_recv;
-}
-
-//----------------------------------------------------------
-
-int DataTransmit::clntSend(const void *buf, size_t size)
-{
-    int bytes_send(0);
-    bytes_send = sendto(client, buf, size, 0,
-                        (struct sockaddr*)&server_addr, SUN_LEN(&server_addr));
-
-    return bytes_send;
-}
-
-//----------------------------------------------------------
-
-void DataTransmit::endTransmitServer()
-{
-    close(server);
-    unlink (file_server);
-}
-
-//----------------------------------------------------------
-
-void DataTransmit::endTransmitClient()
-{
-    close(client);
-    unlink(file_client);
-}
-
+*/
 //----------------------------------------------------------
 
 QList<QSerialPortInfo> DataTransmit::getAllSerialPorts()
@@ -217,59 +63,87 @@ QList<QSerialPortInfo> DataTransmit::getAllSerialPorts()
 
 //----------------------------------------------------------
 
-void DataTransmit::setOneSerialPort(int number_serial_port)
+bool DataTransmit::openSerialPort(QString port_name, int baud_rate)
 {
-    serial_port->setPort(sp_info.at(number_serial_port));
-}
-
-//----------------------------------------------------------
-
-bool DataTransmit::openSerialPort()
-{
-    return serial_port->open(QSerialPort::ReadWrite);
+#ifdef QNX
+    initSerialPort(port_name, baud_rate);
+//    if (_serial_port->open(QSerialPort::ReadWrite))
+    _serial_port->open(QSerialPort::ReadWrite);
+    if (_serial_port->isOpen())
+    {
+        qDebug() << "open true";
+        return true;
+    }
+    else
+    {
+        qDebug() << "open false";
+        _serial_port->close();
+    }
+    return false;
+#else
+    _serial_port->open(QSerialPort::ReadWrite);
+    if (_serial_port->isOpen())
+    {
+        initSerialPort(port_name, baud_rate);
+        return true;
+    }
+    else
+    {
+        _serial_port->close();
+    }
+    return false;
+#endif
 }
 
 //----------------------------------------------------------
 
 void DataTransmit::initSerialPort(QString port_name, int baud_rate)
 {
-    serial_port = new QSerialPort(this);
-    serial_port->setPortName(port_name);
-    serial_port->setBaudRate(baud_rate, QSerialPort::AllDirections);
-    serial_port->setDataBits(QSerialPort::Data8);
-    serial_port->setParity(QSerialPort::NoParity);
-    serial_port->setStopBits(QSerialPort::OneStop);
-    serial_port->setFlowControl(QSerialPort::NoFlowControl);
+    _serial_port->setPortName(port_name);
+    _serial_port->setBaudRate(baud_rate, QSerialPort::AllDirections);
+    _serial_port->setDataBits(QSerialPort::Data8);
+    _serial_port->setParity(QSerialPort::NoParity);
+    _serial_port->setStopBits(QSerialPort::OneStop);
+    _serial_port->setFlowControl(QSerialPort::NoFlowControl);
+}
+
+//----------------------------------------------------------
+
+QSerialPort *DataTransmit::serial_port() const
+{
+    return _serial_port;
 }
 
 //----------------------------------------------------------
 
 qint64 DataTransmit::receive(void *buf, size_t size, int wait_ms)
 {
-//    int bytes_recv = read(client, buf, sizeof(size));
-//    return bytes_recv;
+    _serial_port->waitForReadyRead(wait_ms);
+    qint64 bytes_rcv = _serial_port->read(static_cast<char *>(buf), size);
+    if (bytes_rcv < 0)
+    {
+        qDebug() << _serial_port->errorString();
+    }
+//    qDebug() << "bytes " << bytes << " for " << wait_ms << "ms";
 
-    serial_port->waitForReadyRead(wait_ms);
-    qint64 bytes = serial_port->read(static_cast<char *>(buf), size);
-
-    return bytes;
+    return bytes_rcv;
 }
 
 //----------------------------------------------------------
 
 qint64 DataTransmit::send(const void *buf, size_t size, int wait_ms)
 {
-//    int bytes_send = write(client, buf, size);
-//    return bytes_send;
-
-    qint64 bytes_send = serial_port->write(static_cast<const char *>(buf), size);
+    qint64 bytes_send = _serial_port->write(static_cast<const char *>(buf), size);
 //    qDebug() << "bytesToWrite1" << serial_port->bytesToWrite();
-    while (serial_port->bytesToWrite() != 0)
+    while (_serial_port->bytesToWrite() != 0)
     {
-//        qDebug() << "waitForBytesWritten" << serial_port->waitForBytesWritten(wait_ms);
-        serial_port->waitForBytesWritten(wait_ms);
+        /*qDebug() << "waitForBytesWritten" <<*/ _serial_port->waitForBytesWritten(wait_ms);
     }
-//    qDebug() << "bytesToWrite2" << serial_port->bytesToWrite();
+
+    if (bytes_send < 0)
+    {
+        qDebug() << _serial_port->errorString();
+    }
 
     return bytes_send;
 }
@@ -278,7 +152,7 @@ qint64 DataTransmit::send(const void *buf, size_t size, int wait_ms)
 
 void DataTransmit::closeSerialPort()
 {
-    serial_port->close();
+    _serial_port->close();
 }
 
 //----------------------------------------------------------

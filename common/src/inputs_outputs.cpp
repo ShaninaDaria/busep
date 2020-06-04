@@ -1,22 +1,29 @@
 #include "../../common/hdr/inputs_outputs.h"
 
-#include <QDebug>
+//----------------------------------------------------------
 
 InputsOutputs::InputsOutputs()
 {
+#ifdef QNX
     bzero(outputs2, sizeof (outputs2));
+    bzero(inputs2, sizeof (inputs2));
+#else
+    memset(outputs2, 0, sizeof (outputs2));
+    memset(outputs2, 0, sizeof (outputs2));
+#endif
 
     for (int i = 0; i < output_size; i++)
     {
         outputs2[i] = no_output_state;
     }
 
-    bzero(inputs2, sizeof (inputs2));
     for (int i = 0; i < input_size; i++)
     {
         inputs2[i] = no_input_state;
     }
 }
+
+//----------------------------------------------------------
 
 void InputsOutputs::setAllOutputs(output_state state)
 {
@@ -26,6 +33,8 @@ void InputsOutputs::setAllOutputs(output_state state)
     }
 }
 
+//----------------------------------------------------------
+
 void InputsOutputs::setOneOutput(int number, output_state state)
 {
     if (number < output_size)
@@ -33,6 +42,8 @@ void InputsOutputs::setOneOutput(int number, output_state state)
         outputs2[number - 1] = state;
     }
 }
+
+//----------------------------------------------------------
 
 output_state InputsOutputs::getOutputValue(int number)
 {
@@ -43,10 +54,14 @@ output_state InputsOutputs::getOutputValue(int number)
     return error_output;
 }
 
+//----------------------------------------------------------
+
 char *InputsOutputs::getAllOutputs()
 {
     return outputs2;
 }
+
+//----------------------------------------------------------
 
 void InputsOutputs::setAllInputs(input_state state)
 {
@@ -55,6 +70,8 @@ void InputsOutputs::setAllInputs(input_state state)
         inputs2[i] = state;
     }
 }
+
+//----------------------------------------------------------
 
 void InputsOutputs::setOneInput(int number, input_state state)
 {
@@ -73,7 +90,11 @@ input_state InputsOutputs::getInputValue(int number)
     return no_input_state;
 }
 
+//----------------------------------------------------------
+
 char *InputsOutputs::getAllInputs()
 {
     return inputs2;
 }
+
+//----------------------------------------------------------

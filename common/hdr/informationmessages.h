@@ -183,7 +183,8 @@ const unsigned char CRC8table[256] =
 };
 
 const int wait100ms = 100;
-const int wait10ms = 10;
+const int wait50ms  = 50;
+const int wait10ms  = 10;
 
 class InformationMessages
 {

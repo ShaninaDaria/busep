@@ -9,7 +9,8 @@
 class FormingIM_pvkp
 {
 public:
-    FormingIM_pvkp();
+    FormingIM_pvkp() {}
+    ~FormingIM_pvkp() {}
     _is1 createIS1();
     _is2 createIS2(unsigned char device_number, output_cntrl cntrl);
 
@@ -17,9 +18,12 @@ public:
 
     _is2 getIS2() const;
 
-    void parsingIS3(_rcv_data *rcv_data, _is3 &IS3, bool &ok);
-    void parsingIS4(_rcv_data *rcv_data, _is4 &IS4, bool &ok);
-    void parsingIS5(_rcv_data *rcv_data, _is5 &IS5, bool &ok);
+    void copyIS3fromRcvData(_rcv_data *rcv_data, _is3 &IS3);
+    void parsingIS3(_is3 *IS3, bool &ok);
+    void copyIS4fromRcvData(_rcv_data *rcv_data, _is4 &IS4);
+    void parsingIS4(_is4 *IS4, bool &ok);
+    void copyIS5fromRcvData(_rcv_data *rcv_data, _is5 &IS5);
+    void parsingIS5(_is5 *IS5, bool &ok);
 
     char *getInputs();
 
@@ -36,13 +40,12 @@ public:
 
 
 private:
-    void parsingIS3(_is3 *IS3, bool &ok);
+    void clearIS1();
+    void clearIS2();
     void parsingWords(_is3 *IS3);
 
-    void parsingIS4(_is4 *IS4, bool &ok);
     void parsingStates(_is4 *IS4);
 
-    void parsingIS5(_is5 *IS5, bool &ok);
 
     output_state getOutputState2(unsigned char state);
 

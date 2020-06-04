@@ -21,54 +21,58 @@ public:
     explicit messageExchange(QObject *parent = NULL);   /*nullptr*/
     ~messageExchange();
 
-    void initTransmit();
-
     QList <QSerialPortInfo> getAllSerialPorts();
     bool openSerialPort(QString port_name, int baud_rate);
+    QString portName();
 
     void createIS2(int number, output_cntrl cntrl);
 
     void startExchange();
-    void usualExchange();
+    void testConnection();
     void stopExchange();
+
+    void usualExchange2();
 
     qint64 sendIS1();
 
     qint64 sendIS2();
 
-    qint64 receiveSmth(int wait_ms);
+    qint64 receiveSmth(int wait_ms, bool test = false);
 
-    char *getInputsValue();
     input_state getInputState(int number);
 
-    char *getOutputsValue();
     output_state getOutputState(int number);
 
     void addErrorToIS1();
     void addErrorToIS2(int number, output_cntrl cntrl);
 
     bool parse_IS3() const;
+    void setParse_IS3(bool parse_IS3);
 
     bool parse_IS4() const;
+    void setParse_IS4(bool parse_IS4);
+
+    bool parse_IS5() const;
 
     bool start_exchange() const;
 
+
 private slots:
-    void slotWaitingForIS3();
     void slotWaitingForIS4();
 
+    void slotUsualExchange();
+
 signals:
+    void signalTest(QString);
     void signalReceiveIS3();
     void signalReceiveIS4();
     void signalReceiveIS5();
 
+    void signalNoReceiveIS3();
+    void signalNoReceiveIS4();
+
 private:
-//    void createTimer();
-//    static void timer_handler(int signum);
-
     void createIS1();
-
-    void exchange(QTimer *main_timer, qint64 &bytes_send, int wait_ms, type_exchange var_exch);
 
     void receiveIS3inParts(int bytes_rcv, _is3 &rcv_IS3);
     void receiveIS4inParts(int bytes_rcv, _is4 &rcv_IS4);
@@ -86,9 +90,7 @@ private:
     QTimer *timerIS2_IS4;
 
     qint64 bytes_send_IS1;
-//    int bytes_rcv_IS3_IS5;
     qint64 bytes_send_IS2;
-//    int bytes_rcv_IS4_IS5;
 
     bool _parse_IS3;
     bool _parse_IS4;
@@ -97,6 +99,8 @@ private:
     bool _start_exchange;    // начало обработки
 
     QThread *thread;
+
+    int no_rcv_count;
 
 };
 
