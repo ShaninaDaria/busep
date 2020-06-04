@@ -10,6 +10,7 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     ui(new Ui::PVKPWindow)
 {
     ui->setupUi(this);
+
     createPalette();
 
     me = new messageExchange();
@@ -27,80 +28,81 @@ PVKPWindow::PVKPWindow(QWidget *parent) :
     start_simulator = true;
 
     ui->startStopButton->setPalette(green_palette);
+    ui->testConnection->setPalette(yellow_palette);
 
     connect(ui->startStopButton, SIGNAL(pressed()), this, SLOT(slotStartStop()));
     connect(ui->testConnection, SIGNAL(pressed()), this, SLOT(slotTestConnection()));
 
-    connect(ui->allOutputsOff, SIGNAL(toggled(bool)), this, SLOT(slotAllOutputsOnOff(bool)));
+    connect(ui->allOutputsOnOff, SIGNAL(toggled(bool)), this, SLOT(slotAllOutputsOnOff(bool)));
 
-    connect(ui->output1, SIGNAL(clicked(bool)), this, SLOT(slotOutput1clicked(bool)));
-    connect(ui->output2, SIGNAL(clicked(bool)), this, SLOT(slotOutput2clicked(bool)));
-    connect(ui->output3, SIGNAL(clicked(bool)), this, SLOT(slotOutput3clicked(bool)));
-    connect(ui->output4, SIGNAL(clicked(bool)), this, SLOT(slotOutput4clicked(bool)));
-    connect(ui->output5, SIGNAL(clicked(bool)), this, SLOT(slotOutput5clicked(bool)));
-    connect(ui->output6, SIGNAL(clicked(bool)), this, SLOT(slotOutput6clicked(bool)));
-    connect(ui->output7, SIGNAL(clicked(bool)), this, SLOT(slotOutput7clicked(bool)));
-    connect(ui->output8, SIGNAL(clicked(bool)), this, SLOT(slotOutput8clicked(bool)));
-    connect(ui->output9, SIGNAL(clicked(bool)), this, SLOT(slotOutput9clicked(bool)));
+    connect(ui->output1_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput1clicked(bool)));
+    connect(ui->output2_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput2clicked(bool)));
+    connect(ui->output3_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput3clicked(bool)));
+    connect(ui->output4_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput4clicked(bool)));
+    connect(ui->output5_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput5clicked(bool)));
+    connect(ui->output6_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput6clicked(bool)));
+    connect(ui->output7_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput7clicked(bool)));
+    connect(ui->output8_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput8clicked(bool)));
+    connect(ui->output9_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput9clicked(bool)));
 
-    connect(ui->output10, SIGNAL(clicked(bool)), this, SLOT(slotOutput10clicked(bool)));
-    connect(ui->output11, SIGNAL(clicked(bool)), this, SLOT(slotOutput11clicked(bool)));
-    connect(ui->output12, SIGNAL(clicked(bool)), this, SLOT(slotOutput12clicked(bool)));
-    connect(ui->output13, SIGNAL(clicked(bool)), this, SLOT(slotOutput13clicked(bool)));
-    connect(ui->output14, SIGNAL(clicked(bool)), this, SLOT(slotOutput14clicked(bool)));
-    connect(ui->output15, SIGNAL(clicked(bool)), this, SLOT(slotOutput15clicked(bool)));
-    connect(ui->output16, SIGNAL(clicked(bool)), this, SLOT(slotOutput16clicked(bool)));
-    connect(ui->output17, SIGNAL(clicked(bool)), this, SLOT(slotOutput17clicked(bool)));
-    connect(ui->output18, SIGNAL(clicked(bool)), this, SLOT(slotOutput18clicked(bool)));
-    connect(ui->output19, SIGNAL(clicked(bool)), this, SLOT(slotOutput19clicked(bool)));
+    connect(ui->output10_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput10clicked(bool)));
+    connect(ui->output11_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput11clicked(bool)));
+    connect(ui->output12_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput12clicked(bool)));
+    connect(ui->output13_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput13clicked(bool)));
+    connect(ui->output14_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput14clicked(bool)));
+    connect(ui->output15_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput15clicked(bool)));
+    connect(ui->output16_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput16clicked(bool)));
+    connect(ui->output17_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput17clicked(bool)));
+    connect(ui->output18_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput18clicked(bool)));
+    connect(ui->output19_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput19clicked(bool)));
 
-    connect(ui->output20, SIGNAL(clicked(bool)), this, SLOT(slotOutput20clicked(bool)));
-    connect(ui->output21, SIGNAL(clicked(bool)), this, SLOT(slotOutput21clicked(bool)));
-    connect(ui->output22, SIGNAL(clicked(bool)), this, SLOT(slotOutput22clicked(bool)));
-    connect(ui->output23, SIGNAL(clicked(bool)), this, SLOT(slotOutput23clicked(bool)));
-    connect(ui->output24, SIGNAL(clicked(bool)), this, SLOT(slotOutput24clicked(bool)));
-    connect(ui->output25, SIGNAL(clicked(bool)), this, SLOT(slotOutput25clicked(bool)));
-    connect(ui->output26, SIGNAL(clicked(bool)), this, SLOT(slotOutput26clicked(bool)));
-    connect(ui->output27, SIGNAL(clicked(bool)), this, SLOT(slotOutput27clicked(bool)));
-    connect(ui->output28, SIGNAL(clicked(bool)), this, SLOT(slotOutput28clicked(bool)));
-    connect(ui->output29, SIGNAL(clicked(bool)), this, SLOT(slotOutput29clicked(bool)));
+    connect(ui->output20_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput20clicked(bool)));
+    connect(ui->output21_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput21clicked(bool)));
+    connect(ui->output22_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput22clicked(bool)));
+    connect(ui->output23_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput23clicked(bool)));
+    connect(ui->output24_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput24clicked(bool)));
+    connect(ui->output25_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput25clicked(bool)));
+    connect(ui->output26_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput26clicked(bool)));
+    connect(ui->output27_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput27clicked(bool)));
+    connect(ui->output28_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput28clicked(bool)));
+    connect(ui->output29_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput29clicked(bool)));
 
-    connect(ui->output30, SIGNAL(clicked(bool)), this, SLOT(slotOutput30clicked(bool)));
-    connect(ui->output31, SIGNAL(clicked(bool)), this, SLOT(slotOutput31clicked(bool)));
-    connect(ui->output32, SIGNAL(clicked(bool)), this, SLOT(slotOutput32clicked(bool)));
-    connect(ui->output33, SIGNAL(clicked(bool)), this, SLOT(slotOutput33clicked(bool)));
-    connect(ui->output34, SIGNAL(clicked(bool)), this, SLOT(slotOutput34clicked(bool)));
-    connect(ui->output35, SIGNAL(clicked(bool)), this, SLOT(slotOutput35clicked(bool)));
-    connect(ui->output36, SIGNAL(clicked(bool)), this, SLOT(slotOutput36clicked(bool)));
-    connect(ui->output37, SIGNAL(clicked(bool)), this, SLOT(slotOutput37clicked(bool)));
-    connect(ui->output38, SIGNAL(clicked(bool)), this, SLOT(slotOutput38clicked(bool)));
-    connect(ui->output39, SIGNAL(clicked(bool)), this, SLOT(slotOutput39clicked(bool)));
+    connect(ui->output30_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput30clicked(bool)));
+    connect(ui->output31_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput31clicked(bool)));
+    connect(ui->output32_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput32clicked(bool)));
+    connect(ui->output33_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput33clicked(bool)));
+    connect(ui->output34_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput34clicked(bool)));
+    connect(ui->output35_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput35clicked(bool)));
+    connect(ui->output36_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput36clicked(bool)));
+    connect(ui->output37_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput37clicked(bool)));
+    connect(ui->output38_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput38clicked(bool)));
+    connect(ui->output39_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput39clicked(bool)));
 
-    connect(ui->output40, SIGNAL(clicked(bool)), this, SLOT(slotOutput40clicked(bool)));
-    connect(ui->output41, SIGNAL(clicked(bool)), this, SLOT(slotOutput41clicked(bool)));
-    connect(ui->output42, SIGNAL(clicked(bool)), this, SLOT(slotOutput42clicked(bool)));
-    connect(ui->output43, SIGNAL(clicked(bool)), this, SLOT(slotOutput43clicked(bool)));
-    connect(ui->output44, SIGNAL(clicked(bool)), this, SLOT(slotOutput44clicked(bool)));
-    connect(ui->output45, SIGNAL(clicked(bool)), this, SLOT(slotOutput45clicked(bool)));
-    connect(ui->output46, SIGNAL(clicked(bool)), this, SLOT(slotOutput46clicked(bool)));
-    connect(ui->output47, SIGNAL(clicked(bool)), this, SLOT(slotOutput47clicked(bool)));
-    connect(ui->output48, SIGNAL(clicked(bool)), this, SLOT(slotOutput48clicked(bool)));
-    connect(ui->output49, SIGNAL(clicked(bool)), this, SLOT(slotOutput49clicked(bool)));
+    connect(ui->output40_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput40clicked(bool)));
+    connect(ui->output41_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput41clicked(bool)));
+    connect(ui->output42_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput42clicked(bool)));
+    connect(ui->output43_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput43clicked(bool)));
+    connect(ui->output44_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput44clicked(bool)));
+    connect(ui->output45_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput45clicked(bool)));
+    connect(ui->output46_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput46clicked(bool)));
+    connect(ui->output47_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput47clicked(bool)));
+    connect(ui->output48_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput48clicked(bool)));
+    connect(ui->output49_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput49clicked(bool)));
 
-    connect(ui->output50, SIGNAL(clicked(bool)), this, SLOT(slotOutput50clicked(bool)));
-    connect(ui->output51, SIGNAL(clicked(bool)), this, SLOT(slotOutput51clicked(bool)));
-    connect(ui->output52, SIGNAL(clicked(bool)), this, SLOT(slotOutput52clicked(bool)));
-    connect(ui->output53, SIGNAL(clicked(bool)), this, SLOT(slotOutput53clicked(bool)));
-    connect(ui->output54, SIGNAL(clicked(bool)), this, SLOT(slotOutput54clicked(bool)));
-    connect(ui->output55, SIGNAL(clicked(bool)), this, SLOT(slotOutput55clicked(bool)));
-    connect(ui->output56, SIGNAL(clicked(bool)), this, SLOT(slotOutput56clicked(bool)));
-    connect(ui->output57, SIGNAL(clicked(bool)), this, SLOT(slotOutput57clicked(bool)));
-    connect(ui->output58, SIGNAL(clicked(bool)), this, SLOT(slotOutput58clicked(bool)));
-    connect(ui->output59, SIGNAL(clicked(bool)), this, SLOT(slotOutput59clicked(bool)));
+    connect(ui->output50_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput50clicked(bool)));
+    connect(ui->output51_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput51clicked(bool)));
+    connect(ui->output52_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput52clicked(bool)));
+    connect(ui->output53_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput53clicked(bool)));
+    connect(ui->output54_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput54clicked(bool)));
+    connect(ui->output55_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput55clicked(bool)));
+    connect(ui->output56_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput56clicked(bool)));
+    connect(ui->output57_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput57clicked(bool)));
+    connect(ui->output58_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput58clicked(bool)));
+    connect(ui->output59_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput59clicked(bool)));
 
-    connect(ui->output60, SIGNAL(clicked(bool)), this, SLOT(slotOutput60clicked(bool)));
-    connect(ui->output61, SIGNAL(clicked(bool)), this, SLOT(slotOutput61clicked(bool)));
-    connect(ui->output62, SIGNAL(clicked(bool)), this, SLOT(slotOutput62clicked(bool)));
+    connect(ui->output60_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput60clicked(bool)));
+    connect(ui->output61_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput61clicked(bool)));
+    connect(ui->output62_3, SIGNAL(clicked(bool)), this, SLOT(slotOutput62clicked(bool)));
 
 
     //    thread = new QThread(this);
@@ -197,12 +199,9 @@ bool PVKPWindow::readConfigFile()
             qDebug() << file.fileName();
             while (!file.atEnd())
             {
-                port_name1 = file.readLine();
-                port_name2 = file.readLine();
-                baud_rate = file.readLine();
-                port_name1 = port_name1.trimmed();
-                port_name2 = port_name2.trimmed();
-                baud_rate = baud_rate.trimmed();
+                port_name1 = file.readLine().trimmed();
+                port_name2 = file.readLine().trimmed();
+                baud_rate = file.readLine().trimmed();
                 ui->listSerialPorts->addItem(port_name1);
                 ui->listSerialPorts->addItem(port_name2);
                 ui->baud_rate->setText(baud_rate);
@@ -237,24 +236,24 @@ void PVKPWindow::slotPortChecked(int port_index)
     if (me->openSerialPort(ui->listSerialPorts->itemText(port_index), ui->baud_rate->text().toInt()))
     {
         ui->statusbar->showMessage(ui->listSerialPorts->itemText(port_index) + " is ready");
-        qDebug() << __FUNCTION__ << ui->listSerialPorts->itemText(port_index) + " is ready";
+        qDebug() << ui->listSerialPorts->itemText(port_index) + " is ready";
     }
     else
     {
         ui->statusbar->showMessage("Error with serial port " + ui->listSerialPorts->itemText(port_index));
-         qDebug() << __FUNCTION__ << "Error with serial port " + ui->listSerialPorts->itemText(port_index);
+         qDebug() << "Error with serial port " + ui->listSerialPorts->itemText(port_index);
     }
-
 }
 
 //----------------------------------------------------------
 
 void PVKPWindow::createPalette()
 {
-    red_palette.setColor(ui->output1->backgroundRole(), Qt::red);
-    yellow_palette.setColor(ui->output1->backgroundRole(), Qt::yellow);
-    green_palette.setColor(ui->output1->backgroundRole(), Qt::green);
-    gray_palette.setColor(ui->output1->backgroundRole(), Qt::gray);
+    red_palette.setColor(ui->startStopButton->backgroundRole(), Qt::red);
+    yellow_palette.setColor(ui->startStopButton->backgroundRole(), Qt::yellow);
+    green_palette.setColor(ui->startStopButton->backgroundRole(), Qt::green);
+    gray_palette.setColor(ui->startStopButton->backgroundRole(), Qt::gray);
+    system_palette = ui->tabWidget->palette();
 }
 
 //----------------------------------------------------------
@@ -382,7 +381,198 @@ void PVKPWindow::slotStartStop()
         ui->startStopButton->setText("Старт");
         ui->log->append("Стоп");
         ui->statusbar->showMessage("Стоп");
+        ui->statusExchangeIS1_IS3->setText("Статус передачи ИС1 - ИС3 неизвестен");
+        ui->statusExchangeIS2_IS4->setText("Статус передачи ИС2 - ИС4 неизвестен");
         start_simulator = true;
+
+        ui->input1_3->setPalette(system_palette);
+        ui->input2_3->setPalette(system_palette);
+        ui->input3_3->setPalette(system_palette);
+        ui->input4_3->setPalette(system_palette);
+        ui->input5_3->setPalette(system_palette);
+        ui->input6_3->setPalette(system_palette);
+        ui->input7_3->setPalette(system_palette);
+        ui->input8_3->setPalette(system_palette);
+        ui->input9_3->setPalette(system_palette);
+        ui->input10_3->setPalette(system_palette);
+        ui->input11_3->setPalette(system_palette);
+        ui->input12_3->setPalette(system_palette);
+        ui->input13_3->setPalette(system_palette);
+        ui->input14_3->setPalette(system_palette);
+        ui->input15_3->setPalette(system_palette);
+        ui->input16_3->setPalette(system_palette);
+        ui->input17_3->setPalette(system_palette);
+        ui->input18_3->setPalette(system_palette);
+        ui->input19_3->setPalette(system_palette);
+        ui->input20_3->setPalette(system_palette);
+        ui->input21_3->setPalette(system_palette);
+        ui->input22_3->setPalette(system_palette);
+        ui->input23_3->setPalette(system_palette);
+        ui->input24_3->setPalette(system_palette);
+        ui->input25_3->setPalette(system_palette);
+        ui->input26_3->setPalette(system_palette);
+        ui->input27_3->setPalette(system_palette);
+        ui->input28_3->setPalette(system_palette);
+        ui->input29_3->setPalette(system_palette);
+        ui->input30_3->setPalette(system_palette);
+        ui->input31_3->setPalette(system_palette);
+        ui->input32_3->setPalette(system_palette);
+        ui->input33_3->setPalette(system_palette);
+        ui->input34_3->setPalette(system_palette);
+        ui->input35_3->setPalette(system_palette);
+        ui->input36_3->setPalette(system_palette);
+        ui->input37_3->setPalette(system_palette);
+        ui->input38_3->setPalette(system_palette);
+        ui->input39_3->setPalette(system_palette);
+        ui->input40_3->setPalette(system_palette);
+        ui->input41_3->setPalette(system_palette);
+        ui->input42_3->setPalette(system_palette);
+        ui->input43_3->setPalette(system_palette);
+        ui->input44_3->setPalette(system_palette);
+        ui->input45_3->setPalette(system_palette);
+        ui->input46_3->setPalette(system_palette);
+        ui->input47_3->setPalette(system_palette);
+        ui->input48_3->setPalette(system_palette);
+        ui->input49_3->setPalette(system_palette);
+        ui->input50_3->setPalette(system_palette);
+        ui->input51_3->setPalette(system_palette);
+        ui->input52_3->setPalette(system_palette);
+        ui->input53_3->setPalette(system_palette);
+        ui->input54_3->setPalette(system_palette);
+        ui->input55_3->setPalette(system_palette);
+        ui->input56_3->setPalette(system_palette);
+        ui->input57_3->setPalette(system_palette);
+        ui->input58_3->setPalette(system_palette);
+        ui->input59_3->setPalette(system_palette);
+        ui->input60_3->setPalette(system_palette);
+        ui->input61_3->setPalette(system_palette);
+        ui->input62_3->setPalette(system_palette);
+        ui->input63_3->setPalette(system_palette);
+        ui->input64_3->setPalette(system_palette);
+        ui->input65_3->setPalette(system_palette);
+        ui->input66_3->setPalette(system_palette);
+        ui->input67_3->setPalette(system_palette);
+        ui->input68_3->setPalette(system_palette);
+        ui->input69_3->setPalette(system_palette);
+        ui->input70_3->setPalette(system_palette);
+        ui->input71_3->setPalette(system_palette);
+        ui->input72_3->setPalette(system_palette);
+        ui->input73_3->setPalette(system_palette);
+        ui->input74_3->setPalette(system_palette);
+        ui->input75_3->setPalette(system_palette);
+        ui->input76_3->setPalette(system_palette);
+        ui->input77_3->setPalette(system_palette);
+        ui->input78_3->setPalette(system_palette);
+        ui->input79_3->setPalette(system_palette);
+        ui->input80_3->setPalette(system_palette);
+        ui->input81_3->setPalette(system_palette);
+        ui->input82_3->setPalette(system_palette);
+        ui->input83_3->setPalette(system_palette);
+        ui->input84_3->setPalette(system_palette);
+        ui->input85_3->setPalette(system_palette);
+        ui->input86_3->setPalette(system_palette);
+        ui->input87_3->setPalette(system_palette);
+        ui->input88_3->setPalette(system_palette);
+        ui->input89_3->setPalette(system_palette);
+        ui->input90_3->setPalette(system_palette);
+        ui->input91_3->setPalette(system_palette);
+        ui->input92_3->setPalette(system_palette);
+        ui->input93_3->setPalette(system_palette);
+        ui->input94_3->setPalette(system_palette);
+        ui->input95_3->setPalette(system_palette);
+        ui->input96_3->setPalette(system_palette);
+        ui->input97_3->setPalette(system_palette);
+        ui->input98_3->setPalette(system_palette);
+        ui->input99_3->setPalette(system_palette);
+        ui->input100_3->setPalette(system_palette);
+        ui->input101_3->setPalette(system_palette);
+        ui->input102_3->setPalette(system_palette);
+        ui->input103_3->setPalette(system_palette);
+        ui->input104_3->setPalette(system_palette);
+        ui->input105_3->setPalette(system_palette);
+        ui->input106_3->setPalette(system_palette);
+        ui->input107_3->setPalette(system_palette);
+        ui->input108_3->setPalette(system_palette);
+        ui->input109_3->setPalette(system_palette);
+        ui->input110_3->setPalette(system_palette);
+        ui->input111_3->setPalette(system_palette);
+        ui->input112_3->setPalette(system_palette);
+        ui->input113_3->setPalette(system_palette);
+        ui->input114_3->setPalette(system_palette);
+        ui->input115_3->setPalette(system_palette);
+        ui->input116_3->setPalette(system_palette);
+        ui->input117_3->setPalette(system_palette);
+        ui->input118_3->setPalette(system_palette);
+        ui->input119_3->setPalette(system_palette);
+        ui->input120_3->setPalette(system_palette);
+        ui->input121_3->setPalette(system_palette);
+        ui->input122_3->setPalette(system_palette);
+        ui->input123_3->setPalette(system_palette);
+        ui->input124_3->setPalette(system_palette);
+
+        ui->output1_3->setPalette(system_palette);
+        ui->output2_3->setPalette(system_palette);
+        ui->output3_3->setPalette(system_palette);
+        ui->output4_3->setPalette(system_palette);
+        ui->output5_3->setPalette(system_palette);
+        ui->output6_3->setPalette(system_palette);
+        ui->output7_3->setPalette(system_palette);
+        ui->output8_3->setPalette(system_palette);
+        ui->output9_3->setPalette(system_palette);
+        ui->output10_3->setPalette(system_palette);
+        ui->output11_3->setPalette(system_palette);
+        ui->output12_3->setPalette(system_palette);
+        ui->output13_3->setPalette(system_palette);
+        ui->output14_3->setPalette(system_palette);
+        ui->output15_3->setPalette(system_palette);
+        ui->output16_3->setPalette(system_palette);
+        ui->output17_3->setPalette(system_palette);
+        ui->output18_3->setPalette(system_palette);
+        ui->output19_3->setPalette(system_palette);
+        ui->output20_3->setPalette(system_palette);
+        ui->output21_3->setPalette(system_palette);
+        ui->output22_3->setPalette(system_palette);
+        ui->output23_3->setPalette(system_palette);
+        ui->output24_3->setPalette(system_palette);
+        ui->output25_3->setPalette(system_palette);
+        ui->output26_3->setPalette(system_palette);
+        ui->output27_3->setPalette(system_palette);
+        ui->output28_3->setPalette(system_palette);
+        ui->output29_3->setPalette(system_palette);
+        ui->output30_3->setPalette(system_palette);
+        ui->output31_3->setPalette(system_palette);
+        ui->output32_3->setPalette(system_palette);
+        ui->output33_3->setPalette(system_palette);
+        ui->output34_3->setPalette(system_palette);
+        ui->output35_3->setPalette(system_palette);
+        ui->output36_3->setPalette(system_palette);
+        ui->output37_3->setPalette(system_palette);
+        ui->output38_3->setPalette(system_palette);
+        ui->output39_3->setPalette(system_palette);
+        ui->output40_3->setPalette(system_palette);
+        ui->output41_3->setPalette(system_palette);
+        ui->output42_3->setPalette(system_palette);
+        ui->output43_3->setPalette(system_palette);
+        ui->output44_3->setPalette(system_palette);
+        ui->output45_3->setPalette(system_palette);
+        ui->output46_3->setPalette(system_palette);
+        ui->output47_3->setPalette(system_palette);
+        ui->output48_3->setPalette(system_palette);
+        ui->output49_3->setPalette(system_palette);
+        ui->output50_3->setPalette(system_palette);
+        ui->output51_3->setPalette(system_palette);
+        ui->output52_3->setPalette(system_palette);
+        ui->output53_3->setPalette(system_palette);
+        ui->output54_3->setPalette(system_palette);
+        ui->output55_3->setPalette(system_palette);
+        ui->output56_3->setPalette(system_palette);
+        ui->output57_3->setPalette(system_palette);
+        ui->output58_3->setPalette(system_palette);
+        ui->output59_3->setPalette(system_palette);
+        ui->output60_3->setPalette(system_palette);
+        ui->output61_3->setPalette(system_palette);
+        ui->output62_3->setPalette(system_palette);
+
     }
 }
 
@@ -399,12 +589,12 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
 {
     for (int i = 0; i < output_size; i++)
     {
-        last_pressed_o[i] = !toggled;
+        last_pressed_o[i] = toggled;
     }
 
     if (toggled)
     {
-        ui->allOutputsOff->setText("Выключить все");
+        ui->allOutputsOnOff->setText("Выключить все");
 
         if (ui->addError->isChecked())
         {
@@ -422,7 +612,7 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
     }
     else
     {
-        ui->allOutputsOff->setText("Включить все");
+        ui->allOutputsOnOff->setText("Включить все");
 
         if (ui->addError->isChecked())
         {
@@ -449,68 +639,68 @@ void PVKPWindow::slotAllOutputsOnOff(bool toggled)
         ui->log->append("ИС2 <" + QString(toggled? "включить" : "выключить") + " все выходы> отправлено успешно");
     }
 
-    ui->output1->clicked(true);
-    ui->output2->clicked(true);
-    ui->output3->clicked(true);
-    ui->output4->clicked(true);
-    ui->output5->clicked(true);
-    ui->output6->clicked(true);
-    ui->output7->clicked(true);
-    ui->output8->clicked(true);
-    ui->output9->clicked(true);
-    ui->output10->clicked(true);
-    ui->output11->clicked(true);
-    ui->output12->clicked(true);
-    ui->output13->clicked(true);
-    ui->output14->clicked(true);
-    ui->output15->clicked(true);
-    ui->output16->clicked(true);
-    ui->output17->clicked(true);
-    ui->output18->clicked(true);
-    ui->output19->clicked(true);
-    ui->output20->clicked(true);
-    ui->output21->clicked(true);
-    ui->output22->clicked(true);
-    ui->output23->clicked(true);
-    ui->output24->clicked(true);
-    ui->output25->clicked(true);
-    ui->output26->clicked(true);
-    ui->output27->clicked(true);
-    ui->output28->clicked(true);
-    ui->output29->clicked(true);
-    ui->output30->clicked(true);
-    ui->output31->clicked(true);
-    ui->output32->clicked(true);
-    ui->output33->clicked(true);
-    ui->output34->clicked(true);
-    ui->output35->clicked(true);
-    ui->output36->clicked(true);
-    ui->output37->clicked(true);
-    ui->output38->clicked(true);
-    ui->output39->clicked(true);
-    ui->output40->clicked(true);
-    ui->output41->clicked(true);
-    ui->output42->clicked(true);
-    ui->output43->clicked(true);
-    ui->output44->clicked(true);
-    ui->output45->clicked(true);
-    ui->output46->clicked(true);
-    ui->output47->clicked(true);
-    ui->output48->clicked(true);
-    ui->output49->clicked(true);
-    ui->output50->clicked(true);
-    ui->output51->clicked(true);
-    ui->output52->clicked(true);
-    ui->output53->clicked(true);
-    ui->output54->clicked(true);
-    ui->output55->clicked(true);
-    ui->output56->clicked(true);
-    ui->output57->clicked(true);
-    ui->output58->clicked(true);
-    ui->output59->clicked(true);
-    ui->output60->clicked(true);
-    ui->output61->clicked(true);
-    ui->output62->clicked(true);
+    ui->output1_3->clicked(true);
+    ui->output2_3->clicked(true);
+    ui->output3_3->clicked(true);
+    ui->output4_3->clicked(true);
+    ui->output5_3->clicked(true);
+    ui->output6_3->clicked(true);
+    ui->output7_3->clicked(true);
+    ui->output8_3->clicked(true);
+    ui->output9_3->clicked(true);
+    ui->output10_3->clicked(true);
+    ui->output11_3->clicked(true);
+    ui->output12_3->clicked(true);
+    ui->output13_3->clicked(true);
+    ui->output14_3->clicked(true);
+    ui->output15_3->clicked(true);
+    ui->output16_3->clicked(true);
+    ui->output17_3->clicked(true);
+    ui->output18_3->clicked(true);
+    ui->output19_3->clicked(true);
+    ui->output20_3->clicked(true);
+    ui->output21_3->clicked(true);
+    ui->output22_3->clicked(true);
+    ui->output23_3->clicked(true);
+    ui->output24_3->clicked(true);
+    ui->output25_3->clicked(true);
+    ui->output26_3->clicked(true);
+    ui->output27_3->clicked(true);
+    ui->output28_3->clicked(true);
+    ui->output29_3->clicked(true);
+    ui->output30_3->clicked(true);
+    ui->output31_3->clicked(true);
+    ui->output32_3->clicked(true);
+    ui->output33_3->clicked(true);
+    ui->output34_3->clicked(true);
+    ui->output35_3->clicked(true);
+    ui->output36_3->clicked(true);
+    ui->output37_3->clicked(true);
+    ui->output38_3->clicked(true);
+    ui->output39_3->clicked(true);
+    ui->output40_3->clicked(true);
+    ui->output41_3->clicked(true);
+    ui->output42_3->clicked(true);
+    ui->output43_3->clicked(true);
+    ui->output44_3->clicked(true);
+    ui->output45_3->clicked(true);
+    ui->output46_3->clicked(true);
+    ui->output47_3->clicked(true);
+    ui->output48_3->clicked(true);
+    ui->output49_3->clicked(true);
+    ui->output50_3->clicked(true);
+    ui->output51_3->clicked(true);
+    ui->output52_3->clicked(true);
+    ui->output53_3->clicked(true);
+    ui->output54_3->clicked(true);
+    ui->output55_3->clicked(true);
+    ui->output56_3->clicked(true);
+    ui->output57_3->clicked(true);
+    ui->output58_3->clicked(true);
+    ui->output59_3->clicked(true);
+    ui->output60_3->clicked(true);
+    ui->output61_3->clicked(true);
+    ui->output62_3->clicked(true);
 }
 
 //----------------------------------------------------------
@@ -1011,160 +1201,160 @@ void PVKPWindow::slotOutput62clicked(bool pressed)
 
 void PVKPWindow::showInputsValue()
 {
-    setInputColor(input1, ui->input1);
-    setInputColor(input2, ui->input2);
-    setInputColor(input3, ui->input3);
-    setInputColor(input4, ui->input4);
+    setInputColor(input1, ui->input1_3);
+    setInputColor(input2, ui->input2_3);
+    setInputColor(input3, ui->input3_3);
+    setInputColor(input4, ui->input4_3);
 
-    setInputColor(input5, ui->input5);
-    setInputColor(input6, ui->input6);
-    setInputColor(input7, ui->input7);
-    setInputColor(input8, ui->input8);
+    setInputColor(input5, ui->input5_3);
+    setInputColor(input6, ui->input6_3);
+    setInputColor(input7, ui->input7_3);
+    setInputColor(input8, ui->input8_3);
 
-    setInputColor(input9, ui->input9);
-    setInputColor(input10, ui->input10);
-    setInputColor(input11, ui->input11);
-    setInputColor(input12, ui->input12);
+    setInputColor(input9, ui->input9_3);
+    setInputColor(input10, ui->input10_3);
+    setInputColor(input11, ui->input11_3);
+    setInputColor(input12, ui->input12_3);
 
-    setInputColor(input13, ui->input13);
-    setInputColor(input14, ui->input14);
-    setInputColor(input15, ui->input15);
-    setInputColor(input16, ui->input16);
+    setInputColor(input13, ui->input13_3);
+    setInputColor(input14, ui->input14_3);
+    setInputColor(input15, ui->input15_3);
+    setInputColor(input16, ui->input16_3);
 
-    setInputColor(input17, ui->input17);
-    setInputColor(input18, ui->input18);
-    setInputColor(input19, ui->input19);
-    setInputColor(input20, ui->input20);
+    setInputColor(input17, ui->input17_3);
+    setInputColor(input18, ui->input18_3);
+    setInputColor(input19, ui->input19_3);
+    setInputColor(input20, ui->input20_3);
 
-    setInputColor(input21, ui->input21);
-    setInputColor(input22, ui->input22);
-    setInputColor(input23, ui->input23);
-    setInputColor(input24, ui->input24);
+    setInputColor(input21, ui->input21_3);
+    setInputColor(input22, ui->input22_3);
+    setInputColor(input23, ui->input23_3);
+    setInputColor(input24, ui->input24_3);
 
-    setInputColor(input25, ui->input25);
-    setInputColor(input26, ui->input26);
-    setInputColor(input27, ui->input27);
-    setInputColor(input28, ui->input28);
+    setInputColor(input25, ui->input25_3);
+    setInputColor(input26, ui->input26_3);
+    setInputColor(input27, ui->input27_3);
+    setInputColor(input28, ui->input28_3);
 
-    setInputColor(input29, ui->input29);
-    setInputColor(input30, ui->input30);
-    setInputColor(input31, ui->input31);
-    setInputColor(input32, ui->input32);
+    setInputColor(input29, ui->input29_3);
+    setInputColor(input30, ui->input30_3);
+    setInputColor(input31, ui->input31_3);
+    setInputColor(input32, ui->input32_3);
 
-    setInputColor(input33, ui->input33);
-    setInputColor(input34, ui->input34);
-    setInputColor(input35, ui->input35);
-    setInputColor(input36, ui->input36);
+    setInputColor(input33, ui->input33_3);
+    setInputColor(input34, ui->input34_3);
+    setInputColor(input35, ui->input35_3);
+    setInputColor(input36, ui->input36_3);
 
-    setInputColor(input37, ui->input37);
-    setInputColor(input38, ui->input38);
-    setInputColor(input39, ui->input39);
-    setInputColor(input40, ui->input40);
+    setInputColor(input37, ui->input37_3);
+    setInputColor(input38, ui->input38_3);
+    setInputColor(input39, ui->input39_3);
+    setInputColor(input40, ui->input40_3);
 
-    setInputColor(input41, ui->input41);
-    setInputColor(input42, ui->input42);
-    setInputColor(input43, ui->input43);
-    setInputColor(input44, ui->input44);
+    setInputColor(input41, ui->input41_3);
+    setInputColor(input42, ui->input42_3);
+    setInputColor(input43, ui->input43_3);
+    setInputColor(input44, ui->input44_3);
 
-    setInputColor(input45, ui->input45);
-    setInputColor(input46, ui->input46);
-    setInputColor(input47, ui->input47);
-    setInputColor(input48, ui->input48);
+    setInputColor(input45, ui->input45_3);
+    setInputColor(input46, ui->input46_3);
+    setInputColor(input47, ui->input47_3);
+    setInputColor(input48, ui->input48_3);
 
-    setInputColor(input49, ui->input49);
-    setInputColor(input50, ui->input50);
-    setInputColor(input51, ui->input51);
-    setInputColor(input52, ui->input52);
+    setInputColor(input49, ui->input49_3);
+    setInputColor(input50, ui->input50_3);
+    setInputColor(input51, ui->input51_3);
+    setInputColor(input52, ui->input52_3);
 
-    setInputColor(input53, ui->input53);
-    setInputColor(input54, ui->input54);
-    setInputColor(input55, ui->input55);
-    setInputColor(input56, ui->input56);
+    setInputColor(input53, ui->input53_3);
+    setInputColor(input54, ui->input54_3);
+    setInputColor(input55, ui->input55_3);
+    setInputColor(input56, ui->input56_3);
 
-    setInputColor(input57, ui->input57);
-    setInputColor(input58, ui->input58);
-    setInputColor(input59, ui->input59);
-    setInputColor(input60, ui->input60);
+    setInputColor(input57, ui->input57_3);
+    setInputColor(input58, ui->input58_3);
+    setInputColor(input59, ui->input59_3);
+    setInputColor(input60, ui->input60_3);
 
-    setInputColor(input61, ui->input61);
-    setInputColor(input62, ui->input62);
-    setInputColor(input63, ui->input63);
-    setInputColor(input64, ui->input64);
+    setInputColor(input61, ui->input61_3);
+    setInputColor(input62, ui->input62_3);
+    setInputColor(input63, ui->input63_3);
+    setInputColor(input64, ui->input64_3);
 
-    setInputColor(input65, ui->input65);
-    setInputColor(input66, ui->input66);
-    setInputColor(input67, ui->input67);
-    setInputColor(input68, ui->input68);
+    setInputColor(input65, ui->input65_3);
+    setInputColor(input66, ui->input66_3);
+    setInputColor(input67, ui->input67_3);
+    setInputColor(input68, ui->input68_3);
 
-    setInputColor(input69, ui->input69);
-    setInputColor(input70, ui->input70);
-    setInputColor(input71, ui->input71);
-    setInputColor(input72, ui->input72);
+    setInputColor(input69, ui->input69_3);
+    setInputColor(input70, ui->input70_3);
+    setInputColor(input71, ui->input71_3);
+    setInputColor(input72, ui->input72_3);
 
-    setInputColor(input73, ui->input73);
-    setInputColor(input74, ui->input74);
-    setInputColor(input75, ui->input75);
-    setInputColor(input76, ui->input76);
+    setInputColor(input73, ui->input73_3);
+    setInputColor(input74, ui->input74_3);
+    setInputColor(input75, ui->input75_3);
+    setInputColor(input76, ui->input76_3);
 
-    setInputColor(input77, ui->input77);
-    setInputColor(input78, ui->input78);
-    setInputColor(input79, ui->input79);
-    setInputColor(input80, ui->input80);
+    setInputColor(input77, ui->input77_3);
+    setInputColor(input78, ui->input78_3);
+    setInputColor(input79, ui->input79_3);
+    setInputColor(input80, ui->input80_3);
 
-    setInputColor(input81, ui->input81);
-    setInputColor(input82, ui->input82);
-    setInputColor(input83, ui->input83);
-    setInputColor(input84, ui->input84);
+    setInputColor(input81, ui->input81_3);
+    setInputColor(input82, ui->input82_3);
+    setInputColor(input83, ui->input83_3);
+    setInputColor(input84, ui->input84_3);
 
-    setInputColor(input85, ui->input85);
-    setInputColor(input86, ui->input86);
-    setInputColor(input87, ui->input87);
-    setInputColor(input88, ui->input88);
+    setInputColor(input85, ui->input85_3);
+    setInputColor(input86, ui->input86_3);
+    setInputColor(input87, ui->input87_3);
+    setInputColor(input88, ui->input88_3);
 
-    setInputColor(input89, ui->input89);
-    setInputColor(input90, ui->input90);
-    setInputColor(input91, ui->input91);
-    setInputColor(input92, ui->input92);
+    setInputColor(input89, ui->input89_3);
+    setInputColor(input90, ui->input90_3);
+    setInputColor(input91, ui->input91_3);
+    setInputColor(input92, ui->input92_3);
 
-    setInputColor(input93, ui->input93);
-    setInputColor(input94, ui->input94);
-    setInputColor(input95, ui->input95);
-    setInputColor(input96, ui->input96);
+    setInputColor(input93, ui->input93_3);
+    setInputColor(input94, ui->input94_3);
+    setInputColor(input95, ui->input95_3);
+    setInputColor(input96, ui->input96_3);
 
-    setInputColor(input97, ui->input97);
-    setInputColor(input98, ui->input98);
-    setInputColor(input99, ui->input99);
-    setInputColor(input100, ui->input100);
+    setInputColor(input97, ui->input97_3);
+    setInputColor(input98, ui->input98_3);
+    setInputColor(input99, ui->input99_3);
+    setInputColor(input100, ui->input100_3);
 
-    setInputColor(input101, ui->input101);
-    setInputColor(input102, ui->input102);
-    setInputColor(input103, ui->input103);
-    setInputColor(input104, ui->input104);
+    setInputColor(input101, ui->input101_3);
+    setInputColor(input102, ui->input102_3);
+    setInputColor(input103, ui->input103_3);
+    setInputColor(input104, ui->input104_3);
 
-    setInputColor(input105, ui->input105);
-    setInputColor(input106, ui->input106);
-    setInputColor(input107, ui->input107);
-    setInputColor(input108, ui->input108);
+    setInputColor(input105, ui->input105_3);
+    setInputColor(input106, ui->input106_3);
+    setInputColor(input107, ui->input107_3);
+    setInputColor(input108, ui->input108_3);
 
-    setInputColor(input109, ui->input109);
-    setInputColor(input110, ui->input110);
-    setInputColor(input111, ui->input111);
-    setInputColor(input112, ui->input112);
+    setInputColor(input109, ui->input109_3);
+    setInputColor(input110, ui->input110_3);
+    setInputColor(input111, ui->input111_3);
+    setInputColor(input112, ui->input112_3);
 
-    setInputColor(input113, ui->input113);
-    setInputColor(input114, ui->input114);
-    setInputColor(input115, ui->input115);
-    setInputColor(input116, ui->input116);
+    setInputColor(input113, ui->input113_3);
+    setInputColor(input114, ui->input114_3);
+    setInputColor(input115, ui->input115_3);
+    setInputColor(input116, ui->input116_3);
 
-    setInputColor(input117, ui->input117);
-    setInputColor(input118, ui->input118);
-    setInputColor(input119, ui->input119);
-    setInputColor(input120, ui->input120);
+    setInputColor(input117, ui->input117_3);
+    setInputColor(input118, ui->input118_3);
+    setInputColor(input119, ui->input119_3);
+    setInputColor(input120, ui->input120_3);
 
-    setInputColor(input121, ui->input121);
-    setInputColor(input122, ui->input122);
-    setInputColor(input123, ui->input123);
-    setInputColor(input124, ui->input124);
+    setInputColor(input121, ui->input121_3);
+    setInputColor(input122, ui->input122_3);
+    setInputColor(input123, ui->input123_3);
+    setInputColor(input124, ui->input124_3);
 }
 
 //----------------------------------------------------------
@@ -1196,83 +1386,83 @@ void PVKPWindow::setInputColor(int i_nmb, QPushButton *input_button)
 
 void PVKPWindow::showOutputsValue()
 {
-    setOutputColor(output1,  ui->output1);
-    setOutputColor(output2,  ui->output2);
-    setOutputColor(output3,  ui->output3);
-    setOutputColor(output4,  ui->output4);
+    setOutputColor(output1,  ui->output1_3);
+    setOutputColor(output2,  ui->output2_3);
+    setOutputColor(output3,  ui->output3_3);
+    setOutputColor(output4,  ui->output4_3);
 
-    setOutputColor(output5,  ui->output5);
-    setOutputColor(output6,  ui->output6);
-    setOutputColor(output7,  ui->output7);
-    setOutputColor(output8,  ui->output8);
+    setOutputColor(output5,  ui->output5_3);
+    setOutputColor(output6,  ui->output6_3);
+    setOutputColor(output7,  ui->output7_3);
+    setOutputColor(output8,  ui->output8_3);
 
-    setOutputColor(output9,  ui->output9);
-    setOutputColor(output10,  ui->output10);
-    setOutputColor(output11,  ui->output11);
-    setOutputColor(output12,  ui->output12);
+    setOutputColor(output9,  ui->output9_3);
+    setOutputColor(output10,  ui->output10_3);
+    setOutputColor(output11,  ui->output11_3);
+    setOutputColor(output12,  ui->output12_3);
 
-    setOutputColor(output13,  ui->output13);
-    setOutputColor(output14,  ui->output14);
-    setOutputColor(output15,  ui->output15);
-    setOutputColor(output16,  ui->output16);
+    setOutputColor(output13,  ui->output13_3);
+    setOutputColor(output14,  ui->output14_3);
+    setOutputColor(output15,  ui->output15_3);
+    setOutputColor(output16,  ui->output16_3);
 
-    setOutputColor(output17,  ui->output17);
-    setOutputColor(output18,  ui->output18);
-    setOutputColor(output19,  ui->output19);
-    setOutputColor(output20,  ui->output20);
+    setOutputColor(output17,  ui->output17_3);
+    setOutputColor(output18,  ui->output18_3);
+    setOutputColor(output19,  ui->output19_3);
+    setOutputColor(output20,  ui->output20_3);
 
-    setOutputColor(output21,  ui->output21);
-    setOutputColor(output22,  ui->output22);
-    setOutputColor(output23,  ui->output23);
-    setOutputColor(output24,  ui->output24);
+    setOutputColor(output21,  ui->output21_3);
+    setOutputColor(output22,  ui->output22_3);
+    setOutputColor(output23,  ui->output23_3);
+    setOutputColor(output24,  ui->output24_3);
 
-    setOutputColor(output25,  ui->output25);
-    setOutputColor(output26,  ui->output26);
-    setOutputColor(output27,  ui->output27);
-    setOutputColor(output28,  ui->output28);
+    setOutputColor(output25,  ui->output25_3);
+    setOutputColor(output26,  ui->output26_3);
+    setOutputColor(output27,  ui->output27_3);
+    setOutputColor(output28,  ui->output28_3);
 
-    setOutputColor(output29,  ui->output29);
-    setOutputColor(output30,  ui->output30);
-    setOutputColor(output31,  ui->output31);
-    setOutputColor(output32,  ui->output32);
+    setOutputColor(output29,  ui->output29_3);
+    setOutputColor(output30,  ui->output30_3);
+    setOutputColor(output31,  ui->output31_3);
+    setOutputColor(output32,  ui->output32_3);
 
-    setOutputColor(output33,  ui->output33);
-    setOutputColor(output34,  ui->output34);
-    setOutputColor(output35,  ui->output35);
-    setOutputColor(output36,  ui->output36);
+    setOutputColor(output33,  ui->output33_3);
+    setOutputColor(output34,  ui->output34_3);
+    setOutputColor(output35,  ui->output35_3);
+    setOutputColor(output36,  ui->output36_3);
 
-    setOutputColor(output37,  ui->output37);
-    setOutputColor(output38,  ui->output38);
-    setOutputColor(output39,  ui->output39);
-    setOutputColor(output40,  ui->output40);
+    setOutputColor(output37,  ui->output37_3);
+    setOutputColor(output38,  ui->output38_3);
+    setOutputColor(output39,  ui->output39_3);
+    setOutputColor(output40,  ui->output40_3);
 
-    setOutputColor(output41,  ui->output41);
-    setOutputColor(output42,  ui->output42);
-    setOutputColor(output43,  ui->output43);
-    setOutputColor(output44,  ui->output44);
+    setOutputColor(output41,  ui->output41_3);
+    setOutputColor(output42,  ui->output42_3);
+    setOutputColor(output43,  ui->output43_3);
+    setOutputColor(output44,  ui->output44_3);
 
-    setOutputColor(output45,  ui->output45);
-    setOutputColor(output46,  ui->output46);
-    setOutputColor(output47,  ui->output47);
-    setOutputColor(output48,  ui->output48);
+    setOutputColor(output45,  ui->output45_3);
+    setOutputColor(output46,  ui->output46_3);
+    setOutputColor(output47,  ui->output47_3);
+    setOutputColor(output48,  ui->output48_3);
 
-    setOutputColor(output49,  ui->output49);
-    setOutputColor(output50,  ui->output50);
-    setOutputColor(output51,  ui->output51);
-    setOutputColor(output52,  ui->output52);
+    setOutputColor(output49,  ui->output49_3);
+    setOutputColor(output50,  ui->output50_3);
+    setOutputColor(output51,  ui->output51_3);
+    setOutputColor(output52,  ui->output52_3);
 
-    setOutputColor(output53,  ui->output53);
-    setOutputColor(output54,  ui->output54);
-    setOutputColor(output55,  ui->output55);
-    setOutputColor(output56,  ui->output56);
+    setOutputColor(output53,  ui->output53_3);
+    setOutputColor(output54,  ui->output54_3);
+    setOutputColor(output55,  ui->output55_3);
+    setOutputColor(output56,  ui->output56_3);
 
-    setOutputColor(output57,  ui->output57);
-    setOutputColor(output58,  ui->output58);
-    setOutputColor(output59,  ui->output59);
-    setOutputColor(output60,  ui->output60);
+    setOutputColor(output57,  ui->output57_3);
+    setOutputColor(output58,  ui->output58_3);
+    setOutputColor(output59,  ui->output59_3);
+    setOutputColor(output60,  ui->output60_3);
 
-    setOutputColor(output61,  ui->output61);
-    setOutputColor(output62,  ui->output62);
+    setOutputColor(output61,  ui->output61_3);
+    setOutputColor(output62,  ui->output62_3);
 }
 
 //----------------------------------------------------------

@@ -34,9 +34,7 @@ DummyMessages::~DummyMessages()
 
 bool DummyMessages::openSerialPort(QString port_name, int baud_rate)
 {
-    dataTransnmit->initSerialPort(port_name, baud_rate);
-
-    return dataTransnmit->openSerialPort();
+    return dataTransnmit->openSerialPort(port_name, baud_rate);
 }
 
 // ----------------------------------------------------------

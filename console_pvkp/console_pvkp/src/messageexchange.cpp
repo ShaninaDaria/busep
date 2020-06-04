@@ -127,12 +127,11 @@ void messageExchange::testConnection()
 //        bytes = dataTransnmit->receive(&rcv_data, sizeof (_rcv_data), wait100ms);
 //    } while (bytes > 0);
 
-    bytes_send_IS1 = sendIS1();
+    qint64 bytes_send = sendIS1();
 
-    if (bytes_send_IS1 > 0)
+    if (bytes_send > 0)
     {
-        qint64 bytes_rcv(-1);
-        bytes_rcv = receiveSmth(wait100ms, true);
+        qint64 bytes_rcv = receiveSmth(wait100ms, true);
 
         emit signalTest(QString("Принято %1 байт").arg(bytes_rcv));
     }

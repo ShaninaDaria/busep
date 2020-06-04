@@ -10,7 +10,7 @@ BusepWindow::BusepWindow(QWidget *parent) :
 
     for (int i = 0; i < output_size; i++)
     {
-        last_pressed_i[i] = true;
+        last_pressed_i[i] = false;
     }
 
     connect(ui->allInputsOnOff, SIGNAL(toggled(bool)), this, SLOT(slotAllInputsOnOff(bool)));
@@ -154,26 +154,24 @@ BusepWindow::BusepWindow(QWidget *parent) :
 
     dm = new DummyMessages();
 
-    if (!dm->openSerialPort(port_busep, baud_rate))
+
+    // вариант с конфигурационным файлом
+    if (readConfigFile())
     {
-        ui->statusbar->showMessage("Error with serial port /dev/ttyAP1");
-    }
-    else
-    {
-        ui->label_serial_port->setText(port_busep);
+        connect(ui->listSerialPorts, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPortChecked(int)));
         ui->statusbar->showMessage("Hello, my dear Daria!");
 
-        // как-то не так, конечно - я не знаю, с какой частотой БУСЕП шлет сообщения
+        // вроде бы БУСЕП шлет сообщения с частотой 50 мс
         timer = new QTimer(this);
         connect(timer, SIGNAL (timeout()), this, SLOT(slotStartExchangeByTimer()));
-        timer->start(10);
+        timer->start(50);
 
         connect(dm, SIGNAL(signalUsualExchange()), this, SLOT(slotUsualExchange()));
         connect(dm, SIGNAL(signalSendIS5()), this, SLOT(slotSendIS5()));
+
+        ui->listSerialPorts->setCurrentIndex(0);
+        slotPortChecked(0);
     }
-
-
-//    slotStartExchangeByTimer();
 }
 
 BusepWindow::~BusepWindow()
@@ -184,6 +182,20 @@ BusepWindow::~BusepWindow()
     }
     delete dm;
     delete ui;
+}
+
+void BusepWindow::slotPortChecked(int port_index)
+{
+    if (dm->openSerialPort(ui->listSerialPorts->itemText(port_index), ui->baud_rate->text().toInt()))
+    {
+        ui->statusbar->showMessage(ui->listSerialPorts->itemText(port_index) + " is ready");
+        qDebug() << ui->listSerialPorts->itemText(port_index) + " is ready";
+    }
+    else
+    {
+        ui->statusbar->showMessage("Error with serial port " + ui->listSerialPorts->itemText(port_index));
+         qDebug() << "Error with serial port " + ui->listSerialPorts->itemText(port_index);
+    }
 }
 
 void BusepWindow::slotAllInputsOnOff(bool toggled)
@@ -998,6 +1010,50 @@ void BusepWindow::slotUsualExchange()
 void BusepWindow::slotSendIS5()
 {
     ui->statusbar->showMessage("Отправка сообщения ИС5");
+}
+
+bool BusepWindow::readConfigFile()
+{
+    QFile file;
+    file.setFileName(file_name);
+    QString port_name1, port_name2, baud_rate;
+    if (file.exists())
+    {
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+//        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        if (file.isOpen())
+        {
+            qDebug() << file.fileName();
+            while (!file.atEnd())
+            {
+                port_name1 = file.readLine().trimmed();
+                port_name2 = file.readLine().trimmed();
+                baud_rate = file.readLine().trimmed();
+                ui->listSerialPorts->addItem(port_name1);
+                ui->listSerialPorts->addItem(port_name2);
+                ui->baud_rate->setText(baud_rate);
+
+                qDebug() << port_name1 << port_name2 << baud_rate;
+            }
+
+            file.close();
+
+            if (!port_name1.isEmpty() && !port_name2.isEmpty() && !baud_rate.isEmpty())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            ui->statusbar->showMessage("Error open file 'config.ini'");
+        }
+    }
+    else
+    {
+        ui->statusbar->showMessage("No file 'config.ini'");
+    }
+
+    return false;
 }
 
 void BusepWindow::createPalette()

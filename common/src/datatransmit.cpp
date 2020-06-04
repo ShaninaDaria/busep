@@ -67,8 +67,11 @@ bool DataTransmit::openSerialPort(QString port_name, int baud_rate)
 {
 #ifdef QNX
     initSerialPort(port_name, baud_rate);
-//    if (_serial_port->open(QSerialPort::ReadWrite))
-    _serial_port->open(QSerialPort::ReadWrite);
+    if (!_serial_port->isOpen())
+    {
+        _serial_port->open(QSerialPort::ReadWrite);
+        qDebug() << "open" << _serial_port->portName();
+    }
     if (_serial_port->isOpen())
     {
         qDebug() << "open true";
@@ -76,7 +79,7 @@ bool DataTransmit::openSerialPort(QString port_name, int baud_rate)
     }
     else
     {
-        qDebug() << "open false";
+        qDebug() << "open false => close port";
         _serial_port->close();
     }
     return false;
@@ -99,6 +102,7 @@ bool DataTransmit::openSerialPort(QString port_name, int baud_rate)
 
 void DataTransmit::initSerialPort(QString port_name, int baud_rate)
 {
+    qDebug() << __FUNCTION__;
     _serial_port->setPortName(port_name);
     _serial_port->setBaudRate(baud_rate, QSerialPort::AllDirections);
     _serial_port->setDataBits(QSerialPort::Data8);

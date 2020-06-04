@@ -21,6 +21,8 @@ public:
     ~BusepWindow();
 
 private slots:
+    void slotPortChecked(int port_index);
+
     void slotAllInputsOnOff(bool toggled);
     void slotInput1clicked(bool pressed);
     void slotInput2clicked(bool pressed);
@@ -182,6 +184,7 @@ private slots:
     void slotSendIS5();
 
 private:
+    bool readConfigFile();
     void createPalette();
     void showInputsValue();
     void setInputColor(int i_nmb, QPushButton *input_button);

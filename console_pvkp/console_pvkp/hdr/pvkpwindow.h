@@ -131,6 +131,8 @@ private:
     QPalette red_palette;
     QPalette yellow_palette;
     QPalette gray_palette;
+    QPalette orange_palette;
+    QPalette system_palette;
 
     messageExchange *me;
 
